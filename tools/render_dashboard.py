@@ -82,6 +82,8 @@ def build(json_path, cache_path, ann):
                 "pain": s.get("pain", 0),
                 "sources": s.get("sources", []),
                 "plat": plat_matrix.get(s["name"], {}),
+                "mature": s.get("mature", []),
+                "evidence_links": s.get("evidence_links", []),
             })
         data["windows"].append({"key": key, "label": win["label"],
                                 "raw": win.get("raw", 0), "kept": win.get("kept", 0),
@@ -192,7 +194,18 @@ DATA.windows.forEach((w,i)=>{
       <td>${d.wtp||'—'}</td><td>${fmt(d.market)}</td>
       <td><span class="tag" style="background:${CROWD_COLOR[d.crowd]||'#8b949e'}">${d.crowd}</span></td>
       <td>${d.score}</td><td>${d.opp_score??'—'}</td></tr>`).join('')}
-  </table></div>`;
+  </table>
+  <div style="margin-top:10px">
+    ${w.dirs.map((d,j)=>`
+      <div style="padding:6px 0;border-bottom:1px dashed var(--line)">
+        <b>${j+1}. ${d.name}</b><br>
+        <span style="color:var(--muted)">成熟项目：</span>
+        ${(d.mature||[]).map(m=>`<a href="${m.url}" target="_blank" rel="noopener">${m.repo}</a>
+           <span style="color:var(--muted)">★${fmt(m.stars)}·${m.updated||''}</span>`).join(' · ')||'—'}<br>
+        <span style="color:var(--muted)">需求证据：</span>
+        ${(d.evidence_links||[]).map(e=>`<a href="${e.url}" target="_blank" rel="noopener">${e.title.slice(0,42)}</a>`).join(' · ')||'—'}
+      </div>`).join('')}
+  </div></div>`;
 
   // 象限散点
   chart('quad'+i, {

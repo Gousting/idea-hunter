@@ -328,6 +328,55 @@ def attach_crowding(stat, rows, count_fn, max_dirs=12, spacing=7, cache=None):
     return done, errs
 
 
+def attach_real_cases(rows, mature_fn, max_dirs=12, spacing=7, cache=None):
+    """给头部方向挂上可点开的真实案例。用户诉求：方向只是标签，
+    必须能点开真实项目/原帖来验证，否则榜单无法取信。
+
+    两类案例：
+      mature   —— GitHub 全量按星标排序的 top3（成熟/被大量关注的项目），
+                  与 crowding 共用缓存（key 加 mature: 前缀）；
+      evidence —— 本窗口抓到的需求证据帖原链（前 4 条）。
+    """
+    done, errs = 0, []
+    for s in rows[:max_dirs]:
+        kw = _NAME2KW.get(s["name"])
+        if kw:
+            key = "mature:" + kw
+            m = (cache or {}).get(key)
+            if m is None:
+                m, err = mature_fn(kw)
+                if cache is not None:
+                    cache[key] = m
+                time.sleep(spacing)
+            if m:
+                s["mature"] = m
+            else:
+                errs.append(f"{s['name']}: 成熟项目查询失败")
+        s["evidence_links"] = [{"title": (r.get("title") or "")[:80],
+                                "url": r.get("url", ""),
+                                "source": r.get("source", "")}
+                               for r in s.get("items", [])[:4] if r.get("url")]
+        done += 1
+    return done, errs
+
+
+def render_cases(s, idx):
+    """单个方向的真实案例两行式（Markdown）。"""
+    L = [f"**{idx}. {s['name']}**"]
+    if s.get("mature"):
+        L.append("- 成熟/高关注项目：" + " · ".join(
+            f"[{m['repo']}]({m['url']}）（★{m['stars']}，更新 {m['updated'] or '—'}）"
+            for m in s["mature"]))
+    elif s.get("repos"):
+        reps = sorted(s["repos"], key=lambda x: -(x.get("star_velocity") or 0))[:2]
+        L.append("- 本窗口新增仓库：" + " · ".join(
+            f"[{p['repo']}]({p['url']}）（★{p.get('stars_total')}）" for p in reps))
+    if s.get("evidence_links"):
+        L.append("- 需求证据帖：" + " · ".join(
+            f"[{e['title'][:44]}]({e['url']})" for e in s["evidence_links"][:3]))
+    return L
+
+
 def _quote(rec, limit=190):
     t = " ".join((rec.get("text") or "").split())
     hits = (rec.get("strong_wtp_hits") or []) + (rec.get("pain_hits") or [])
@@ -383,4 +432,13 @@ def render_window(window_label, rows, total_dirs, raw_count):
                 f"[{p['repo']}]({p['url']})（★{p.get('stars_total')}，日均+"
                 f"{p.get('star_velocity') or 0:g}）" for p in reps))
         L.append("")
+
+    # 真实案例速查：每个方向都能点开真实项目与原帖验证（用户诉求）
+    if any(s.get("mature") or s.get("evidence_links") for s in rows):
+        L += ["#### 真实案例速查", "",
+              "成熟项目=GitHub 全量按星标 top3（验证赛道成色）；"
+              "需求证据帖=本窗口抓到的原链（验证需求真实性）。", ""]
+        for i, s in enumerate(rows, 1):
+            if s.get("mature") or s.get("evidence_links") or s.get("repos"):
+                L += render_cases(s, i) + [""]
     return "\n".join(L)

@@ -212,6 +212,7 @@ def main():
             done, errs = dr.attach_crowding(stat, rows, sources.github_count,
                                             cache=crowd_cache)
             crowd_errs += errs
+            dr.attach_real_cases(rows, sources.github_mature, cache=crowd_cache)
             results[k] = {"label": v.get("label", k), "raw": v.get("raw", len(kept)),
                           "kept": len(kept), "stat": stat, "rows": rows,
                           "records": kept}
@@ -243,6 +244,7 @@ def main():
             done, errs = dr.attach_crowding(stat, rows, sources.github_count,
                                             cache=crowd_cache)
             crowd_errs += errs
+            dr.attach_real_cases(rows, sources.github_mature, cache=crowd_cache)
             results[k] = {"label": w["label"], "raw": len(uniq), "kept": len(kept),
                           "stat": stat, "rows": rows, "records": kept}
             cache[k] = {"label": w["label"], "raw": len(uniq), "kept": kept}

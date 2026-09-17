@@ -376,6 +376,30 @@ def github_count(keywords, min_stars=50):
         return None, str(e)[:100]
 
 
+def github_mature(keywords, min_stars=300, per_page=3):
+    """查某方向「成熟/高关注」的真实项目 —— 按星标全量排序，不看时间窗。
+
+    为什么需要：Trending/Search 只抓"新增"，用户看到方向后需要能点开
+    已经做大做熟的项目来验证赛道成色（有没有人做成过、做成了什么样）。
+    返回 [{repo, url, stars, desc, updated}]；失败返回 (None, err)。
+    """
+    q = f"{keywords} stars:>{min_stars}"
+    url = ("https://api.github.com/search/repositories?q="
+           + urllib.parse.quote(q)
+           + f"&sort=stars&order=desc&per_page={per_page}")
+    try:
+        raw, _ = _get(url)
+        items = (json.loads(raw).get("items") or [])[:per_page]
+        return [{"repo": it.get("full_name", ""),
+                 "url": it.get("html_url", ""),
+                 "stars": it.get("stargazers_count", 0),
+                 "desc": (it.get("description") or "")[:110],
+                 "updated": (it.get("pushed_at") or "")[:10]}
+                for it in items], ""
+    except Exception as e:
+        return None, str(e)[:100]
+
+
 def hn_pain_points(queries, days=120, per_page=40):
     """HN Algolia 免费、无需鉴权、可按时间过滤。
     注意：Algolia 是全文倒排匹配，召回很脏（实测 "willing to pay" 命中 265 条里大量无关），

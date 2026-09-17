@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-17 16:29:39",
+  "generated_at": "2026-09-17 17:03:20",
   "windows": {
     "day": {
       "label": "今日",
@@ -234,7 +234,52 @@
           "market_repos": 3298,
           "crowd": "红海",
           "opp_tag": "已拥挤：需差异化切入",
-          "opp_score": 5.32
+          "opp_score": 5.32,
+          "mature": [
+            {
+              "repo": "affaan-m/ECC",
+              "url": "https://github.com/affaan-m/ECC",
+              "stars": 260680,
+              "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "NousResearch/hermes-agent",
+              "url": "https://github.com/NousResearch/hermes-agent",
+              "stars": 246335,
+              "desc": "The agent that grows with you",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156074,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "jarrodwatts/jev-trader",
+              "url": "https://github.com/jarrodwatts/jev-trader",
+              "source": "github_search"
+            },
+            {
+              "title": "davidmokos/expo-gpt-live",
+              "url": "https://github.com/davidmokos/expo-gpt-live",
+              "source": "github_search"
+            },
+            {
+              "title": "awlevin/typesafe-computer-use",
+              "url": "https://github.com/awlevin/typesafe-computer-use",
+              "source": "github_search"
+            },
+            {
+              "title": "anthropics/knowledge-work-plugins",
+              "url": "https://github.com/anthropics/knowledge-work-plugins",
+              "source": "github_trending"
+            }
+          ]
         },
         {
           "name": "终端与开发者效率",
@@ -339,7 +384,52 @@
           "market_repos": 62,
           "crowd": "稀疏",
           "opp_tag": "★ 值得看",
-          "opp_score": 6.11
+          "opp_score": 6.11,
+          "mature": [
+            {
+              "repo": "apollographql/apollo-client",
+              "url": "https://github.com/apollographql/apollo-client",
+              "stars": 19800,
+              "desc": "The industry-leading GraphQL client for TypeScript, JavaScript, React, Vue, Angular, and more. Apollo Client d",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "guarinogabriel/Mac-CLI",
+              "url": "https://github.com/guarinogabriel/Mac-CLI",
+              "stars": 9121,
+              "desc": " macOS command line tool for developers – The ultimate tool to manage your Mac. It provides a huge set of com",
+              "updated": "2026-02-28"
+            },
+            {
+              "repo": "donnemartin/dev-setup",
+              "url": "https://github.com/donnemartin/dev-setup",
+              "stars": 6268,
+              "desc": "macOS development environment setup:  Easy-to-understand instructions with automated setup scripts for develop",
+              "updated": "2023-02-27"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "ForrestKnight/omarchy-key-promoter",
+              "url": "https://github.com/ForrestKnight/omarchy-key-promoter",
+              "source": "github_search"
+            },
+            {
+              "title": "kdbhalala/avdslim",
+              "url": "https://github.com/kdbhalala/avdslim",
+              "source": "github_search"
+            },
+            {
+              "title": "Lakr233/vphone-cli",
+              "url": "https://github.com/Lakr233/vphone-cli",
+              "source": "github_trending"
+            },
+            {
+              "title": "Why Emacs Consult async searches feel slow and how to speed them up",
+              "url": "https://news.ycombinator.com/item?id=49700199",
+              "source": "hn"
+            }
+          ]
         },
         {
           "name": "安全与合规",
@@ -442,7 +532,47 @@
           "market_repos": 198,
           "crowd": "中等",
           "opp_tag": "★ 值得看",
-          "opp_score": 3.78
+          "opp_score": 3.78,
+          "mature": [
+            {
+              "repo": "wazuh/wazuh",
+              "url": "https://github.com/wazuh/wazuh",
+              "stars": 16904,
+              "desc": "Wazuh - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "CISOfy/lynis",
+              "url": "https://github.com/CISOfy/lynis",
+              "stars": 16353,
+              "desc": "Lynis - Security auditing tool for Linux, macOS, and UNIX-based systems. Assists with compliance testing (HIPA",
+              "updated": "2026-09-16"
+            },
+            {
+              "repo": "prowler-cloud/prowler",
+              "url": "https://github.com/prowler-cloud/prowler",
+              "stars": 14823,
+              "desc": "Prowler is the world’s most widely used open-source cloud security platform that automates security and compli",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "NationalSecurityAgency/ghidra",
+              "url": "https://github.com/NationalSecurityAgency/ghidra",
+              "source": "github_trending"
+            },
+            {
+              "title": "SnailSploit/Claude-Red",
+              "url": "https://github.com/SnailSploit/Claude-Red",
+              "source": "github_trending"
+            },
+            {
+              "title": "ctdal/cve-2026-41940-PoC",
+              "url": "https://github.com/ctdal/cve-2026-41940-PoC",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "自托管与部署",
@@ -544,7 +674,47 @@
           "market_repos": 180,
           "crowd": "中等",
           "opp_tag": "★ 值得看",
-          "opp_score": 3.83
+          "opp_score": 3.83,
+          "mature": [
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156074,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "coollabsio/coolify",
+              "url": "https://github.com/coollabsio/coolify",
+              "stars": 61897,
+              "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "agentscope-ai/QwenPaw",
+              "url": "https://github.com/agentscope-ai/QwenPaw",
+              "stars": 35046,
+              "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "YongshengWin/VpsCT",
+              "url": "https://github.com/YongshengWin/VpsCT",
+              "source": "github_search"
+            },
+            {
+              "title": "TheoLeeCJ/openjev",
+              "url": "https://github.com/TheoLeeCJ/openjev",
+              "source": "github_search"
+            },
+            {
+              "title": "supabase/supabase",
+              "url": "https://github.com/supabase/supabase",
+              "source": "github_trending"
+            }
+          ]
         },
         {
           "name": "文件与存储同步",
@@ -593,7 +763,42 @@
           "market_repos": 12,
           "crowd": "稀疏",
           "opp_tag": "待验证",
-          "opp_score": 4.85
+          "opp_score": 4.85,
+          "mature": [
+            {
+              "repo": "sebastianfeldmann/phpbu",
+              "url": "https://github.com/sebastianfeldmann/phpbu",
+              "stars": 1305,
+              "desc": "PHP Backup Utility - Creates and encrypts database and file backups, syncs your backups to other servers or cl",
+              "updated": "2026-07-03"
+            },
+            {
+              "repo": "stefankueng/CryptSync",
+              "url": "https://github.com/stefankueng/CryptSync",
+              "stars": 443,
+              "desc": "CryptSync is a small utility that synchronizes two folders while encrypting the contents in one folder. That m",
+              "updated": "2026-07-28"
+            },
+            {
+              "repo": "VikasSukhija/Downloads",
+              "url": "https://github.com/VikasSukhija/Downloads",
+              "stars": 424,
+              "desc": "AD Health Check, Send HTML Email,  Ping machines, Encrypt Password,Bulk Password,Microsoft Teams,Monitor Certi",
+              "updated": "2025-02-16"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "anmolkapil/plexo",
+              "url": "https://github.com/anmolkapil/plexo",
+              "source": "github_search"
+            },
+            {
+              "title": "Java 27",
+              "url": "https://news.ycombinator.com/item?id=49717758",
+              "source": "hn"
+            }
+          ]
         },
         {
           "name": "代码质量与 CI",
@@ -673,7 +878,42 @@
           "market_repos": 17,
           "crowd": "稀疏",
           "opp_tag": "待验证",
-          "opp_score": 4.37
+          "opp_score": 4.37,
+          "mature": [
+            {
+              "repo": "cinder/Cinder",
+              "url": "https://github.com/cinder/Cinder",
+              "stars": 5540,
+              "desc": "Cinder is a community-developed, free and open source library for professional-quality creative coding in C++.",
+              "updated": "2026-03-20"
+            },
+            {
+              "repo": "cirosantilli/china-dictatorship",
+              "url": "https://github.com/cirosantilli/china-dictatorship",
+              "stars": 3209,
+              "desc": "反中共政治宣传库。Anti Chinese government propaganda. 住在中国真名用户的网友请别给星星，不然你要被警察请喝茶。常见问答集，新闻集和饭店和音乐建议。卐习万岁卐。冠状病毒审查郝海东新疆改造",
+              "updated": "2026-02-05"
+            },
+            {
+              "repo": "gege-circle/.github",
+              "url": "https://github.com/gege-circle/.github",
+              "stars": 2006,
+              "desc": "这里是GitHub的草场，也是戈戈圈爱好者的交流地，主要讨论动漫、游戏、科技、人文、生活等所有话题，欢迎各位小伙伴们在此讨论趣事。This is GitHub grassland, and the community p",
+              "updated": "2025-10-04"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "apple/xcode-project-format",
+              "url": "https://github.com/apple/xcode-project-format",
+              "source": "github_search"
+            },
+            {
+              "title": "dmtrKovalenko/bashka",
+              "url": "https://github.com/dmtrKovalenko/bashka",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "报表与可视化",
@@ -730,7 +970,37 @@
           "market_repos": 88,
           "crowd": "中等",
           "opp_tag": "待验证",
-          "opp_score": 2.73
+          "opp_score": 2.73,
+          "mature": [
+            {
+              "repo": "metabase/metabase",
+              "url": "https://github.com/metabase/metabase",
+              "stars": 49304,
+              "desc": "The easy-to-use open source Business Intelligence and Embedded Analytics tool that lets everyone work with dat",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "briefercloud/briefer",
+              "url": "https://github.com/briefercloud/briefer",
+              "stars": 4325,
+              "desc": "Dashboards and notebooks in a single place. Create powerful and flexible dashboards using code, or build beaut",
+              "updated": "2025-08-07"
+            },
+            {
+              "repo": "StructuredLabs/preswald",
+              "url": "https://github.com/StructuredLabs/preswald",
+              "stars": 4270,
+              "desc": "Preswald is a WASM packager for Python-based interactive data apps: bundle full complex data workflows, partic",
+              "updated": "2026-06-11"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Marcos66236/github-stars-history",
+              "url": "https://github.com/Marcos66236/github-stars-history",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "内容创作与分发",
@@ -785,7 +1055,14 @@
           "market_repos": 35,
           "crowd": "稀疏",
           "opp_tag": "待验证",
-          "opp_score": 3.14
+          "opp_score": 3.14,
+          "evidence_links": [
+            {
+              "title": "korcarc/text-humanizer",
+              "url": "https://github.com/korcarc/text-humanizer",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "集成与 API 网关",
@@ -830,10 +1107,40 @@
           "diversity": 1,
           "wtp_total": 0,
           "score": 4.89,
-          "market_repos": 709,
+          "market_repos": 710,
           "crowd": "拥挤",
           "opp_tag": "红海",
-          "opp_score": 1.71
+          "opp_score": 1.71,
+          "mature": [
+            {
+              "repo": "appsmithorg/appsmith",
+              "url": "https://github.com/appsmithorg/appsmith",
+              "stars": 40890,
+              "desc": "Platform to build admin panels, internal tools, and dashboards. Integrates with 25+ databases and any API.",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "The-Vibe-Company/quivr",
+              "url": "https://github.com/The-Vibe-Company/quivr",
+              "stars": 39530,
+              "desc": "Opiniated RAG for integrating GenAI in your apps 🧠   Focus on your product rather than the RAG. Easy integrati",
+              "updated": "2026-08-31"
+            },
+            {
+              "repo": "deepseek-ai/awesome-deepseek-integration",
+              "url": "https://github.com/deepseek-ai/awesome-deepseek-integration",
+              "stars": 39156,
+              "desc": "Integrate the DeepSeek API into popular software",
+              "updated": "2026-02-23"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "dofastted/vm2api",
+              "url": "https://github.com/dofastted/vm2api",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "数据采集与解析",
@@ -891,7 +1198,37 @@
           "market_repos": 48,
           "crowd": "稀疏",
           "opp_tag": "待验证",
-          "opp_score": 2.65
+          "opp_score": 2.65,
+          "mature": [
+            {
+              "repo": "cheeriojs/cheerio",
+              "url": "https://github.com/cheeriojs/cheerio",
+              "stars": 30487,
+              "desc": "The fast, flexible, and elegant library for parsing and manipulating HTML and XML.",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "rust-scraper/scraper",
+              "url": "https://github.com/rust-scraper/scraper",
+              "stars": 2418,
+              "desc": "HTML parsing and querying with CSS selectors",
+              "updated": "2026-09-14"
+            },
+            {
+              "repo": "oxylabs/how-to-scrape-google-images",
+              "url": "https://github.com/oxylabs/how-to-scrape-google-images",
+              "stars": 2117,
+              "desc": "Real time google image scraper. The process is automated by sending HTTP requests to retrieve image data which",
+              "updated": "2026-06-19"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "justoneapi-labs/xiaohongshu-api",
+              "url": "https://github.com/justoneapi-labs/xiaohongshu-api",
+              "source": "github_search"
+            }
+          ]
         }
       ]
     },
@@ -1176,7 +1513,52 @@
           "market_repos": 3298,
           "crowd": "红海",
           "opp_tag": "已拥挤：需差异化切入",
-          "opp_score": 6.8
+          "opp_score": 6.8,
+          "mature": [
+            {
+              "repo": "affaan-m/ECC",
+              "url": "https://github.com/affaan-m/ECC",
+              "stars": 260680,
+              "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "NousResearch/hermes-agent",
+              "url": "https://github.com/NousResearch/hermes-agent",
+              "stars": 246335,
+              "desc": "The agent that grows with you",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156074,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "AetherLabsAI/RSIAgent",
+              "url": "https://github.com/AetherLabsAI/RSIAgent",
+              "source": "github_search"
+            },
+            {
+              "title": "FLModel/flybook",
+              "url": "https://github.com/FLModel/flybook",
+              "source": "github_search"
+            },
+            {
+              "title": "modelscope/ms-cookbook",
+              "url": "https://github.com/modelscope/ms-cookbook",
+              "source": "github_search"
+            },
+            {
+              "title": "Matthew0822/ToolReplay",
+              "url": "https://github.com/Matthew0822/ToolReplay",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "自托管与部署",
@@ -1308,7 +1690,52 @@
           "market_repos": 180,
           "crowd": "中等",
           "opp_tag": "★ 值得看",
-          "opp_score": 4.68
+          "opp_score": 4.68,
+          "mature": [
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156074,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "coollabsio/coolify",
+              "url": "https://github.com/coollabsio/coolify",
+              "stars": 61897,
+              "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "agentscope-ai/QwenPaw",
+              "url": "https://github.com/agentscope-ai/QwenPaw",
+              "stars": 35046,
+              "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "danieldeer/seriousdb",
+              "url": "https://github.com/danieldeer/seriousdb",
+              "source": "github_search"
+            },
+            {
+              "title": "agentverse-os/AgentVerse-OS",
+              "url": "https://github.com/agentverse-os/AgentVerse-OS",
+              "source": "github_search"
+            },
+            {
+              "title": "MiaAI-Lab/DeepSeek-v4.1-Flash-EXL3-2x-DGX-Sparks",
+              "url": "https://github.com/MiaAI-Lab/DeepSeek-v4.1-Flash-EXL3-2x-DGX-Sparks",
+              "source": "github_search"
+            },
+            {
+              "title": "home-assistant/core",
+              "url": "https://github.com/home-assistant/core",
+              "source": "github_trending"
+            }
+          ]
         },
         {
           "name": "视频与音频处理",
@@ -1440,7 +1867,47 @@
           "market_repos": 762,
           "crowd": "拥挤",
           "opp_tag": "已拥挤：需差异化切入",
-          "opp_score": 3.02
+          "opp_score": 3.02,
+          "mature": [
+            {
+              "repo": "harry0703/MoneyPrinterTurbo",
+              "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+              "stars": 124370,
+              "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workf",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "FFmpeg/FFmpeg",
+              "url": "https://github.com/FFmpeg/FFmpeg",
+              "stars": 64283,
+              "desc": "Mirror of https://git.ffmpeg.org/ffmpeg.git",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "calesthio/OpenMontage",
+              "url": "https://github.com/calesthio/OpenMontage",
+              "stars": 59683,
+              "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent sk",
+              "updated": "2026-09-06"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "eternityspring/reelbench-skills",
+              "url": "https://github.com/eternityspring/reelbench-skills",
+              "source": "github_search"
+            },
+            {
+              "title": "letorig/video-generator-client",
+              "url": "https://github.com/letorig/video-generator-client",
+              "source": "github_search"
+            },
+            {
+              "title": "groundboxerrespect/Dlls5-auto",
+              "url": "https://github.com/groundboxerrespect/Dlls5-auto",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "数据采集与解析",
@@ -1530,7 +1997,47 @@
           "market_repos": 48,
           "crowd": "稀疏",
           "opp_tag": "★ 值得看",
-          "opp_score": 4.93
+          "opp_score": 4.93,
+          "mature": [
+            {
+              "repo": "cheeriojs/cheerio",
+              "url": "https://github.com/cheeriojs/cheerio",
+              "stars": 30487,
+              "desc": "The fast, flexible, and elegant library for parsing and manipulating HTML and XML.",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "rust-scraper/scraper",
+              "url": "https://github.com/rust-scraper/scraper",
+              "stars": 2418,
+              "desc": "HTML parsing and querying with CSS selectors",
+              "updated": "2026-09-14"
+            },
+            {
+              "repo": "oxylabs/how-to-scrape-google-images",
+              "url": "https://github.com/oxylabs/how-to-scrape-google-images",
+              "stars": 2117,
+              "desc": "Real time google image scraper. The process is automated by sending HTTP requests to retrieve image data which",
+              "updated": "2026-06-19"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "kruzovic7/ai-data-extractor",
+              "url": "https://github.com/kruzovic7/ai-data-extractor",
+              "source": "github_search"
+            },
+            {
+              "title": "arikchakma/gpu-time",
+              "url": "https://github.com/arikchakma/gpu-time",
+              "source": "github_search"
+            },
+            {
+              "title": "google.com/goto: Google's anti-scraping update",
+              "url": "https://news.ycombinator.com/item?id=49671945",
+              "source": "hn"
+            }
+          ]
         },
         {
           "name": "终端与开发者效率",
@@ -1599,7 +2106,52 @@
           "market_repos": 62,
           "crowd": "稀疏",
           "opp_tag": "★ 值得看",
-          "opp_score": 4.55
+          "opp_score": 4.55,
+          "mature": [
+            {
+              "repo": "apollographql/apollo-client",
+              "url": "https://github.com/apollographql/apollo-client",
+              "stars": 19800,
+              "desc": "The industry-leading GraphQL client for TypeScript, JavaScript, React, Vue, Angular, and more. Apollo Client d",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "guarinogabriel/Mac-CLI",
+              "url": "https://github.com/guarinogabriel/Mac-CLI",
+              "stars": 9121,
+              "desc": " macOS command line tool for developers – The ultimate tool to manage your Mac. It provides a huge set of com",
+              "updated": "2026-02-28"
+            },
+            {
+              "repo": "donnemartin/dev-setup",
+              "url": "https://github.com/donnemartin/dev-setup",
+              "stars": 6268,
+              "desc": "macOS development environment setup:  Easy-to-understand instructions with automated setup scripts for develop",
+              "updated": "2023-02-27"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "lingyired/status-trio",
+              "url": "https://github.com/lingyired/status-trio",
+              "source": "github_search"
+            },
+            {
+              "title": "Working with Git Worktrees in Magit",
+              "url": "https://news.ycombinator.com/item?id=49655548",
+              "source": "hn"
+            },
+            {
+              "title": "Why Emacs Consult async searches feel slow and how to speed them up",
+              "url": "https://news.ycombinator.com/item?id=49700199",
+              "source": "hn"
+            },
+            {
+              "title": "Cpak – OCI application package format for Linux desktops, servers and devices",
+              "url": "https://news.ycombinator.com/item?id=49709877",
+              "source": "hn"
+            }
+          ]
         },
         {
           "name": "代码质量与 CI",
@@ -1710,7 +2262,47 @@
           "market_repos": 17,
           "crowd": "稀疏",
           "opp_tag": "★ 值得看",
-          "opp_score": 5.86
+          "opp_score": 5.86,
+          "mature": [
+            {
+              "repo": "cinder/Cinder",
+              "url": "https://github.com/cinder/Cinder",
+              "stars": 5540,
+              "desc": "Cinder is a community-developed, free and open source library for professional-quality creative coding in C++.",
+              "updated": "2026-03-20"
+            },
+            {
+              "repo": "cirosantilli/china-dictatorship",
+              "url": "https://github.com/cirosantilli/china-dictatorship",
+              "stars": 3209,
+              "desc": "反中共政治宣传库。Anti Chinese government propaganda. 住在中国真名用户的网友请别给星星，不然你要被警察请喝茶。常见问答集，新闻集和饭店和音乐建议。卐习万岁卐。冠状病毒审查郝海东新疆改造",
+              "updated": "2026-02-05"
+            },
+            {
+              "repo": "gege-circle/.github",
+              "url": "https://github.com/gege-circle/.github",
+              "stars": 2006,
+              "desc": "这里是GitHub的草场，也是戈戈圈爱好者的交流地，主要讨论动漫、游戏、科技、人文、生活等所有话题，欢迎各位小伙伴们在此讨论趣事。This is GitHub grassland, and the community p",
+              "updated": "2025-10-04"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Qiuner/birdview",
+              "url": "https://github.com/Qiuner/birdview",
+              "source": "github_search"
+            },
+            {
+              "title": "pliablepixels/gap-trap",
+              "url": "https://github.com/pliablepixels/gap-trap",
+              "source": "github_search"
+            },
+            {
+              "title": "How well do agents use test/verification techniques?",
+              "url": "https://news.ycombinator.com/item?id=49640663",
+              "source": "hn"
+            }
+          ]
         },
         {
           "name": "安全与合规",
@@ -1814,7 +2406,47 @@
           "market_repos": 198,
           "crowd": "中等",
           "opp_tag": "★ 值得看",
-          "opp_score": 3.56
+          "opp_score": 3.56,
+          "mature": [
+            {
+              "repo": "wazuh/wazuh",
+              "url": "https://github.com/wazuh/wazuh",
+              "stars": 16904,
+              "desc": "Wazuh - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "CISOfy/lynis",
+              "url": "https://github.com/CISOfy/lynis",
+              "stars": 16353,
+              "desc": "Lynis - Security auditing tool for Linux, macOS, and UNIX-based systems. Assists with compliance testing (HIPA",
+              "updated": "2026-09-16"
+            },
+            {
+              "repo": "prowler-cloud/prowler",
+              "url": "https://github.com/prowler-cloud/prowler",
+              "stars": 14823,
+              "desc": "Prowler is the world’s most widely used open-source cloud security platform that automates security and compli",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "KazamaDono/taoxd",
+              "url": "https://github.com/KazamaDono/taoxd",
+              "source": "github_search"
+            },
+            {
+              "title": "KillaBoi/BrokenPipe",
+              "url": "https://github.com/KillaBoi/BrokenPipe",
+              "source": "github_search"
+            },
+            {
+              "title": "0xjohnnydev/airlift",
+              "url": "https://github.com/0xjohnnydev/airlift",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "集成与 API 网关",
@@ -1906,10 +2538,45 @@
           "diversity": 1,
           "wtp_total": 0,
           "score": 6.52,
-          "market_repos": 709,
+          "market_repos": 710,
           "crowd": "拥挤",
           "opp_tag": "红海",
-          "opp_score": 2.28
+          "opp_score": 2.28,
+          "mature": [
+            {
+              "repo": "appsmithorg/appsmith",
+              "url": "https://github.com/appsmithorg/appsmith",
+              "stars": 40890,
+              "desc": "Platform to build admin panels, internal tools, and dashboards. Integrates with 25+ databases and any API.",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "The-Vibe-Company/quivr",
+              "url": "https://github.com/The-Vibe-Company/quivr",
+              "stars": 39530,
+              "desc": "Opiniated RAG for integrating GenAI in your apps 🧠   Focus on your product rather than the RAG. Easy integrati",
+              "updated": "2026-08-31"
+            },
+            {
+              "repo": "deepseek-ai/awesome-deepseek-integration",
+              "url": "https://github.com/deepseek-ai/awesome-deepseek-integration",
+              "stars": 39156,
+              "desc": "Integrate the DeepSeek API into popular software",
+              "updated": "2026-02-23"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "linguo2625469/workbuddy2api-panel",
+              "url": "https://github.com/linguo2625469/workbuddy2api-panel",
+              "source": "github_search"
+            },
+            {
+              "title": "ithtelab/workbuddy-manager",
+              "url": "https://github.com/ithtelab/workbuddy-manager",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "育儿与生活服务",
@@ -1964,7 +2631,14 @@
           "market_repos": 0,
           "crowd": "稀疏",
           "opp_tag": "待验证",
-          "opp_score": 5.74
+          "opp_score": 5.74,
+          "evidence_links": [
+            {
+              "title": "Chuloo/mural",
+              "url": "https://github.com/Chuloo/mural",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "报表与可视化",
@@ -2021,7 +2695,37 @@
           "market_repos": 88,
           "crowd": "中等",
           "opp_tag": "待验证",
-          "opp_score": 2.73
+          "opp_score": 2.73,
+          "mature": [
+            {
+              "repo": "metabase/metabase",
+              "url": "https://github.com/metabase/metabase",
+              "stars": 49304,
+              "desc": "The easy-to-use open source Business Intelligence and Embedded Analytics tool that lets everyone work with dat",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "briefercloud/briefer",
+              "url": "https://github.com/briefercloud/briefer",
+              "stars": 4325,
+              "desc": "Dashboards and notebooks in a single place. Create powerful and flexible dashboards using code, or build beaut",
+              "updated": "2025-08-07"
+            },
+            {
+              "repo": "StructuredLabs/preswald",
+              "url": "https://github.com/StructuredLabs/preswald",
+              "stars": 4270,
+              "desc": "Preswald is a WASM packager for Python-based interactive data apps: bundle full complex data workflows, partic",
+              "updated": "2026-06-11"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Marcos66236/github-stars-history",
+              "url": "https://github.com/Marcos66236/github-stars-history",
+              "source": "github_search"
+            }
+          ]
         }
       ]
     },
@@ -2457,7 +3161,52 @@
           "market_repos": 3298,
           "crowd": "红海",
           "opp_tag": "已拥挤：需差异化切入",
-          "opp_score": 9.97
+          "opp_score": 9.97,
+          "mature": [
+            {
+              "repo": "affaan-m/ECC",
+              "url": "https://github.com/affaan-m/ECC",
+              "stars": 260680,
+              "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "NousResearch/hermes-agent",
+              "url": "https://github.com/NousResearch/hermes-agent",
+              "stars": 246335,
+              "desc": "The agent that grows with you",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156074,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "totec448-spec/chat-on-steroids",
+              "url": "https://github.com/totec448-spec/chat-on-steroids",
+              "source": "github_search"
+            },
+            {
+              "title": "nateherkai/scroll-craft",
+              "url": "https://github.com/nateherkai/scroll-craft",
+              "source": "github_search"
+            },
+            {
+              "title": "lnkiai/m3e-canvas",
+              "url": "https://github.com/lnkiai/m3e-canvas",
+              "source": "github_search"
+            },
+            {
+              "title": "ApodexAI/FrontierAgent",
+              "url": "https://github.com/ApodexAI/FrontierAgent",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "内容创作与分发",
@@ -2683,7 +3432,52 @@
           "market_repos": 35,
           "crowd": "稀疏",
           "opp_tag": "★ 值得看",
-          "opp_score": 7.89
+          "opp_score": 7.89,
+          "mature": [
+            {
+              "repo": "TryGhost/Ghost",
+              "url": "https://github.com/TryGhost/Ghost",
+              "stars": 55334,
+              "desc": "Independent technology for modern publishing, memberships, subscriptions and newsletters.",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "yaojingang/GEOFlow",
+              "url": "https://github.com/yaojingang/GEOFlow",
+              "stars": 3650,
+              "desc": "Open-source GEO content engineering and multi-site distribution platform with AI quality inspection, illustrat",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "blogifierdotnet/Blogifier",
+              "url": "https://github.com/blogifierdotnet/Blogifier",
+              "stars": 1295,
+              "desc": "Blogifier is an open-source publishing platform Written in ASP.NET and Blazor WebAssembly. With Blogifier make",
+              "updated": "2026-03-16"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "yanliudesign/mono-color-skill",
+              "url": "https://github.com/yanliudesign/mono-color-skill",
+              "source": "github_search"
+            },
+            {
+              "title": "Nanako0129/sepia",
+              "url": "https://github.com/Nanako0129/sepia",
+              "source": "github_search"
+            },
+            {
+              "title": "sebbbi/NoGraphicsAPI",
+              "url": "https://github.com/sebbbi/NoGraphicsAPI",
+              "source": "github_search"
+            },
+            {
+              "title": "yang0/handraw-style",
+              "url": "https://github.com/yang0/handraw-style",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "终端与开发者效率",
@@ -2790,7 +3584,52 @@
           "market_repos": 62,
           "crowd": "稀疏",
           "opp_tag": "★ 值得看",
-          "opp_score": 6.72
+          "opp_score": 6.72,
+          "mature": [
+            {
+              "repo": "apollographql/apollo-client",
+              "url": "https://github.com/apollographql/apollo-client",
+              "stars": 19800,
+              "desc": "The industry-leading GraphQL client for TypeScript, JavaScript, React, Vue, Angular, and more. Apollo Client d",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "guarinogabriel/Mac-CLI",
+              "url": "https://github.com/guarinogabriel/Mac-CLI",
+              "stars": 9121,
+              "desc": " macOS command line tool for developers – The ultimate tool to manage your Mac. It provides a huge set of com",
+              "updated": "2026-02-28"
+            },
+            {
+              "repo": "donnemartin/dev-setup",
+              "url": "https://github.com/donnemartin/dev-setup",
+              "stars": 6268,
+              "desc": "macOS development environment setup:  Easy-to-understand instructions with automated setup scripts for develop",
+              "updated": "2023-02-27"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "omacom/try-omarchy",
+              "url": "https://github.com/omacom/try-omarchy",
+              "source": "github_search"
+            },
+            {
+              "title": "omacom/omarchy",
+              "url": "https://github.com/omacom/omarchy",
+              "source": "github_trending"
+            },
+            {
+              "title": "Lakr233/vphone-cli",
+              "url": "https://github.com/Lakr233/vphone-cli",
+              "source": "github_trending"
+            },
+            {
+              "title": "Working with Git Worktrees in Magit",
+              "url": "https://news.ycombinator.com/item?id=49655548",
+              "source": "hn"
+            }
+          ]
         },
         {
           "name": "监控与可观测",
@@ -2839,7 +3678,47 @@
           "market_repos": 277,
           "crowd": "中等",
           "opp_tag": "★ 值得看",
-          "opp_score": 3.84
+          "opp_score": 3.84,
+          "mature": [
+            {
+              "repo": "netdata/netdata",
+              "url": "https://github.com/netdata/netdata",
+              "stars": 80557,
+              "desc": "The fastest path to AI-powered full stack observability, even for lean teams.",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "grafana/grafana",
+              "url": "https://github.com/grafana/grafana",
+              "stars": 76782,
+              "desc": "The open and composable observability and data visualization platform. Visualize metrics, logs, and traces fro",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "langfuse/langfuse",
+              "url": "https://github.com/langfuse/langfuse",
+              "stars": 34712,
+              "desc": "🪢 Open source agent evals & observability: Trace, evaluate, and improve LLM applications with one open platfor",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "vinzdg/codenotch",
+              "url": "https://github.com/vinzdg/codenotch",
+              "source": "github_search"
+            },
+            {
+              "title": "One resignation turned the embers of AI fear into a wildfire",
+              "url": "https://news.ycombinator.com/item?id=49647380",
+              "source": "hn"
+            },
+            {
+              "title": "Show HN: Watches user sessions, finds bugs that matter, and fixes them",
+              "url": "https://news.ycombinator.com/item?id=49479539",
+              "source": "hn"
+            }
+          ]
         },
         {
           "name": "代码质量与 CI",
@@ -2935,7 +3814,47 @@
           "market_repos": 17,
           "crowd": "稀疏",
           "opp_tag": "★ 值得看",
-          "opp_score": 6.21
+          "opp_score": 6.21,
+          "mature": [
+            {
+              "repo": "cinder/Cinder",
+              "url": "https://github.com/cinder/Cinder",
+              "stars": 5540,
+              "desc": "Cinder is a community-developed, free and open source library for professional-quality creative coding in C++.",
+              "updated": "2026-03-20"
+            },
+            {
+              "repo": "cirosantilli/china-dictatorship",
+              "url": "https://github.com/cirosantilli/china-dictatorship",
+              "stars": 3209,
+              "desc": "反中共政治宣传库。Anti Chinese government propaganda. 住在中国真名用户的网友请别给星星，不然你要被警察请喝茶。常见问答集，新闻集和饭店和音乐建议。卐习万岁卐。冠状病毒审查郝海东新疆改造",
+              "updated": "2026-02-05"
+            },
+            {
+              "repo": "gege-circle/.github",
+              "url": "https://github.com/gege-circle/.github",
+              "stars": 2006,
+              "desc": "这里是GitHub的草场，也是戈戈圈爱好者的交流地，主要讨论动漫、游戏、科技、人文、生活等所有话题，欢迎各位小伙伴们在此讨论趣事。This is GitHub grassland, and the community p",
+              "updated": "2025-10-04"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "shadcn-ui/lint",
+              "url": "https://github.com/shadcn-ui/lint",
+              "source": "github_search"
+            },
+            {
+              "title": "shadcn-ui/cn",
+              "url": "https://github.com/shadcn-ui/cn",
+              "source": "github_search"
+            },
+            {
+              "title": "How well do agents use test/verification techniques?",
+              "url": "https://news.ycombinator.com/item?id=49640663",
+              "source": "hn"
+            }
+          ]
         },
         {
           "name": "自托管与部署",
@@ -2992,7 +3911,47 @@
           "market_repos": 180,
           "crowd": "中等",
           "opp_tag": "★ 值得看",
-          "opp_score": 3.41
+          "opp_score": 3.41,
+          "mature": [
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156074,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "coollabsio/coolify",
+              "url": "https://github.com/coollabsio/coolify",
+              "stars": 61897,
+              "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "agentscope-ai/QwenPaw",
+              "url": "https://github.com/agentscope-ai/QwenPaw",
+              "stars": 35046,
+              "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Git-Agni/prod-FARM-IOS-Core",
+              "url": "https://github.com/Git-Agni/prod-FARM-IOS-Core",
+              "source": "github_search"
+            },
+            {
+              "title": "Keep Our Servers Running",
+              "url": "https://news.ycombinator.com/item?id=49638934",
+              "source": "hn"
+            },
+            {
+              "title": "Why your local LLM feels dumber than it is",
+              "url": "https://news.ycombinator.com/item?id=49407702",
+              "source": "hn"
+            }
+          ]
         },
         {
           "name": "安全与合规",
@@ -3043,7 +4002,42 @@
           "market_repos": 198,
           "crowd": "中等",
           "opp_tag": "待验证",
-          "opp_score": 2.89
+          "opp_score": 2.89,
+          "mature": [
+            {
+              "repo": "wazuh/wazuh",
+              "url": "https://github.com/wazuh/wazuh",
+              "stars": 16904,
+              "desc": "Wazuh - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "CISOfy/lynis",
+              "url": "https://github.com/CISOfy/lynis",
+              "stars": 16353,
+              "desc": "Lynis - Security auditing tool for Linux, macOS, and UNIX-based systems. Assists with compliance testing (HIPA",
+              "updated": "2026-09-16"
+            },
+            {
+              "repo": "prowler-cloud/prowler",
+              "url": "https://github.com/prowler-cloud/prowler",
+              "stars": 14823,
+              "desc": "Prowler is the world’s most widely used open-source cloud security platform that automates security and compli",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "N4darae/anti-mage",
+              "url": "https://github.com/N4darae/anti-mage",
+              "source": "github_search"
+            },
+            {
+              "title": "Actively exploited sandbox RCE in all Chromium versions",
+              "url": "https://news.ycombinator.com/item?id=49575163",
+              "source": "hn"
+            }
+          ]
         },
         {
           "name": "电商与跨境",
@@ -3093,7 +4087,23 @@
           "market_repos": 16,
           "crowd": "稀疏",
           "opp_tag": "待验证",
-          "opp_score": 3.94
+          "opp_score": 3.94,
+          "mature": [
+            {
+              "repo": "ever-co/ever-demand",
+              "url": "https://github.com/ever-co/ever-demand",
+              "stars": 1858,
+              "desc": "Ever® Demand™ - Open Commerce Platform - https://everdemand.co",
+              "updated": "2026-08-05"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "anthropics/commerce-agents",
+              "url": "https://github.com/anthropics/commerce-agents",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "视频与音频处理",
@@ -3143,7 +4153,37 @@
           "market_repos": 762,
           "crowd": "拥挤",
           "opp_tag": "红海",
-          "opp_score": 1.69
+          "opp_score": 1.69,
+          "mature": [
+            {
+              "repo": "harry0703/MoneyPrinterTurbo",
+              "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+              "stars": 124370,
+              "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workf",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "FFmpeg/FFmpeg",
+              "url": "https://github.com/FFmpeg/FFmpeg",
+              "stars": 64283,
+              "desc": "Mirror of https://git.ffmpeg.org/ffmpeg.git",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "calesthio/OpenMontage",
+              "url": "https://github.com/calesthio/OpenMontage",
+              "stars": 59683,
+              "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent sk",
+              "updated": "2026-09-06"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "FireRedTeam/FireRedAudio",
+              "url": "https://github.com/FireRedTeam/FireRedAudio",
+              "source": "github_search"
+            }
+          ]
         },
         {
           "name": "文件与存储同步",
@@ -3162,7 +4202,42 @@
           "market_repos": 12,
           "crowd": "稀疏",
           "opp_tag": "待验证",
-          "opp_score": 2.09
+          "opp_score": 2.09,
+          "mature": [
+            {
+              "repo": "sebastianfeldmann/phpbu",
+              "url": "https://github.com/sebastianfeldmann/phpbu",
+              "stars": 1305,
+              "desc": "PHP Backup Utility - Creates and encrypts database and file backups, syncs your backups to other servers or cl",
+              "updated": "2026-07-03"
+            },
+            {
+              "repo": "stefankueng/CryptSync",
+              "url": "https://github.com/stefankueng/CryptSync",
+              "stars": 443,
+              "desc": "CryptSync is a small utility that synchronizes two folders while encrypting the contents in one folder. That m",
+              "updated": "2026-07-28"
+            },
+            {
+              "repo": "VikasSukhija/Downloads",
+              "url": "https://github.com/VikasSukhija/Downloads",
+              "stars": 424,
+              "desc": "AD Health Check, Send HTML Email,  Ping machines, Encrypt Password,Bulk Password,Microsoft Teams,Monitor Certi",
+              "updated": "2025-02-16"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Show HN: Syq – copy files between machines fast (better than rsync)",
+              "url": "https://news.ycombinator.com/item?id=49661996",
+              "source": "hn"
+            },
+            {
+              "title": "Creating Backup Storage Sucks",
+              "url": "https://news.ycombinator.com/item?id=49546160",
+              "source": "hn"
+            }
+          ]
         }
       ]
     }
