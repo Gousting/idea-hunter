@@ -1,6 +1,13 @@
 __pycache__/
 *.pyc
 data/*.sqlite3
-out/window_cache_*.json
 .workbuddy/
 .DS_Store
+# out/ 只保留最新示例产出，其余本地留存
+out/*
+!out/agent_annotations.json
+!out/directions_20260917-1629.md
+!out/directions_20260917-1629.json
+!out/dashboard_20260917-1641.html
+!out/report_20260917-1034.md
+!out/candidates_20260917-1034.json

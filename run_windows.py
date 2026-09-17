@@ -23,7 +23,7 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from hunter import sources, filter as flt, directions as dr, opencli as oc  # noqa: E402
+from hunter import sources, filter as flt, directions as dr, opencli as oc, llm  # noqa: E402
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, "out")
@@ -145,6 +145,12 @@ def main():
                     help="启用 OpenCLI 通道（复用已登录 Chrome；需 Chrome 打开）")
     ap.add_argument("--no-upwork", action="store_true",
                     help="跳过 Upwork（需在 Chrome 里登录过 upwork.com）")
+    ap.add_argument("--llm", action="store_true",
+                    help="用 LLM 做语义方向分类与付费信号提取（需 DEEPSEEK_API_KEY，"
+                         "未配置时自动回退关键词签名）")
+    ap.add_argument("--annotations", default="",
+                    help="agent 标注文件（JSON：source_id 前 44 字符 -> [方向, wtp, pain]），"
+                         "由 Claude 直读原文后写入，优先级高于 --llm")
     ap.add_argument("--top", type=int, default=10)
     ap.add_argument("--min-evidence", type=int, default=1,
                     help="进入榜单所需的最少证据数；默认 1（输出强度标注，不隐藏弱信号）")
@@ -160,6 +166,25 @@ def main():
     cache = {}
     crowd_cache = {}  # 同方向跨窗口只查一次存量
     crowd_errs = []
+    classify_mode = "关键词签名"
+
+    # agent 标注：Claude 直读原文后的语义分类，优先级最高（见 tools/write_agent_annotations.py）
+    ann = {}
+    if args.annotations:
+        with open(args.annotations, encoding="utf-8") as f:
+            ann = json.load(f)
+        classify_mode = "agent-语义分类（Claude 直读原文）"
+
+    def apply_annotations(records):
+        hit = 0
+        for r in records:
+            a = ann.get((r.get("source_id") or "")[:44])
+            if a:
+                r["direction"] = a[0] if a[0] != "无" else None
+                r["llm_wtp"] = a[1]
+                r["llm_pain"] = a[2]
+                hit += 1
+        return hit
 
     if args.from_cache:
         # 复用已采集数据，只重跑聚合 —— 调阈值/改分类时不必再等 6 分钟采集
@@ -177,13 +202,19 @@ def main():
             if k not in keys:
                 continue
             kept = v.get("kept", [])
+            if ann:
+                apply_annotations(kept)
+            elif args.llm:
+                _n, _m = llm.classify_batch(kept)
+                classify_mode = _m if _n else "关键词签名（LLM 不可用）"
             stat = dr.aggregate(kept)
             rows = dr.top_directions(stat, n=args.top, min_evidence=args.min_evidence)
             done, errs = dr.attach_crowding(stat, rows, sources.github_count,
                                             cache=crowd_cache)
             crowd_errs += errs
             results[k] = {"label": v.get("label", k), "raw": v.get("raw", len(kept)),
-                          "kept": len(kept), "stat": stat, "rows": rows}
+                          "kept": len(kept), "stat": stat, "rows": rows,
+                          "records": kept}
             print(f"  [{v.get('label', k)}] {len(kept)} 条 → {len(rows)} 个方向"
                   f"（拥挤度已补 {done} 个）")
         health = blob.get("health", [])
@@ -202,13 +233,18 @@ def main():
                     seen.add(sid)
                 uniq.append(r)
             kept, dropped = flt.rule_filter(uniq, CFG)
+            if ann:
+                apply_annotations(kept)
+            elif args.llm:
+                _n, _m = llm.classify_batch(kept)
+                classify_mode = _m if _n else "关键词签名（LLM 不可用）"
             stat = dr.aggregate(kept)
             rows = dr.top_directions(stat, n=args.top, min_evidence=args.min_evidence)
             done, errs = dr.attach_crowding(stat, rows, sources.github_count,
                                             cache=crowd_cache)
             crowd_errs += errs
             results[k] = {"label": w["label"], "raw": len(uniq), "kept": len(kept),
-                          "stat": stat, "rows": rows}
+                          "stat": stat, "rows": rows, "records": kept}
             cache[k] = {"label": w["label"], "raw": len(uniq), "kept": kept}
             print(f"  {len(uniq)} 条 → 规则层 {len(kept)} 条 → {len(stat)} 个候选方向 "
                   f"→ 输出 {len(rows)} 个（拥挤度已补 {done} 个）")
@@ -227,7 +263,7 @@ def main():
     ts = time.strftime("%Y%m%d-%H%M")
     rp = os.path.join(OUT, f"directions_{ts}.md")
     with open(rp, "w", encoding="utf-8") as f:
-        f.write(render(results, health, args))
+        f.write(render(results, health, args, classify_mode))
     jp = os.path.join(OUT, f"directions_{ts}.json")
     with open(jp, "w", encoding="utf-8") as f:
         json.dump({"generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -246,18 +282,34 @@ def main():
     return 0
 
 
-def render(results, health, args):
+def render(results, health, args, classify_mode="关键词签名"):
     L = ["# 值得看的方向 Top10 · 按时效性分层", "",
          f"生成时间：{time.strftime('%Y-%m-%d %H:%M')}", "",
          "**判定口径**：把散点候选聚合成「方向」后按证据强度排序。",
+         f"方向判定方式：**{classify_mode}**。"
+         + ("LLM 模式下各方向语义等距，不存在签名宽度偏差。"
+            if "llm" in classify_mode else
+            "关键词模式下签名宽度不等（AI 方向最宽），跨方向证据数不可直接比热度。"), "",
          "证据数 = 该方向在本时间窗内的独立候选条数（同一候选只计入一个方向，避免重复计数）。", "",
          "**评分** = 证据数×1.0 + 信源多样性×0.8 + 付费信号×1.2 + 仓库热度×1.5 + 仓库数×0.4", "",
          "**强度**：≥5 强 / ≥3 中 / 2 偏弱 / 1 弱。弱信号不等于没价值，"
          "但只有一条独立证据时不足以支撑判断 —— 它需要在下个窗口复现才算成立。", "",
+         "**口径警告（读榜单前必读）**：", "",
+         "1. **各方向的关键词签名宽度不等**，「AI 代理与自动化」的签名最宽"
+         "（agent/llm/prompt/mcp/rag/automation…近 10 组高频词），"
+         "而「支付与账单」等方向命中面窄。**宽签名天然抓得多，"
+         "跨方向的证据数不能直接当热度比较**——头部方向的领先幅度要看折扣。",
+         "2. **绝对证据数很小**。本周榜第一的「8 条证据」实际 = 4 条 HN 评论 + "
+         "2 个 GitHub 仓库 + 1 个 Trending + 1 个 Reddit 帖，"
+         "排名对一两 条记录的波动敏感，别把「第一」读成「优势巨大」。",
+         "3. **各平台采集相互独立**（HN/Reddit/Upwork 的查询都是写死的常量，"
+         "不存在用 GitHub 结果去搜其他平台的循环），"
+         "但 Reddit 样本量小（规则层拦截后每周仅个位数），其\"投票权\"有限。", "",
          "---", ""]
     for k, v in results.items():
         L += [f"## {v['label']}", "",
               dr.render_window(v["label"], v["rows"], len(v["stat"]), v["raw"]),
+              "", dr.platform_view(v.get("records", [])),
               "", "---", ""]
 
     # 跨窗口对比：哪些方向在三个窗口都出现（= 持续需求，比一次性热点更值得看）

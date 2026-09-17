@@ -172,22 +172,28 @@ def classify_best(rec):
 
 
 def aggregate(candidates):
-    """聚合候选 → 方向统计。每条候选只计入一个方向（见 classify_best）。"""
+    """聚合候选 → 方向统计。每条候选只计入一个方向（见 classify_best）。
+
+    方向判定优先级：记录上的 direction 字段（LLM 语义分类写入）>
+    关键词签名 classify_best。这样 LLM 模式与关键词模式共用同一套聚合/渲染。
+    """
     stat = {}
     for r in candidates:
-        name, nhits = classify_best(r)
+        name = r.get("direction") or classify_best(r)[0]
         if not name:
             continue
         s = stat.setdefault(name, {
             "name": name, "evidence": 0, "sources": set(),
             "wtp": 0, "pain": 0, "items": [], "repos": [],
-            "velocity": 0.0,
+            "velocity": 0.0, "wtp_llm": 0,
         })
         s["evidence"] += 1
         s["sources"].add(r.get("source"))
         if r.get("strong_wtp_hits"):
             s["wtp"] += 1
-        if r.get("pain_hits"):
+        if (r.get("llm_wtp") or 0) >= 3:
+            s["wtp_llm"] += 1
+        if r.get("pain_hits") or (r.get("llm_pain") or 0) >= 3:
             s["pain"] += 1
         if r.get("source") in ("github_trending", "github_search"):
             s["repos"].append(r)
@@ -196,10 +202,12 @@ def aggregate(candidates):
             s["items"].append(r)
     for s in stat.values():
         s["diversity"] = len(s["sources"])
+        # 付费信号取两种来源的并集口径：关键词构式命中 或 LLM 判定 wtp>=3
+        s["wtp_total"] = max(s["wtp"], s["wtp_llm"])
         s["score"] = round(
             s["evidence"] * 1.0
             + s["diversity"] * 0.8
-            + s["wtp"] * 1.2
+            + s["wtp_total"] * 1.2
             + math.log10(s["velocity"] + 1) * 1.5
             + min(len(s["repos"]), 5) * 0.4, 2)
         s["sources"] = sorted(x for x in s["sources"] if x)
@@ -228,6 +236,66 @@ def strength(evidence):
     if evidence >= 2:
         return "偏弱"
     return "弱（单条证据）"
+
+
+# ---------------------------------------------------------------- 各平台视角
+# 为什么必须分平台看：不同平台的偏差完全不同，混在一起会被平均数糊弄。
+#   GitHub       = 供给侧（大家在做什么 ≠ 有人要）
+#   HN           = 技术讨论（噪音大，但偶有付费构式）
+#   Reddit       = 创始人抱怨（需求侧最真实的口语证据）
+#   Product Hunt = 新发布（竞品情报，不是需求）
+# 用户明确要求报告按平台区分。
+PLATFORM_NAMES = {
+    "github_trending": "GitHub Trending（供给侧·热度）",
+    "github_search": "GitHub Search（供给侧·新增）",
+    "github_issue": "GitHub Issues（用户原话）",
+    "hn": "Hacker News（技术讨论）",
+    "reddit": "Reddit（创始人社区·需求侧）",
+    "producthunt": "Product Hunt（新发布·竞品情报）",
+    "upwork": "Upwork（付费需求·最硬）",
+    "browser": "浏览器通道（Indie Hackers 等）",
+}
+
+# 表格里的平台短码（省宽度）
+SRC_SHORT = {
+    "github_trending": "GT", "github_search": "GS", "github_issue": "GI",
+    "hn": "HN", "reddit": "RD", "producthunt": "PH",
+    "upwork": "UW", "browser": "BR",
+}
+
+
+def platform_view(records, top_dirs=4):
+    """按平台拆开看：每个平台各自发现了什么方向、代表性证据是什么。"""
+    by = {}
+    for r in records:
+        by.setdefault(r.get("source", "?"), []).append(r)
+    lines = ["#### 各平台视角", "",
+             "> 平台偏差不同，混看会被平均：GitHub 是供给侧（大家在做什么≠有人要），"
+             "Reddit 才是需求侧原话，Product Hunt 是竞品情报。"
+             "**同一方向出现在多个平台 = 信号更硬**。", ""]
+    for src, items in sorted(by.items(), key=lambda kv: -len(kv[1])):
+        plat = PLATFORM_NAMES.get(src, src)
+        stat = {}
+        for r in items:
+            name = r.get("direction") or classify_best(r)[0]
+            if name:
+                s = stat.setdefault(name, {"n": 0, "items": []})
+                s["n"] += 1
+                if len(s["items"]) < 3:
+                    s["items"].append(r)
+        top = sorted(stat.items(), key=lambda kv: -kv[1]["n"])[:top_dirs]
+        lines.append(f"**{plat}**　{len(items)} 条")
+        if top:
+            # 用平台内占比而非绝对数：样本量不同，绝对数跨平台不可比
+            lines.append("- 方向：" + "、".join(
+                f"{n}（{v['n']} 条 / 平台内 {v['n']/len(items):.0%}）" for n, v in top))
+            r0 = top[0][1]["items"][0]
+            lines.append(f"- 代表证据：[{(r0.get('title') or '')[:70]}]({r0.get('url', '')})")
+            lines.append(f"  > {_quote(r0, 150)}")
+        else:
+            lines.append("- 无可归类方向（供给型记录或未覆盖话题）")
+        lines.append("")
+    return "\n".join(lines)
 
 
 def attach_crowding(stat, rows, count_fn, max_dirs=12, spacing=7, cache=None):
@@ -278,19 +346,21 @@ def render_window(window_label, rows, total_dirs, raw_count):
         return "\n".join(L)
     has_crowd = any("crowd" in s for s in rows)
     if has_crowd:
-        L += ["| # | 方向 | 机会 | 证据强度 | 证据数 | 信源数 | 付费信号 | 存量项目 | 拥挤度 | 评分 | 机会分 |",
-              "|---:|---|---|---:|---:|---:|---:|---:|---|---:|---:|"]
+        L += ["| # | 方向 | 机会 | 证据强度 | 证据数 | 平台 | 付费信号 | 存量项目 | 拥挤度 | 评分 | 机会分 |",
+              "|---:|---|---|---:|---:|---|---:|---:|---|---:|---:|"]
         for i, s in enumerate(rows, 1):
+            plats = "、".join(SRC_SHORT.get(x, x) for x in s.get("sources", []))
             L.append(f"| {i} | **{s['name']}** | {s.get('opp_tag', '—')} | "
-                     f"{strength(s['evidence'])} | {s['evidence']} | {s['diversity']} | "
-                     f"{s['wtp']} | {s.get('market_repos', '—')} | {s.get('crowd', '—')} | "
+                     f"{strength(s['evidence'])} | {s['evidence']} | {plats} | "
+                     f"{s.get('wtp_total', s.get('wtp', 0))} | {s.get('market_repos', '—')} | {s.get('crowd', '—')} | "
                      f"{s['score']} | {s.get('opp_score', '—')} |")
     else:
-        L += ["| # | 方向 | 证据强度 | 证据数 | 信源数 | 付费信号 | 相关仓库 | 涨星合计 | 评分 |",
+        L += ["| # | 方向 | 证据强度 | 证据数 | 平台 | 付费信号 | 相关仓库 | 涨星合计 | 评分 |",
               "|---:|---|---|---:|---:|---:|---:|---:|---:|"]
         for i, s in enumerate(rows, 1):
+            plats = "、".join(SRC_SHORT.get(x, x) for x in s.get("sources", []))
             L.append(f"| {i} | **{s['name']}** | {strength(s['evidence'])} | {s['evidence']} | "
-                     f"{s['diversity']} | {s['wtp']} | {len(s['repos'])} | "
+                     f"{plats} | {s.get('wtp_total', s.get('wtp', 0))} | {len(s['repos'])} | "
                      f"{int(s['velocity'])} | {s['score']} |")
     if has_crowd:
         L += ["", "> **机会象限**：热度（证据数≥3 视为高）× 拥挤度（存量项目≥300 视为拥挤）。"

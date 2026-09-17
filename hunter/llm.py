@@ -161,3 +161,87 @@ def _heuristic(rec):
     }
     obj["total"] = _total(obj, rec)
     return obj
+
+
+# ---------------------------------------------------------------- 语义方向分类
+# 为什么需要它：关键词签名有两个结构性偏差——
+#   ① 28 个方向的签名宽度不等，「AI 代理」的签名最宽，导致它的证据数天然偏高，
+#      用户正确地质疑了这一点（"AI 热度是真高还是你的搜索方式造成的"）；
+#   ② 付费构式靠词面匹配，抓不住 "our team would pay for that ability" 之外的
+#      大量口语化付费表达。
+# LLM 分类一次解决两个问题：语义等距（不依赖签名宽度）+ 口语化付费信号。
+# 设计要点：批量打包容（省 token）；方向名必须在给定列表内，否则判 None（防幻觉新方向）；
+# 失败的批次回退到关键词签名，绝不因为 LLM 挂了让整条流水线死掉。
+
+CLASSIFY_SYSTEM = """你是需求挖掘流水线里的分类器。给你若干条来自不同平台的原始记录
+（GitHub 仓库简介 / HN 讨论 / Reddit 帖子 / Product Hunt 等），为每条判断：
+
+1. direction：它最接近哪个「产品方向」。只能从给定列表里选，单选；
+   如果都不沾边，填 "无"。
+2. wtp：文本中是否存在付费意愿信号（有人愿意掏钱/正在掏钱/明确报价），0-5。
+   注意口语化表达也算："would pay for that"、"shut up and take my money"、
+   "我愿意为它付钱"、"有人靠这个赚钱吗" 等。
+3. pain：文中是否表达了真实痛点（不是转述新闻），0-5。
+
+铁律：只依据给出的文本判断，不要联想外部世界。返回严格 JSON。"""
+
+_CLASSIFY_CACHE = None
+
+
+def _direction_names():
+    global _CLASSIFY_CACHE
+    if _CLASSIFY_CACHE is None:
+        from .directions import DIRECTIONS
+        _CLASSIFY_CACHE = [d[0] for d in DIRECTIONS]
+    return _CLASSIFY_CACHE
+
+
+def classify_batch(records, batch_size=8, max_batches=None):
+    """LLM 语义方向分类。返回 (处理条数, 模式说明)。
+
+    成功时给每条记录写入：direction（方向名或 None）、llm_wtp、llm_pain。
+    未配置 key 或全部失败时返回 (0, 原因)，调用方回退到关键词签名。
+    """
+    if not API_KEY:
+        return 0, "未配置 APIKey，回退关键词签名"
+    names = _direction_names()
+    todo = [r for r in records if not r.get("direction")]
+    done = 0
+    batches = [todo[i:i + batch_size] for i in range(0, len(todo), batch_size)]
+    if max_batches:
+        batches = batches[:max_batches]
+    fails = 0
+    for bi, batch in enumerate(batches):
+        listing = "\n".join(
+            f"[{i}] 来源:{r.get('source','')} 标题:{(r.get('title') or '')[:100]}\n"
+            f"    正文:{((r.get('topic_text') or r.get('text') or ''))[:700]}"
+            for i, r in enumerate(batch))
+        user = (f"方向列表（只能选这些或'无'）：\n{json.dumps(names, ensure_ascii=False)}\n\n"
+                f"记录：\n{listing}\n\n"
+                f'返回 JSON：{{"items":[{{"i":0,"direction":"方向名","wtp":0,"pain":0}}]}}')
+        try:
+            out = _call([{"role": "system", "content": CLASSIFY_SYSTEM},
+                         {"role": "user", "content": user}])
+            obj = json.loads(out)
+            items = obj.get("items") or []
+        except Exception:
+            fails += 1
+            continue
+        for it in items:
+            try:
+                i = int(it.get("i"))
+                r = batch[i]
+            except Exception:
+                continue
+            d = str(it.get("direction") or "").strip()
+            r["direction"] = d if d in names else None
+            clamp = lambda v: max(0, min(int(v or 0), 5))
+            r["llm_wtp"] = clamp(it.get("wtp"))
+            r["llm_pain"] = clamp(it.get("pain"))
+            done += 1
+    if fails and not done:
+        return 0, f"LLM 分类全部失败（{fails} 批），回退关键词签名"
+    mode = "llm-语义分类"
+    if fails:
+        mode += f"（{fails} 批失败已回退）"
+    return done, mode
