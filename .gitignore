@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+data/*.sqlite3
+out/window_cache_*.json
+.workbuddy/
+.DS_Store

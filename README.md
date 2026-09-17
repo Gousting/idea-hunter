@@ -1,0 +1,186 @@
+# idea-hunter
+
+独立开发者需求挖掘流水线。零第三方依赖（纯 Python 标准库），可直接跑。
+
+两个入口：
+
+| 入口 | 用途 | 产出 |
+|---|---|---|
+| `run_windows.py` | **按时效性输出「值得看的方向」Top10**（今日/本周/本月） | `out/directions_*.md` |
+| `run.py` | 单次深度采集 + 规则过滤 + LLM 打分 | `out/report_*.md` |
+
+完整方案与实测数据见 **[方案_需求挖掘流水线可行性.md](./方案_需求挖掘流水线可行性.md)**。
+
+## 快速开始
+
+```bash
+# 最常用：今日/本周/本月 各出 Top10 方向（约 5 分钟）
+python run_windows.py
+
+# 零成本：只跑采集 + 规则过滤，看漏斗和供给侧候选
+python run.py --no-llm
+
+# 全流程（推荐）
+export GITHUB_TOKEN=ghp_xxx        # 强烈建议配：未认证核心接口仅 60 次/时且按 IP 共享
+export DEEPSEEK_API_KEY=sk-xxx     # 不配则降级为规则模式
+python run.py --reddit --browser --top-llm 12 --seeds 6
+
+# 复现门槛对照实验（验证"关键词能不能筛出需求"）
+python tools/eval_gates.py
+```
+
+## 方向聚合（run_windows.py）
+
+用户要的不是"12 条帖子"，而是"哪些方向值得看"。所以这一层把散点候选聚合成方向：
+
+- **判定口径**：一个方向必须在本时间窗内出现 **≥2 条独立证据**。单条提及不算方向。
+- **打分（热度）**：证据数×1.0 + 信源多样性×0.8 + 付费信号×1.2 + 仓库热度×1.5 + 仓库数×0.4
+- **拥挤度（供给）**：对热度 Top12 方向，查 GitHub 同关键词**存量项目数**（`stars:>50` 只算真项目），按实测分布分级：**红海≥1000 / 拥挤≥300 / 中等≥80 / 稀疏<80**
+- **机会象限**：高热度 + 低拥挤 =「★ 值得看」；高热度 + 红海 =「已拥挤：需差异化切入」；报告末尾有汇总
+- **机会分**：热度分 ÷ log10(存量+10)——越拥挤，机会被稀释得越厉害
+- **跨窗口观察**：三个窗口都出现的方向更接近持续需求；只在单一窗口出现多是短期热点。
+- **分类方式**：人工维护的方向关键词签名，不用无监督聚类——几百条短文本上聚类产物不稳定、方向名不可读，而"独立开发者能做的方向"本身有限可枚举。
+- **时间窗口映射**：GitHub `since=daily/weekly/monthly` + `created:>1d/7d/30d`；HN `created_at_i` 过滤；Reddit 用 OpenCLI 的 `--sort/--time`（无 OpenCLI 时退回 RSS）。
+- **注意**：`min_stars` 必须随窗口缩放（`created:>1d stars:>60` 实测返回 0 条）。
+
+参数：
+
+| 参数 | 默认 | 说明 |
+|---|---|---|
+| `--windows` | `day,week,month` | 要跑的窗口 |
+| `--no-reddit` | — | 跳过 Reddit（省约 2 分钟） |
+| `--top` | 10 | 每个窗口输出几个方向 |
+| `--min-evidence` | 1 | 进入榜单的最少证据数。默认 1 —— 不隐藏弱信号，而是用「证据强度」列标出来 |
+| `--from-cache` | — | **复用已采集数据只重跑聚合**（留空取最新缓存）。调阈值/改分类时用，实测 391s → 0s |
+
+**为什么不做"必须 ≥2 条证据"的硬门槛**：实测会把输出压到只剩 4–5 个方向（一个窗口规则层只留 60 多条，摊到 28 个方向后多数只有 1 条）。与其假装凑满 10 个，不如全量排序并显式标注强度，让弱信号以本来的面目出现。
+
+**已知局限**：关键词分类会有误判（实测有约 38–60% 的候选匹配不到任何方向，也有个别误分）。这是关键词方案的固有上限，不是 bug；要靠 LLM 才能根本解决。
+
+## OpenCLI 通道（推荐：直接用你已登录的 Chrome）
+
+**这是目前能力最强的一条通道**，因为它复用你正在用的 Chrome 登录态，能拿到官方 API 与 RSS 都拿不到的东西。
+
+```bash
+# 前提：Chrome 保持打开，OpenCLI 扩展已启用
+python run_windows.py --opencli          # 三窗口，含 Reddit / Upwork / Product Hunt
+python hunter/opencli.py                 # 自检：代理、CLI、公开适配器
+python hunter/opencli.py --with-browser  # 自检：含需登录的适配器
+```
+
+**安装**：扩展本体已装（ID `ildkmabpimmkaediidaifkhjpohdnifk`，与官方商店一致）。
+CLI 本体用 `npm install @jackwener/opencli` 装在隔离工作区，无需全局安装。
+
+**实测要点（都踩过）**：
+
+1. **CLI 的 Node 进程不走系统代理** —— 不加 `HTTP_PROXY` 会连 Google 地址超时（实测 `34.120.x.x:443 timeout`）。本模块会自动探测本地代理端口并注入。
+2. **`[public]` 适配器不需要浏览器，`[cookie]` 适配器必须 Chrome 打开**，否则返回 `exitCode 69 / BROWSER_CONNECT`。
+3. **不要为了读 cookie 而关闭 Chrome** —— OpenCLI 走"扩展 + 守护进程"，本来就不需要复制 cookie（这是我一开始判断错的地方）。
+4. **`upwork` 没有 `--limit`**，用 `--per_page`（10–50，仅支持单页）；传错参数直接报 `unknown option`。
+5. **`reddit subreddit` 支持 `--sort hot|new|top` 与 `--time hour|day|week|month|year|all`** —— 所以三个时间窗都能直接表达，比 RSS 更强；`reddit read <url>` 还能拿到**评论**。
+
+**内置适配器共 177 个**，与我们相关的有：`reddit`（含 `read` 评论）、`producthunt`、**`upwork`**（正在付钱找人做的事 = 付费意愿最硬的证据）、`twitter`、`hackernews`（`ask`/`show`/`jobs`）、`xiaohongshu`、`zhihu`、`v2ex`、`weibo`、`medium`、`substack`、`stackoverflow`、`lobsters`、`devto`、`lesswrong`、`indeed`、`1point3acres`、`36kr`。
+
+信源预筛权重（OpenCLI 相关）：`upwork 3.4 > reddit 2.6 > producthunt 2.2`。
+
+
+
+## 备用方案：复制登录态（已被 OpenCLI 通道取代，保留以备 OpenCLI 不可用时使用）
+
+**注意：如果 OpenCLI 可用，不要走这条**——它需要关闭 Chrome，而 OpenCLI 不需要，且 OpenCLI 能拿到评论。
+仅当 OpenCLI 的扩展/守护进程出问题时，才用这条退路：
+
+Reddit 的 RSS 只有帖子正文、**没有评论**，而评论才是抱怨最集中的地方。要用 HTML + 评论，必须带登录态：
+
+```bash
+# 1. 完全退出 Chrome（含后台进程）——运行中 cookie 库被独占锁定
+# 2. 复制登录态到独立调试目录
+python hunter/browser.py login-setup
+# 3. 检查各站点登录情况
+python hunter/browser.py login-check
+# 4. 读 Reddit 帖子页（含评论）
+python hunter/browser.py reddit --sub SaaS
+
+# 5. 用完后清理复制出来的 cookie
+```
+
+说明：
+
+- `opencli` **在 npm 上不存在**（唯一出处是 openclaw 的技能市场，无公开分发包），所以无法安装。但它的核心能力（复用 Chrome 登录态）用本机已装的 `browser-use` 同样能实现。
+- Chrome 136+ 出于防 cookie 窃取，禁止在默认 user-data-dir 上开远程调试，因此必须复制到独立目录。
+- 只复制维持登录的最小文件集（`Local State` + `Default/Network/Cookies` + `Preferences` + `Login Data`），**不复制书签、历史、扩展数据**。
+- 脚本只读取 cookie 的 `host_key` 与条数，**不解密任何值**。
+
+## 参数
+
+| 参数 | 默认 | 说明 |
+|---|---|---|
+| `--no-llm` | — | 跳过 LLM 打分，零成本 |
+| `--top-llm` | 12 | 送进 LLM 的条数上限（控成本） |
+| `--seeds` | 5 | 做 Issues 深挖的仓库数 |
+| `--days` | 21 | GitHub 新建仓库时间窗 |
+| `--hn-days` | 120 | HN 评论时间窗 |
+| `--hn-only` | — | 只跑 HN |
+| `--browser` | — | 启用浏览器通道（读没有 API 的站点） |
+| `--browser-sites` | `indiehackers,hn_ask` | 浏览器通道站点，逗号分隔 |
+| `--reddit` | — | 启用 Reddit RSS（需本地代理） |
+| `--reddit-subs` | `SaaS,microsaas,SideProject` | Reddit 子版块；**限流很紧，别超过 4 个** |
+| `--lang` | 空 | 只抓某语言的 Trending |
+
+## 退出码
+
+- `0` 正常
+- `2` 有关键信源健康检查失败（如 GitHub 页面结构变更）→ 必须人工介入，不要忽略
+
+## 输出
+
+- `out/report_*.md` — 需求日报（候选排名 + 原文证据 + 供给对象 + 交叉验证）
+- `out/candidates_*.json` — 结构化全量数据（含被拦截样本及原因）
+- `data/hunter.sqlite3` — 去重状态与增星历史（冷却期 7 天，之后允许重评）
+
+## 设计要点（踩过的坑）
+
+1. **供给 ≠ 需求，分两个队列。** 仓库简介不是需求证据，它只是待挖掘对象；需求必须来自 Issues 里的用户原话。
+2. **深挖对象要选"有 issue 积累"的项目**，不是最新最火的。实测按"最新"挑 4 个仓库，全部返回 0 条。
+3. **正则只是降噪器，不是闸门。** 把 issue 采集设成"必须命中关键词"会让召回塌成 0。
+4. **需求侧门槛必须用第一人称购买构式**，裸词面（`willing to pay`）的精度约等于 0。
+5. **HN Algolia 多词是 AND 语义。** `docker` 9.8 万条 → `docker painful` 890 条。用短查询扇出，别写自然语言长句。
+6. **冷却去重，不是永久去重。** 永久去重会让日更流水线第二天拿到空列表。
+7. **LLM 必须有证据引用闸门。** 引用不出原文的结论一律作废。
+8. **LLM 预算要按信源配额分配。** 只按全局分数排，HN 会靠条数把预算全占掉（实测 top12 全是 HN，质量更高的通道 0 条）。改为每源保底 2 条后，Indie Hackers 记录才进得来。
+9. **浏览器通道读不到 Cloudflare 站点，也绕过不了网络层封锁。** Product Hunt / V2EX 返回验证页；Reddit 返回 `Blocked`（本机出口为国内宽带 IP，Reddit 在国内网络不可达）。被拦截必须显式报错，不能当成"没有数据"。
+10. **Reddit 要走 RSS，不要走 HTML。** HTML 403（ASN 段级封锁，换节点无效）；`.rss` 端点 200。注意限流极紧，间隔 22 秒起。
+11. **跨子版块重复要按标题去重。** Reddit 交叉发帖的 `t3_` id 不同，`source_id` 去重拦不住。
+12. **话题域门槛只能看帖子标题，不能把评论正文一起传。** 正文里几乎必然出现某个技术词，传进去等于没门槛（实测"出生率辩论"就是这么漏的）。
+
+## 浏览器通道
+
+官方 API 覆盖不到的站点，用浏览器读页面补齐。需要 `browser-use` CLI，脚本会自动启动带调试端口的独立 Chrome 实例。
+
+```bash
+python run.py --browser --browser-sites indiehackers,hn_ask
+```
+
+- 实测可读：Indie Hackers、HN、Ask HN、GitHub
+- 实测不可读：Product Hunt、V2EX（Cloudflare 验证）、G2（空白）、Reddit（网络层拦截）
+- 仅读公开页面用于个人研究，不绕过技术保护措施，不对外分发内容
+
+## Reddit 通道（走本地代理 + RSS）
+
+```bash
+python run.py --reddit --reddit-subs SaaS,microsaas,SideProject
+```
+
+代理自动探测（`HUNTER_PROXY` > 7897 > 7890 > 10809 > 1080），也可显式指定：
+
+```bash
+export HUNTER_PROXY=http://127.0.0.1:7897
+```
+
+实测要点：
+
+- **HTML 页面全部 403**（`network policy` 拦截），且实测 14 个节点返回体长度完全一致 → **封的是整个 ASN 段，换节点无用，不要在这上面浪费时间**
+- **RSS 端点可用**：`https://www.reddit.com/r/<sub>/.rss` → 200
+- RSS 硬约束：每版块最多 25 条、**只有帖子正文没有评论**、限流极紧（429 后约 45–90 秒恢复）
+- 因此：请求间隔 22 秒、单次不超过 4 个子版块
+- 合规定位：官方公开订阅端点、低频低量、个人研究用途；不对外分发、不产品化
