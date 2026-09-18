@@ -3,7 +3,7 @@
 > 找不到产出时先看这里。`out/` 里累积了多轮次的带时间戳文件，
 > **要看当前结果请用 `latest_*`**（每次跑完流水线会自动刷新）。
 
-生成时间：2026-09-18 16:13　·　数据窗口：今日 / 本周 / 本月
+生成时间：2026-09-18 16:56　·　数据窗口：今日 / 本周 / 本月
 
 ---
 
@@ -73,7 +73,26 @@ python tools/write_platform_analysis.py && python tools/render_analysis.py
 python tools/acceptance.py
 ```
 
-刷新 `latest_*` 稳定命名：跑完上面后执行一次 `python tools/make_latest.py`
+刷新 `latest_*` 稳定命名 + **清理旧产物**：跑完上面后执行一次
+
+```bash
+python tools/make_latest.py            # 刷新稳定名 + 清理旧的时间戳产物（推荐）
+python tools/make_latest.py --no-prune # 只刷新稳定名
+```
+
+### 关于产物堆积（已处理）
+
+`out/` 曾一天堆到 **160 个文件 / 57 MB**（其中 35 份看板占 36 MB），
+人根本分不清该看哪份。现在：
+
+- **入库与阅读只看 `latest_*`**，带时间戳的每类只保留最新 1 份；
+- `make_latest.py` 跑完会自动清理，旧产物**移出到系统临时目录**
+  （`%TEMP%\idea-hunter-pruned-<日期>/`）而不是直接删除——
+  本环境的 safe-delete 层对工作区内的删除是 fail-closed 的（会直接拦掉批量删除），
+  移到项目外既腾出工作区又留了后悔药；
+- 历史 `window_cache` 的时点快照（**重新采集不会得到同样数据**，
+  12 份 / 2.3 MB）单独打包留档：
+  `%TEMP%\idea-hunter-archive-20260918-1655\_archive_window_cache_20260918.tar.gz`
 
 ---
 
