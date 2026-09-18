@@ -17,6 +17,7 @@ ECharts 单文件 + 内联数据最合适；不用任何构建工具，Python �
   4. 平台占比环形   —— "本窗口的数据都是谁贡献的"（平台偏差提醒）
 """
 import glob
+import html
 import json
 import os
 import sys
@@ -178,17 +179,32 @@ def main():
     if not jp or not cp:
         print("找不到 directions/window_cache 文件");  return 2
     ann = load_annotations()
-    data = build(jp, cp, ann)
-    # 判定方式按实际命中率标注，不虚标：标注文件只覆盖旧缓存时，新采集的
-    # 记录大多走关键词签名，仍标"agent-语义分类"会误导（诚实性要求）。
-    if not ann:
-        mode = "关键词签名"
+    # 判定方式与"是否应用标注"必须描述**同一次运行**，不能各自猜。
+    # directions_*.json 的 classify 字段由 run_windows.py 写入（唯一事实来源）。
+    # 老 JSON 没有该字段时才退回旧行为（有标注文件就当用了）—— 但那种情况下
+    # 看板会与报告不一致，所以宁可把这段退路写窄、并优先信任落盘的记录。
+    try:
+        with open(jp, encoding="utf-8") as f:
+            rep_meta = json.load(f).get("classify") or {}
+    except Exception:
+        rep_meta = {}
+    if rep_meta.get("ann_used") is None:
+        ann_used = bool(ann)
+        ann_eff = ann
+    else:
+        ann_used = bool(rep_meta["ann_used"])
+        ann_eff = ann if ann_used else {}      # 那次运行没用标注，看板也不该用
+    data = build(jp, cp, ann_eff)
+    from hunter import mode as md
+    if rep_meta.get("mode"):
+        # 直接复用报告记录的判定方式：看板是"渲染这次运行"，不是"重新决定"
+        data["mode"] = rep_meta["mode"]
+        hit, kept_n = rep_meta.get("ann_hit", 0), rep_meta.get("kept", 0)
     else:
         hit = sum(w.get("ann_hits", 0) for w in data["windows"])
         kept_n = sum(w.get("kept_n", 0) for w in data["windows"])
-        mode = ("agent-语义分类（Claude 直读原文）" if kept_n and hit >= kept_n * 0.5
-                else "关键词签名（含部分 agent 语义标注）")
-    data["mode"] = mode
+        data["mode"] = md.classify_mode(ann_used, hit, kept_n)
+    data["mode_coverage"] = md.coverage_line(hit, kept_n, ann_used=ann_used)
 
     # ECharts 内嵌：看板必须离线可开。教训——之前走 CDN，预览环境加载不到就整页白屏
     # （页面 DOM 全由 JS 生成，echarts 未定义即抛异常，一行内容都出不来）。
@@ -202,12 +218,14 @@ def main():
     echart_block = ech if ech else (
         "document.write('<scr'+'ipt src=\"https://cdn.jsdelivr.net/npm/echarts@5.5.0"
         "/dist/echarts.min.js\"><\\/scr'+'ipt>');")
-    html = (load_template()
+    page = (load_template()
             .replace("__ECHARTS__", echart_block)
             .replace("__DATA__", json.dumps(data, ensure_ascii=False))
             .replace("__CROWDCOLOR__", json.dumps(CROWD_COLOR, ensure_ascii=False))
             .replace("__PLATSHORT__", json.dumps(PLATFORM_SHORT, ensure_ascii=False))
-            .replace("__MODE__", json.dumps(mode, ensure_ascii=False))
+            # 这里是**文本**注入，不能用 json.dumps —— 那样会在页面上渲染出
+            # 一对多余的字面引号：方向判定："关键词签名（…）"（原实现如此）。
+            .replace("__MODE__", html.escape(data["mode"]))
             .replace("__GENERATED__", data["generated_at"])
             .replace("__HEALTH_N__", str(len(data.get("health") or [])))
             .replace("__PLATFORMS_JSON__", json.dumps(load_platforms(), ensure_ascii=False))
@@ -217,16 +235,17 @@ def main():
 
     # 占位符残留自检：漏替换会让页面出现 __XXX__ 字面量，或直接造成 JS 语法错误整页空白
     left = [t for t in ("__ECHARTS__", "__DATA__", "__CROWDCOLOR__", "__PLATSHORT__",
-                        "__MODE__", "__GENERATED__", "__HEALTH_N__", "__PLATFORMS_JSON__",
-                        "__ANALYSIS_JSON__", "__VALIDATION_JSON__", "__RESILIENCE_JSON__")
-            if t in html]
+                        "__MODE__", "__GENERATED__", "__HEALTH_N__",
+                        "__PLATFORMS_JSON__", "__ANALYSIS_JSON__", "__VALIDATION_JSON__",
+                        "__RESILIENCE_JSON__")
+            if t in page]
     if left:
         print(f"  !! 占位符未替换：{left}")
 
     ts = time.strftime("%Y%m%d-%H%M")
     out = os.path.join(OUT, f"dashboard_{ts}.html")
     with open(out, "w", encoding="utf-8") as f:
-        f.write(html)
+        f.write(page)
     print("看板 ->", out)
     return 0
 

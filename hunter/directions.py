@@ -447,16 +447,23 @@ def attach_real_cases(rows, mature_fn, max_dirs=12, spacing=7, cache=None):
 
 
 def render_cases(s, idx):
-    """单个方向的真实案例两行式（Markdown）。"""
+    """单个方向的真实案例两行式（Markdown）。
+
+    注意：链接必须用**半角** `)` 收尾。原实现写成了
+        f"[{m['repo']}]({m['url']}）（★{m['stars']}…"
+    全角括号 Markdown 不认，导致「成熟/高关注项目」和「本窗口新增仓库」两类链接
+    全部不可点击（实测已发布报告里有 30 处）。而这正是"真实案例速查"章节
+    存在的唯一理由 —— 用户诉求就是"方向只是标签，必须能点开验证"。
+    """
     L = [f"**{idx}. {s['name']}**"]
     if s.get("mature"):
         L.append("- 成熟/高关注项目：" + " · ".join(
-            f"[{m['repo']}]({m['url']}）（★{m['stars']}，更新 {m['updated'] or '—'}）"
+            f"[{m['repo']}]({m['url']})（★{m['stars']}，更新 {m['updated'] or '—'}）"
             for m in s["mature"]))
     elif s.get("repos"):
         reps = sorted(s["repos"], key=lambda x: -(x.get("star_velocity") or 0))[:2]
         L.append("- 本窗口新增仓库：" + " · ".join(
-            f"[{p['repo']}]({p['url']}）（★{p.get('stars_total')}）" for p in reps))
+            f"[{p['repo']}]({p['url']})（★{p.get('stars_total')}）" for p in reps))
     if s.get("evidence_links"):
         L.append("- 需求证据帖：" + " · ".join(
             f"[{e['title'][:44]}]({e['url']})" for e in s["evidence_links"][:3]))
@@ -540,11 +547,17 @@ def render_window(window_label, rows, total_dirs, raw_count, path_stats=None,
                      f"{plats} | {s.get('wtp_total', s.get('wtp', 0))} | {len(s['repos'])} | "
                      f"{int(s['velocity'])} | {s['score']} |")
     if has_crowd:
-        L += ["", "> **机会象限**：热度（证据数≥3 视为高）× 拥挤度（存量项目≥300 视为拥挤）。"
+        L += ["", "> **机会象限**：热度（**仅需求证据**，不含热点；≥3 视为高）× "
+                  "拥挤度（存量项目≥300 视为拥挤）。"
                   "「★ 值得看」= 高热度 + 低拥挤；「已拥挤」= 高热度 + 红海，需差异化切入。"
                   "拥挤度阈值（红海≥1000 / 拥挤≥300 / 中等≥80 / 稀疏<80）来自实测分布，"
                   "且 GitHub 存量数受关键词选择影响，只作相对比较。"]
+    # 两列的基数不同必须写明：否则同一行出现「强度 中 / 机会 待验证」这类组合，
+    # 读者会以为是自相矛盾（实测被问到过）。写明后它就是一个可复核的口径差异。
     L += ["", "> 强度口径：需求证据+热点合计 ≥5 强 / ≥3 中 / 2 偏弱 / 1 弱。"
+              "**注意：「强度」与「机会」两列的基数不同** —— 强度含热点证据，"
+              "机会只算需求证据，所以同一行出现「强度 中 / 机会 待验证」这类组合是"
+              "口径差异，不是矛盾。"
               "「弱」不代表没价值，只代表本期只有一条独立证据 —— 需要下期复现才算成立。", ""]
 
     top = [s for s in rows if s["evidence"] >= 2][:3] or rows[:2]

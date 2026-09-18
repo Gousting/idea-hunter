@@ -22,6 +22,8 @@
 """
 import json
 import os
+import re
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -276,14 +278,111 @@ NOTE = ("判断口径：付费潜力 ≠ 热度，本轮样本里两者依旧近
         "（690 赞，评论区是第一批付费客户是怎么来的）")
 
 
+def _gh_repos(urls):
+    """从 urls 里挑出 GitHub 仓库地址（只取 owner/repo 两段，忽略 /issues 等子路径）。"""
+    out, seen = [], set()
+    for u in urls or []:
+        m = re.match(r"https?://github\.com/([^/]+)/([^/#?]+)", u or "")
+        if not m:
+            continue
+        full = f"{m.group(1)}/{m.group(2)}".rstrip("/")
+        if full.lower() in ("features", "about", "pricing") or full in seen:
+            continue
+        seen.add(full)
+        out.append(full)
+    return out
+
+
+def repo_risks(urls):
+    """对判断层引用的 GitHub 仓库跑一遍**项目自己的** L2 反刷星体检。
+
+    为什么必须做（2026-09-18 修复）：
+    本文件是 16 条手写散文，**完全绕过了** filter.supply_risk() —— 而 supply_risk
+    只在 rule_filter 内部对仓库源生效。实测后果：判断层把
+    browser-use/jev-ultrafast（★3564/2 天、fork/star 0.060、日均涨星 1314）
+    称为「本轮最强爆发信号」，而同一个项目自己的 L2 判定它是 high、
+    并且已经把它从方向报告里丢掉了。**自动层拒绝、手写层推荐**，两份产出直接矛盾，
+    而按 out/INDEX.md，判断层才是读者最先看到的那一节。
+
+    判据直接复用 filter.supply_risk()，不另立标准 —— 手写层必须受与自动层同一套
+    纪律约束。取不到数据时如实返回 error，不假装"已核查通过"。
+    """
+    try:
+        sys.path.insert(0, ROOT)
+        from hunter import filter as flt
+        from hunter import sources as src
+    except Exception as e:                                    # pragma: no cover
+        return [{"error": f"无法加载校验模块：{type(e).__name__}"}]
+    out = []
+    for full in _gh_repos(urls):
+        try:
+            raw, _ = src._get(f"https://api.github.com/repos/{full}")
+            d = json.loads(raw)
+        except Exception as e:
+            out.append({"repo": full, "level": "unknown",
+                        "error": f"{type(e).__name__}: {str(e)[:60]}"})
+            continue
+        rec = {"source": "github_search", "repo": full,
+               "stars_total": d.get("stargazers_count", 0),
+               "forks": d.get("forks_count", 0),
+               "stars_window": d.get("stargazers_count", 0),
+               "created_at": (d.get("created_at") or "")[:10],
+               "license": (d.get("license") or {}).get("spdx_id"),
+               "open_issues": d.get("open_issues_count", 0)}
+        lvl, flags = flt.supply_risk(rec)
+        out.append({"repo": full, "level": lvl, "flags": flags,
+                    "stars": rec["stars_total"], "forks": rec["forks"],
+                    "created_at": rec["created_at"]})
+    return out
+
+
+def attach_risks(items):
+    """给每条判断挂上仓库风险，并把高危项显式打印出来（不静默）。
+
+    返回 (高危条目列表, 核查失败的仓库数)。高危 = 项目自己的 L2 判定 high，
+    与"会被 rule_filter 丢弃"是同一档 —— 手写层和自动层不能各说各话。
+    """
+    high, unknown = [], 0
+    for it in items:
+        rs = repo_risks(it.get("urls"))
+        if not rs:
+            continue
+        it["repo_risks"] = rs
+        bad = [r for r in rs if r.get("level") == "high"]
+        unknown += sum(1 for r in rs if r.get("level") == "unknown")
+        if bad:
+            high.append((it.get("title", ""), bad))
+    return high, unknown
+
+
 def main():
     data = {"generated_at": __import__("time").strftime("%Y-%m-%d %H:%M:%S"),
             "note": NOTE, "items": ITEMS}
+
+    # 手写层必须过与自动层同一道反刷星体检（见 repo_risks 的说明）。
+    # 这一步会消耗 GitHub API 配额，但有磁盘缓存（out/.gh_cache.json）兜底。
+    high, unknown = attach_risks(ITEMS)
+
     p = os.path.join(ROOT, "out", "platform_analysis.json")
     with open(p, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
     n = {t: sum(1 for i in ITEMS if i["tier"] == t) for t in (A, B, C)}
     print(f"分析条目 {len(ITEMS)} 条（A={n[A]} B={n[B]} C={n[C]}） -> {p}")
+    if unknown:
+        print(f"  ⚠ 有 {unknown} 个仓库的风险数据取不到（限流或已删除）——"
+              "这部分**未经核查**，不能当作已通过")
+    if high:
+        print(f"\n  ❌ 以下条目引用了项目自己判定为「刷星高危」的仓库：")
+        for title, bad in high:
+            for r in bad:
+                print(f"     · {title[:34]} → {r['repo']} ★{r['stars']}"
+                      f"（{r['created_at']}）")
+                for fl in r["flags"]:
+                    print(f"         - {fl}")
+        print("  → 这些仓库会被 rule_filter 直接丢弃。判断层若仍要保留该条目，"
+              "必须在正文里显式说明风险，或降级。")
+    else:
+        print("  ✅ 判断层引用的仓库均未触发 L2 反刷星高危阈值")
 
 
 if __name__ == "__main__":

@@ -189,11 +189,17 @@ SITES = {
 # 所以复用登录态的唯一可靠路径是：先完全退出 Chrome → 复制最小文件集到独立目录
 # → 用该目录启动带调试端口的实例。
 REAL_PROFILE = os.path.expanduser(r"~\AppData\Local\Google\Chrome\User Data")
+# 最小文件集 —— 只保留"维持登录态"所必需的三项。
+#
+# 2026-09-18 修复：原先还复制了 `Default\Login Data`（保存的密码库）。
+# 维持会话登录**不需要**它：登录态在 Cookies 里，而 Chrome 的密码库存的是
+# 加密后的凭据，脚本既不解密也用不到。多复制一个凭据库没有收益、只有风险 ——
+# 一旦这个独立目录被别的东西读到，泄露面就多了一类。
+# 原则：能少复制一个就少复制一个，尤其是凭据类文件。
 LOGIN_FILES = [
     "Local State",                          # cookie 加密密钥（DPAPI 绑定当前用户）
     r"Default\Network\Cookies",             # 实际 cookie（Chrome 96+ 路径）
     r"Default\Preferences",
-    r"Default\Login Data",
 ]
 
 

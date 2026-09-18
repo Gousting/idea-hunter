@@ -77,13 +77,16 @@
 
 <h1>idea-hunter · 方向看板</h1>
 <div class="meta">
-  生成时间：__GENERATED__　·　方向判定：__MODE__
+  生成时间：__GENERATED__　·　方向判定：__MODE__<span id="modecov"></span>
   <details><summary>　口径说明</summary>
     <div class="hint" style="margin-top:6px">
       证据数=窗口内独立候选条数。拥挤度=GitHub 同方向存量（红海≥1000 / 拥挤≥300 / 中等≥80 / 稀疏&lt;80）。
       成型产品=GitHub stars&gt;1000 的存量，<b>只看开源</b>（闭源 SaaS 看不到，所以 0 只等于「开源侧没人做成」）。
       共振只统计<b>原生榜</b>（排序由平台决定=独立发现）；关键词检索命中是同一查询的回声，不计共振。
       各平台热度量纲不同，<b>只比排名不比数值</b>。
+      方向判定方式与覆盖率由 <code>directions_*.json</code> 的 <code>classify</code> 字段落盘后直接显示，
+      <b>本页不重新判定</b>——否则同一次运行的两份产出会给出互相矛盾的声明。
+      覆盖率低于 50% 时，不得按「各方向语义等距」解读榜单。
     </div>
   </details>
 </div>
@@ -131,6 +134,14 @@ window.__RESILIENCE__ = __RESILIENCE_JSON__;</script>
 const DATA = __DATA__;
 const CROWD_COLOR = __CROWDCOLOR__;
 const PLAT_SHORT = __PLATSHORT__;
+
+/* 判定方式的覆盖率必须露出来：不披露覆盖率，"语义分类"就是一句无法核验的声明。
+   判定方式本身由 run_windows.py 落盘在 directions_*.json 的 classify 字段里，
+   本页只负责显示、不重新判定（否则两份产出会给出互相矛盾的声明）。 */
+(function () {
+  var c = DATA.mode_coverage;
+  if (c) document.getElementById('modecov').textContent = '　' + c;
+})();
 
 /* ---------- 小工具（都必须在所有使用它们的块之前声明：TDZ 会整段不渲染）---------- */
 const md = x => (x||'').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');

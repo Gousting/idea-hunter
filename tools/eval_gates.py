@@ -35,10 +35,26 @@ G3 = re.compile(r"\b(i|we)\b[^.!?\n]{0,50}?\b(would|'d|will|happy|gladly|willing
                 r"[^.!?\n]{0,25}?\bpay\b[^.!?\n]{0,60}?\b(for|to)\b", re.I)
 
 QUERIES_GENERIC = ["willing to pay", "I would pay for", "happy to pay", "take my money"]
+# 垂直场景短语：**必须用 1-2 个短词扇出，不能写自然语言长句**。
+#
+# 2026-09-18 修复：原实现是三条长句，实测命中数为
+#     "invoice reconciliation tool too manual"    → 0 条
+#     "self-hosted monitoring setup too complex"  → 0 条
+#     "no web interface command line only"        → 6 条
+# 也就是"垂直场景"这一臂**实际是死的**，样本 100% 来自上面 4 个通用付费短语。
+# 后果：实验只证明了「通用短语的精度天花板低」，没有测到「场景化短语是否更好」——
+# 而后者恰恰是本实验想要反驳的那个替代方案，属于论证结构上缺了对照组。
+# 而这条教训本文档实验 3 自己写过（"用 1-2 个短词 + numericFilters，别写自然语言长句"），
+# 脚本却违反了它。
+#
+# 替换后实测召回（同口径，100 条上限）：34 / 98 / 100 / 98 / 100 条可用评论。
+# 改动后两个臂都有真实样本，"垂直短语是否优于通用短语"才第一次被真正测到。
 QUERIES_VERTICAL = [
-    "invoice reconciliation tool too manual",
-    "self-hosted monitoring setup too complex",
-    "no web interface command line only",
+    "reconciliation manual",     # 对账靠手工
+    "self-hosted complex",       # 自托管太复杂
+    "command line only",         # 只有 CLI、没有 GUI
+    "manual data entry",         # 手工录入
+    "too complex to set up",     # 配置门槛高
 ]
 
 
@@ -78,12 +94,24 @@ def evalgate(recs, pat):
 
 def main():
     recs = []
+    arm = {}
     print("拉取 HN 评论（通用付费短语 + 垂直场景短语）...")
-    for q in QUERIES_GENERIC + QUERIES_VERTICAL:
-        r, nb = fetch(q)
-        print(f"  {q:<45} 返回 {len(r):>3} 条 / 命中 {nb}")
-        recs += r
-        time.sleep(0.8)
+    for label, qs in (("通用", QUERIES_GENERIC), ("垂直", QUERIES_VERTICAL)):
+        for q in qs:
+            r, nb = fetch(q)
+            print(f"  [{label}] {q:<40} 返回 {len(r):>3} 条 / 命中 {nb}")
+            recs += r
+            arm[label] = arm.get(label, 0) + len(r)
+            time.sleep(0.8)
+    # 自检：某一臂为空，说明查询写坏了，实验会退化成单臂（实测踩过：三条长句里
+    # 两条返回 0 条 → 样本 100% 来自通用臂 → 测不到"垂直短语是否更好"这个对照组）。
+    # 这种情况必须报警，不能静默继续给出结论。
+    dead = [k for k, v in arm.items() if v == 0]
+    print("\n各臂原始样本：" + "　".join(f"{k} {v} 条" for k, v in arm.items()))
+    if dead:
+        print(f"  ❌ {'、'.join(dead)}臂返回 0 条 —— 查询词很可能写成了自然语言长句。"
+              "HN Algolia 多词是 AND 语义，请改用 1-2 个短词扇出。"
+              "**此状态下结论只覆盖单臂，不能当作完整对照实验。**")
     # 去重
     seen, uniq = set(), []
     for r in recs:

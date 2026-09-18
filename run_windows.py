@@ -95,6 +95,76 @@ def _native_fails(health):
     return out
 
 
+# ---------------------------------------------------------------- 判定方式声明
+# 判定方式必须按**实际命中率**标注，不能只看"有没有传 --annotations"。
+# 2026-09-18 修复：原实现是
+#     if args.annotations: classify_mode = "agent-语义分类（Claude 直读原文）"
+# 与命中数完全脱钩 —— 传一个空的 {} 也会声称用了语义分类，而榜单实际 100% 来自
+# 关键词签名。同时 apply_annotations() 返回的 hit 计数被直接丢弃，覆盖率无人知晓。
+#
+# 实现已抽到 hunter/mode.py：这份口径**报告与看板必须共用**。
+# 此前两处各写一份，直接导致同一次运行的两份产出互相矛盾
+# （看板说"关键词签名（含部分 agent 语义标注）"、报告说"agent-语义分类"）。
+# 第一次修复时我只是把逻辑从看板搬进报告 —— 那仍然是一式两份，边界很快又分叉：
+# 报告修好了"零命中要说过期"，看板仍在 0% 覆盖时说"含部分语义标注"。
+# 教训：诚实性逻辑必须共享同一份代码，不能各写一份看起来一样的实现。
+from hunter.mode import (SEMANTIC_MODES, MODE_AGENT, MODE_PARTIAL,  # noqa: E402
+                         is_semantic as _is_semantic,
+                         classify_mode as _classify_mode,
+                         coverage_line as _coverage_line)
+
+
+def _evidence_composition(rows):
+    """算「本窗口第一名」的证据构成 —— 替代原先写死的那段口径警告。
+
+    2026-09-18 修复：原实现在 run_windows.py 里硬编码了一段
+    "本周榜第一的「8 条证据」实际 = 4 条 HN 评论 + 2 个 GitHub 仓库 + 1 个 Trending
+    + 1 个 Reddit 帖"。它与本轮数据无关：只跑今日窗口时，报告照样输出这句。
+    一份以"口径诚实"为卖点的报告，最显眼的那句诚实声明是写死的，比不写更糟。
+    """
+    if not rows:
+        return None
+    s = rows[0]
+    cnt = {}
+    for r in s.get("items", []):
+        src = r.get("source") or "?"
+        cnt[src] = cnt.get(src, 0) + 1
+    shown = sum(cnt.values())
+    total = s.get("evidence", 0) + s.get("hot", 0)
+    parts = "、".join(f"{v} 条 {k}" for k, v in sorted(cnt.items(), key=lambda kv: -kv[1]))
+    return {"name": s["name"], "evidence": s.get("evidence", 0),
+            "hot": s.get("hot", 0), "total": total, "parts": parts,
+            "truncated": shown < total}
+
+
+def _native_breakdown_md(rows, undecl):
+    """原生率的信源明细（折叠）—— 头条验收指标必须能被读者按信源审计。
+
+    2026-09-18 新增：原先只给一个百分数。而"原生榜"这个身份此前是由 paths.infer()
+    的默认值发放的（默认返回 PLATFORM），新信源忘了声明 path 就白拿原生身份，
+    等于指标可以自证达标。现在默认取保守侧，并在这里把构成摊开：
+    读者能一眼看到 74% 是哪些源撑起来的、其中多少是"弱原生"。
+    """
+    if not rows:
+        return ""
+    L = ["<details><summary>原生率的信源明细（点击展开审计）</summary>", "",
+         "| 信源 | 原生榜 | 其中弱原生 | 关键词检索 |", "|---|---:|---:|---:|"]
+    for b in rows:
+        L.append(f"| {b['source']} | {b['native']} | {b['weak']} | {b['keyword']} |")
+    L += ["", "> **弱原生** = 排序由平台给，但**入池门槛或榜单范围由作者设定**"
+              "（github_search 的 created/stars 门槛、reddit 的子版块清单、"
+              "browser 的站点清单）。它们比 GitHub Trending 这类纯算法榜弱一档，"
+              "读原生率时应把这部分单独看。", ""]
+    if undecl:
+        items = "、".join(f"{k}（{v} 条）" for k, v in
+                          sorted(undecl.items(), key=lambda kv: -kv[1]))
+        L += [f"> ⚠ **未登记获取路径的信源：{items}** —— 已按保守口径计入关键词检索。"
+              "新增信源请到 `hunter/paths.py` 的 `SOURCE_PATH` 登记，"
+              "否则它不会（也不应该）自动获得「原生榜」身份。", ""]
+    L.append("</details>")
+    return "\n".join(L)
+
+
 def _forhire():
     """r/forhire：有人出钱找人做事（RSS 官方端点，免登录）—— Upwork 的等效源。
 
@@ -302,11 +372,12 @@ def main():
     classify_mode = "关键词签名"
 
     # agent 标注：Claude 直读原文后的语义分类，优先级最高（见 tools/write_agent_annotations.py）
+    # 注意：这里**不再**无条件设置 classify_mode。判定方式必须按实际命中率算，
+    # 见 _classify_mode() 的说明（原实现在这里虚标过）。
     ann = {}
     if args.annotations:
         with open(args.annotations, encoding="utf-8") as f:
             ann = json.load(f)
-        classify_mode = "agent-语义分类（Claude 直读原文）"
 
     def apply_annotations(records):
         hit = 0
@@ -337,8 +408,9 @@ def main():
             if k not in keys:
                 continue
             kept = v.get("kept", [])
+            ann_hits = 0
             if ann:
-                apply_annotations(kept)
+                ann_hits = apply_annotations(kept)
             elif args.llm:
                 _n, _m = llm.classify_batch(kept)
                 classify_mode = _m if _n else "关键词签名（LLM 不可用）"
@@ -352,9 +424,12 @@ def main():
             results[k] = {"label": v.get("label", k), "raw": v.get("raw", len(kept)),
                           "kept": len(kept), "stat": stat, "rows": rows,
                           "records": kept, "path_stats": paths.counts(kept),
+                          "ann_hits": ann_hits,
+                          "native_breakdown": paths.breakdown(kept),
+                          "undeclared": paths.undeclared(kept),
                           "native_fail": _native_fails(health)}
             print(f"  [{v.get('label', k)}] {len(kept)} 条 → {len(rows)} 个方向"
-                  f"（拥挤度已补 {done} 个）")
+                  f"（拥挤度已补 {done} 个；语义标注命中 {ann_hits}/{len(kept)}）")
     else:
         for k in keys:
             w = WINDOWS[k]
@@ -370,8 +445,9 @@ def main():
                     seen.add(sid)
                 uniq.append(r)
             kept, dropped = flt.rule_filter(uniq, CFG)
+            ann_hits = 0
             if ann:
-                apply_annotations(kept)
+                ann_hits = apply_annotations(kept)
             elif args.llm:
                 _n, _m = llm.classify_batch(kept)
                 classify_mode = _m if _n else "关键词签名（LLM 不可用）"
@@ -385,10 +461,14 @@ def main():
             results[k] = {"label": w["label"], "raw": len(uniq), "kept": len(kept),
                           "stat": stat, "rows": rows, "records": kept,
                           "path_stats": paths.counts(kept),
+                          "ann_hits": ann_hits,
+                          "native_breakdown": paths.breakdown(kept),
+                          "undeclared": paths.undeclared(kept),
                           "native_fail": _native_fails(health)}
             cache[k] = {"label": w["label"], "raw": len(uniq), "kept": kept}
             print(f"  {len(uniq)} 条 → 规则层 {len(kept)} 条 → {len(stat)} 个候选方向 "
-                  f"→ 输出 {len(rows)} 个（拥挤度已补 {done} 个）")
+                  f"→ 输出 {len(rows)} 个（拥挤度已补 {done} 个；"
+                  f"语义标注命中 {ann_hits}/{len(kept)}）")
         # 存原始数据，供后续快速重聚合
         ts_c = time.strftime("%Y%m%d-%H%M")
         cp = os.path.join(OUT, f"window_cache_{ts_c}.json")
@@ -400,6 +480,19 @@ def main():
 
     for e in crowd_errs:
         health.append({"source": "github_count(拥挤度)", "count": 0, "ok": False, "note": e})
+
+    # 判定方式按**实际命中率**定，而不是"有没有传 --annotations"。
+    # 传了标注文件但命中率很低（标注是上一轮数据、缓存已换）时，必须如实降级标注。
+    ann_hit_total = sum(v.get("ann_hits", 0) for v in results.values())
+    kept_total = sum(v.get("kept", 0) for v in results.values())
+    if ann:
+        classify_mode = _classify_mode(ann, ann_hit_total, kept_total)
+        if kept_total:
+            print(f"  语义标注覆盖 {ann_hit_total}/{kept_total} 条"
+                  f"（{ann_hit_total / kept_total:.0%}）"
+                  f"→ 判定方式记为「{classify_mode}」")
+        else:
+            print("  本窗口无留存记录")
 
     # 建议与趋势：必须在**所有窗口**都算完后做（趋势要看跨窗口的增速与共振）
     adv_map = advice.annotate({v["label"]: v["rows"] for v in results.values()})
@@ -430,10 +523,21 @@ def main():
     rp = os.path.join(OUT, f"directions_{ts}.md")
     with open(rp, "w", encoding="utf-8") as f:
         f.write(render(results, health, args, classify_mode,
-                       kit_md=kit_md, vstats=vstats, rz_summary=rz_summary))
+                       kit_md=kit_md, vstats=vstats, rz_summary=rz_summary,
+                       ann_hit=ann_hit_total, kept_total=kept_total,
+                       ann_used=bool(ann)))
     jp = os.path.join(OUT, f"directions_{ts}.json")
     with open(jp, "w", encoding="utf-8") as f:
         json.dump({"generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+                   # 判定方式必须落盘：看板要"描述这次运行"，而不是自己重新猜一遍。
+                   # 此前看板无条件加载 out/agent_annotations.json 并自行判定，
+                   # 于是同一次采集的两个产物会给出不同的判定方式（看板按 40% 覆盖
+                   # 标"含部分语义标注"，报告因为没传 --annotations 标"关键词签名"）。
+                   # 记录在这里之后，两边只有一个事实来源。
+                   "classify": {"mode": classify_mode,
+                                "ann_used": bool(ann),
+                                "ann_hit": ann_hit_total,
+                                "kept": kept_total},
                    "windows": {k: {"label": v["label"], "raw": v["raw"],
                                    "kept": v["kept"],
                                    "path_stats": list(v.get("path_stats") or []),
@@ -451,40 +555,63 @@ def main():
 
 
 def render(results, health, args, classify_mode="关键词签名", kit_md=None,
-           vstats=None, rz_summary=None):
+           vstats=None, rz_summary=None, ann_hit=0, kept_total=0, ann_used=False):
+    semantic = _is_semantic(classify_mode)
     L = ["# 值得看的方向 Top10 · 按时效性分层", "",
-         f"生成时间：{time.strftime('%Y-%m-%d %H:%M')}", "",
-         "**判定口径**：把散点候选聚合成「方向」后按证据强度排序。",
-         f"方向判定方式：**{classify_mode}**。"
-         + ("LLM 模式下各方向语义等距，不存在签名宽度偏差。"
-            if "llm" in classify_mode else
-            "关键词模式下签名宽度不等（AI 方向最宽），跨方向证据数不可直接比热度。"), "",
-         "证据数 = 该方向在本时间窗内的独立候选条数（同一候选只计入一个方向，避免重复计数）。", "",
-         f"（GitHub 查询缓存：{sources.cache_stats()['entries']} 条已缓存 / "
-         f"{sources.cache_stats()['fresh']} 条新鲜——限流时过期旧值会被兜底使用并标记）", "",
-         "**两条证据通道**：需求证据（过痛点/付费构式门槛）与平台热点证据"
-         "（原生榜+热度达标，不走门槛）。**共振只统计原生榜**——"
-         "关键词检索命中是同一个查询在多个平台的回声，不等于独立发现。", "",
-         "**评分** = 证据数×1.0 + 信源多样性×0.8 + 付费信号×1.2 + 仓库热度×1.5 + 仓库数×0.4", "",
-         "**强度**：≥5 强 / ≥3 中 / 2 偏弱 / 1 弱。弱信号不等于没价值，"
-         "但只有一条独立证据时不足以支撑判断 —— 它需要在下个窗口复现才算成立。", "",
-         "**口径警告（读榜单前必读）**：", "",
-         "1. **各方向的关键词签名宽度不等**，「AI 代理与自动化」的签名最宽"
-         "（agent/llm/prompt/mcp/rag/automation…近 10 组高频词），"
-         "而「支付与账单」等方向命中面窄。**宽签名天然抓得多，"
-         "跨方向的证据数不能直接当热度比较**——头部方向的领先幅度要看折扣。",
-         "2. **绝对证据数很小**。本周榜第一的「8 条证据」实际 = 4 条 HN 评论 + "
-         "2 个 GitHub 仓库 + 1 个 Trending + 1 个 Reddit 帖，"
-         "排名对一两 条记录的波动敏感，别把「第一」读成「优势巨大」。",
-         "3. **各平台采集相互独立**（HN/Reddit/Upwork 的查询都是写死的常量，"
-         "不存在用 GitHub 结果去搜其他平台的循环），"
-         "但 Reddit 样本量小（规则层拦截后每周仅个位数），其\"投票权\"有限。", "",
-         "---", ""]
+         f"生成时间：{time.strftime('%Y-%m-%d %H:%M')}", ""]
+    # 北极星放最前面：按项目自己的判据（"必须有验证闭环，否则整条流水线的产出等于零"），
+    # 它是全局最重要的一条状态，不该藏在报告末尾的章节里。
+    if vstats:
+        ok = "✅ 达标" if vstats["north_star"] >= vstats["target"] else "❌ 未达标"
+        L += [f"> **北极星（近 {vstats['window_days']} 天验证通过方向数）："
+              f"{vstats['north_star']} / 目标 ≥{vstats['target']}　{ok}**　"
+              "—— 在它达标之前，下面的榜单只是「候选」，不是结论。", ""]
+    L += ["**判定口径**：把散点候选聚合成「方向」后按证据强度排序。",
+          f"方向判定方式：**{classify_mode}**。"
+          + ("各方向语义等距，不存在签名宽度偏差。"
+             if semantic else
+             "关键词模式下签名宽度不等（AI 方向最宽），跨方向证据数不可直接比热度。")]
+    cov = _coverage_line(ann_hit, kept_total, ann_used=ann_used)
+    if cov:
+        L.append(cov)
+    L += ["",
+          "证据数 = 该方向在本时间窗内的独立候选条数（同一候选只计入一个方向，避免重复计数）。", "",
+          f"（GitHub 查询缓存：{sources.cache_stats()['entries']} 条已缓存 / "
+          f"{sources.cache_stats()['fresh']} 条新鲜——限流时过期旧值会被兜底使用并标记）", "",
+          "**两条证据通道**：需求证据（过痛点/付费构式门槛）与平台热点证据"
+          "（原生榜+热度达标，不走门槛）。**共振只统计原生榜**——"
+          "关键词检索命中是同一个查询在多个平台的回声，不等于独立发现。", "",
+          "**评分** = 证据数×1.0 + 信源多样性×0.8 + 付费信号×1.2 + 仓库热度×1.5 + 仓库数×0.4", "",
+          "**强度**：≥5 强 / ≥3 中 / 2 偏弱 / 1 弱。弱信号不等于没价值，"
+          "但只有一条独立证据时不足以支撑判断 —— 它需要在下个窗口复现才算成立。", "",
+          "**口径警告（读榜单前必读）**：", "",
+          "1. **各方向的关键词签名宽度不等** —— " + (
+              "本条不适用于纯语义分类模式（各方向语义等距）。" if semantic else
+              "「AI 代理与自动化」的签名最宽（agent/llm/prompt/mcp/rag/automation…"
+              "近 10 组高频词），而「支付与账单」等方向命中面窄。**宽签名天然抓得多，"
+              "跨方向的证据数不能直接当热度比较**——头部方向的领先幅度要看折扣。")]
+    # 第 2 条按**本轮实际数据**生成。原实现是硬编码字符串（写死"本周榜第一的 8 条证据
+    # = 4 条 HN + 2 个 GitHub 仓库 + 1 个 Trending + 1 个 Reddit 帖"），
+    # 只跑今日窗口时也照样输出，等于用一句与数据无关的话冒充口径说明。
+    comp = _evidence_composition(next(iter(results.values()))["rows"]) if results else None
+    if comp:
+        L.append(f"2. **绝对证据数很小**。本窗口榜第一的「{comp['name']}」= "
+                 f"{comp['evidence']} 条需求证据 + {comp['hot']} 条热点证据"
+                 f"（{comp['parts']}" + ("，此处仅列前 12 条" if comp["truncated"] else "")
+                 + "），排名对一两条记录的波动敏感，别把「第一」读成「优势巨大」。")
+    else:
+        L.append("2. **绝对证据数很小**：本窗口没有可归类的方向，无法给出证据构成。")
+    L += ["3. **各平台采集相互独立**（HN/Reddit/Upwork 的查询都是写死的常量，"
+          "不存在用 GitHub 结果去搜其他平台的循环），"
+          "但 Reddit 样本量小（规则层拦截后每周仅个位数），其\"投票权\"有限。", "",
+          "---", ""]
     for k, v in results.items():
         L += [f"## {v['label']}", "",
               dr.render_window(v["label"], v["rows"], len(v["stat"]), v["raw"],
                                path_stats=v.get("path_stats"),
                                native_fail=v.get("native_fail")),
+              "", _native_breakdown_md(v.get("native_breakdown"),
+                                       v.get("undeclared")),
               "", dr.platform_view(v.get("records", [])),
               "", "---", ""]
 
@@ -525,10 +652,9 @@ def render(results, health, args, classify_mode="关键词签名", kit_md=None,
         L += ["", *rz_summary]
     L += ["", "## 验证闭环（P0-2）", ""]
     if vstats:
-        ok = "✅ 达标" if vstats["north_star"] >= vstats["target"] else "❌ 未达标"
-        L += [f"**北极星：近 {vstats['window_days']} 天验证通过方向数 "
-              f"{vstats['north_star']} / 目标 ≥{vstats['target']}　{ok}**", "",
-              f"（待续 {len(vstats['pending'])} 个 · 否决 {len(vstats['rejected'])} 个 · "
+        # 北极星的标题行已挪到报告开头（那里才是它该在的位置），这里只留明细。
+        L += [f"（北极星见报告开头）待续 {len(vstats['pending'])} 个 · "
+              f"否决 {len(vstats['rejected'])} 个 · "
               f"误杀复活 {len(vstats['resurrected'])} 个 · 误杀率 "
               f"{'—' if vstats['mistake_rate'] is None else format(vstats['mistake_rate'], '.0%')}）", "",
               "> 判定标准：**通过 = ≥2 个独立受访者已在为此付费或给出明确预算**。"

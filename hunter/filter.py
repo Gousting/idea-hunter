@@ -72,9 +72,28 @@ HIRING_PAT = re.compile(
 BOUNTY_PAT = re.compile(
     r"\$\s?[\d,]+|\b(bounty|reward|prize|paid|payment|usd)\b|\b\d+\s?(usd|usdc)\b", re.I)
 
-# r/forhire 的招聘约定标记（实测：[Hiring] 开头是主要形态，不含付费构式，
-# 走通用门槛会被全部丢掉 —— 25/25 全 drop，等效源形同虚设）
-FORHIRE_PAT = re.compile(r"\[hiring\]|\[for hire\]|looking (for|to hire)|\bhire\b", re.I)
+# r/forhire 的两类帖子**方向正好相反**，必须分开判，不能共用一个正则。
+#
+# 实测教训（2026-09-18 修复）：原实现用一条
+#   r"\[hiring\]|\[for hire\]|looking (for|to hire)|\bhire\b"
+# 同时匹配两种标记，把「[For Hire] 自由职业者自我推销」也记成了
+# record_type="hiring"（= 有人出钱），于是：
+#   供给方广告 → 计入 s["hiring"] → advice.py 的「★ 建议优先验证」档
+# 已发布报告里 9 条 r/forhire 帖有 7 条是这种自我推销广告（Google Ads 推广、
+# 视频剪辑、CAD 制图…），直接把「报表与可视化」「视频与音频处理」推上了推荐位。
+#
+# 这与方案文档第四节的核心原则「供给 ≠ 需求，必须分队列」直接冲突 ——
+# 那条原则本来就是为修首版的同类错误而写的，这里漏了同一类。
+#
+# 判据：[Hiring] = 雇主出钱找人做事（需求方）；[For Hire] = 我在卖我的服务（供给方）。
+FORHIRE_DEMAND = re.compile(
+    r"\[hiring\]|\bhiring\b|looking (for|to hire)|looking to (hire|pay)|"
+    r"need (someone|a dev|a developer|help)|\[task\]|\[job\]|budget[: ]", re.I)
+FORHIRE_SUPPLY = re.compile(
+    r"\[for ?hire\]|\[available\]|for hire\b|hire me|looking for work|"
+    r"my (portfolio|services|rates)|i (am|'m) a freelance|years of experience|"
+    r"\brate[s]?[: ]|\bmy rate\b|dm me|open to (work|opportunities)", re.I)
+
 
 
 def is_collection(text, repo, topics=None):
@@ -329,14 +348,26 @@ def rule_filter(records, cfg):
                     (r.get("subreddit") or "") + " " + (r.get("site") or "")):
                 # r/forhire：有人出钱找人做事（官方 RSS 免登录）。约定用 [Hiring] 标记，
                 # 正文是任务描述，不含付费构式 —— 走通用门槛实测 25/25 全丢。
-                if FORHIRE_PAT.search(f"{r.get('title', '')} {text[:200]}"):
+                #
+                # 但 [For Hire] 是**反方向**的：那是自由职业者在推销自己（供给方）。
+                # 必须先按标题判定方向，再决定收还是丢 —— 判据见上方 FORHIRE_* 注释。
+                ftitle = f"{r.get('title', '')} {text[:200]}"
+                if FORHIRE_SUPPLY.search(r.get("title") or "") and not \
+                        FORHIRE_DEMAND.search(r.get("title") or ""):
+                    # 供给方广告：它表达的是「我在卖服务」，与「有人愿意付钱」反向，
+                    # 计入付费证据会让方向被误推上推荐位（实测已发生）。
+                    dropped.append({**r, "drop_stage": "L1",
+                                    "drop_reason": "供给方广告（自由职业者自我推销，非付费需求）"})
+                    continue
+                if FORHIRE_DEMAND.search(ftitle):
                     r["pain_hits"] = ["forhire（出钱找人做事）"]
                     r["wtp_hits"] = r["strong_wtp_hits"] = []
                     r["record_type"] = "hiring"
                     r["prefilter_score"] = _prefilter_score(r)
                     kept.append(r)
                     continue
-                dropped.append({**r, "drop_stage": "L1", "drop_reason": "非招聘帖（forhire）"})
+                dropped.append({**r, "drop_stage": "L1",
+                                "drop_reason": "非招聘帖（forhire：既非 [Hiring] 也非供给方广告）"})
                 continue
             r["pain_hits"] = pain_hits(text)
             r["wtp_hits"] = wtp_hits(text)

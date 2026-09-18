@@ -49,6 +49,17 @@ def main():
          "**现有供给**（有没有人做成、是不是云厂商自己在做）· **能否 2-4 周做出 MVP**。", "",
          "---", ""]
 
+    # 判断层与规则层共用同一套 supply_risk 判据（见 write_platform_analysis.repo_risks）。
+    # 为什么必须在报告顶部说清楚：判断层是手写散文，曾把规则层已判定刷星高危、
+    # 并且已从方向报告里丢弃的仓库（jev-ultrafast 等）称为「本轮最强爆发信号」。
+    # 自动层拒绝、手写层推荐 —— 这种矛盾不能只留在生成脚本的 stdout 里。
+    n_high = sum(1 for i in items
+                 if any(r.get("level") == "high" for r in (i.get("repo_risks") or [])))
+    if n_high:
+        L += [f"> ⚠ **风险提示：{n_high} 条判断引用了项目自己判定为「刷星高危」的仓库**"
+              "（逐条标注在下方）。判断层与规则层共用同一套 `supply_risk` 判据 —— "
+              "被规则层丢弃的仓库，不应该在判断层被当作正面信号推荐。", ""]
+
     for tier in ("A", "B", "C"):
         group = [i for i in items if i["tier"] == tier]
         if not group:
@@ -64,6 +75,18 @@ def main():
                   f"- **建议动作**：{it['action']}"]
             if it.get("urls"):
                 L.append("- 相关链接：" + " · ".join(f"[原帖]({u})" for u in it["urls"]))
+            risky = [r for r in (it.get("repo_risks") or []) if r.get("level") == "high"]
+            if risky:
+                L.append("- ⚠ **本条引用的仓库触发了项目自己的反刷星高危阈值**：")
+                for r in risky:
+                    L.append(f"  - [{r['repo']}](https://github.com/{r['repo']})"
+                             f"　★{r.get('stars')}　创建 {r.get('created_at')}"
+                             f"　—— {'；'.join(r.get('flags') or [])}")
+                L.append("  - 这些仓库会被规则层直接丢弃。**引用它们之前必须人工核查增长曲线**，"
+                         "否则等于把一个已被自己的风控拒绝的对象推荐给读者。")
+            unk = [r for r in (it.get("repo_risks") or []) if r.get("level") == "unknown"]
+            if unk:
+                L.append(f"- （有 {len(unk)} 个仓库的风险数据取不到，**未经核查**）")
             L.append("")
         L.append("")
 
@@ -85,7 +108,7 @@ def main():
     dash = {"generated_at": ana.get("generated_at", ""), "note": ana.get("note", ""),
             "items": [{k: it.get(k) for k in
                        ("tier", "pay", "title", "who_pays", "trigger", "supply",
-                        "verdict", "action", "urls")} for it in items]}
+                        "verdict", "action", "urls", "repo_risks")} for it in items]}
     dp = os.path.join(OUT, "platform_analysis_dashboard.json")
     with open(dp, "w", encoding="utf-8") as f:
         json.dump(dash, f, ensure_ascii=False, indent=1)

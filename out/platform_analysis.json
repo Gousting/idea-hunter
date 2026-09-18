@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-18 16:02:53",
+ "generated_at": "2026-09-18 17:21:30",
  "note": "判断口径：付费潜力 ≠ 热度，本轮样本里两者依旧近乎负相关——热度榜首是社会新闻（771 万）与个人兴趣项目（5330），而付费路径最清晰的是热度仅 96 的 AEO 拆解帖。核心筛选问题是：**这个热点背后有没有新生成的付费环节**——新增支出才有新机会，旧预算搬家只是替换竞争。本轮变化：最密集的痛点簇从 MCP 转到「独立开发者获客与变现」（约 1770 赞）；大厂把 AI 能力开源成 skill 的「三连」正在把供给端填满，这对独立开发者是不利的结构变化；上一轮的 MCP 证据（PH 的 MCPJam）本轮已不在榜，按「证据变了就改判断」下调。**值得单独去读的两处**：HN 的「Ask HN: What are you working on?」（4315 赞，开发者自述在做什么，是需求挖掘的金矿）；r/SaaS 的「First Monthly Subscription」（690 赞，评论区是第一批付费客户是怎么来的）",
  "items": [
   {
@@ -71,6 +71,30 @@
    "urls": [
     "https://github.com/browser-use/jev-ultrafast",
     "https://github.com/tamaratran/fast-jev-compaction"
+   ],
+   "repo_risks": [
+    {
+     "repo": "browser-use/jev-ultrafast",
+     "level": "high",
+     "flags": [
+      "fork/star=0.060 偏低，需人工确认",
+      "日均涨星 1324，远高于自然增长速度（重点核查是否刷星）"
+     ],
+     "stars": 3605,
+     "forks": 216,
+     "created_at": "2026-09-16"
+    },
+    {
+     "repo": "tamaratran/fast-jev-compaction",
+     "level": "high",
+     "flags": [
+      "fork/star=0.047 低于 0.05（真实项目通常 0.15–0.25）",
+      "日均涨星 1106，远高于自然增长速度（重点核查是否刷星）"
+     ],
+     "stars": 1906,
+     "forks": 89,
+     "created_at": "2026-09-17"
+    }
    ]
   },
   {
@@ -86,6 +110,29 @@
    "urls": [
     "https://github.com/cloudflare/security-audit-skill",
     "https://github.com/alibaba/open-code-review"
+   ],
+   "repo_risks": [
+    {
+     "repo": "cloudflare/security-audit-skill",
+     "level": "medium",
+     "flags": [
+      "fork/star=0.054 偏低，需人工确认"
+     ],
+     "stars": 11535,
+     "forks": 625,
+     "created_at": "2026-06-18"
+    },
+    {
+     "repo": "alibaba/open-code-review",
+     "level": "high",
+     "flags": [
+      "fork/star=0.071 偏低，需人工确认",
+      "日均涨星 291，增速偏高"
+     ],
+     "stars": 35944,
+     "forks": 2555,
+     "created_at": "2026-05-18"
+    }
    ]
   },
   {
@@ -100,6 +147,18 @@
    "action": "确认是否存在「企业研发团队文献/专利」付费场景；否则排除",
    "urls": [
     "https://github.com/alphaXiv/OpenResearch"
+   ],
+   "repo_risks": [
+    {
+     "repo": "alphaXiv/OpenResearch",
+     "level": "medium",
+     "flags": [
+      "fork/star=0.061 偏低，需人工确认"
+     ],
+     "stars": 5187,
+     "forks": 314,
+     "created_at": "2026-06-07"
+    }
    ]
   },
   {

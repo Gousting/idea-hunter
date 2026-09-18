@@ -20,14 +20,57 @@ OpenCLI 通道：用「你已登录的 Chrome」直接读站点。
 import json
 import os
 import re
+import shutil
 import socket
 import subprocess
 import time
 
-WORKSPACE = os.path.expanduser(
-    r"~\.workbuddy\binaries\node\workspace\node_modules\.bin\opencli.cmd")
-NODE = r"C:\nvm4w\nodejs\node.exe"
-NPX = r"C:\nvm4w\nodejs\npx.cmd"
+# ---------------------------------------------------------------- CLI 定位
+# 2026-09-18 可移植性修复。原实现把机器专属路径写死在源码里：
+#     WORKSPACE = os.path.expanduser(r"~\.workbuddy\binaries\node\workspace\...\opencli.cmd")
+#     NODE = r"C:\nvm4w\nodejs\node.exe"      ← 定义后从未被使用
+#     NPX  = r"C:\nvm4w\nodejs\npx.cmd"
+# 后果：别人 clone 下来 OpenCLI 通道**直接不可用** —— 而它恰好是全项目价值最高的
+# 一条通道（唯一能拿 Reddit 评论与 Upwork 付费需求的），也是 README 声称
+# "零第三方依赖，可直接跑"时最容易误导人的地方。
+# 改为按以下顺序探测，任何一环命中即可，全不中才回落到 npx 拉取：
+#   1. 环境变量 OPENCLI_BIN（显式指定，最高优先）
+#   2. PATH 上的 opencli（npm 全局安装 / 软链 / 任意方式装好都算）
+#   3. 常见的工作区局部安装位置（npm 局部安装不进 PATH）
+#   4. npx -y @jackwener/opencli@latest（会联网拉取）
+OPENCLI_PKG = "@jackwener/opencli"
+_LOCAL_CANDIDATES = (
+    r"~\.workbuddy\binaries\node\workspace\node_modules\.bin\opencli.cmd",
+    "~/node_modules/.bin/opencli",
+    "~/.npm-global/bin/opencli",
+    "/usr/local/bin/opencli",
+)
+
+
+def _resolve_cli():
+    env = (os.environ.get("OPENCLI_BIN") or "").strip()
+    if env and os.path.isfile(env):
+        return env
+    for name in ("opencli", "opencli.cmd", "opencli.exe", "opencli.bat"):
+        p = shutil.which(name)
+        if p:
+            return p
+    for cand in _LOCAL_CANDIDATES:
+        p = os.path.expanduser(cand)
+        if os.path.isfile(p):
+            return p
+    return ""
+
+
+CLI = _resolve_cli()
+
+
+def cli_hint():
+    """自检提示：没找到 CLI 时给出可执行的安装指引（而不是干等超时）。"""
+    if CLI:
+        return ""
+    return (f"未找到 opencli（已查 PATH 与常见局部安装位置）。安装："
+            f"`npm i -g {OPENCLI_PKG}`，或用环境变量 OPENCLI_BIN 指定可执行文件路径。")
 
 # 本地代理探测：只做 TCP 连通性检查，不发请求（比探针请求快且无副作用）
 PROXY_PORTS = ["7897", "7890", "10809", "10808", "1080", "20171"]
@@ -52,9 +95,11 @@ def proxy_url():
 
 
 def cli_argv():
-    if os.path.isfile(WORKSPACE):
-        return [WORKSPACE]
-    return [NPX, "-y", "@jackwener/opencli@latest"]
+    """返回调用 opencli 的命令行前缀。"""
+    if CLI:
+        return [CLI]
+    npx = shutil.which("npx") or shutil.which("npx.cmd") or "npx"
+    return [npx, "-y", f"{OPENCLI_PKG}@latest"]
 
 
 def run(args, timeout=150, fmt="json"):
@@ -63,6 +108,10 @@ def run(args, timeout=150, fmt="json"):
     退出码遵循 sysexits：0 成功 / 66 空结果 / 69 浏览器未连接 /
     75 超时 / 77 需认证 / 78 配置错误。
     """
+    if not CLI and not shutil.which("npx") and not shutil.which("npx.cmd"):
+        # 缺依赖时要给出可执行的指引，而不是让 FileNotFoundError 冒到上层变成
+        # 一句看不懂的失败记录（原本的写法在别人机器上就会这样）。
+        return None, {"ok": False, "code": 78, "note": cli_hint()}
     argv = cli_argv() + list(args) + ["-f", fmt]
     env = dict(os.environ)
     px = proxy_url()
@@ -477,7 +526,9 @@ def hackernews(mode="show", limit=20):
 if __name__ == "__main__":
     import sys
     print("代理:", proxy_url() or "未检测到")
-    print("CLI:", cli_argv()[0])
+    print("CLI:", CLI or f"未找到 → 将用 npx 拉取（{OPENCLI_PKG}）")
+    if cli_hint():
+        print("  ⚠", cli_hint())
     info = doctor()
     print("doctor:", json.dumps(info, ensure_ascii=False))
     tests = {
