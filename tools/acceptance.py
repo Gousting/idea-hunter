@@ -101,6 +101,18 @@ def main():
         fails.append(f"P0-3 硬失败率 {res['fail_rate']:.0%} ≥ 10%")
     print(f"  {'✅' if ok_gap else '❌'} 能力缺口 {res['gap_rate']:.0%}（{res['lost']}/{res['n_capabilities']} 项）")
     print(f"  {'✅' if ok_fail else '❌'} 硬失败率 {res['fail_rate']:.0%}")
+    # 把"谁在失败"直接列出来 —— 只有一个百分数无法行动，必须能一眼看到元凶
+    fc, fd = {}, {}
+    for h in dirs.get("health", []):
+        if h.get("skipped") or h.get("ok") or h.get("count"):
+            continue
+        b = (h.get("source") or "").split("[")[0]
+        fc[b] = fc.get(b, 0) + 1
+        fd.setdefault(b, (h.get("note") or "")[:56])
+    if fc:
+        print(f"  失败明细（合计 {sum(fc.values())} 源次）：")
+        for b, n in sorted(fc.items(), key=lambda kv: -kv[1]):
+            print(f"      {b} × {n}　{fd[b]}")
     print(f"  跳过（不计失败）{len(res['skipped'])} 个：{list(res['skipped'])}"
           "　← 「失败率低」必须与「跳过几个」一起读")
     for r in res["rows"]:
@@ -111,6 +123,48 @@ def main():
     cs = S.cache_stats()
     print(f"  失败回填：GitHub 查询缓存 {cs['entries']} 条（新鲜 {cs['fresh']} / "
           f"过期 {cs['stale']}）——限流时过期旧值会被兜底使用并标记 stale")
+
+    # ---------- P0-3b 等效源的边际贡献 ----------
+    # 为什么要单独查这一项：能力矩阵只看"采集健康"（count>0）就判 covered，
+    # 但**采到了 ≠ 用上了**。实测踩过：四个等效源采集全部成功，
+    # 却因为源名/门槛/字段名不匹配，进入规则层的记录数是 **0**——
+    # 矩阵显示"已覆盖"，实际等于没接。这是最隐蔽的一种假覆盖。
+    print("\n【P0-3b】等效源边际贡献　验收标准：每个等效源至少有 1 条进入规则层")
+    all_kept = [r for v in cache["windows"].values() for r in v.get("kept", [])]
+
+    def matcher(name):
+        if name == "reddit:forhire":
+            return lambda r: (r.get("source") == "reddit"
+                              and "forhire" in ((r.get("subreddit") or "")
+                                                + " " + (r.get("site") or "")))
+        if name == "github_bounty":
+            return lambda r: r.get("source") == "github_bounty"
+        if name == "bluesky:trending":
+            return lambda r: r.get("source") == "bluesky"
+        if name == "juejin:hot":
+            return lambda r: r.get("source") == "juejin"
+        b = name.split(":")[0]
+        return lambda r: r.get("source") == b
+
+    for r in res["rows"]:
+        claims = list(r["equivalent_ok"])
+        if not claims:
+            continue
+        for claim in claims:
+            base = claim.replace("(弱)", "")
+            m = matcher(base)
+            n = sum(1 for x in all_kept if m(x))
+            if base in rz.EXCLUDED_BY_DESIGN:
+                # 主动排除 ≠ 假覆盖：一个是决策，一个是 bug。必须区分，
+                # 否则"主动不接"会被误报成失败，久了就没人看这两个数字。
+                print(f"  ➖ {r['capability']:<20} ← {claim:<18} 主动排除"
+                      f"（{rz.EXCLUDED_BY_DESIGN[base][:34]}…）")
+                continue
+            ok1 = n > 0
+            if not ok1:
+                fails.append(f"P0-3b 等效源 {claim} 采集成功但 0 条进入规则层（假覆盖）")
+            print(f"  {'✅' if ok1 else '❌'} {r['capability']:<20} ← {claim:<18} "
+                  f"边际贡献 {n} 条")
 
     # ---------- 汇总 ----------
     print("\n" + "=" * 74)

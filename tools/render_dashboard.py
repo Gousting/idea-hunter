@@ -32,6 +32,7 @@ PLATFORM_SHORT = {
     "stackoverflow": "StackOverflow", "lobsters": "Lobsters", "devto": "DEV.to",
     "lesswrong": "LessWrong", "indeed": "Indeed", "twitter": "X/Twitter",
     "zhihu": "知乎", "xiaohongshu": "小红书",
+    "juejin": "掘金", "bluesky": "Bluesky",
 }
 CROWD_COLOR = {"红海": "#d9534f", "拥挤": "#f0ad4e",
                "中等": "#4da3d9", "稀疏": "#5cb85c"}
@@ -193,9 +194,14 @@ HTML = """<!DOCTYPE html>
 <h1>idea-hunter · 方向看板</h1>
 <div class="meta">生成时间：__GENERATED__　·　方向判定：__MODE__　·　
 数据口径：证据数=窗口内独立候选条数；拥挤度=GitHub 同方向存量（红海≥1000/拥挤≥300/中等≥80/稀疏&lt;80）</div>
-<div id="resilience"></div>
-<div id="validation"></div>
+<!-- 面板优先级 = 用户要回答问题的顺序，不要随手调换：
+     ① analysis  热榜付费潜力判断（"这些热点里有没有值得做的"——判断层，最高优先）
+     ② validation 验证闭环（"我怎么证明它值得做"——行动）
+     ③ resilience 依赖对冲（"系统本身健不健康"——技术健康度，读者最少）
+     ④ tabs/panels 方向榜单  ⑤ platforms 平台热榜 -->
 <div id="analysis"></div>
+<div id="validation"></div>
+<div id="resilience"></div>
 <div class="tabs" id="tabs"></div>
 <div id="panels"></div>
 <div id="platforms"></div>

@@ -143,7 +143,7 @@ def classify(rec):
     return [name for name, pat, _ in _DIR_C if pat.search(blob)]
 
 
-def classify_best(rec):
+def classify_best(rec, exclude=()):
     """只归入匹配最强的一个方向，返回 (方向名, 强度分) 或 (None, 0)。
 
     为什么必须单选：多标签会让同一条证据被多个方向重复计数 ——
@@ -153,6 +153,8 @@ def classify_best(rec):
 
     强度分算法（避免平票时按分类表顺序瞎选）：
       标题命中 ×3，正文命中 ×1，再乘以命中关键词长度（长关键词更具体）。
+    exclude：排除某些方向（见 aggregate 里"招聘帖不能算招聘软件需求"的说明）。
+
     实测这个加权能纠正两类错误：
       · "Audit AI agent tool-call transcripts …Python CLI" → 归 AI 代理（标题命中）
         而不是终端效率（仅正文出现 CLI）
@@ -163,6 +165,8 @@ def classify_best(rec):
     body = _topic_blob(rec)
     best, best_s = None, 0.0
     for name, pat, _ in _DIR_C:
+        if name in exclude:
+            continue
         s = 0.0
         for m in pat.finditer(title):
             s += 3.0 * len(m.group(0))
@@ -181,7 +185,14 @@ def aggregate(candidates):
     """
     stat = {}
     for r in candidates:
-        name = r.get("direction") or classify_best(r)[0]
+        # 招聘帖/赏金 issue **不能**归入"招聘与 HR"：它们自己就是"找人做事"的帖子，
+        # 把它们当成"招聘软件的需求"是范畴错误（实测：7 条 Indeed/forhire 招聘帖
+        # 让"招聘与 HR"以 存量5/成型0 拿到"★建议优先验证"，属于纯人工伪影）。
+        # 它们应当按**工作内容**归类（如"数据采集与解析"），并作为该方向的付费证据。
+        excl = ("招聘与 HR",) if r.get("record_type") in ("hiring", "bounty") else ()
+        name = r.get("direction") or classify_best(r, exclude=excl)[0]
+        if name in excl:
+            continue
         if not name:
             continue
         s = stat.setdefault(name, {
@@ -208,7 +219,8 @@ def aggregate(candidates):
             s["wtp"] += 1
         if (r.get("llm_wtp") or 0) >= 3:
             s["wtp_llm"] += 1
-        if r.get("record_type") == "hiring":
+        # 招聘与赏金都算"有人出钱"的直接证据（付费侧），分开记但一起参与判断
+        if r.get("record_type") in ("hiring", "bounty"):
             s["hiring"] += 1
         # 讨论热度：评论赞同合计优先（社区认同度），否则退回收/赞数。
         # 回退链必须覆盖各信源的原始字段名——HN Algolia 出的是 points，
@@ -299,6 +311,9 @@ PLATFORM_NAMES = {
     "twitter": "X/Twitter（创始人发声）",
     "zhihu": "知乎（中文需求讨论）",
     "xiaohongshu": "小红书（中文消费需求）",
+    "juejin": "掘金（中文技术热榜，弱等效）",
+    "bluesky": "Bluesky（热门话题，弱等效）",
+    "github_bounty": "GitHub 赏金 Issue（有人挂钱求做）",
 }
 
 # 表格里的平台短码（省宽度）
@@ -308,6 +323,7 @@ SRC_SHORT = {
     "upwork": "UW", "browser": "BR",
     "stackoverflow": "SO", "lobsters": "LB", "devto": "DT", "lesswrong": "LW",
     "indeed": "IN", "twitter": "TW", "zhihu": "ZH", "xiaohongshu": "XHS",
+    "juejin": "JJ", "bluesky": "BSKY", "github_bounty": "B$",
 }
 
 

@@ -1,0 +1,1677 @@
+{
+ "generated_at": "2026-09-18 15:44:23",
+ "collected": 288,
+ "terms": {
+  "zhihu": [
+   {
+    "t": "为啥",
+    "n": 3
+   },
+   {
+    "t": "得关",
+    "n": 2
+   },
+   {
+    "t": "值得关",
+    "n": 2
+   },
+   {
+    "t": "得关注",
+    "n": 2
+   },
+   {
+    "t": "值得",
+    "n": 2
+   },
+   {
+    "t": "还有",
+    "n": 2
+   }
+  ],
+  "juejin": [
+   {
+    "t": "时间段",
+    "n": 1
+   },
+   {
+    "t": "iso",
+    "n": 1
+   },
+   {
+    "t": "间段验",
+    "n": 1
+   },
+   {
+    "t": "化格",
+    "n": 1
+   },
+   {
+    "t": "段验证",
+    "n": 1
+   },
+   {
+    "t": "准与",
+    "n": 1
+   }
+  ],
+  "github_trending": [
+   {
+    "t": "tencent",
+    "n": 2
+   },
+   {
+    "t": "security-audit-skill",
+    "n": 1
+   },
+   {
+    "t": "cloudflare",
+    "n": 1
+   },
+   {
+    "t": "alibaba",
+    "n": 1
+   },
+   {
+    "t": "open-code-review",
+    "n": 1
+   },
+   {
+    "t": "browserskill",
+    "n": 1
+   }
+  ],
+  "hn": [
+   {
+    "t": "share",
+    "n": 2
+   },
+   {
+    "t": "setup",
+    "n": 2
+   },
+   {
+    "t": "agent",
+    "n": 2
+   },
+   {
+    "t": "birds",
+    "n": 1
+   },
+   {
+    "t": "frame",
+    "n": 1
+   },
+   {
+    "t": "e-ink",
+    "n": 1
+   }
+  ],
+  "github_search": [
+   {
+    "t": "browser-use",
+    "n": 1
+   },
+   {
+    "t": "jev-ultrafast",
+    "n": 1
+   },
+   {
+    "t": "fast-jev-compaction",
+    "n": 1
+   },
+   {
+    "t": "tamaratran",
+    "n": 1
+   },
+   {
+    "t": "openjev",
+    "n": 1
+   },
+   {
+    "t": "theoleecj",
+    "n": 1
+   }
+  ],
+  "lobsters": [
+   {
+    "t": "down",
+    "n": 1
+   },
+   {
+    "t": "shuts",
+    "n": 1
+   },
+   {
+    "t": "minds",
+    "n": 1
+   },
+   {
+    "t": "lost",
+    "n": 1
+   },
+   {
+    "t": "introducing",
+    "n": 1
+   },
+   {
+    "t": "gnome",
+    "n": 1
+   }
+  ],
+  "reddit": [
+   {
+    "t": "saas",
+    "n": 3
+   },
+   {
+    "t": "product",
+    "n": 2
+   },
+   {
+    "t": "hard",
+    "n": 2
+   },
+   {
+    "t": "daily",
+    "n": 2
+   },
+   {
+    "t": "paid",
+    "n": 2
+   },
+   {
+    "t": "rule",
+    "n": 1
+   }
+  ],
+  "producthunt": [
+   {
+    "t": "notch",
+    "n": 1
+   },
+   {
+    "t": "design",
+    "n": 1
+   },
+   {
+    "t": "smartcheck",
+    "n": 1
+   },
+   {
+    "t": "miremotebridge",
+    "n": 1
+   },
+   {
+    "t": "productbridge",
+    "n": 1
+   },
+   {
+    "t": "score",
+    "n": 1
+   }
+  ],
+  "lesswrong": [
+   {
+    "t": "ais",
+    "n": 2
+   },
+   {
+    "t": "current",
+    "n": 2
+   },
+   {
+    "t": "seems",
+    "n": 2
+   },
+   {
+    "t": "talker",
+    "n": 1
+   },
+   {
+    "t": "doer",
+    "n": 1
+   },
+   {
+    "t": "control",
+    "n": 1
+   }
+  ],
+  "bluesky": [
+   {
+    "t": "trump",
+    "n": 2
+   },
+   {
+    "t": "gifted",
+    "n": 1
+   },
+   {
+    "t": "green",
+    "n": 1
+   },
+   {
+    "t": "xiv",
+    "n": 1
+   },
+   {
+    "t": "orb",
+    "n": 1
+   },
+   {
+    "t": "leo",
+    "n": 1
+   }
+  ],
+  "stackoverflow": [
+   {
+    "t": "laravel",
+    "n": 1
+   },
+   {
+    "t": "auto",
+    "n": 1
+   },
+   {
+    "t": "identifiers",
+    "n": 1
+   },
+   {
+    "t": "generate",
+    "n": 1
+   },
+   {
+    "t": "form",
+    "n": 1
+   },
+   {
+    "t": "numbers",
+    "n": 1
+   }
+  ],
+  "devto": [
+   {
+    "t": "coding",
+    "n": 2
+   },
+   {
+    "t": "memory",
+    "n": 2
+   },
+   {
+    "t": "challenge",
+    "n": 1
+   },
+   {
+    "t": "edition",
+    "n": 1
+   },
+   {
+    "t": "dog",
+    "n": 1
+   },
+   {
+    "t": "weekend",
+    "n": 1
+   }
+  ],
+  "indeed": [
+   {
+    "t": "招聘",
+    "n": 15
+   },
+   {
+    "t": "automation",
+    "n": 15
+   },
+   {
+    "t": "inc",
+    "n": 4
+   },
+   {
+    "t": "hybrid",
+    "n": 3
+   },
+   {
+    "t": "fort",
+    "n": 3
+   },
+   {
+    "t": "airlines",
+    "n": 3
+   }
+  ]
+ },
+ "platforms": [
+  {
+   "source": "zhihu",
+   "items": [
+    {
+     "title": "退休副省长家丢了 243 万元茅台等名酒，管家因盗窃罪获刑10年半，哪些细节值得关注？",
+     "url": "https://www.zhihu.com/question/2083586923906295347",
+     "heat": 9250000,
+     "source": "zhihu"
+    },
+    {
+     "title": "如何看待「快递小哥救助摔倒老人反被索赔超 92 万」一案，终审驳回全部诉求 ？法律怎样降低救人的风险？",
+     "url": "https://www.zhihu.com/question/2083927414493681147",
+     "heat": 6660000,
+     "source": "zhihu"
+    },
+    {
+     "title": "义乌开始卖载人飞碟飞行器了，单笔订单卖出 1.2 亿元，离普通人还有多远？商业化还要解决哪些问题？",
+     "url": "https://www.zhihu.com/question/2083949287025788571",
+     "heat": 4200000,
+     "source": "zhihu"
+    },
+    {
+     "title": "为什么生意再小，赚钱的速度都远超打工？",
+     "url": "https://www.zhihu.com/question/1973749451853169735",
+     "heat": 2340000,
+     "source": "zhihu"
+    },
+    {
+     "title": "名古屋亚运会用「邮轮+集装箱房」替代亚运村，巴黎奥运村极度简陋无空调，为啥如今的体育大赛越办越寒酸？",
+     "url": "https://www.zhihu.com/question/2081790151865406534",
+     "heat": 1780000,
+     "source": "zhihu"
+    },
+    {
+     "title": "很多老师称现在批改作业不能用×，要换成◯、△，是为了保护学生吗？真的有用吗？打×本身有问题吗？",
+     "url": "https://www.zhihu.com/question/2083585452137608098",
+     "heat": 1660000,
+     "source": "zhihu"
+    },
+    {
+     "title": "全球陷入「抢钨大战」，两年时间价格上涨了约 9 倍，为啥会疯涨？钨这种稀有金属的战略价值体现在哪里？",
+     "url": "https://www.zhihu.com/question/2082873227517359039",
+     "heat": 1620000,
+     "source": "zhihu"
+    },
+    {
+     "title": "网传浙江师范大学强制新生填写父母工作单位、月收入等12项隐私信息，为啥要填这么详细？真的有必要吗？",
+     "url": "https://www.zhihu.com/question/2083934201863202786",
+     "heat": 1610000,
+     "source": "zhihu"
+    },
+    {
+     "title": "曝甲醛白菜的博主渔猎齐哥再曝广东清远「硫磺竹笋」，当地发布通报称情况属实，哪些信息值得关注？",
+     "url": "https://www.zhihu.com/question/2084183379600204463",
+     "heat": 1540000,
+     "source": "zhihu"
+    },
+    {
+     "title": "为什么麦当劳在中国不如肯德基？",
+     "url": "https://www.zhihu.com/question/644485856",
+     "heat": 1500000,
+     "source": "zhihu"
+    },
+    {
+     "title": "印度央行强制塔塔控股公司上市，或成印度史上最大 IPO，为什么还有强制上市的情况？",
+     "url": "https://www.zhihu.com/question/2083879086175117961",
+     "heat": 1450000,
+     "source": "zhihu"
+    },
+    {
+     "title": "母鸡孵蛋的时候不会感到无聊吗？",
+     "url": "https://www.zhihu.com/question/312601657",
+     "heat": 1430000,
+     "source": "zhihu"
+    },
+    {
+     "title": "如何看待华为突破冯诺依曼「单机」架构？",
+     "url": "https://www.zhihu.com/question/2084200588892451205",
+     "heat": 1410000,
+     "source": "zhihu"
+    },
+    {
+     "title": "都说雄性激素会让毛囊萎缩导致脱发，那为什么同样激素水平，有的人秃顶，有的人却发量浓密？",
+     "url": "https://www.zhihu.com/question/2083906822814094755",
+     "heat": 1190000,
+     "source": "zhihu"
+    },
+    {
+     "title": "TES 拿下 LPL 三号种子席位挺进 S16，如何评价他们本次季后赛表现？",
+     "url": "https://www.zhihu.com/question/2084039837368193223",
+     "heat": 1180000,
+     "source": "zhihu"
+    }
+   ]
+  },
+  {
+   "source": "juejin",
+   "items": [
+    {
+     "title": "ValidX时间段验证详解：ISO 8601标准与简化格式",
+     "url": "https://juejin.cn/post/7684649314159312930",
+     "heat": 11290,
+     "source": "juejin"
+    },
+    {
+     "title": "被吹上天的 JWT，为什么主流网站一个都不用",
+     "url": "https://juejin.cn/post/7684261460002701338",
+     "heat": 4047,
+     "source": "juejin"
+    },
+    {
+     "title": "只备份一个 schema，别把整库都搬走",
+     "url": "https://juejin.cn/post/7685224902321848358",
+     "heat": 3856,
+     "source": "juejin"
+    },
+    {
+     "title": "ChatGPT 开启无限 token",
+     "url": "https://juejin.cn/post/7685770509585629190",
+     "heat": 1985,
+     "source": "juejin"
+    },
+    {
+     "title": "一份 KDMS 评估报告，怎样排出迁移先后顺序",
+     "url": "https://juejin.cn/post/7686361321610035246",
+     "heat": 1049,
+     "source": "juejin"
+    },
+    {
+     "title": "JDK27正式发布，人麻了!",
+     "url": "https://juejin.cn/post/7686174631263404073",
+     "heat": 1015,
+     "source": "juejin"
+    },
+    {
+     "title": "Kafka已正式接入AI",
+     "url": "https://juejin.cn/post/7684573646439317514",
+     "heat": 836,
+     "source": "juejin"
+    },
+    {
+     "title": "AI会让程序员失业吗？200年前的手工织工已经给出了答案",
+     "url": "https://juejin.cn/post/7685276242113019938",
+     "heat": 804,
+     "source": "juejin"
+    },
+    {
+     "title": "为什么越来越多人用OpenWiki？",
+     "url": "https://juejin.cn/post/7685591822258585626",
+     "heat": 644,
+     "source": "juejin"
+    },
+    {
+     "title": "“这需求用 AI 也就十分钟吧？”——周五深夜十一点，我在工位给 Cursor 擦屁股",
+     "url": "https://juejin.cn/post/7684460980934164495",
+     "heat": 474,
+     "source": "juejin"
+    },
+    {
+     "title": "GPT-6 Astra 的提示词泄露了，里面居然藏着个保安？",
+     "url": "https://juejin.cn/post/7685215742590517299",
+     "heat": 436,
+     "source": "juejin"
+    },
+    {
+     "title": "给若依加审批流，不用 Flowable",
+     "url": "https://juejin.cn/post/7685577977079185423",
+     "heat": 405,
+     "source": "juejin"
+    },
+    {
+     "title": "🎥 手搓一套直播高并发环境！一个后端小白从 0 到 1 的搭建笔记",
+     "url": "https://juejin.cn/post/7684154085232001059",
+     "heat": 321,
+     "source": "juejin"
+    },
+    {
+     "title": "2026 爆火的「本体」：给大模型装上业务世界观",
+     "url": "https://juejin.cn/post/7684080641566834703",
+     "heat": 304,
+     "source": "juejin"
+    },
+    {
+     "title": "还在用 Electron？6 种跨平台桌面方案横评：Rust + Vue 把安装包从 224MB 干到 4.7MB",
+     "url": "https://juejin.cn/post/7685261384724463658",
+     "heat": 264,
+     "source": "juejin"
+    }
+   ]
+  },
+  {
+   "source": "github_trending",
+   "items": [
+    {
+     "title": "cloudflare/security-audit-skill",
+     "url": "https://github.com/cloudflare/security-audit-skill",
+     "heat": 3607,
+     "source": "github_trending"
+    },
+    {
+     "title": "alibaba/open-code-review",
+     "url": "https://github.com/alibaba/open-code-review",
+     "heat": 3286,
+     "source": "github_trending"
+    },
+    {
+     "title": "Tencent/BrowserSkill",
+     "url": "https://github.com/Tencent/BrowserSkill",
+     "heat": 1302,
+     "source": "github_trending"
+    },
+    {
+     "title": "affaan-m/ECC",
+     "url": "https://github.com/affaan-m/ECC",
+     "heat": 1171,
+     "source": "github_trending"
+    },
+    {
+     "title": "Tencent/WeKnora",
+     "url": "https://github.com/Tencent/WeKnora",
+     "heat": 1125,
+     "source": "github_trending"
+    },
+    {
+     "title": "alphaXiv/OpenResearch",
+     "url": "https://github.com/alphaXiv/OpenResearch",
+     "heat": 939,
+     "source": "github_trending"
+    },
+    {
+     "title": "NationalSecurityAgency/ghidra",
+     "url": "https://github.com/NationalSecurityAgency/ghidra",
+     "heat": 912,
+     "source": "github_trending"
+    },
+    {
+     "title": "JustVugg/colibri",
+     "url": "https://github.com/JustVugg/colibri",
+     "heat": 873,
+     "source": "github_trending"
+    },
+    {
+     "title": "abue-ammar/tinycast",
+     "url": "https://github.com/abue-ammar/tinycast",
+     "heat": 739,
+     "source": "github_trending"
+    },
+    {
+     "title": "addyosmani/agent-skills",
+     "url": "https://github.com/addyosmani/agent-skills",
+     "heat": 680,
+     "source": "github_trending"
+    },
+    {
+     "title": "jamiepine/voicebox",
+     "url": "https://github.com/jamiepine/voicebox",
+     "heat": 667,
+     "source": "github_trending"
+    },
+    {
+     "title": "anthropics/claude-code",
+     "url": "https://github.com/anthropics/claude-code",
+     "heat": 538,
+     "source": "github_trending"
+    },
+    {
+     "title": "ever-co/ever-gauzy",
+     "url": "https://github.com/ever-co/ever-gauzy",
+     "heat": 470,
+     "source": "github_trending"
+    },
+    {
+     "title": "cline/cline",
+     "url": "https://github.com/cline/cline",
+     "heat": 380,
+     "source": "github_trending"
+    },
+    {
+     "title": "TencentCloud/Octop",
+     "url": "https://github.com/TencentCloud/Octop",
+     "heat": 367,
+     "source": "github_trending"
+    }
+   ]
+  },
+  {
+   "source": "hn",
+   "items": [
+    {
+     "title": "Show HN: An e-ink frame that hears birds and draws them as 1800s illustrations",
+     "url": "https://github.com/arnegiacomo/fugleramme",
+     "heat": 5329,
+     "source": "hn"
+    },
+    {
+     "title": "Ask HN: What are you working on? (September 2026)",
+     "url": "",
+     "heat": 4315,
+     "source": "hn"
+    },
+    {
+     "title": "Show HN: I made a flight simulator, except you're just a passenger",
+     "url": "https://inflightsimulator.com",
+     "heat": 1491,
+     "source": "hn"
+    },
+    {
+     "title": "Neovim have a ~$800k Bitcoin donation sitting untouched since 2023",
+     "url": "",
+     "heat": 1329,
+     "source": "hn"
+    },
+    {
+     "title": "Show HN: Share your AI Setup, Learn from others",
+     "url": "https://mysetup.ai/",
+     "heat": 775,
+     "source": "hn"
+    },
+    {
+     "title": "Show HN: Hacking a $20 4G wireless hotspot into a texting device",
+     "url": "https://bkovac.github.io/modem-thing/",
+     "heat": 516,
+     "source": "hn"
+    },
+    {
+     "title": "Ask HN: How to recover Google auth after phone stolen?",
+     "url": "",
+     "heat": 514,
+     "source": "hn"
+    },
+    {
+     "title": "Show HN: I built a new version of my fun spatial 3D online meeting app",
+     "url": "https://flat.social",
+     "heat": 344,
+     "source": "hn"
+    },
+    {
+     "title": "Show HN: How Stale Is Your AI? Release age and training cutoff for 20 models",
+     "url": "https://stale.jock.pl/",
+     "heat": 294,
+     "source": "hn"
+    },
+    {
+     "title": "Show HN: Snapdrop: Instantly share files between devices. No setup, no signup",
+     "url": "https://snapdrop.me",
+     "heat": 227,
+     "source": "hn"
+    },
+    {
+     "title": "Ask HN: Are 80s high school hobby programmers overwhelmingly pro-AI?",
+     "url": "",
+     "heat": 149,
+     "source": "hn"
+    },
+    {
+     "title": "Show HN: Aclif – Agent CLI framework: one grammar, canonical names across SaaS",
+     "url": "https://www.aclif.ai/",
+     "heat": 110,
+     "source": "hn"
+    },
+    {
+     "title": "Show HN: AttaLambda: a language where types and data are made of untyped lambdas",
+     "url": "https://attalambda.com",
+     "heat": 107,
+     "source": "hn"
+    },
+    {
+     "title": "Open-sourced jev architecture last year with model,paper and dataset",
+     "url": "",
+     "heat": 103,
+     "source": "hn"
+    },
+    {
+     "title": "Show HN: Craigslist for agent skills, curated by a human",
+     "url": "https://skillbay.sh/",
+     "heat": 94,
+     "source": "hn"
+    }
+   ]
+  },
+  {
+   "source": "github_search",
+   "items": [
+    {
+     "title": "browser-use/jev-ultrafast",
+     "url": "https://github.com/browser-use/jev-ultrafast",
+     "heat": 3032,
+     "source": "github_search"
+    },
+    {
+     "title": "tamaratran/fast-jev-compaction",
+     "url": "https://github.com/tamaratran/fast-jev-compaction",
+     "heat": 1351,
+     "source": "github_search"
+    },
+    {
+     "title": "TheoLeeCJ/openjev",
+     "url": "https://github.com/TheoLeeCJ/openjev",
+     "heat": 1008,
+     "source": "github_search"
+    },
+    {
+     "title": "vinnylarouge/jevlike",
+     "url": "https://github.com/vinnylarouge/jevlike",
+     "heat": 739,
+     "source": "github_search"
+    },
+    {
+     "title": "jarrodwatts/jev-trader",
+     "url": "https://github.com/jarrodwatts/jev-trader",
+     "heat": 611,
+     "source": "github_search"
+    },
+    {
+     "title": "ctdal/cve-2026-41940-PoC",
+     "url": "https://github.com/ctdal/cve-2026-41940-PoC",
+     "heat": 479,
+     "source": "github_search"
+    },
+    {
+     "title": "korcarc/text-humanizer",
+     "url": "https://github.com/korcarc/text-humanizer",
+     "heat": 465,
+     "source": "github_search"
+    },
+    {
+     "title": "yynxxxxx/gpt_sub_analysis",
+     "url": "https://github.com/yynxxxxx/gpt_sub_analysis",
+     "heat": 386,
+     "source": "github_search"
+    },
+    {
+     "title": "Mak5er/AirCard",
+     "url": "https://github.com/Mak5er/AirCard",
+     "heat": 302,
+     "source": "github_search"
+    },
+    {
+     "title": "Marcos66236/github-stars-history",
+     "url": "https://github.com/Marcos66236/github-stars-history",
+     "heat": 276,
+     "source": "github_search"
+    },
+    {
+     "title": "fhshaik/typesafe-mario",
+     "url": "https://github.com/fhshaik/typesafe-mario",
+     "heat": 237,
+     "source": "github_search"
+    },
+    {
+     "title": "thruwire/foreman",
+     "url": "https://github.com/thruwire/foreman",
+     "heat": 231,
+     "source": "github_search"
+    },
+    {
+     "title": "nMaas8388/github-ranking-audit",
+     "url": "https://github.com/nMaas8388/github-ranking-audit",
+     "heat": 193,
+     "source": "github_search"
+    },
+    {
+     "title": "devagrawal09/jev-review",
+     "url": "https://github.com/devagrawal09/jev-review",
+     "heat": 191,
+     "source": "github_search"
+    },
+    {
+     "title": "awlevin/typesafe-computer-use",
+     "url": "https://github.com/awlevin/typesafe-computer-use",
+     "heat": 177,
+     "source": "github_search"
+    }
+   ]
+  },
+  {
+   "source": "lobsters",
+   "items": [
+    {
+     "title": "A/I Shuts Down",
+     "url": "https://lobste.rs/s/wxnibb/i_shuts_down",
+     "heat": 648,
+     "source": "lobsters"
+    },
+    {
+     "title": "Everybody's Lost Their Minds",
+     "url": "https://lobste.rs/s/rok1za/everybody_s_lost_their_minds",
+     "heat": 381,
+     "source": "lobsters"
+    },
+    {
+     "title": "Introducing GNOME 51",
+     "url": "https://lobste.rs/s/gs10ad/introducing_gnome_51",
+     "heat": 260,
+     "source": "lobsters"
+    },
+    {
+     "title": "The end of verygoodsoftwarenotvirus.ru",
+     "url": "https://lobste.rs/s/ihw0hq/end_verygoodsoftwarenotvirus_ru",
+     "heat": 258,
+     "source": "lobsters"
+    },
+    {
+     "title": "I expected better from Google",
+     "url": "https://lobste.rs/s/11uiiv/i_expected_better_from_google",
+     "heat": 227,
+     "source": "lobsters"
+    },
+    {
+     "title": "I Don't Like LLMs",
+     "url": "https://lobste.rs/s/pkj7mf/i_don_t_like_llms",
+     "heat": 209,
+     "source": "lobsters"
+    },
+    {
+     "title": "How to get a DOI for your blog posts",
+     "url": "https://lobste.rs/s/lvld5b/how_get_doi_for_your_blog_posts",
+     "heat": 197,
+     "source": "lobsters"
+    },
+    {
+     "title": "Forgery of C2PA on a Pixel 10",
+     "url": "https://lobste.rs/s/tgrvxh/forgery_c2pa_on_pixel_10",
+     "heat": 165,
+     "source": "lobsters"
+    },
+    {
+     "title": "Why i'm still bearish on LLMs after Navier-Stokes",
+     "url": "https://lobste.rs/s/cianny/why_i_m_still_bearish_on_llms_after_navier",
+     "heat": 137,
+     "source": "lobsters"
+    },
+    {
+     "title": "Why .tar.gz files can't be combined with cat",
+     "url": "https://lobste.rs/s/lox1su/why_tar_gz_files_can_t_be_combined_with_cat",
+     "heat": 124,
+     "source": "lobsters"
+    },
+    {
+     "title": "The Golden Spike, and Resurrecting the Vale(n) Programming Language",
+     "url": "https://lobste.rs/s/fjnkn4/golden_spike_resurrecting_vale_n",
+     "heat": 120,
+     "source": "lobsters"
+    },
+    {
+     "title": "Be alert: targeted attacks on prominent Rustaceans",
+     "url": "https://lobste.rs/s/uz30ed/be_alert_targeted_attacks_on_prominent",
+     "heat": 115,
+     "source": "lobsters"
+    },
+    {
+     "title": "Unicode 18.0.0",
+     "url": "https://lobste.rs/s/sh6yeo/unicode_18_0_0",
+     "heat": 115,
+     "source": "lobsters"
+    },
+    {
+     "title": "Flock cameras are riddled with security vulnerabilities and hard-coded credentials",
+     "url": "https://lobste.rs/s/eyg3oe/flock_cameras_are_riddled_with_security",
+     "heat": 93,
+     "source": "lobsters"
+    },
+    {
+     "title": "Your Donations at Work: One Year of Sponsored Servo Development",
+     "url": "https://lobste.rs/s/oigetg/your_donations_at_work_one_year_sponsored",
+     "heat": 83,
+     "source": "lobsters"
+    }
+   ]
+  },
+  {
+   "source": "reddit",
+   "items": [
+    {
+     "title": "New rule banning a SaaS product category: No Promotional or Advertising SaaS",
+     "url": "https://www.reddit.com/r/SaaS/comments/1u0z4vz/new_rule_banning_a_saas_product_category_no/",
+     "heat": 873,
+     "source": "reddit"
+    },
+    {
+     "title": "First Monthly Subscription",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wi88io/first_monthly_subscription/",
+     "heat": 690,
+     "source": "reddit"
+    },
+    {
+     "title": "Anyone is interested in becoming a Mod  in r/SaaS?",
+     "url": "https://www.reddit.com/r/SaaS/comments/1v8d8d2/anyone_is_interested_in_becoming_a_mod_in_rsaas/",
+     "heat": 165,
+     "source": "reddit"
+    },
+    {
+     "title": "Keep hustling hard everybody 💪",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wivwbg/keep_hustling_hard_everybody/",
+     "heat": 153,
+     "source": "reddit"
+    },
+    {
+     "title": "What have you guys actually done to market your apps? The “dark side” of being a solo dev 😅",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wiwqpl/what_have_you_guys_actually_done_to_market_your/",
+     "heat": 111,
+     "source": "reddit"
+    },
+    {
+     "title": "Tally is doing $5M+ ARR with 11 people. I decoded their AEO strategy.",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wime93/tally_is_doing_5m_arr_with_11_people_i_decoded/",
+     "heat": 96,
+     "source": "reddit"
+    },
+    {
+     "title": "Burned hundreds on Reddit Ads",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wj8yif/burned_hundreds_on_reddit_ads/",
+     "heat": 72,
+     "source": "reddit"
+    },
+    {
+     "title": "300+ daily active users, but consistent paid conversions are still hard. What would you investigate first?",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wjg4ez/300_daily_active_users_but_consistent_paid/",
+     "heat": 36,
+     "source": "reddit"
+    },
+    {
+     "title": "120K+ Daily views on TikTok with a Phone Farm",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wja0h7/120k_daily_views_on_tiktok_with_a_phone_farm/",
+     "heat": 30,
+     "source": "reddit"
+    },
+    {
+     "title": "We built the product. Then we realized we might be solving the wrong problem.",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wji7oo/we_built_the_product_then_we_realized_we_might_be/",
+     "heat": 27,
+     "source": "reddit"
+    },
+    {
+     "title": "1 paying user 1 month later still 1!!",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wjeidv/1_paying_user_1_month_later_still_1/",
+     "heat": 24,
+     "source": "reddit"
+    },
+    {
+     "title": "Check out my SaaS and tell me what needs to improve",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wjhrrn/check_out_my_saas_and_tell_me_what_needs_to/",
+     "heat": 24,
+     "source": "reddit"
+    },
+    {
+     "title": "Google cut my site from 4,539 impressions a day to 328 in three days. Every SEO tool I ran the same week said the site was perfect.",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wjdw96/google_cut_my_site_from_4539_impressions_a_day_to/",
+     "heat": 21,
+     "source": "reddit"
+    },
+    {
+     "title": "This can't be real!",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wjbdy6/this_cant_be_real/",
+     "heat": 21,
+     "source": "reddit"
+    },
+    {
+     "title": "Agency owners: a paid AI pilot hit messy client data, then a 41-minute test. How would you structure the next one?",
+     "url": "https://www.reddit.com/r/SaaS/comments/1wj9f6v/agency_owners_a_paid_ai_pilot_hit_messy_client/",
+     "heat": 18,
+     "source": "reddit"
+    }
+   ]
+  },
+  {
+   "source": "producthunt",
+   "items": [
+    {
+     "title": "Notch Design",
+     "url": "https://www.producthunt.com/products/notch-design-2",
+     "heat": 125,
+     "source": "producthunt"
+    },
+    {
+     "title": "SmartCheck",
+     "url": "https://www.producthunt.com/products/smartcheck",
+     "heat": 120,
+     "source": "producthunt"
+    },
+    {
+     "title": "MiRemoteBridge",
+     "url": "https://www.producthunt.com/products/miremotebridge",
+     "heat": 115,
+     "source": "producthunt"
+    },
+    {
+     "title": "ProductBridge",
+     "url": "https://www.producthunt.com/products/productbridge",
+     "heat": 110,
+     "source": "producthunt"
+    },
+    {
+     "title": "Verity Score",
+     "url": "https://www.producthunt.com/products/verity-score-geo-ai-visibility",
+     "heat": 105,
+     "source": "producthunt"
+    },
+    {
+     "title": "Wingman",
+     "url": "https://www.producthunt.com/products/wingman-8",
+     "heat": 100,
+     "source": "producthunt"
+    },
+    {
+     "title": "AEXGrid",
+     "url": "https://www.producthunt.com/products/aexgrid",
+     "heat": 95,
+     "source": "producthunt"
+    },
+    {
+     "title": "Edgee Codex Compressor V2",
+     "url": "https://www.producthunt.com/products/edgee",
+     "heat": 90,
+     "source": "producthunt"
+    },
+    {
+     "title": "MeshEdit",
+     "url": "https://www.producthunt.com/products/meshedit",
+     "heat": 85,
+     "source": "producthunt"
+    },
+    {
+     "title": "Sutura",
+     "url": "https://www.producthunt.com/products/sutura",
+     "heat": 80,
+     "source": "producthunt"
+    },
+    {
+     "title": "M9R",
+     "url": "https://www.producthunt.com/products/m9r",
+     "heat": 75,
+     "source": "producthunt"
+    },
+    {
+     "title": "Unvendor",
+     "url": "https://www.producthunt.com/products/unvendor",
+     "heat": 70,
+     "source": "producthunt"
+    },
+    {
+     "title": "Wombo",
+     "url": "https://www.producthunt.com/products/wombo-the-ai-game-studio",
+     "heat": 65,
+     "source": "producthunt"
+    },
+    {
+     "title": "Forma-oss",
+     "url": "https://www.producthunt.com/products/forma-oss",
+     "heat": 60,
+     "source": "producthunt"
+    },
+    {
+     "title": "StillTalk",
+     "url": "https://www.producthunt.com/products/stilltalk",
+     "heat": 55,
+     "source": "producthunt"
+    }
+   ]
+  },
+  {
+   "source": "lesswrong",
+   "items": [
+    {
+     "title": "The Talker Does Not Control The Doer (in Current AIs)",
+     "url": "https://www.lesswrong.com/posts/cJX2ssssGoYqnijwi/the-talker-does-not-control-the-doer-in-current-ais",
+     "heat": 201,
+     "source": "lesswrong"
+    },
+    {
+     "title": "Some ways AI could kill us all",
+     "url": "https://www.lesswrong.com/posts/LAPa2jxoq3n63GzTr/some-ways-ai-could-kill-us-all",
+     "heat": 138,
+     "source": "lesswrong"
+    },
+    {
+     "title": "Is METR A Meaningful Check On Anthropic?",
+     "url": "https://www.lesswrong.com/posts/eeJB8x2pK8injCuBN/is-metr-a-meaningful-check-on-anthropic",
+     "heat": 132,
+     "source": "lesswrong"
+    },
+    {
+     "title": "For Love of the Lightcone, Don't Partisanize AI Safety",
+     "url": "https://www.lesswrong.com/posts/Rx38cuCpL9hguLCDq/for-love-of-the-lightcone-don-t-partisanize-ai-safety",
+     "heat": 120,
+     "source": "lesswrong"
+    },
+    {
+     "title": "Teleoperated Humans",
+     "url": "https://www.lesswrong.com/posts/mWQSiHG3Qz9qYx3D7/teleoperated-humans",
+     "heat": 90,
+     "source": "lesswrong"
+    },
+    {
+     "title": "There is a channel to 900M weekly users. What goes in it?",
+     "url": "https://www.lesswrong.com/posts/gJJ9YHzuBvwAXrthW/there-is-a-channel-to-900m-weekly-users-what-goes-in-it",
+     "heat": 84,
+     "source": "lesswrong"
+    },
+    {
+     "title": "Cooperation with AIs seems to be a low-hanging fruit for better eval practices",
+     "url": "https://www.lesswrong.com/posts/fztW73KCCs3MZXFJh/cooperation-with-ais-seems-to-be-a-low-hanging-fruit-for",
+     "heat": 81,
+     "source": "lesswrong"
+    },
+    {
+     "title": "Model Weight Exfiltration Seems Overrated",
+     "url": "https://www.lesswrong.com/posts/AuYh8WueNGwkQg4ei/model-weight-exfiltration-seems-overrated",
+     "heat": 63,
+     "source": "lesswrong"
+    },
+    {
+     "title": "If Anyone Builds It, Everyone Dies: One Year Closer",
+     "url": "https://www.lesswrong.com/posts/BFrRJYgpBvziuuJLs/if-anyone-builds-it-everyone-dies-one-year-closer",
+     "heat": 54,
+     "source": "lesswrong"
+    },
+    {
+     "title": "Consider how your global governance proposal is different from the EU Code of Practice",
+     "url": "https://www.lesswrong.com/posts/2vHsTtQF23TBNhvKX/consider-how-your-global-governance-proposal-is-different",
+     "heat": 39,
+     "source": "lesswrong"
+    },
+    {
+     "title": "Current alignment techniques might be ineffective (and actively bad) in the age of RL",
+     "url": "https://www.lesswrong.com/posts/nLaQmJf4KgXimQpoM/current-alignment-techniques-might-be-ineffective-and",
+     "heat": 24,
+     "source": "lesswrong"
+    },
+    {
+     "title": "I am refusing to work on Cloud TPUs",
+     "url": "https://www.lesswrong.com/posts/wM5vbT9evBhM3fP3x/i-am-refusing-to-work-on-cloud-tpus",
+     "heat": 21,
+     "source": "lesswrong"
+    },
+    {
+     "title": "Quick notes from teaching technical profiles how to talk in public",
+     "url": "https://www.lesswrong.com/posts/nKsyMfNsAuTrxmjmi/quick-notes-from-teaching-technical-profiles-how-to-talk-in",
+     "heat": 21,
+     "source": "lesswrong"
+    },
+    {
+     "title": "Op-Ed: I Worked at Google DeepMind. You Should Listen to the Warnings About AI",
+     "url": "https://www.lesswrong.com/posts/YGTWfyZb9oE5EQPu6/op-ed-i-worked-at-google-deepmind-you-should-listen-to-the",
+     "heat": 12,
+     "source": "lesswrong"
+    },
+    {
+     "title": "AI as orderly evacuation vs stampede",
+     "url": "https://www.lesswrong.com/posts/FCMG4qnxks3yEqBbh/ai-as-orderly-evacuation-vs-stampede",
+     "heat": 12,
+     "source": "lesswrong"
+    }
+   ]
+  },
+  {
+   "source": "bluesky",
+   "items": [
+    {
+     "title": "Pope Leo XIV gifted green orb",
+     "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/db2ec5600a03",
+     "heat": 125,
+     "source": "bluesky"
+    },
+    {
+     "title": "Trump threatens EU over Canada",
+     "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/113616dc081e",
+     "heat": 120,
+     "source": "bluesky"
+    },
+    {
+     "title": "Sheeran openers quit in solidarity",
+     "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/fd3df2e6ca68",
+     "heat": 115,
+     "source": "bluesky"
+    },
+    {
+     "title": "RFK Jr. addresses anti-vaccine conference",
+     "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/c8672ae66b0e",
+     "heat": 110,
+     "source": "bluesky"
+    },
+    {
+     "title": "Microsoft exec AI remarks in NYT suit",
+     "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/97dafc70ca6e",
+     "heat": 105,
+     "source": "bluesky"
+    },
+    {
+     "title": "Kennedy Center demolition case",
+     "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/21f579e58f3f",
+     "heat": 100,
+     "source": "bluesky"
+    },
+    {
+     "title": "Iran ties Hormuz reopening to Trump exit",
+     "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/218cbc278fef",
+     "heat": 95,
+     "source": "bluesky"
+    },
+    {
+     "title": "BBC opens Doctor Who tender",
+     "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/92eea4315020",
+     "heat": 90,
+     "source": "bluesky"
+    },
+    {
+     "title": "Russia's hybrid war on Europe",
+     "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/9b03def205dd",
+     "heat": 85,
+     "source": "bluesky"
+    },
+    {
+     "title": "BirdOfTheDay theme: owl, duck, goose",
+     "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/c23831e69961",
+     "heat": 80,
+     "source": "bluesky"
+    }
+   ]
+  },
+  {
+   "source": "stackoverflow",
+   "items": [
+    {
+     "title": "Laravel 5 Auto Generate Form Numbers / Identifiers",
+     "url": "https://stackoverflow.com/questions/33547735/laravel-5-auto-generate-form-numbers-identifiers",
+     "heat": 636,
+     "source": "stackoverflow"
+    },
+    {
+     "title": "Getting forbidden error on selenium chrome",
+     "url": "https://stackoverflow.com/questions/80003603/getting-forbidden-error-on-selenium-chrome",
+     "heat": 60,
+     "source": "stackoverflow"
+    }
+   ]
+  },
+  {
+   "source": "devto",
+   "items": [
+    {
+     "title": "Congrats to the DEV Weekend Challenge: Dog Days Edition Winners!",
+     "url": "https://dev.to/devteam/congrats-to-the-dev-weekend-challenge-dog-days-edition-winners-300g",
+     "heat": 30,
+     "source": "devto"
+    },
+    {
+     "title": "Deno 2.6's minimum dependency age flag ignores year and month durations",
+     "url": "https://dev.to/alexgeorgiev17/deno-26s-minimum-dependency-age-flag-ignores-year-and-month-durations-1ac5",
+     "heat": 18,
+     "source": "devto"
+    },
+    {
+     "title": "What If Your Coding Agent Could Remember What It Learned Yesterday?",
+     "url": "https://dev.to/nishikantaray/what-if-your-coding-agent-could-remember-what-it-learned-yesterday-2okj",
+     "heat": 12,
+     "source": "devto"
+    },
+    {
+     "title": "Git Bisect for Your Data",
+     "url": "https://dev.to/devopsdaily/git-bisect-for-your-data-12dd",
+     "heat": 6,
+     "source": "devto"
+    },
+    {
+     "title": "The Code I Couldn't Leave Alone",
+     "url": "https://dev.to/shubhradev/the-code-i-couldnt-leave-alone-33hf",
+     "heat": 6,
+     "source": "devto"
+    },
+    {
+     "title": "The Bottleneck Moved From Writing Code to Proving It",
+     "url": "https://dev.to/debashish_ghosal/the-bottleneck-moved-from-writing-code-to-proving-it-5bpm",
+     "heat": 6,
+     "source": "devto"
+    },
+    {
+     "title": "Serving Gemma 4 on an AMD MI300X: What $1.99 an Hour Buys",
+     "url": "https://dev.to/gde/serving-gemma-4-on-an-amd-mi300x-what-199-an-hour-buys-52h9",
+     "heat": 3,
+     "source": "devto"
+    },
+    {
+     "title": "Debug Log #3: I Had Claude Code Backtest a Trading Strategy for a Week, and It Found Three Bugs In Its Own Simulation",
+     "url": "https://dev.to/just_a_side_project/debug-log-3-i-had-claude-code-backtest-a-trading-strategy-for-a-week-and-it-found-three-bugs-in-5g50",
+     "heat": 3,
+     "source": "devto"
+    },
+    {
+     "title": "Stop Debouncing Resize. The Browser Already Watches It.",
+     "url": "https://dev.to/parsajiravand/stop-debouncing-resize-the-browser-already-watches-it-1eh6",
+     "heat": 3,
+     "source": "devto"
+    },
+    {
+     "title": "Frameworks Are Institutional Memory",
+     "url": "https://dev.to/kenwalger/frameworks-are-institutional-memory-b3l",
+     "heat": 0,
+     "source": "devto"
+    },
+    {
+     "title": "The clipboard bridge that had to wait for the device",
+     "url": "https://dev.to/joduchan/the-clipboard-bridge-that-had-to-wait-for-the-device-31jb",
+     "heat": 0,
+     "source": "devto"
+    },
+    {
+     "title": "Architecting Battery-Efficient Geofencing for Automated Sound Profiles",
+     "url": "https://dev.to/haseebthedev0/architecting-battery-efficient-geofencing-for-automated-sound-profiles-4f33",
+     "heat": 0,
+     "source": "devto"
+    },
+    {
+     "title": "How I built an AI Coding Mentor (KODA) entirely on a $150 Android phone 📱🐯",
+     "url": "https://dev.to/koda2026/how-i-built-an-ai-coding-mentor-koda-entirely-on-a-150-android-phone-2c89",
+     "heat": 0,
+     "source": "devto"
+    },
+    {
+     "title": "A failed compaction wiped my AI session, so I built it infinite memory",
+     "url": "https://dev.to/geco_50/a-failed-compaction-wiped-my-ai-session-so-i-built-it-infinite-memory-18ie",
+     "heat": 0,
+     "source": "devto"
+    },
+    {
+     "title": "My Benchmark Judged Five Models Against a Threshold Built for Three",
+     "url": "https://dev.to/ofri-peretz/my-benchmark-judged-five-models-against-a-threshold-built-for-three-a0l",
+     "heat": 0,
+     "source": "devto"
+    }
+   ]
+  },
+  {
+   "source": "indeed",
+   "items": [
+    {
+     "title": "Live Nation 招聘：automation（Remote）",
+     "url": "https://www.indeed.com/viewjob?jk=5d7289ce78c6ab65",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "BAE Systems Inc. 招聘：automation（Remote in Charlotte, NC）",
+     "url": "https://www.indeed.com/viewjob?jk=058eb67ab8018673",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "Johns Hopkins University 招聘：automation（Hybrid work in Baltimore, MD 21218）",
+     "url": "https://www.indeed.com/viewjob?jk=fcb56cc3453612c1",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "Applied Materials 招聘：automation（Santa Clara, CA 95054）",
+     "url": "https://www.indeed.com/viewjob?jk=a55d326dab47efc9",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "Honeywell Aerospace 招聘：automation（United States）",
+     "url": "https://www.indeed.com/viewjob?jk=e0b07dcee6705b52",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "INGRAM PROFESSIONAL SERVICES INC 招聘：automation（Midland, TX 79706）",
+     "url": "https://www.indeed.com/viewjob?jk=8ef2ab0eeb9cc79e",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "Aperia Technologies, Inc 招聘：automation（San Mateo, CA）",
+     "url": "https://www.indeed.com/viewjob?jk=e9da704742d2ca4a",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "State of Ohio - Auditor Of State 招聘：automation（Hybrid work in Ohio）",
+     "url": "https://www.indeed.com/viewjob?jk=b557f97940833b20",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "American Airlines 招聘：automation（Fort Worth, TX）",
+     "url": "https://www.indeed.com/viewjob?jk=dec970b7093a48e2",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "Cardless 招聘：automation（San Francisco, CA）",
+     "url": "https://www.indeed.com/viewjob?jk=74a802fe8c56a9f6",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "Agilent Technologies, Inc. 招聘：automation（North Kingstown, RI 02852）",
+     "url": "https://www.indeed.com/viewjob?jk=f02d89dcca6ec972",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "Siemens 招聘：automation（Hybrid work in Jacksonville, FL）",
+     "url": "https://www.indeed.com/viewjob?jk=f25a9e85b6eeae8c",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "American Airlines 招聘：automation（Dallas/Fort Worth International Airport, TX）",
+     "url": "https://www.indeed.com/viewjob?jk=efb560a4495bc159",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "American Airlines 招聘：automation（Dallas/Fort Worth International Airport, TX）",
+     "url": "https://www.indeed.com/viewjob?jk=890abcdef0123456",
+     "heat": 0,
+     "source": "indeed"
+    },
+    {
+     "title": "BCD Travel 招聘：automation（United States）",
+     "url": "https://www.indeed.com/viewjob?jk=b635c628574774ec",
+     "heat": 0,
+     "source": "indeed"
+    }
+   ]
+  }
+ ],
+ "topics": [
+  {
+   "topic": "phone",
+   "platforms": [
+    "devto",
+    "hn",
+    "reddit"
+   ],
+   "n_platforms": 3,
+   "heat": 545
+  },
+  {
+   "topic": "age",
+   "platforms": [
+    "devto",
+    "hn",
+    "lesswrong"
+   ],
+   "n_platforms": 3,
+   "heat": 336
+  },
+  {
+   "topic": "怎样",
+   "platforms": [
+    "juejin",
+    "zhihu"
+   ],
+   "n_platforms": 2,
+   "heat": 6661049
+  },
+  {
+   "topic": "saas",
+   "platforms": [
+    "hn",
+    "reddit"
+   ],
+   "n_platforms": 2,
+   "heat": 1172
+  },
+  {
+   "topic": "device",
+   "platforms": [
+    "devto",
+    "hn"
+   ],
+   "n_platforms": 2,
+   "heat": 517
+  },
+  {
+   "topic": "files",
+   "platforms": [
+    "hn",
+    "lobsters"
+   ],
+   "n_platforms": 2,
+   "heat": 351
+  },
+  {
+   "topic": "language",
+   "platforms": [
+    "hn",
+    "lobsters"
+   ],
+   "n_platforms": 2,
+   "heat": 227
+  },
+  {
+   "topic": "agent",
+   "platforms": [
+    "devto",
+    "hn"
+   ],
+   "n_platforms": 2,
+   "heat": 216
+  },
+  {
+   "topic": "check",
+   "platforms": [
+    "lesswrong",
+    "reddit"
+   ],
+   "n_platforms": 2,
+   "heat": 156
+  },
+  {
+   "topic": "users",
+   "platforms": [
+    "lesswrong",
+    "reddit"
+   ],
+   "n_platforms": 2,
+   "heat": 120
+  },
+  {
+   "topic": "strategy",
+   "platforms": [
+    "devto",
+    "reddit"
+   ],
+   "n_platforms": 2,
+   "heat": 99
+  },
+  {
+   "topic": "hybrid",
+   "platforms": [
+    "bluesky",
+    "indeed"
+   ],
+   "n_platforms": 2,
+   "heat": 88
+  }
+ ],
+ "health": [
+  {
+   "source": "github_trending",
+   "count": 20,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "source": "github_search",
+   "count": 50,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "source": "opencli:hn:show",
+   "count": 25,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "source": "opencli:hn:ask",
+   "count": 15,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "source": "opencli:producthunt",
+   "count": 16,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "source": "opencli:lobsters:hot",
+   "count": 25,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "source": "opencli:devto:top",
+   "count": 25,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "source": "opencli:lesswrong",
+   "count": 20,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "source": "opencli:juejin:hot",
+   "count": 20,
+   "ok": true,
+   "note": "免登录弱等效（中文技术热榜）"
+  },
+  {
+   "source": "opencli:bluesky:trending",
+   "count": 10,
+   "ok": true,
+   "note": "免登录弱等效（仅热门话题，不可按关键词搜；内容偏新闻，价值低）"
+  },
+  {
+   "source": "opencli:stackoverflow#automation",
+   "count": 2,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "source": "opencli:stackoverflow#api",
+   "count": 0,
+   "ok": false,
+   "note": "返回空结果"
+  },
+  {
+   "source": "opencli:reddit:SaaS",
+   "count": 25,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "source": "opencli:zhihu",
+   "count": 20,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "source": "opencli:indeed[automation]",
+   "count": 15,
+   "ok": true,
+   "note": ""
+  }
+ ]
+}

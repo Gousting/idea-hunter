@@ -37,7 +37,7 @@ CAPABILITIES = {
     },
     "付费需求（有人出钱做事）": {
         "primary": ["upwork", "indeed"],
-        "equivalent": ["github_bounties", "reddit:forhire"],
+        "equivalent": ["github_bounty", "reddit:forhire"],
         # 等价源名必须与 _logical() 的产出完全一致，否则明明采到了却算缺口（实测踩过）
         "note": "主源都要登录态且 upwork 100% 失败；等效源免登录且金额可核（赏金写在 issue 里）",
     },
@@ -45,15 +45,21 @@ CAPABILITIES = {
         "primary": ["reddit", "twitter"],
         "equivalent": [],
         "weak": ["bluesky:trending"],
-        "note": "reddit 有官方 RSS 免登录通道；twitter 需登录 → bluesky 仅弱等效（无关键词搜帖）",
+        # 实测（2026-09-18）：bluesky trending 返回的是新闻/社会话题
+        # （教皇、政客、歌手），**并不能替代 Twitter 的创始人原话**。
+        # 所以这条能力实际仍是降级状态，bluesky 只是"不至于完全空白"，
+        # 不能当"已覆盖"读——如实写明，避免用弱等效冒充覆盖。
+        "note": "reddit 有官方 RSS；twitter 需登录。bluesky 仅弱等效且实测内容是新闻榜"
+                "（不能替代创始人原话），本条能力实际仍降级",
     },
     "中文需求信号": {
         "primary": ["xiaohongshu"],
         "equivalent": ["juejin:hot"],
-        # zhihu 单列：它能"采到数据"但实测是新闻榜，对软件选品零价值——
-        # 覆盖 ≠ 有价值，所以它不算真覆盖（否则会掩盖"中文需求其实是空的"）。
-        "weak": ["zhihu"],
-        "note": "xhs 需登录且常超时；zhihu 采得到但零价值（新闻榜）；juejin 免登录但偏技术（弱等效）",
+        # zhihu **不列入任何覆盖项**：它能采到数据，但实测是新闻榜、对选品零价值。
+        # 覆盖 ≠ 有价值——把它写进"弱等效"会让矩阵显示"已覆盖"，
+        # 从而掩盖"中文需求其实是空的"这一事实。只在 note 里说明。
+        "note": "xhs 需登录且常超时；juejin 免登录但偏技术（弱等效）；"
+                "zhihu 主动排除（新闻榜零价值，见 EXCLUDED_BY_DESIGN）",
     },
     "新发布产品（竞品情报）": {
         "primary": ["producthunt"],
@@ -66,7 +72,7 @@ CAPABILITIES = {
 COMPLIANCE = {
     "github_trending": ("官方公开页面", "低"),
     "github_search": ("官方 API（未认证，有速率限制）", "低"),
-    "github_bounties": ("官方 API 搜索（label:bounty）", "低"),
+    "github_bounty": ("官方 API 搜索（label:bounty，付费证据/非独立发现）", "低"),
     "hn": ("Algolia 公开搜索 API / 官方页面", "低"),
     "lobsters": ("公开页面 / 公开 API", "低"),
     "devto": ("公开 API", "低"),
@@ -85,8 +91,15 @@ COMPLIANCE = {
 
 # 已知不可用 / 需人工恢复的源：默认跳过（跳过≠失败，否则失败率被永久污染）
 SKIP_DEFAULT = {
-    "upwork": "适配器侧故障（多次 exitCode 1，与站点改版有关）→ 已由 github_bounties + r/forhire 覆盖",
+    "upwork": "适配器侧故障（多次 exitCode 1，与站点改版有关）→ 已由 github_bounty + r/forhire 覆盖",
     "twitter": "需在 Chrome 登录 X 后可用 → 登录即恢复，当前由 bluesky:trending 弱覆盖",
+}
+
+# 主动排除的源（不是故障、也不是遗漏，是判定零价值后刻意不接进热点通道）。
+# 必须在验收里与"假覆盖"区分开：一个是决策，一个是 bug。
+EXCLUDED_BY_DESIGN = {
+    "zhihu": "实测热榜是新闻/社会话题榜（体育、娱乐、股票），对软件选品零价值，"
+             "已在 hunter/paths.HOT_MIN 主动排除（见该处注释）",
 }
 
 # 逻辑源名归一（health 里的 source 带查询前缀，如 opencli:indeed[automation]）
@@ -102,7 +115,7 @@ def base_of(src):
     if s.startswith("github_count") or s.startswith("github_mature"):
         return "github_count"
     if s.startswith("github_bount"):
-        return "github_bounties"
+        return "github_bounty"
     if s.startswith("bluesky"):
         return "bluesky"
     if s.startswith("juejin"):
@@ -117,8 +130,8 @@ def _logical(src):
     low = (src or "").lower()
     if b == "reddit" and "forhire" in low:
         return "reddit:forhire"
-    if b == "github_search" and "bount" in low:
-        return "github_bounties"
+    if "bount" in low:
+        return "github_bounty"
     if "bluesky" in low:
         return "bluesky:trending"
     if "juejin" in low:

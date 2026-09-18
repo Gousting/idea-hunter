@@ -130,9 +130,17 @@ def _juejin():
     from hunter import opencli as _oc
     d, m = _oc.run(["juejin", "hot", "--limit", "20"], timeout=120)
     rows = _oc._rows(d)
-    return [_oc._norm("browser", r, "juejin:hot") for r in rows], \
-        {"source": "opencli:juejin:hot", "count": len(rows), "ok": m["ok"],
-         "note": "免登录弱等效（中文技术热榜，非消费社区）"}
+    out = []
+    for r in rows:
+        rec = _oc._norm("juejin", r, "juejin:hot")
+        # 掘金的原生热度是浏览/点赞/评论，_norm 只捕到 views；补成综合热度，
+        # 否则同样会因热度不足被热点通道丢掉（与 bluesky 同一类坑）。
+        h = rec.get("heat") or {}
+        h["score"] = int(h.get("views") or 0) + int(h.get("votes") or 0) * 3
+        rec["heat"] = h
+        out.append(rec)
+    return out, {"source": "opencli:juejin:hot", "count": len(rows), "ok": m["ok"],
+                 "note": "免登录弱等效（中文技术热榜，非消费社区）"}
 
 
 def collect_window(w, args, health):

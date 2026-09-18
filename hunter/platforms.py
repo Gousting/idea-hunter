@@ -68,7 +68,17 @@ ZH_STOP = set("""什么 怎么 如何 为何 为什么 怎么样 可以 我们 �
 如果 这样 那样 一直 一下 时候 事情 问题 感觉 觉得 真的 好像 然后 其实 可能
 应该 需要 比较 非常 特别 只是 不过 很多 有些 全部 所有 以及 关于 对于 通过
 看待 何看 如何看 何看待 是什么 有哪些 怎么样 是什么 意味着 引发 热议 回应 宣布
+时间 发布 会让 关注 正式 不用 一直 一部 部分 这次 此次 目前 已经 表示 认为 指出
+值得关注 值得 得关注 值得关 得关 如何 什么 哪些 为啥 怎样 怎么 是不是 有没有
 """.split())
+
+
+def _is_stop_ngram(g):
+    """片段是否属于停用词：滑窗会把「为什么」切出「为什」「什么」，
+    逐个补词永远补不完，所以用"是某个停用词的子串就丢"这条规则统一处理。"""
+    if g in ZH_STOP:
+        return True
+    return any(len(w) > len(g) and g in w for w in ZH_STOP)
 
 
 def _zh_ngrams(text):
@@ -80,7 +90,7 @@ def _zh_ngrams(text):
         for n in (2, 3):
             for i in range(len(seg) - n + 1):
                 g = seg[i:i + n]
-                if g not in ZH_STOP:
+                if not _is_stop_ngram(g):
                     out.append(g)
     return out
 
@@ -119,6 +129,13 @@ def heat_of(source, r):
         return int(r.get("star_velocity") or r.get("stars_window") or r.get("stars_total") or 0)
     if source in ("twitter", "xiaohongshu"):
         return int(score) * 2 + com * 3
+    if source == "juejin":
+        # 掘金原生热度=浏览+点赞×3（_norm 已折算进 heat.score）
+        return int(h.get("score") or 0)
+    if source == "bluesky":
+        # 只有 rank，没有票数 → 排名代理（与 Product Hunt 同处理，标注在报告口径里）
+        rank = int(h.get("rank") or 0)
+        return max(1, 26 - rank) * 5 if rank else int(h.get("score") or 0)
     if source == "indeed":
         return 0  # 招聘帖没有讨论热度，它属于需求证据轨道
     if source == "browser":
@@ -152,11 +169,18 @@ def platform_terms(platform_hot, top_k=6):
     """
     out = {}
     for src, items in platform_hot:
-        cnt = {}
+        cnt_zh, cnt_en = {}, {}
         for r in items:
             text = f"{r.get('title') or ''} {r.get('topic_text') or ''}"
-            for t in set(_en_tokens(text)) | set(_zh_ngrams(text)):
-                cnt[t] = cnt.get(t, 0) + 1
+            for t in set(_en_tokens(text)):
+                cnt_en[t] = cnt_en.get(t, 0) + 1
+            for t in set(_zh_ngrams(text)):
+                cnt_zh[t] = cnt_zh.get(t, 0) + 1
+        # 中文没有分词库，n-gram 必然切出碎片（"间段验" 来自「时间段验证」）。
+        # 只能靠"出现 ≥2 次才算主题"把单次碎片滤掉 —— 这是务实收敛，
+        # 不是解决（真要解决得上分词器），局限写进报告口径。
+        cnt_zh = {k: v for k, v in cnt_zh.items() if v >= 2}
+        cnt = {**cnt_en, **cnt_zh}
         out[src] = sorted(cnt.items(), key=lambda kv: -kv[1])[:top_k]
     return out
 

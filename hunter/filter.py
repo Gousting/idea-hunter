@@ -67,6 +67,15 @@ HIRING_PAT = re.compile(
     r"|qualifications|full[- ]?time|part[- ]?time|salary|per hour|apply now"
     r"|requirements| hiring |岗位|招聘|薪资)", re.I)
 
+# 赏金 issue（github_bounty）：标签本身就是"有人出钱"的证据，不需要匹配痛点构式。
+# 但必须确认正文里真有钱的痕迹，防止 label 被滥用；否则退回通用门槛。
+BOUNTY_PAT = re.compile(
+    r"\$\s?[\d,]+|\b(bounty|reward|prize|paid|payment|usd)\b|\b\d+\s?(usd|usdc)\b", re.I)
+
+# r/forhire 的招聘约定标记（实测：[Hiring] 开头是主要形态，不含付费构式，
+# 走通用门槛会被全部丢掉 —— 25/25 全 drop，等效源形同虚设）
+FORHIRE_PAT = re.compile(r"\[hiring\]|\[for hire\]|looking (for|to hire)|\bhire\b", re.I)
+
 
 def is_collection(text, repo, topics=None):
     blob = f"{text} {repo} {' '.join(topics or [])}"
@@ -100,7 +109,8 @@ from .paths import HOT_MIN, infer as _path_of, LABEL as PATH_LABEL  # noqa: E402
 REPO_SOURCES = ("github_trending", "github_search")
 TEXT_SOURCES = ("hn", "github_issue", "browser", "reddit", "producthunt", "upwork",
                 "stackoverflow", "lobsters", "devto", "lesswrong", "indeed",
-                "twitter", "zhihu", "xiaohongshu")
+                "twitter", "zhihu", "xiaohongshu", "juejin", "bluesky",
+                "github_bounty")
 
 
 def _age_days(created):
@@ -211,6 +221,7 @@ SOURCE_WEIGHT = {
     "lobsters": 1.8,
     "devto": 1.8,
     "lesswrong": 1.6,
+    "juejin": 1.5, "bluesky": 1.3,   # 弱等效源：低于主源权重，如实反映质量
     "reddit": 2.6,
     "browser": 2.4,
     "producthunt": 2.2,
@@ -297,6 +308,35 @@ def rule_filter(records, cfg):
                     kept.append(r)
                     continue
                 dropped.append({**r, "drop_stage": "L1", "drop_reason": "非招聘正文"})
+                continue
+            if r["source"] == "github_bounty":
+                # 赏金 issue = 有人公开挂钱求人做这件事（Upwork 的免登录等效源）。
+                # 门槛只要求"正文里真有钱的痕迹"，不要求痛点构式——issue 正文是
+                # 需求描述，不是抱怨。实测：若不做这条专属通道，40 条赏金会因
+                # 走仓库通道（无星标）全部被丢，等效源等于没接。
+                if BOUNTY_PAT.search(f"{r.get('title', '')} {text[:400]}"):
+                    r["pain_hits"] = ["bounty（有人挂钱求人做 = 最直接的付费证据）"]
+                    r["wtp_hits"] = r["strong_wtp_hits"] = []
+                    r["record_type"] = "bounty"
+                    r["prefilter_score"] = _prefilter_score(r)
+                    kept.append(r)
+                    continue
+                dropped.append({**r, "drop_stage": "L1", "drop_reason": "赏金正文无金额痕迹"})
+                continue
+            # 注意：reddit_rss 的记录把版块放在 subreddit 字段（不是 site），
+            # 只查 site 会永远匹配不到 → 门槛写了也等于没写。
+            if r["source"] == "reddit" and "forhire" in (
+                    (r.get("subreddit") or "") + " " + (r.get("site") or "")):
+                # r/forhire：有人出钱找人做事（官方 RSS 免登录）。约定用 [Hiring] 标记，
+                # 正文是任务描述，不含付费构式 —— 走通用门槛实测 25/25 全丢。
+                if FORHIRE_PAT.search(f"{r.get('title', '')} {text[:200]}"):
+                    r["pain_hits"] = ["forhire（出钱找人做事）"]
+                    r["wtp_hits"] = r["strong_wtp_hits"] = []
+                    r["record_type"] = "hiring"
+                    r["prefilter_score"] = _prefilter_score(r)
+                    kept.append(r)
+                    continue
+                dropped.append({**r, "drop_stage": "L1", "drop_reason": "非招聘帖（forhire）"})
                 continue
             r["pain_hits"] = pain_hits(text)
             r["wtp_hits"] = wtp_hits(text)

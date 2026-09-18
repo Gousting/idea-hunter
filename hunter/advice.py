@@ -129,7 +129,7 @@ def verdict_of(row):
                  f"存量 {market} 个，已有多家在解"],
                 "先扒 3-5 个现有产品的差评与退款理由，找未被满足的细分场景")
     if ev >= 3 and market is not None and market < 300 and (wtp > 0 or hiring > 0):
-        pay = "已出现付费信号" if wtp > 0 else f"{hiring} 条招聘证据（企业已在为这类活付钱）"
+        pay = "已出现付费信号" if wtp > 0 else f"{hiring} 条出钱证据（招聘/赏金：有人已在为这类活付费）"
         return ("★ 建议优先验证", 4,
                 [f"{ev} 条证据 · {div} 个平台",
                  f"存量仅 {market} 个（稀疏）",

@@ -446,8 +446,13 @@ def github_bounties(label="bounty", per_page=40, min_amount_note=True):
     为什么它能替代 Upwork：赏金 issue 是"有人出钱请人做这件事"的直接证据，
     且 money 就写在标题/正文里（实测有 $3000 这类明确金额），不需要任何登录态、
     不依赖第三方平台的商业 API（Upwork 通道 100% 失败、Reddit 2026-05 开始封未认证访问）。
-    口径披露：标签由我选（label:bounty），所以它不是"平台热榜"意义上的独立发现，
-    在 paths.py 里按 platform 处理但报告会标注"标签筛选"。
+
+    两个必须踩对的口径（都实测踩过）：
+      · source 必须独立成 "github_bounty"，**不能复用 "github_search"**——
+        后者属于 REPO_SOURCES，会走仓库通道，而 issue 没有星标 → 全部被
+        "星标低于门槛"丢掉（实测 5/5 全丢，等效源形同虚设）。
+      · 标签由我选（label:bounty），所以它不是"平台热榜"意义上的独立发现，
+        path 记为 keyword：它提供的是**付费证据**，不是共振证据。
     """
     q = f"label:{label} state:open"
     url = ("https://api.github.com/search/issues?q=" + urllib.parse.quote(q)
@@ -464,18 +469,19 @@ def github_bounties(label="bounty", per_page=40, min_amount_note=True):
         body = " ".join((it.get("body") or "").split())[:600]
         repo = (it.get("repository_url") or "").replace("https://api.github.com/repos/", "")
         out.append({
-            "source": "github_search", "source_id": f"github_bounty:{it.get('id')}",
+            "source": "github_bounty", "source_id": f"github_bounty:{it.get('id')}",
             "repo": repo, "url": it.get("html_url", ""),
             "title": title,
             "text": f"{title}. {body}"[:2000],
             "topic_text": f"{title} {body[:200]}"[:600],
-            "site": f"github:bounty:{label}", "path": "platform",
+            "site": f"github:bounty:{label}", "path": "keyword",
             "heat": {"score": int(it.get("comments") or 0) * 5, "comments": int(it.get("comments") or 0)},
             "stars_total": 0, "created_at": (it.get("created_at") or "")[:10],
             "collected_at": int(time.time()),
         })
     return out, {"source": f"opencli:github_bounties[{label}]", "count": len(out),
-                 "ok": len(out) > 0, "note": f"开放赏金 {len(out)} 条（免登录）"}
+                 "ok": len(out) > 0,
+                 "note": f"开放赏金 {len(out)} 条（免登录，付费证据/非独立发现）"}
 
 
 def bluesky_trending(limit=20):
@@ -492,16 +498,23 @@ def bluesky_trending(limit=20):
     except Exception as e:
         return [], {"source": "opencli:bluesky:trending", "count": 0, "ok": False,
                     "note": str(e)[:100]}
-    # 注意字段名是 topic/link/rank（不是 title/url）——按 _norm 的候选键取会拿到空标题
+    # 注意两处坑（实测）：
+    # ① 字段名是 topic/link/rank（不是 title/url），按 _norm 的候选键取会拿到空标题；
+    # ② 必须给一个**显式热度**——该接口只有 rank，没有点数/票数，
+    #    而下游热点通道要靠热度阈值放行，heat=0 会导致「采到了但一条都进不去」
+    #    （等效源声称覆盖但实际零贡献，这是最隐蔽的一种假覆盖）。
+    #    所以把 rank 转成代理热度（与 Product Hunt 同一处理），并在报告口径里标注。
     out = []
     for r in rows:
         topic = r.get("topic") or ""
         if not topic:
             continue
-        out.append(_norm_generic("browser", {
+        rank = int(r.get("rank") or 0)
+        out.append(_norm_generic("bluesky", {
             "title": topic, "url": ("https://bsky.app" + r["link"]) if r.get("link") else "",
-            "id": r.get("link") or topic[:40], "rank": r.get("rank")}, "bluesky:trending",
-            path="platform"))
+            "id": r.get("link") or topic[:40], "rank": rank,
+            "score": max(1, 26 - rank) * 5 if rank else 0},
+            "bluesky:trending", path="platform"))
     return out, {"source": "opencli:bluesky:trending", "count": len(out),
                  "ok": len(out) > 0,
                  "note": "免登录弱等效（仅热门话题，不可按关键词搜；内容偏新闻，价值低）"}

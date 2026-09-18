@@ -29,7 +29,10 @@ KEYWORD_SOURCES = {"indeed", "twitter", "xiaohongshu", "upwork"}
 # 对软件选品零价值，放进来只会用噪音稀释信号——这是主动排除，不是遗漏。
 HOT_MIN = {"hn": 40, "reddit": 60, "lobsters": 30, "devto": 15,
            "lesswrong": 60, "stackoverflow": 60,
-           "producthunt": 95, "browser": 20}
+           "producthunt": 95, "browser": 20,
+           # 两个免登录弱等效源：热度是代理值（juejin=浏览+点赞×3、
+           # bluesky=排名代理），门槛按代理值量纲定，别照搬点数阈值
+           "juejin": 60, "bluesky": 30}
 
 LABEL = {PLATFORM: "原生榜", KEYWORD: "关键词检索", DEEP: "评论深读"}
 

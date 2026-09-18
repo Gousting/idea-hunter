@@ -6,14 +6,14 @@ data/*.sqlite3
 # out/ 只保留最新示例产出，其余本地留存
 out/*
 !out/agent_annotations.json
-!out/directions_20260918-1440.md
-!out/directions_20260918-1440.json
-!out/dashboard_20260918-1440.html
+!out/directions_20260918-1555.md
+!out/directions_20260918-1555.json
+!out/dashboard_20260918-1555.html
 !out/report_20260917-1034.md
 !out/candidates_20260917-1034.json
-!out/platforms_20260918-1041.md
-!out/platforms_20260918-1041.json
-!out/analysis_20260918-1048.md
+!out/platforms_20260918-1544.md
+!out/platforms_20260918-1544.json
+!out/analysis_20260918-1458.md
 !out/platform_analysis.json
 !out/validation_kits.json
 !out/resilience.json

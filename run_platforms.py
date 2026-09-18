@@ -54,6 +54,10 @@ def collect_hot(limit=6, health=None):
     add("opencli:lobsters", lambda: _raw_norm("lobsters", ["lobsters", "hot", "--limit", "25"], "hot"))
     add("opencli:devto", lambda: _raw_norm("devto", ["devto", "top", "--limit", "25"], "top"))
     add("opencli:lesswrong", lambda: oc.lesswrong_top(20))
+    # 两个免登录弱等效热榜（P0-3 接入）：掘金=中文技术热榜，
+    # bluesky=社交热门话题（实测偏新闻，如实标注"弱等效"）
+    add("opencli:juejin:hot", lambda: _juejin_hot())
+    add("opencli:bluesky:trending", lambda: sources.bluesky_trending(20))
     for t in SO_TAGS:
         add(f"opencli:stackoverflow#{t}",
             lambda tt=t: oc.stackoverflow_tag(tt, 20))
@@ -63,6 +67,21 @@ def collect_hot(limit=6, health=None):
     add("opencli:zhihu", lambda: oc.zhihu_hot(20))
     add("opencli:indeed", lambda: oc.indeed_search("automation"))
     return raw
+
+
+def _juejin_hot():
+    """掘金热榜：原生热度=浏览+点赞×3，需自行折算进 heat.score（否则热度为 0）。"""
+    d, m = oc.run(["juejin", "hot", "--limit", "25"], timeout=120)
+    rows = oc._rows(d)
+    out = []
+    for r in rows:
+        rec = oc._norm("juejin", r, "juejin:hot")
+        h = rec.get("heat") or {}
+        h["score"] = int(h.get("views") or 0) + int(h.get("votes") or 0) * 3
+        rec["heat"] = h
+        out.append(rec)
+    return out, {"source": "opencli:juejin:hot", "count": len(rows), "ok": m["ok"],
+                 "note": "免登录弱等效（中文技术热榜）"}
 
 
 def _raw_norm(src, argv, site):
