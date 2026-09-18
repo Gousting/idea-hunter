@@ -480,7 +480,8 @@ def render_advice(rows):
     return L
 
 
-def render_window(window_label, rows, total_dirs, raw_count, path_stats=None):
+def render_window(window_label, rows, total_dirs, raw_count, path_stats=None,
+                  native_fail=None):
     L = [f"### {window_label} Top {len(rows)} 方向", "",
          f"（本窗口采集 {raw_count} 条，归类出 {total_dirs} 个候选方向）", ""]
     if path_stats:
@@ -489,6 +490,14 @@ def render_window(window_label, rows, total_dirs, raw_count, path_stats=None):
         L += [f"**原生榜贡献率 {rate:.0%}**（原生 {n_nat} / 关键词 {n_kw}｜目标 ≥40%：{flag}）"
               "　—— 原生榜=排序由平台决定（真独立发现）；关键词检索=排序由我的查询决定"
               "（同一查询的回声，不计入共振）。", ""]
+        # 诚实前提：这个比率会被"上游原生源挂掉"直接压低，看起来像方法学退化。
+        # 所以必须把原生侧失败数并排写出来（实测：GitHub 搜索被限流时，
+        # 本月原生率从 55% 掉到 19%，纯属上游故障而非口径问题）。
+        if native_fail:
+            L += [f"⚠ **注意**：本窗口有 {len(native_fail)} 个原生源采集失败"
+                  f"（{'、'.join(native_fail[:6])}{'…' if len(native_fail) > 6 else ''}）——"
+                  "原生率会被上游故障直接压低，读数时必须结合失败情况判断，"
+                  "不能当作口径退化。", ""]
     if not rows:
         L.append("_本窗口没有出现可归类的方向，说明信号不足或门槛过严。_")
         return "\n".join(L)

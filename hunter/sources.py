@@ -78,30 +78,111 @@ def _get_proxied(url, timeout=25, retries=2, backoff=60):
 
 
 
-def _get(url, headers=None, retries=3, timeout=25):
-    """带退避的 GET。GitHub 未认证时 60/h 极易打满，必须能被识别出来。"""
+# ---------------------------------------------------------------- GitHub 查询缓存
+# 为什么必须落盘（P0-3 实测教训）：GitHub 搜索 API 未认证限流约 **10 次/分钟**，
+# 而一轮三窗口要发 ~35 次查询（拥挤度×方向 + 成型数 + 案例 + 仓库搜索 + 赏金），
+# 实测 7d/30d 的仓库搜索直接被打成"请求失败"——**整个"开源供给"能力因此单点失效**，
+# 连带把原生榜贡献率从 55% 拖到 19%（看起来像方法学退化，其实是上游限流）。
+# 对策一：按 URL 落盘缓存，跨窗口/跨轮次复用（进程内 crowd_cache 出了进程就没了）。
+# 对策二：限流时若有过期旧值，**用旧值而不是留空**（宁可陈旧也不能凭空缺数据），
+#         并在返回值里带 stale 标记，让上层能如实报告"这条是旧数据"。
+_CACHE_FILE = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "out", ".gh_cache.json")
+_CACHE_TTL = 6 * 3600          # 新鲜期 6 小时（同一天内重跑直接复用）
+_CACHE_STALE_MAX = 7 * 86400   # 限流兜底：最多接受 7 天前的旧值
+_cache = None
+
+
+def _cache_load():
+    global _cache
+    if _cache is None:
+        try:
+            with open(_CACHE_FILE, encoding="utf-8") as f:
+                _cache = json.load(f)
+        except Exception:
+            _cache = {}
+    return _cache
+
+
+def _cache_save():
+    try:
+        os.makedirs(os.path.dirname(_CACHE_FILE), exist_ok=True)
+        with open(_CACHE_FILE, "w", encoding="utf-8") as f:
+            json.dump(_cache, f, ensure_ascii=False)
+    except Exception:
+        pass
+
+
+def cache_stats():
+    """缓存规模与新鲜度 —— 报告里如实展示"有多少答案来自缓存"。"""
+    c = _cache_load()
+    now = time.time()
+    fresh = sum(1 for v in c.values() if now - v.get("t", 0) <= _CACHE_TTL)
+    return {"entries": len(c), "fresh": fresh, "stale": len(c) - fresh,
+            "file": _CACHE_FILE}
+
+
+def _get(url, headers=None, retries=3, timeout=25, use_cache=True):
+    """带退避 + 磁盘缓存的 GET（GitHub API）。
+
+    返回 (body, headers)。body 为空字符串表示彻底失败（上层负责识别）。
+    """
     hdrs = {"User-Agent": UA, "Accept": "application/vnd.github+json"}
     if TOKEN:
         hdrs["Authorization"] = f"Bearer {TOKEN}"
     if headers:
         hdrs.update(headers)
+
+    now = time.time()
+    if use_cache:
+        hit = _cache_load().get(url)
+        if hit and now - hit.get("t", 0) <= _CACHE_TTL:
+            return hit.get("body", ""), dict(hit.get("h") or {}, _cached="fresh")
+
     last = None
     for i in range(retries):
         try:
             req = urllib.request.Request(url, headers=hdrs)
             with urllib.request.urlopen(req, timeout=timeout) as r:
-                return r.read().decode("utf-8", "replace"), dict(r.headers)
+                body = r.read().decode("utf-8", "replace")
+                if use_cache and body:
+                    _cache_load()[url] = {"t": time.time(), "body": body,
+                                          "h": dict(r.headers)}
+                    _cache_save()
+                return body, dict(r.headers)
         except urllib.error.HTTPError as e:
             body = e.read().decode("utf-8", "replace")[:300]
-            last = f"HTTP {e.code} {body}"
-            # 403/429 是限流，退避重试；其他直接抛
+            last = f"HTTP {e.code} {body[:120]}"
             if e.code in (403, 429):
-                time.sleep(2 ** i)
-                continue
-            raise RuntimeError(last)
+                # 限流：先按 Retry-After / X-RateLimit-Reset 等，但不等超过 20s
+                # （一轮里还有几十个查询要跑，把整轮拖死更糟）。多试几次不成，
+                # 就走下面的"旧值兜底"。
+                wait = 2 ** i * 5
+                try:
+                    ra = e.headers.get("Retry-After")
+                    if ra:
+                        wait = min(int(float(ra)), 20)
+                    else:
+                        rst = float(e.headers.get("X-RateLimit-Reset") or 0)
+                        if rst:
+                            wait = min(max(rst - time.time(), 1), 20)
+                except Exception:
+                    pass
+                if i < retries - 1:
+                    time.sleep(wait)
+                    continue
+            else:
+                raise RuntimeError(last)
         except Exception as e:  # 网络类错误
             last = f"{type(e).__name__}: {e}"
             time.sleep(1.5 ** i)
+
+    # 兜底：限流/网络失败但有旧值 → 用旧值（标记 stale），不静默留空
+    if use_cache:
+        hit = _cache_load().get(url)
+        if hit and now - hit.get("t", 0) <= _CACHE_STALE_MAX:
+            age_h = (now - hit["t"]) / 3600
+            return hit.get("body", ""), {"X-IdeaHunter-Stale": f"{age_h:.1f}h"}
     raise RuntimeError(f"请求失败 {url} :: {last}")
 
 
@@ -359,6 +440,84 @@ def reddit_rss(subs=None, sort="", window="", spacing=22):
                  "note": (note or f"{len(subs)} 个子版块")}
 
 
+def github_bounties(label="bounty", per_page=40, min_amount_note=True):
+    """GitHub 赏金 Issue —— **Upwork 的免登录等效源**。
+
+    为什么它能替代 Upwork：赏金 issue 是"有人出钱请人做这件事"的直接证据，
+    且 money 就写在标题/正文里（实测有 $3000 这类明确金额），不需要任何登录态、
+    不依赖第三方平台的商业 API（Upwork 通道 100% 失败、Reddit 2026-05 开始封未认证访问）。
+    口径披露：标签由我选（label:bounty），所以它不是"平台热榜"意义上的独立发现，
+    在 paths.py 里按 platform 处理但报告会标注"标签筛选"。
+    """
+    q = f"label:{label} state:open"
+    url = ("https://api.github.com/search/issues?q=" + urllib.parse.quote(q)
+           + f"&sort=created&order=desc&per_page={per_page}")
+    try:
+        raw, _ = _get(url)
+        items = (json.loads(raw).get("items") or [])[:per_page]
+    except Exception as e:
+        return [], {"source": f"opencli:github_bounties[{label}]", "count": 0,
+                    "ok": False, "note": str(e)[:100]}
+    out = []
+    for it in items:
+        title = (it.get("title") or "")[:180]
+        body = " ".join((it.get("body") or "").split())[:600]
+        repo = (it.get("repository_url") or "").replace("https://api.github.com/repos/", "")
+        out.append({
+            "source": "github_search", "source_id": f"github_bounty:{it.get('id')}",
+            "repo": repo, "url": it.get("html_url", ""),
+            "title": title,
+            "text": f"{title}. {body}"[:2000],
+            "topic_text": f"{title} {body[:200]}"[:600],
+            "site": f"github:bounty:{label}", "path": "platform",
+            "heat": {"score": int(it.get("comments") or 0) * 5, "comments": int(it.get("comments") or 0)},
+            "stars_total": 0, "created_at": (it.get("created_at") or "")[:10],
+            "collected_at": int(time.time()),
+        })
+    return out, {"source": f"opencli:github_bounties[{label}]", "count": len(out),
+                 "ok": len(out) > 0, "note": f"开放赏金 {len(out)} 条（免登录）"}
+
+
+def bluesky_trending(limit=20):
+    """Bluesky 热门话题（public，免登录）—— Twitter 认证失败时的**弱等效**。
+
+    诚实定位：它只提供"热门话题"，**不能按关键词搜帖**（该适配器 search 只搜用户）。
+    所以它能对冲"完全没信号"，但覆盖不了"创始人原话"这块。
+    """
+    import subprocess
+    try:
+        from hunter import opencli as _oc
+        d, m = _run_bluesky(limit)
+        rows = _oc._rows(d)
+    except Exception as e:
+        return [], {"source": "opencli:bluesky:trending", "count": 0, "ok": False,
+                    "note": str(e)[:100]}
+    # 注意字段名是 topic/link/rank（不是 title/url）——按 _norm 的候选键取会拿到空标题
+    out = []
+    for r in rows:
+        topic = r.get("topic") or ""
+        if not topic:
+            continue
+        out.append(_norm_generic("browser", {
+            "title": topic, "url": ("https://bsky.app" + r["link"]) if r.get("link") else "",
+            "id": r.get("link") or topic[:40], "rank": r.get("rank")}, "bluesky:trending",
+            path="platform"))
+    return out, {"source": "opencli:bluesky:trending", "count": len(out),
+                 "ok": len(out) > 0,
+                 "note": "免登录弱等效（仅热门话题，不可按关键词搜；内容偏新闻，价值低）"}
+
+
+def _norm_generic(src, d, site="", path="platform"):
+    """轻量归一化（给字段名特殊的站点用）。"""
+    from hunter import opencli as _oc
+    return _oc._norm(src, d, site, path=path)
+
+
+def _run_bluesky(limit=20):
+    from hunter import opencli as _oc
+    return _oc.run(["bluesky", "trending", "--limit", str(limit)])
+
+
 def github_count(keywords, min_stars=50):
     """查某关键词组合下 GitHub 的存量项目数 —— 拥挤度的供给侧指标。
 
@@ -370,8 +529,11 @@ def github_count(keywords, min_stars=50):
     url = ("https://api.github.com/search/repositories?q="
            + urllib.parse.quote(q) + "&per_page=1")
     try:
-        raw, _ = _get(url)
-        return int(json.loads(raw).get("total_count", 0)), ""
+        raw, hdr = _get(url)
+        note = ""
+        if hdr.get("X-IdeaHunter-Stale"):
+            note = f"（限流兜底：用了 {hdr['X-IdeaHunter-Stale']} 前的旧值）"
+        return int(json.loads(raw).get("total_count", 0)), note
     except Exception as e:
         return None, str(e)[:100]
 
@@ -386,8 +548,11 @@ def github_mature_count(keywords, min_stars=1000):
     url = ("https://api.github.com/search/repositories?q="
            + urllib.parse.quote(q) + "&per_page=1")
     try:
-        raw, _ = _get(url)
-        return int(json.loads(raw).get("total_count", 0)), ""
+        raw, hdr = _get(url)
+        note = ""
+        if hdr.get("X-IdeaHunter-Stale"):
+            note = f"（限流兜底：用了 {hdr['X-IdeaHunter-Stale']} 前的旧值）"
+        return int(json.loads(raw).get("total_count", 0)), note
     except Exception as e:
         return None, str(e)[:100]
 

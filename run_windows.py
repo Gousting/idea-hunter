@@ -24,7 +24,7 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from hunter import (sources, filter as flt, directions as dr, opencli as oc, llm,  # noqa: E402
-                    advice, paths, validate as vd)
+                    advice, paths, validate as vd, resilience as rz)
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, "out")
@@ -78,6 +78,63 @@ TW_QUERIES = ['"is there a tool" lang:en -filter:replies']   # X 原生操作符
 XHS_QUERIES = ["效率工具", "自动化办公"]     # 小红书搜索词
 
 
+def _native_fails(health):
+    """本批采集里失败的原生榜源（用于并排展示原生率，避免误读为口径退化）。"""
+    NATIVE_KEYS = ("github_trending", "github_search", "lobsters", "devto",
+                   "lesswrong", "stackoverflow", "producthunt", "reddit")
+    out, seen = [], set()
+    for h in health:
+        if h.get("ok") or h.get("skipped"):
+            continue
+        src = h.get("source", "")
+        if any(k in src for k in NATIVE_KEYS):
+            b = src.split("[")[0]
+            if b not in seen:
+                seen.add(b)
+                out.append(b)
+    return out
+
+
+def _forhire():
+    """r/forhire：有人出钱找人做事（RSS 官方端点，免登录）—— Upwork 的等效源。
+
+    注意 health 的 source 被改写成 reddit:forhire：reddit_rss 返回的名字就是
+    "reddit"，不改写会和主 reddit 列表混成一个键，能力表认不出这条等效源。
+    """
+    # 重试 2 次：实测首次可能因代理侧 SSL EOF 失败（UNEXPECTED_EOF_WHILE_READING），
+    # 重试即通。等效源存在的意义就是"顶上去"，不能因为一次握手失败就当它不可用。
+    last = None
+    for i in range(3):
+        try:
+            rs, h = sources.reddit_rss(["forhire"], spacing=0)
+            if rs:
+                h = dict(h)
+                h["source"] = "reddit:forhire"
+                if i:
+                    h["note"] = f"{h.get('note', '')}（第 {i+1} 次重试成功）"[:90]
+                return rs, h
+            last = h
+        except Exception as e:
+            last = {"source": "reddit:forhire", "count": 0, "ok": False,
+                    "note": f"{type(e).__name__}: {str(e)[:70]}"}
+        time.sleep(3)
+    h = dict(last or {})
+    h["source"] = "reddit:forhire"
+    h.setdefault("count", 0)
+    h["ok"] = False
+    return [], h
+
+
+def _juejin():
+    """掘金热榜（免登录）—— 中文需求的弱等效（偏技术，非消费社区）。"""
+    from hunter import opencli as _oc
+    d, m = _oc.run(["juejin", "hot", "--limit", "20"], timeout=120)
+    rows = _oc._rows(d)
+    return [_oc._norm("browser", r, "juejin:hot") for r in rows], \
+        {"source": "opencli:juejin:hot", "count": len(rows), "ok": m["ok"],
+         "note": "免登录弱等效（中文技术热榜，非消费社区）"}
+
+
 def collect_window(w, args, health):
     raw = []
     # GitHub Trending
@@ -128,10 +185,27 @@ def collect_window(w, args, health):
                                              sort=OC_SORT[w["label"]],
                                              time_filter=OC_TIME[w["label"]])))
         if w["label"] in ("今日", "本周") and not args.no_upwork:
-            # Upwork 是"近期发布的活"，只对短窗口有意义
-            for q in UPWORK_QUERIES:
-                oc_sources.append((f"upwork:{q[:16]}",
-                                   lambda qq=q: oc.upwork_search(qq, 30)))
+            if args.enable_dead:
+                # Upwork 是"近期发布的活"，只对短窗口有意义
+                for q in UPWORK_QUERIES:
+                    oc_sources.append((f"upwork:{q[:16]}",
+                                       lambda qq=q: oc.upwork_search(qq, 30)))
+            else:
+                # 已知不可用（适配器侧故障）→ 跳过，不计失败。
+                # 付费需求能力由 github_bounties + r/forhire 覆盖（见 resilience）。
+                for q in UPWORK_QUERIES:
+                    health.append({"source": f"opencli:upwork[{q[:16]}]", "count": 0,
+                                   "ok": False, "skipped": True,
+                                   "note": rz.SKIP_DEFAULT["upwork"][:70]})
+        # ---- 免登录等效源（P0-3 依赖对冲）----
+        if w["label"] in ("今日", "本周"):
+            # 付费需求：GitHub 开放赏金（金额写在 issue 里）+ r/forhire（官方 RSS）
+            oc_sources.append(("github_bounties", lambda: sources.github_bounties(per_page=40)))
+            oc_sources.append(("reddit:forhire", lambda: _forhire()))
+        if w["label"] == "今日":
+            # 中文弱等效 + 创始人弱等效（都免登录，价值有限但保证不空白）
+            oc_sources.append(("juejin:hot", lambda: _juejin()))
+            oc_sources.append(("bluesky:trending", lambda: sources.bluesky_trending(20)))
         if w["label"] == "今日":
             oc_sources += [("producthunt:today", lambda: oc.producthunt_today()),
                            ("hn:show", lambda: oc.hackernews("show", 25)),
@@ -161,9 +235,15 @@ def collect_window(w, args, health):
             for q in INDEED_QUERIES:
                 oc_sources.append((f"indeed:{q[:16]}",
                                    lambda qq=q: oc.indeed_search(qq)))
-            for q in TW_QUERIES:
-                oc_sources.append((f"twitter:{q[:20]}",
-                                   lambda qq=q: oc.twitter_search(qq)))
+            if args.enable_dead:
+                for q in TW_QUERIES:
+                    oc_sources.append((f"twitter:{q[:20]}",
+                                       lambda qq=q: oc.twitter_search(qq)))
+            else:
+                for q in TW_QUERIES:
+                    health.append({"source": f"opencli:twitter[{q[:20]}]", "count": 0,
+                                   "ok": False, "skipped": True,
+                                   "note": rz.SKIP_DEFAULT["twitter"][:70]})
             for q in XHS_QUERIES:
                 oc_sources.append((f"xhs:{q[:12]}",
                                    lambda qq=q: oc.xhs_search(qq, 15)))
@@ -185,6 +265,9 @@ def main():
     ap.add_argument("--no-reddit", action="store_true")
     ap.add_argument("--opencli", action="store_true",
                     help="启用 OpenCLI 通道（复用已登录 Chrome；需 Chrome 打开）")
+    ap.add_argument("--enable-dead", action="store_true",
+                    help="强制尝试已知不可用的源（upwork/twitter）；默认跳过，"
+                         "跳过不计入失败率（否则真实退化会被永久失败掩盖）")
     ap.add_argument("--no-upwork", action="store_true",
                     help="跳过 Upwork（需在 Chrome 里登录过 upwork.com）")
     ap.add_argument("--llm", action="store_true",
@@ -239,6 +322,8 @@ def main():
             src = cands[-1]
         with open(src, encoding="utf-8") as f:
             blob = json.load(f)
+        # 先恢复 health：循环内要用它算"原生源失败数"（放循环后会拿到空列表）
+        health = blob.get("health", [])
         print(f"从缓存重聚合：{src}")
         for k, v in blob.get("windows", {}).items():
             if k not in keys:
@@ -258,10 +343,10 @@ def main():
             dr.attach_real_cases(rows, sources.github_mature, cache=crowd_cache)
             results[k] = {"label": v.get("label", k), "raw": v.get("raw", len(kept)),
                           "kept": len(kept), "stat": stat, "rows": rows,
-                          "records": kept, "path_stats": paths.counts(kept)}
+                          "records": kept, "path_stats": paths.counts(kept),
+                          "native_fail": _native_fails(health)}
             print(f"  [{v.get('label', k)}] {len(kept)} 条 → {len(rows)} 个方向"
                   f"（拥挤度已补 {done} 个）")
-        health = blob.get("health", [])
     else:
         for k in keys:
             w = WINDOWS[k]
@@ -291,7 +376,8 @@ def main():
             dr.attach_real_cases(rows, sources.github_mature, cache=crowd_cache)
             results[k] = {"label": w["label"], "raw": len(uniq), "kept": len(kept),
                           "stat": stat, "rows": rows, "records": kept,
-                          "path_stats": paths.counts(kept)}
+                          "path_stats": paths.counts(kept),
+                          "native_fail": _native_fails(health)}
             cache[k] = {"label": w["label"], "raw": len(uniq), "kept": kept}
             print(f"  {len(uniq)} 条 → 规则层 {len(kept)} 条 → {len(stat)} 个候选方向 "
                   f"→ 输出 {len(rows)} 个（拥挤度已补 {done} 个）")
@@ -318,7 +404,16 @@ def main():
     rows_by_window = {v["label"]: v["rows"] for v in results.values()}
     kit_md, kits = vd.build_kits(rows_by_window)
     vstats = vd.stats()
+    rz_res = rz.assess(health)
+    rz_summary = rz.summary_md(rz_res)
     vqueue = vd.pending_queue(rows_by_window)
+    with open(os.path.join(OUT, "resilience.json"), "w", encoding="utf-8") as f:
+        json.dump({"rows": rz_res["rows"], "gap_rate": rz_res["gap_rate"],
+                   "fail_rate": rz_res["fail_rate"], "skipped": rz_res["skipped"],
+                   "degraded": rz_res["degraded"], "lost": rz_res["lost"],
+                   "n_capabilities": rz_res["n_capabilities"],
+                   "compliance": rz.COMPLIANCE},
+                  f, ensure_ascii=False, indent=1)
     with open(os.path.join(OUT, "validation_kits.json"), "w", encoding="utf-8") as f:
         json.dump({"kits": kits, "stats": vstats, "queue": vqueue},
                   f, ensure_ascii=False, default=str)
@@ -327,7 +422,7 @@ def main():
     rp = os.path.join(OUT, f"directions_{ts}.md")
     with open(rp, "w", encoding="utf-8") as f:
         f.write(render(results, health, args, classify_mode,
-                       kit_md=kit_md, vstats=vstats))
+                       kit_md=kit_md, vstats=vstats, rz_summary=rz_summary))
     jp = os.path.join(OUT, f"directions_{ts}.json")
     with open(jp, "w", encoding="utf-8") as f:
         json.dump({"generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -347,7 +442,8 @@ def main():
     return 0
 
 
-def render(results, health, args, classify_mode="关键词签名", kit_md=None, vstats=None):
+def render(results, health, args, classify_mode="关键词签名", kit_md=None,
+           vstats=None, rz_summary=None):
     L = ["# 值得看的方向 Top10 · 按时效性分层", "",
          f"生成时间：{time.strftime('%Y-%m-%d %H:%M')}", "",
          "**判定口径**：把散点候选聚合成「方向」后按证据强度排序。",
@@ -356,6 +452,8 @@ def render(results, health, args, classify_mode="关键词签名", kit_md=None, 
             if "llm" in classify_mode else
             "关键词模式下签名宽度不等（AI 方向最宽），跨方向证据数不可直接比热度。"), "",
          "证据数 = 该方向在本时间窗内的独立候选条数（同一候选只计入一个方向，避免重复计数）。", "",
+         f"（GitHub 查询缓存：{sources.cache_stats()['entries']} 条已缓存 / "
+         f"{sources.cache_stats()['fresh']} 条新鲜——限流时过期旧值会被兜底使用并标记）", "",
          "**两条证据通道**：需求证据（过痛点/付费构式门槛）与平台热点证据"
          "（原生榜+热度达标，不走门槛）。**共振只统计原生榜**——"
          "关键词检索命中是同一个查询在多个平台的回声，不等于独立发现。", "",
@@ -377,7 +475,8 @@ def render(results, health, args, classify_mode="关键词签名", kit_md=None, 
     for k, v in results.items():
         L += [f"## {v['label']}", "",
               dr.render_window(v["label"], v["rows"], len(v["stat"]), v["raw"],
-                               path_stats=v.get("path_stats")),
+                               path_stats=v.get("path_stats"),
+                               native_fail=v.get("native_fail")),
               "", dr.platform_view(v.get("records", [])),
               "", "---", ""]
 
@@ -414,6 +513,8 @@ def render(results, health, args, classify_mode="关键词签名", kit_md=None, 
         L += ["_本轮没有方向同时满足「高热度 + 低拥挤」。"
               "头部方向都偏拥挤（红海），需要差异化切入，或等下个窗口复现后再看。_"]
 
+    if rz_summary:
+        L += ["", *rz_summary]
     L += ["", "## 验证闭环（P0-2）", ""]
     if vstats:
         ok = "✅ 达标" if vstats["north_star"] >= vstats["target"] else "❌ 未达标"
@@ -430,8 +531,8 @@ def render(results, health, args, classify_mode="关键词签名", kit_md=None, 
         L += ["### 验证包（可直接执行：去哪问 / 问什么 / 怎么判定 / 可复制脚本）", ""] + kit_md
     L += ["## 信源健康", "", "| 信源 | 条数 | 状态 | 备注 |", "|---|---:|---|---|"]
     for h in health:
-        L.append(f"| {h['source']} | {h.get('count', 0)} | "
-                 f"{'✅' if h.get('ok') else '❌'} | {h.get('note', '')} |")
+        st = "⏭ 跳过" if h.get("skipped") else ("✅" if h.get("ok") else "❌")
+        L.append(f"| {h['source']} | {h.get('count', 0)} | {st} | {h.get('note', '')} |")
     return "\n".join(L) + "\n"
 
 

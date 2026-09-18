@@ -51,6 +51,15 @@ def load_analysis():
         return json.load(f)
 
 
+def load_resilience():
+    """源健康与依赖对冲数据（P0-3）。没有就返回 None。"""
+    p = os.path.join(OUT, "resilience.json")
+    if not os.path.isfile(p):
+        return None
+    with open(p, encoding="utf-8") as f:
+        return json.load(f)
+
+
 def load_validation():
     """验证闭环数据（P0-2）：验证包 + 北极星 + 待验证队列。"""
     p = os.path.join(OUT, "validation_kits.json")
@@ -184,6 +193,7 @@ HTML = """<!DOCTYPE html>
 <h1>idea-hunter · 方向看板</h1>
 <div class="meta">生成时间：__GENERATED__　·　方向判定：__MODE__　·　
 数据口径：证据数=窗口内独立候选条数；拥挤度=GitHub 同方向存量（红海≥1000/拥挤≥300/中等≥80/稀疏&lt;80）</div>
+<div id="resilience"></div>
 <div id="validation"></div>
 <div id="analysis"></div>
 <div class="tabs" id="tabs"></div>
@@ -193,7 +203,8 @@ HTML = """<!DOCTYPE html>
 </div>
 <script>window.__PLATFORMS__ = __PLATFORMS_JSON__;
 window.__ANALYSIS__ = __ANALYSIS_JSON__;
-window.__VALIDATION__ = __VALIDATION_JSON__;</script>
+window.__VALIDATION__ = __VALIDATION_JSON__;
+window.__RESILIENCE__ = __RESILIENCE_JSON__;</script>
 <script>
 const DATA = __DATA__;
 const CROWD_COLOR = __CROWDCOLOR__;
@@ -337,6 +348,42 @@ DATA.windows.forEach((w,i)=>{
   });
 });
 show(0);
+
+// ---------- 源健康与依赖对冲（P0-3）----------
+const RS = window.__RESILIENCE__;
+if (RS && RS.rows) {
+  const C = {covered:'#5cb85c', degraded:'#f0ad4e', lost:'#d9534f'};
+  const LB = {covered:'✅ 正常', degraded:'⚠️ 降级（仅等效源）', lost:'❌ 缺口'};
+  const okGap = RS.gap_rate < 0.20, okFail = RS.fail_rate < 0.10;
+  document.getElementById('resilience').innerHTML = `
+    <div class="panel">
+      <h3>源健康与依赖对冲　
+        <span class="tag" style="background:${okGap?'#5cb85c':'#d9534f'}">能力缺口 ${(RS.gap_rate*100).toFixed(0)}%／目标 &lt;20%</span>
+        <span class="tag" style="background:${okFail?'#5cb85c':'#d9534f'};margin-left:4px">硬失败率 ${(RS.fail_rate*100).toFixed(0)}%／目标 &lt;10%</span></h3>
+      <div class="hint">口径：按<b>能力</b>而非按源统计——一个源失败不等于能力缺失；
+        唯一提供某能力的源挂了才是缺口。已知不可用的源（upwork / twitter）
+        <b>跳过而不计入失败</b>，否则失败率被永久污染、真实退化被掩盖。所以
+        「失败率低」必须与「跳过 ${Object.keys(RS.skipped||{}).length} 个」一起读。</div>
+      <table><tr><th>能力</th><th>状态</th><th>主源可用</th><th>主源失败</th><th>等效源撑着</th><th>已知跳过</th></tr>
+      ${RS.rows.map(r=>`<tr>
+        <td><b>${r.capability}</b></td>
+        <td><span class="tag" style="background:${C[r.state]}">${LB[r.state]}</span></td>
+        <td>${(r.primary_ok||[]).join('、')||'—'}</td>
+        <td>${(r.primary_failed||[]).join('、')||'—'}</td>
+        <td>${(r.equivalent_ok||[]).join('、')||'—'}</td>
+        <td>${(r.skipped||[]).join('、')||'—'}</td></tr>`).join('')}
+      </table>
+    </div>
+    <div class="panel"><h3>采集机制与合规登记</h3>
+      <div class="hint">登录态自动化 = 中-高风险（可能违反站点自动化条款 + 账号风险）。
+        GummySearch 是在盈利状态（$35K MRR / 1 万付费用户）下被 Reddit API 政策逼停的——
+        「业务健康」保护不了「依赖单一平台」这一结构性风险。</div>
+      <table><tr><th>源</th><th>采集机制</th><th>合规风险</th></tr>
+      ${Object.entries(RS.compliance||{}).map(([k,v])=>`<tr><td>${k}</td><td>${v[0]}</td>
+        <td><span class="tag" style="background:${v[1].includes('高')?'#d9534f':(v[1].includes('中')?'#f0ad4e':'#5cb85c')}">${v[1]}</span></td></tr>`).join('')}
+      </table>
+    </div>`;
+}
 
 // ---------- 验证闭环（P0-2）：北极星 + 可执行验证包 ----------
 const V = window.__VALIDATION__;
@@ -514,7 +561,8 @@ def main():
             .replace("__GENERATED__", data["generated_at"])
             .replace("__PLATFORMS_JSON__", json.dumps(load_platforms(), ensure_ascii=False))
             .replace("__ANALYSIS_JSON__", json.dumps(load_analysis(), ensure_ascii=False))
-            .replace("__VALIDATION_JSON__", json.dumps(load_validation(), ensure_ascii=False)))
+            .replace("__VALIDATION_JSON__", json.dumps(load_validation(), ensure_ascii=False))
+            .replace("__RESILIENCE_JSON__", json.dumps(load_resilience(), ensure_ascii=False)))
     ts = time.strftime("%Y%m%d-%H%M")
     out = os.path.join(OUT, f"dashboard_{ts}.html")
     with open(out, "w", encoding="utf-8") as f:
