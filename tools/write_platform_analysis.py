@@ -1,0 +1,202 @@
+# -*- coding: utf-8 -*-
+"""热榜条目的付费潜力分析（agent 判断层，由 Claude 直读热榜后写入）。
+
+为什么不用热度排序代替分析：今天的样本里**热度与付费潜力近乎负相关**——
+热度榜首是知乎体育新闻（1163 万）和 HN 的 e-ink 相框（5313），
+而付费潜力最高的 MCPJam 在 Product Hunt 上热度只有 125。
+所以必须有一层"这个热点背后有没有人付钱、付费环节是不是新生成的"判断。
+
+判断框架（对每条热点问四个问题）：
+  1. 谁付钱？—— 具体到角色（企业 AI 团队 / 营销负责人 / 独立开发者）
+  2. 付费触发点是什么？—— 是新增的支出，还是从旧预算迁移？（新增才有新机会）
+  3. 现有供给如何？—— 有没有人已经做成、是不是云厂商自己在做
+  4. 独立开发者能不能在 2-4 周做出 MVP？
+分级：A=付费路径明确 / B=有可能需验证 / C=无付费路径（明确排除，省时间）
+
+输出：out/platform_analysis.json（供 tools/render_analysis.py 渲染）
+"""
+import json
+import os
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+A, B, C = "A", "B", "C"
+ITEMS = [
+    # ---------------- A 级：付费路径明确 ----------------
+    {
+        "tier": A, "pay": 5,
+        "title": "AEO（Answer Engine Optimization）工具",
+        "why_hot": "r/SaaS 高赞帖拆解 Tally 用 AEO 做到 $5M ARR / 11 人；另有帖抱怨 Reddit 广告烧钱无效",
+        "who_pays": "B2B SaaS 营销负责人（预算正从 SEO 迁移到 AEO）",
+        "trigger": "搜索流量入口转向 AI 答案，传统 SEO 工具失效——这是**新生成的付费环节**，不是旧预算搬家",
+        "supply": "海外有零星工具，国内工具少；GitHub 开源侧几乎无成型产品",
+        "verdict": "最高价值候选。付费方已有预算、案例证明能产生收入",
+        "action": "读原帖要具体打法；查 AEO 工具存量与定价；找 3 家做 SEO 工具的公司问是否已做 AEO",
+        "urls": ["https://www.reddit.com/r/SaaS/comments/1wime93/tally_is_doing_5m_arr_with_11_people_i_decoded/",
+                 "https://www.reddit.com/r/SaaS/comments/1wj8yif/burned_hundreds_on_reddit_ads/"],
+    },
+    {
+        "tier": A, "pay": 5,
+        "title": "MCP 服务器的测试与可观测",
+        "why_hot": "Product Hunt 今日 MCPJam（MCP 评测平台）；GitHub 侧 MCP 相关仓库持续冒出（x64dbg-mcp-server、chat-on-steroids）",
+        "who_pays": "企业的 AI 工程团队（MCP 已进生产，出事就是事故）",
+        "trigger": "MCP 生态刚起，协议在上线后立刻出现测试/调试/可观测的空白——**与当年 API 测试（Postman）同一路径**",
+        "supply": "稀缺：PH 上刚出现第一个，开源侧无成型产品",
+        "verdict": "值得验证。新协议 = 新工具链 = 新的付费环节",
+        "action": "搜 MCP 仓库 issue 里\"怎么测/怎么调试\"类提问；确认 Postman/Insomnia 是否已进入",
+        "urls": ["https://www.producthunt.com/products/mcpjam-inspector"],
+    },
+    {
+        "tier": A, "pay": 4,
+        "title": "独立开发者获客渠道（推广被社区封堵后）",
+        "why_hot": "r/SaaS 置顶新规禁止推广类 SaaS（873）；\"你们到底怎么推广的\"（105）；\"Reddit 广告烧了几百刀\"（39）；\"10 个月才第一个付费客户\"（39）",
+        "who_pays": "独立开发者 / 小团队——**已经在花钱买广告且明确无效**",
+        "trigger": "付费意愿已被验证（钱花出去了），但渠道被社区规则堵死 → 需要合规且可归因的新渠道",
+        "supply": "获客工具普遍难做（效果不可归因、退款率高），现有产品多为泛用型",
+        "verdict": "值得验证，但要有心理准备：这是最难做的品类之一",
+        "action": "找 5 个独立开发者问最近一次付费获客的具体渠道与效果数据",
+        "urls": ["https://www.reddit.com/r/SaaS/comments/1u0z4vz/new_rule_banning_a_saas_product_category_no/",
+                 "https://www.reddit.com/r/SaaS/comments/1wiwqpl/what_have_you_guys_actually_done_to_market_your/"],
+    },
+    {
+        "tier": A, "pay": 4,
+        "title": "团队 AI 用量与配置管理（AI FinOps）",
+        "why_hot": "HN \"Show HN: Share your AI Setup\"（693）；PH 侧 TinyKPI 等用量类工具；昨日数据里 codenotch 把 AI 工具用量限额钉在屏幕边缘",
+        "who_pays": "团队的工程经理 / 财务（AI 订阅变成账单大头且不可控）",
+        "trigger": "AI 工具支出从零星变成固定成本，需要能看\"谁在用、用多少、怎么配\"——新生成的支出管理环节",
+        "supply": "少见成型产品；大厂内部自建、外部工具空白",
+        "verdict": "值得验证。属新支出管理，不是旧预算竞争",
+        "action": "确认是否已有 \"FinOps for AI\" 产品；问 3 个 20+ 人团队现在怎么管 AI 账单",
+        "urls": ["https://mysetup.ai/", "https://www.producthunt.com/products/tinykpi"],
+    },
+    # ---------------- B 级：有可能，需验证 ----------------
+    {
+        "tier": B, "pay": 3,
+        "title": "jev 生态配套工具（本轮最强爆发信号）",
+        "why_hot": "github_search 一周内出现 5 个仓库：jev-ultrafast(2446)、openjev(867)、jevlike(700)、fast-jev-compaction(616)、jev-trader(543)；HN 有 \"Introducing System One Models and Jev\"",
+        "who_pays": "早期采用者 / 开发者；付费形态**还没出现**",
+        "trigger": "技术名词一周内形成仓库簇 + 已有 compaction（上下文压缩）与 trader（应用）分化 = 生态刚起步",
+        "supply": "几乎空白——因为太新",
+        "verdict": "观察 + 提前占位。风险最高，但若成势，工具链（部署/成本/监控）是第一批机会",
+        "action": "读 HN 那条帖的评论区，看早期使用者在抱怨什么（缺什么就是机会）；持续跟踪 2-3 周",
+        "urls": ["https://github.com/browser-use/jev-ultrafast", "https://github.com/tamaratran/fast-jev-compaction"],
+    },
+    {
+        "tier": B, "pay": 3,
+        "title": "AI 安全审计 / 代码审查的\"技能化\"",
+        "why_hot": "GitHub trending 前二：cloudflare/security-audit-skill(3607)、alibaba/open-code-review(3286)、Tencent/BrowserSkill(1302)",
+        "who_pays": "企业安全与研发团队（合规审计是硬支出）",
+        "trigger": "合规要求 + AI 审计能力下沉为可复用 skill；但**大厂自己在开源**，独立开发者的空间在上层封装与服务",
+        "supply": "云厂商亲自下场，开源已成型；工具侧竞争正面",
+        "verdict": "做产品难（对手是云厂商）；做\"中小企业合规审计服务\"更现实",
+        "action": "判断是否接受\"服务而非工具\"的形态；调研中小企业审计的实际预算",
+        "urls": ["https://github.com/cloudflare/security-audit-skill", "https://github.com/alibaba/open-code-review"],
+    },
+    {
+        "tier": B, "pay": 2,
+        "title": "去 AI 味 / 文本人性化",
+        "why_hot": "github_search 里 korcarc/text-humanizer(408) 明确写\"绕过 Turnitin/GPTZero\"；昨日缓存里还有一簇同类（sepia、lieflat-less-ai-tone、handraw-style）",
+        "who_pays": "学生、内容运营、营销（愿意为\"过检测\"付钱）",
+        "trigger": "AI 内容泛滥后的反向需求——但付费点是**对抗检测**，不是解决问题",
+        "supply": "同类工具在快速增加（已成小簇）",
+        "verdict": "不建议做：合规与平台规则风险高，且检测方持续升级 → 军备竞赛，护城河是\"对抗\"而非价值",
+        "action": "排除。若要做，只做合规的\"提升可读性\"定位，不碰检测绕过",
+        "urls": ["https://github.com/korcarc/text-humanizer"],
+    },
+    {
+        "tier": B, "pay": 2,
+        "title": "消费者账号 / 凭证恢复",
+        "why_hot": "HN \"Ask HN: How to recover Google auth after phone stolen?\"（487，评论区很长）",
+        "who_pays": "个人用户——**WTP 极低、一次性需求**",
+        "trigger": "痛点真实且高频，但个人不愿为工具付费，且大厂把恢复流程锁在自己体系内",
+        "supply": "无独立产品空间（属于平台责任）",
+        "verdict": "放弃",
+        "action": "排除",
+        "urls": [],
+    },
+    # ---------------- C 级：无付费路径（明确排除） ----------------
+    {
+        "tier": C, "pay": 0,
+        "title": "知乎热榜全部条目（8/8）",
+        "why_hot": "体育丑闻（1163 万）、企业观点（342 万）、麦当劳 vs 肯德基（254 万）、载人飞碟（140 万）、股票（127 万）、影视（115 万）",
+        "who_pays": "无",
+        "trigger": "无",
+        "supply": "—",
+        "verdict": "**重要结论：中文平台热榜（知乎）是新闻热榜，不是技术社区，对软件选品几乎零价值**",
+        "action": "排除整站。要中文需求信号，应该用小红书/知乎的**搜索**而非热榜，或直接看 v2ex/掘金",
+        "urls": [],
+    },
+    {
+        "tier": C, "pay": 0,
+        "title": "LessWrong 全部条目",
+        "why_hot": "AI 是否可控、AI 如何杀死我们、AI 安全政治化等（198/138/129/117…）",
+        "who_pays": "无（读者不为工具付费，讨论的是公共风险）",
+        "trigger": "无",
+        "supply": "—",
+        "verdict": "排除整站。该社区产出的是观点，不是采购意愿",
+        "action": "排除",
+        "urls": [],
+    },
+    {
+        "tier": C, "pay": 0,
+        "title": "Lobsters 吐槽/公告类条目",
+        "why_hot": "\"A/I Shuts Down\"(646)、\"Everybody's Lost Their Minds\"(311)、\"I expected better from Google\"(221)、\"I Don't Like LLMs\"(174)",
+        "who_pays": "无",
+        "trigger": "情绪表达，没有可解决的任务",
+        "supply": "—",
+        "verdict": "排除。注意：Lobsters 偶尔有真实痛点（如 DOI 需求），但需逐条筛，热榜整体偏观点",
+        "action": "只保留其中的具体需求帖（如 \"How to get a DOI for your blog posts\" 属小众学术需求）",
+        "urls": [],
+    },
+    {
+        "tier": C, "pay": 0,
+        "title": "纯开源项目自身（ghidra / GNOME 51 / Omarchy 等）",
+        "why_hot": "GitHub trending 与 Lobsters 上的成熟项目",
+        "who_pays": "无（开源免费，不是可售产品）",
+        "trigger": "无",
+        "supply": "—",
+        "verdict": "不是产品机会，是**竞品情报**：用于判断某方向拥挤度",
+        "action": "当供给数据用，不当机会用",
+        "urls": [],
+    },
+    {
+        "tier": C, "pay": 0,
+        "title": "Product Hunt 兴趣类（worldsplat / S-Roll / Figo 等）",
+        "why_hot": "消费级创意工具，PH 热度 90-110（该榜热度是排名代理，不可比）",
+        "who_pays": "消费者，ARPU 低、留存差",
+        "trigger": "兴趣型消费，非刚需支出",
+        "supply": "同类产品在 PH 上每周都在换",
+        "verdict": "低优先级；PH 的价值在于看**别人把什么做成了产品**（竞品情报）",
+        "action": "当竞品情报看，不追",
+        "urls": [],
+    },
+    {
+        "tier": C, "pay": 0,
+        "title": "Indeed 招聘帖（Applied Materials / Lowe's / American Airlines…）",
+        "why_hot": "8 条企业招聘 automation 岗位",
+        "who_pays": "—",
+        "trigger": "—",
+        "supply": "—",
+        "verdict": "不是产品机会，是**需求侧付费证据**：企业持续为\"自动化\"投人投钱",
+        "action": "用来佐证自动化类方向的真实需求强度，不单独成方向",
+        "urls": [],
+    },
+]
+
+NOTE = ("判断口径：付费潜力 ≠ 热度。今天样本里两者近乎负相关（热度榜首是新闻与兴趣消费品，"
+        "付费潜力最高的是热度最低的 MCP 工具）。核心筛选问题是：**这个热点背后有没有新生成的付费环节**"
+        "——新增支出才有新机会，旧预算搬家只是替换竞争。")
+
+
+def main():
+    data = {"generated_at": __import__("time").strftime("%Y-%m-%d %H:%M:%S"),
+            "note": NOTE, "items": ITEMS}
+    p = os.path.join(ROOT, "out", "platform_analysis.json")
+    with open(p, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=1)
+    n = {t: sum(1 for i in ITEMS if i["tier"] == t) for t in (A, B, C)}
+    print(f"分析条目 {len(ITEMS)} 条（A={n[A]} B={n[B]} C={n[C]}） -> {p}")
+
+
+if __name__ == "__main__":
+    main()

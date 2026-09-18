@@ -42,6 +42,15 @@ def latest(pattern):
     return c[-1] if c else None
 
 
+def load_analysis():
+    """热榜付费潜力分析（agent 判断层）。没有就返回 None。"""
+    p = os.path.join(OUT, "platform_analysis_dashboard.json")
+    if not os.path.isfile(p):
+        return None
+    with open(p, encoding="utf-8") as f:
+        return json.load(f)
+
+
 def load_platforms():
     """平台优先轨道的 JSON（run_platforms.py 产出）。没有就返回 None。"""
     p = latest("platforms_*.json")
@@ -158,12 +167,14 @@ HTML = """<!DOCTYPE html>
 <h1>idea-hunter · 方向看板</h1>
 <div class="meta">生成时间：__GENERATED__　·　方向判定：__MODE__　·　
 数据口径：证据数=窗口内独立候选条数；拥挤度=GitHub 同方向存量（红海≥1000/拥挤≥300/中等≥80/稀疏&lt;80）</div>
+<div id="analysis"></div>
 <div class="tabs" id="tabs"></div>
 <div id="panels"></div>
 <div id="platforms"></div>
 <div class="panel"><h3>信源健康</h3><table id="health"></table></div>
 </div>
-<script>window.__PLATFORMS__ = __PLATFORMS_JSON__;</script>
+<script>window.__PLATFORMS__ = __PLATFORMS_JSON__;
+window.__ANALYSIS__ = __ANALYSIS_JSON__;</script>
 <script>
 const DATA = __DATA__;
 const CROWD_COLOR = __CROWDCOLOR__;
@@ -294,6 +305,46 @@ DATA.windows.forEach((w,i)=>{
 });
 show(0);
 
+// ---------- 热榜付费潜力分析（judgment 层，放最前）----------
+const AN = window.__ANALYSIS__;
+const md = x => (x||'').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+if (AN && AN.items) {
+  const TIER = {A:{l:'A 级 · 付费路径明确', c:'#5cb85c'},
+                B:{l:'B 级 · 有可能需验证', c:'#f0ad4e'},
+                C:{l:'C 级 · 无付费路径', c:'#8b949e'}};
+  const card = it => `
+    <div class="panel" style="margin-bottom:10px">
+      <h3>${it.title}
+        <span class="tag" style="background:${TIER[it.tier].c};margin-left:6px">
+          ${TIER[it.tier].l}　付费潜力 ${it.pay}/5</span></h3>
+      <table style="font-size:12.5px">
+        <tr><td style="width:96px;color:var(--muted)">谁付钱</td><td>${md(it.who_pays)||'—'}</td></tr>
+        <tr><td style="color:var(--muted)">付费触发点</td><td>${md(it.trigger)||'—'}</td></tr>
+        <tr><td style="color:var(--muted)">现有供给</td><td>${md(it.supply)||'—'}</td></tr>
+        <tr><td style="color:var(--muted)">结论</td><td><b>${md(it.verdict)||'—'}</b></td></tr>
+        <tr><td style="color:var(--muted)">建议动作</td><td>${md(it.action)||'—'}</td></tr>
+      </table>
+      ${(it.urls&&it.urls.length)?`<div style="margin-top:4px;font-size:12px">
+        ${it.urls.map(u=>`<a href="${u}" target="_blank" rel="noopener">原帖</a>`).join(' · ')}</div>`:''}
+    </div>`;
+  const el = document.getElementById('analysis');
+  const ab = AN.items.filter(i=>i.tier!=='C'), cc = AN.items.filter(i=>i.tier==='C');
+  el.innerHTML = `
+    <div class="panel">
+      <h3>热榜内容的付费潜力分析</h3>
+      <div class="hint">${(AN.note||'').replace(/\\*\\*(.+?)\\*\\*/g,'<b>$1</b>')}</div>
+      <div class="hint">四个必答问题：谁付钱（具体角色）· 付费触发点（新增支出还是旧预算搬家）·
+        现有供给（有没有人做成）· 能否 2-4 周做出 MVP。</div>
+    </div>
+    ${ab.map(card).join('')}
+    <div class="panel">
+      <h3>C 级 · 无付费路径（明确排除，省时间）</h3>
+      <table><tr><th>条目</th><th>为什么排除</th></tr>
+      ${cc.map(i=>`<tr><td><b>${i.title}</b></td><td>${md(i.verdict)}</td></tr>`).join('')}
+      </table>
+    </div>`;
+}
+
 // ---------- 平台热榜（平台优先轨道）----------
 const PF = window.__PLATFORMS__;
 if (PF) {
@@ -386,7 +437,8 @@ def main():
             .replace("__PLATSHORT__", json.dumps(PLATFORM_SHORT, ensure_ascii=False))
             .replace("__MODE__", json.dumps(mode, ensure_ascii=False))
             .replace("__GENERATED__", data["generated_at"])
-            .replace("__PLATFORMS_JSON__", json.dumps(load_platforms(), ensure_ascii=False)))
+            .replace("__PLATFORMS_JSON__", json.dumps(load_platforms(), ensure_ascii=False))
+            .replace("__ANALYSIS_JSON__", json.dumps(load_analysis(), ensure_ascii=False)))
     ts = time.strftime("%Y%m%d-%H%M")
     out = os.path.join(OUT, f"dashboard_{ts}.html")
     with open(out, "w", encoding="utf-8") as f:

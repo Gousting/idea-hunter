@@ -8,8 +8,10 @@ out/*
 !out/agent_annotations.json
 !out/directions_20260918-1024.md
 !out/directions_20260918-1024.json
-!out/dashboard_20260918-1042.html
+!out/dashboard_20260918-1050.html
 !out/report_20260917-1034.md
 !out/candidates_20260917-1034.json
 !out/platforms_20260918-1041.md
 !out/platforms_20260918-1041.json
+!out/analysis_20260918-1048.md
+!out/platform_analysis.json
