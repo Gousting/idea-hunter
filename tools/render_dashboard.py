@@ -88,6 +88,8 @@ def build(json_path, cache_path, ann):
                 "market": s.get("market_repos"), "crowd": s.get("crowd", "—"),
                 "opp_tag": s.get("opp_tag", "—"),
                 "wtp": s.get("wtp_total", s.get("wtp", 0)),
+                "heat": s.get("heat", 0),
+                "mature_products": s.get("mature_products"),
                 "pain": s.get("pain", 0),
                 "sources": s.get("sources", []),
                 "plat": plat_matrix.get(s["name"], {}),
@@ -206,11 +208,13 @@ DATA.windows.forEach((w,i)=>{
     <div class="hint">GitHub 是供给侧（在做什么≠有人要），Reddit 才是需求侧原话</div>
     <div class="chart-sm" id="pie${i}"></div></div>
   <div class="panel"><h3>Top10 明细</h3><table>
-    <tr><th>#</th><th>方向</th><th>机会</th><th>证据</th><th>平台</th><th>付费</th><th>存量</th><th>拥挤度</th><th>评分</th><th>机会分</th></tr>
+    <tr><th>#</th><th>方向</th><th>机会</th><th>证据</th><th>平台</th><th>讨论热度</th><th>付费</th><th>存量</th><th>成型产品</th><th>拥挤度</th><th>评分</th><th>机会分</th></tr>
     ${w.dirs.map((d,j)=>`<tr><td>${j+1}</td><td><b>${d.name}</b></td>
       <td><span class="tag" style="background:${tagColor(d.opp_tag)}">${d.opp_tag}</span></td>
       <td>${d.evidence}</td><td>${d.sources.map(s=>PLAT_SHORT[s]||s).join('、')}</td>
+      <td>${d.heat||'—'}</td>
       <td>${d.wtp||'—'}</td><td>${fmt(d.market)}</td>
+      <td>${d.mature_products==null?'—':(d.mature_products===0?'<b style="color:#5cb85c">0</b>':d.mature_products)}</td>
       <td><span class="tag" style="background:${CROWD_COLOR[d.crowd]||'#8b949e'}">${d.crowd}</span></td>
       <td>${d.score}</td><td>${d.opp_score??'—'}</td></tr>`).join('')}
   </table>

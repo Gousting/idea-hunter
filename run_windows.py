@@ -149,6 +149,12 @@ def collect_window(w, args, health):
                                    lambda tt=t: oc.devto_tag(tt, 15)))
             oc_sources.append(("lesswrong:top-week",
                                lambda: oc.lesswrong_top(10)))
+            # 论坛评论深读：列表页只有热度数字，**抱怨都在评论区**。
+            # 按评论数/赞数挑帖深读，评论赞同数即"多少人认同这个抱怨"。
+            oc_sources += [("hn:deep:show", lambda: oc.hackernews_deep("show", 2)),
+                           ("lobsters:deep", lambda: oc.lobsters_deep(2)),
+                           ("so:deep:automation",
+                            lambda: oc.stackoverflow_deep("automation", 2))]
         # 需要登录的源：未登录时适配器报 AUTH_REQUIRED，health 可见，不静默
         if w["label"] in ("今日", "本周"):
             for q in INDEED_QUERIES:
@@ -247,6 +253,7 @@ def main():
             done, errs = dr.attach_crowding(stat, rows, sources.github_count,
                                             cache=crowd_cache)
             crowd_errs += errs
+            dr.attach_supply(rows, sources.github_mature_count, cache=crowd_cache)
             dr.attach_real_cases(rows, sources.github_mature, cache=crowd_cache)
             results[k] = {"label": v.get("label", k), "raw": v.get("raw", len(kept)),
                           "kept": len(kept), "stat": stat, "rows": rows,
@@ -279,6 +286,7 @@ def main():
             done, errs = dr.attach_crowding(stat, rows, sources.github_count,
                                             cache=crowd_cache)
             crowd_errs += errs
+            dr.attach_supply(rows, sources.github_mature_count, cache=crowd_cache)
             dr.attach_real_cases(rows, sources.github_mature, cache=crowd_cache)
             results[k] = {"label": w["label"], "raw": len(uniq), "kept": len(kept),
                           "stat": stat, "rows": rows, "records": kept}

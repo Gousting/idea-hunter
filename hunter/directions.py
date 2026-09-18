@@ -186,6 +186,7 @@ def aggregate(candidates):
             "name": name, "evidence": 0, "sources": set(),
             "wtp": 0, "pain": 0, "items": [], "repos": [],
             "velocity": 0.0, "wtp_llm": 0, "hiring": 0,
+            "heat_score": 0, "heat_comments": 0,
         })
         s["evidence"] += 1
         s["sources"].add(r.get("source"))
@@ -195,6 +196,21 @@ def aggregate(candidates):
             s["wtp_llm"] += 1
         if r.get("record_type") == "hiring":
             s["hiring"] += 1
+        # 讨论热度：评论赞同合计优先（社区认同度），否则退回收/赞数。
+        # 回退链必须覆盖各信源的原始字段名——HN Algolia 出的是 points，
+        # 老缓存里的记录也没有 heat 字段（不补回退，重算时热度会全是 0）。
+        h = r.get("heat") or {}
+        hscore = h.get("comment_score") or h.get("score")
+        hcomm = h.get("comments")
+        if hscore is None:
+            hscore = r.get("points") or r.get("score") or r.get("ups")
+        if hcomm is None:
+            hcomm = r.get("num_comments") or r.get("descendants")
+        try:
+            s["heat_score"] += int(hscore or 0)
+            s["heat_comments"] += int(hcomm or 0)
+        except Exception:
+            pass
         if r.get("pain_hits") or (r.get("llm_pain") or 0) >= 3:
             s["pain"] += 1
         if r.get("source") in ("github_trending", "github_search"):
@@ -204,6 +220,8 @@ def aggregate(candidates):
             s["items"].append(r)
     for s in stat.values():
         s["diversity"] = len(s["sources"])
+        # 讨论热度合成值：赞同数 + 评论数×3（评论多=讨论规模大，单赞不算讨论）
+        s["heat"] = s["heat_score"] + s["heat_comments"] * 3
         # 付费信号取两种来源的并集口径：关键词构式命中 或 LLM 判定 wtp>=3
         s["wtp_total"] = max(s["wtp"], s["wtp_llm"])
         s["score"] = round(
@@ -340,6 +358,29 @@ def attach_crowding(stat, rows, count_fn, max_dirs=12, spacing=7, cache=None):
     return done, errs
 
 
+def attach_supply(rows, count_fn, max_dirs=12, spacing=7, cache=None):
+    """挂「已成型产品数」（GitHub stars>1000）——判断"有没有人已经做成"。
+
+    与 crowding（stars>50 存量）是两个口径：存量看"有多少人在做"，
+    成型数看"有没有人做大了"。后者为 0 且热度高，才是"讨论热但没成熟产品"。
+    """
+    done = 0
+    for s0 in rows[:max_dirs]:
+        kw = _NAME2KW.get(s0["name"])
+        if not kw:
+            continue
+        key = "maturecnt:" + kw
+        n = (cache or {}).get(key)
+        if n is None:
+            n, _ = count_fn(kw)
+            if cache is not None:
+                cache[key] = n
+            time.sleep(spacing)
+        s0["mature_products"] = n
+        done += 1 if n is not None else 0
+    return done
+
+
 def attach_real_cases(rows, mature_fn, max_dirs=12, spacing=7, cache=None):
     """给头部方向挂上可点开的真实案例。用户诉求：方向只是标签，
     必须能点开真实项目/原帖来验证，否则榜单无法取信。
@@ -430,14 +471,15 @@ def render_window(window_label, rows, total_dirs, raw_count):
         return "\n".join(L)
     has_crowd = any("crowd" in s for s in rows)
     if has_crowd:
-        L += ["| # | 方向 | 机会 | 证据强度 | 证据数 | 平台 | 付费信号 | 存量项目 | 拥挤度 | 评分 | 机会分 |",
-              "|---:|---|---|---:|---:|---|---:|---:|---|---:|---:|"]
+        L += ["| # | 方向 | 机会 | 证据强度 | 证据数 | 平台 | 讨论热度 | 付费信号 | 存量 | 成型产品 | 拥挤度 | 评分 | 机会分 |",
+              "|---:|---|---|---:|---:|---|---:|---:|---:|---:|---|---:|---:|"]
         for i, s in enumerate(rows, 1):
             plats = "、".join(SRC_SHORT.get(x, x) for x in s.get("sources", []))
             L.append(f"| {i} | **{s['name']}** | {s.get('opp_tag', '—')} | "
                      f"{strength(s['evidence'])} | {s['evidence']} | {plats} | "
-                     f"{s.get('wtp_total', s.get('wtp', 0))} | {s.get('market_repos', '—')} | {s.get('crowd', '—')} | "
-                     f"{s['score']} | {s.get('opp_score', '—')} |")
+                     f"{s.get('heat', 0)} | {s.get('wtp_total', s.get('wtp', 0))} | "
+                     f"{s.get('market_repos', '—')} | {s.get('mature_products', '—')} | "
+                     f"{s.get('crowd', '—')} | {s['score']} | {s.get('opp_score', '—')} |")
     else:
         L += ["| # | 方向 | 证据强度 | 证据数 | 平台 | 付费信号 | 相关仓库 | 涨星合计 | 评分 |",
               "|---:|---|---|---:|---:|---:|---:|---:|---:|"]

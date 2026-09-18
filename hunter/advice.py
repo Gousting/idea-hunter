@@ -100,7 +100,20 @@ def verdict_of(row):
     wtp = row.get("wtp_total", row.get("wtp", 0))
     hiring = row.get("hiring", 0)
     div = len(row.get("sources", []))
+    heat = row.get("heat", 0)
+    mp = row.get("mature_products")
 
+    # 最高档：讨论热度够大 + 开源侧没有成型产品 —— 这正是"聊得多但没人做出来"。
+    # 必须同时满足热度与空白，只看一边都会误判（热闹但已红海 / 没人做也没人在乎）。
+    if ev >= 2 and heat >= 200 and mp == 0 and (market or 0) < 300:
+        return ("★ 需求明确、市场空白（最高优先）", 5,
+                [f"讨论热度 {heat}（评论赞同+评论数加权）",
+                 f"证据 {ev} 条 · {div} 个平台",
+                 "开源侧没有成型产品（stars>1000 为 0）"],
+                "去高热原帖评论区找 3 个抱怨者聊；再看该方向是否有闭源商业产品（GitHub 看不到）")
+
+    if heat >= 200:
+        pass  # 热度已在理由里体现；不改档位判定
     if ev >= 3 and market is not None and market >= 1000:
         return ("已拥挤，不建议正面进入", 1,
                 [f"{ev} 条证据显示需求真实",

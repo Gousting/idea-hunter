@@ -131,6 +131,14 @@ def _pick(d, *keys, default=""):
     return default
 
 
+def _i(v):
+    """宽松取整：'683' / '1,234' / 683 都能转，失败返回 0。"""
+    try:
+        return int(float(str(v).replace(",", "")))
+    except Exception:
+        return 0
+
+
 def _norm(src, d, site=""):
     """把各适配器不同的字段名统一成流水线的记录结构。
     适配器字段名不统一（name/title、tagline/selftext、permalink/url），
@@ -142,6 +150,9 @@ def _norm(src, d, site=""):
     if url.startswith("/"):
         url = "https://www.reddit.com" + url
     sid = _pick(d, "id", "uuid", "slug", default=url) or f"{title[:40]}"
+    # 结构化的讨论热度（别再塞进文本里 —— 塞了就没法参与计算，实测踩过）
+    heat = {"score": max(_i(d.get(k)) for k in ("score", "ups", "votesCount", "votes", "points")),
+            "comments": max(_i(d.get(k)) for k in ("comments", "num_comments", "commentCount", "descendants"))}
     extra = []
     for k, label in (("score", "score"), ("comments", "comments"),
                      ("ups", "ups"), ("num_comments", "num_comments"),
@@ -154,6 +165,7 @@ def _norm(src, d, site=""):
         "source": src,
         "source_id": f"{src}:{site}:{sid}",
         "repo": "",
+        "heat": heat,
         "url": url,
         "title": title[:200],
         "text": " ".join(f"{title}. {body} {' '.join(extra)}".split())[:2200],
@@ -263,6 +275,9 @@ def reddit_read(post_id, limit=25, depth=2, max_length=800, expand=False):
         "site": "reddit:post",
         "comment_count": len(bodies),
         "comment_score_sum": total_score,
+        # 讨论热度：评论区赞同合计是最贴近"社区认同这个抱怨"的量
+        "heat": {"score": _i(post.get("score")), "comments": len(bodies),
+                 "comment_score": total_score},
         "collected_at": int(time.time()),
     }
     health = {"source": "opencli:reddit:read", "count": 1, "ok": True,
@@ -302,6 +317,104 @@ def reddit_deep(subreddit, top_n=3, sort="top", time_filter="week",
     return out, {"source": f"opencli:reddit:deep:r/{subreddit}", "count": len(out),
                  "ok": len(out) > 0, "note": note}
 
+
+
+
+def _merge_thread(src, rows, sid, url, site, limit_chars=800):
+    """把平铺的线程输出合并成一条记录：首项是主帖，其余是各级评论。
+
+    为什么抽出来：Reddit / Hacker News / Lobsters / Stack Overflow 的 read
+    返回结构**完全一致**（POST + L0/L1/L2，SO 用 Q-COMMENT），各写一遍是重复。
+    评论正文与**评论赞同数**都要留——后者是"有多少人认同这个抱怨"的量化。
+    """
+    def _clean(t):
+        t = " ".join(str(t or "").split())
+        if not t or re.match(r"^\[\+\d+ more repl", t):
+            return ""
+        if re.match(r"^https?://\S+$", t):
+            return ""
+        return t
+
+    post = next((r for r in rows if str(r.get("type", "")).upper() == "POST"), rows[0])
+    comments = [r for r in rows if r is not post]
+    post_text = _clean(_pick(post, "text", "selftext", "body"))
+    title = post_text.split("\n")[0][:180] if post_text else str(_pick(post, "title"))
+    bodies, total_score = [], 0
+    for c in comments:
+        b = _clean(_pick(c, "text", "body"))
+        if len(b) >= 25:
+            bodies.append(b)
+        try:
+            total_score += int(c.get("score") or 0)
+        except Exception:
+            pass
+    return {
+        "source": src,
+        "source_id": f"{src}:read:{sid}",
+        "repo": "",
+        "url": url,
+        "title": title,
+        "text": " ".join(f"{title}. {post_text} {' '.join(bodies)}".split())[:4000],
+        # 归类只用帖子主题（评论区会跑题），信号检测才用全文
+        "topic_text": f"{title}. {post_text}"[:600],
+        "site": site,
+        "comment_count": len(bodies),
+        "comment_score_sum": total_score,
+        "heat": {"score": _i(post.get("score")), "comments": len(bodies),
+                 "comment_score": total_score},
+        "collected_at": int(time.time()),
+    }
+
+
+def hackernews_deep(feed="show", top_n=2, comment_limit=30):
+    """深读 HN 讨论区 —— 按评论数挑帖（评论多才有真实讨论）。全 public。"""
+    listing, h1 = hackernews(feed, 25)
+    cands = sorted(listing, key=lambda r: -(r.get("heat", {}).get("comments") or 0))
+    out = []
+    for r in cands[:top_n]:
+        hid = (r.get("raw") or {}).get("id") or r.get("url")
+        d, m = run(["hackernews", "read", str(hid)], timeout=120)
+        rows = _rows(d)
+        if rows:
+            out.append(_merge_thread("hn", rows, hid, r.get("url", ""), f"hn:{feed}"))
+    note = (f"hn/{feed}: 列表 {len(listing)} 条 → 深读 {len(out)} 帖"
+            + (f"；{h1['note']}" if h1.get("note") else ""))
+    return out, {"source": f"opencli:hn:deep:{feed}", "count": len(out),
+                 "ok": len(out) > 0, "note": note}
+
+
+def lobsters_deep(top_n=2, comment_limit=30):
+    """深读 Lobsters 讨论区。全 public。"""
+    d0, m0 = run(["lobsters", "hot", "--limit", "25"])
+    listing = [_norm("lobsters", x, "hot") for x in _rows(d0)]
+    cands = sorted(listing, key=lambda r: -((r.get("heat", {}).get("comments") or 0)
+                                            + (r.get("heat", {}).get("score") or 0)))
+    out = []
+    for r in cands[:top_n]:
+        sid = (r.get("raw") or {}).get("id") or r.get("url")
+        d, m = run(["lobsters", "read", str(sid)], timeout=120)
+        rows = _rows(d)
+        if rows:
+            out.append(_merge_thread("lobsters", rows, sid, r.get("url", ""), "lobsters"))
+    return out, {"source": "opencli:lobsters:deep", "count": len(out),
+                 "ok": len(out) > 0, "note": f"热帖 {len(listing)} 条 → 深读 {len(out)} 帖"}
+
+
+def stackoverflow_deep(tag="automation", top_n=2):
+    """深读 SO 提问的评论与回答。全 public。"""
+    d0, m0 = run(["stackoverflow", "tag", tag, "--sort", "hot", "--limit", "25"])
+    listing = [_norm("stackoverflow", x, f"#{tag}") for x in _rows(d0)]
+    cands = sorted(listing, key=lambda r: -((r.get("heat", {}).get("score") or 0)))
+    out = []
+    for r in cands[:top_n]:
+        sid = (r.get("raw") or {}).get("id") or r.get("url")
+        d, m = run(["stackoverflow", "read", str(sid)], timeout=120)
+        rows = _rows(d)
+        if rows:
+            out.append(_merge_thread("stackoverflow", rows, sid, r.get("url", ""),
+                                     f"so:{tag}"))
+    return out, {"source": f"opencli:stackoverflow:deep:#{tag}", "count": len(out),
+                 "ok": len(out) > 0, "note": f"#{tag} {len(listing)} 条 → 深读 {len(out)} 帖"}
 
 
 def producthunt_today():

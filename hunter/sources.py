@@ -376,6 +376,22 @@ def github_count(keywords, min_stars=50):
         return None, str(e)[:100]
 
 
+def github_mature_count(keywords, min_stars=1000):
+    """某方向「已成型产品」的存量数 —— 判断"有没有人已经做成"。
+
+    口径说明（必须披露）：只看**开源**项目。闭源商业 SaaS（大多数赚钱的产品）
+    这里看不到，所以 0 不等于"市场空白"，只等于"开源侧没人做成"。
+    """
+    q = f"{keywords} stars:>{min_stars}"
+    url = ("https://api.github.com/search/repositories?q="
+           + urllib.parse.quote(q) + "&per_page=1")
+    try:
+        raw, _ = _get(url)
+        return int(json.loads(raw).get("total_count", 0)), ""
+    except Exception as e:
+        return None, str(e)[:100]
+
+
 def github_mature(keywords, min_stars=300, per_page=3):
     """查某方向「成熟/高关注」的真实项目 —— 按星标全量排序，不看时间窗。
 
@@ -433,6 +449,10 @@ def hn_pain_points(queries, days=120, per_page=40):
                 "text": txt[:1600],
                 "author": h.get("author"),
                 "points": h.get("points"),
+                # 讨论热度统一成 heat（HN 的 Algolia 命中里 points/num_comments
+                # 经常为空，取不到就留 0，别假装有）
+                "heat": {"score": h.get("points") or 0,
+                         "comments": h.get("num_comments") or 0},
                 "created_at": h.get("created_at", ""),
                 "query": q,
                 "collected_at": int(time.time()),

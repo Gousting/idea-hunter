@@ -1,0 +1,2944 @@
+{
+  "generated_at": "2026-09-18 10:24:41",
+  "windows": {
+    "day": {
+      "label": "今日",
+      "raw": 377,
+      "kept": 63,
+      "directions": [
+        {
+          "name": "AI 代理与自动化",
+          "evidence": 17,
+          "sources": [
+            "github_search",
+            "github_trending",
+            "hn",
+            "indeed"
+          ],
+          "wtp": 0,
+          "pain": 11,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:kuhnhomeuk-cell/procedural-film",
+              "repo": "kuhnhomeuk-cell/procedural-film",
+              "url": "https://github.com/kuhnhomeuk-cell/procedural-film",
+              "title": "kuhnhomeuk-cell/procedural-film",
+              "text": "Agent skill: turn a topic into a 30s vertical film drawn and scored entirely in JavaScript. Reference film: the life of a monarch butterfly.",
+              "language": "JavaScript",
+              "stars_total": 71,
+              "forks": 10,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-17T17:15:34Z",
+              "pushed_at": "2026-09-17T19:44:16Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 71,
+              "window": "created<=3d",
+              "collected_at": 1789696698,
+              "star_velocity": 50.0,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "prefilter_score": 6.0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:kitze/skillbox",
+              "repo": "kitze/skillbox",
+              "url": "https://github.com/kitze/skillbox",
+              "title": "kitze/skillbox",
+              "text": "Self-hosted, versioned skills library for AI agents. MCP, scoped clients, and optional Jev recommendations.",
+              "language": "TypeScript",
+              "stars_total": 97,
+              "forks": 8,
+              "watchers": 0,
+              "open_issues": 2,
+              "created_at": "2026-09-17T17:23:37Z",
+              "pushed_at": "2026-09-17T19:55:21Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 97,
+              "window": "created<=3d",
+              "collected_at": 1789696698,
+              "star_velocity": 68.3,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.082 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 4.5
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:NiazMorshed2007/jev-review",
+              "repo": "NiazMorshed2007/jev-review",
+              "url": "https://github.com/NiazMorshed2007/jev-review",
+              "title": "NiazMorshed2007/jev-review",
+              "text": "Local-first MCP plugin for continuous software-quality review by AI coding agents, powered by Jev.",
+              "language": "TypeScript",
+              "stars_total": 84,
+              "forks": 6,
+              "watchers": 0,
+              "open_issues": 2,
+              "created_at": "2026-09-17T05:24:51Z",
+              "pushed_at": "2026-09-17T17:15:20Z",
+              "license": "MIT",
+              "topics": [
+                "agent-plugin",
+                "ai-agents",
+                "claude-code",
+                "code-review",
+                "codex",
+                "coding-agents",
+                "cursor",
+                "developer-tools",
+                "jev",
+                "local-first",
+                "mcp",
+                "model-context-protocol",
+                "opencode",
+                "software-quality",
+                "typescript"
+              ],
+              "stars_window": 84,
+              "window": "created<=3d",
+              "collected_at": 1789696698,
+              "star_velocity": 59.2,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.071 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 4.5
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:Worldbuilder013/HEXIS",
+              "repo": "Worldbuilder013/HEXIS",
+              "url": "https://github.com/Worldbuilder013/HEXIS",
+              "title": "Worldbuilder013/HEXIS",
+              "text": "HEXIS. Compile SKILL.md into state machines: deterministic execution order via transition guards, LLM reasoning scoped inside states.",
+              "language": "Python",
+              "stars_total": 69,
+              "forks": 1,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-17T06:23:51Z",
+              "pushed_at": "2026-09-17T06:38:06Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 69,
+              "window": "created<=3d",
+              "collected_at": 1789696698,
+              "star_velocity": 48.6,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.014 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 4.5
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:daily:addyosmani/agent-skills",
+              "repo": "addyosmani/agent-skills",
+              "url": "https://github.com/addyosmani/agent-skills",
+              "title": "addyosmani/agent-skills",
+              "text": "",
+              "language": "JavaScript",
+              "stars_total": 95875,
+              "forks": 10147,
+              "stars_window": 680,
+              "window": "daily",
+              "collected_at": 1789696696,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 2.0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:fhshaik/typesafe-mario",
+              "repo": "fhshaik/typesafe-mario",
+              "url": "https://github.com/fhshaik/typesafe-mario",
+              "title": "fhshaik/typesafe-mario",
+              "text": "A TypeSafe/Jev agent that plays Super Mario Bros. from structured emulator state.",
+              "language": "Python",
+              "stars_total": 217,
+              "forks": 23,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T04:57:42Z",
+              "pushed_at": "2026-09-16T04:59:33Z",
+              "license": null,
+              "topics": [],
+              "stars_window": 217,
+              "window": "created<=3d",
+              "collected_at": 1789696698,
+              "star_velocity": 89.7,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 2.0
+            }
+          ],
+          "velocity": 315.8,
+          "wtp_llm": 0,
+          "hiring": 7,
+          "heat_score": 187,
+          "heat_comments": 45,
+          "diversity": 4,
+          "heat": 322,
+          "wtp_total": 0,
+          "score": 25.95,
+          "market_repos": 3303,
+          "crowd": "红海",
+          "opp_tag": "已拥挤：需差异化切入",
+          "opp_score": 7.37,
+          "mature_products": 621,
+          "mature": [
+            {
+              "repo": "affaan-m/ECC",
+              "url": "https://github.com/affaan-m/ECC",
+              "stars": 261221,
+              "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "NousResearch/hermes-agent",
+              "url": "https://github.com/NousResearch/hermes-agent",
+              "stars": 246579,
+              "desc": "The agent that grows with you",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156198,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-18"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "kuhnhomeuk-cell/procedural-film",
+              "url": "https://github.com/kuhnhomeuk-cell/procedural-film",
+              "source": "github_search"
+            },
+            {
+              "title": "kitze/skillbox",
+              "url": "https://github.com/kitze/skillbox",
+              "source": "github_search"
+            },
+            {
+              "title": "NiazMorshed2007/jev-review",
+              "url": "https://github.com/NiazMorshed2007/jev-review",
+              "source": "github_search"
+            },
+            {
+              "title": "Worldbuilder013/HEXIS",
+              "url": "https://github.com/Worldbuilder013/HEXIS",
+              "source": "github_search"
+            }
+          ],
+          "advice": "已拥挤，不建议正面进入",
+          "advice_level": 1,
+          "advice_reasons": [
+            "17 条证据显示需求真实",
+            "但 GitHub 存量 3303 个（红海）"
+          ],
+          "advice_action": "除非有明确差异化切口（细分人群 / 现有产品的具体差评），否则跳过",
+          "trend_level": "高",
+          "trend_score": 7,
+          "trend_reasons": [
+            "头部仓库日均涨星 90（较快）",
+            "4 个平台独立出现（共振）",
+            "今日 17 条 ≥ 本周 15 条（当下密集）"
+          ]
+        },
+        {
+          "name": "数据采集与解析",
+          "evidence": 8,
+          "sources": [
+            "github_search",
+            "indeed"
+          ],
+          "wtp": 0,
+          "pain": 7,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:awlevin/typesafe-computer-use",
+              "repo": "awlevin/typesafe-computer-use",
+              "url": "https://github.com/awlevin/typesafe-computer-use",
+              "title": "awlevin/typesafe-computer-use",
+              "text": "Computer use for about $0.0002 a step: OCR the screen, classify the next action with TypeSafe, click. macOS.",
+              "language": "Python",
+              "stars_total": 169,
+              "forks": 12,
+              "watchers": 0,
+              "open_issues": 4,
+              "created_at": "2026-09-16T17:48:45Z",
+              "pushed_at": "2026-09-17T06:58:31Z",
+              "license": "MIT",
+              "topics": [
+                "ai-agents",
+                "automation",
+                "computer-use",
+                "macos",
+                "ocr",
+                "typesafe"
+              ],
+              "stars_window": 169,
+              "window": "created<=3d",
+              "collected_at": 1789696698,
+              "star_velocity": 69.9,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.071 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 4.5
+            }
+          ],
+          "velocity": 69.9,
+          "wtp_llm": 0,
+          "hiring": 7,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 2,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 12.78,
+          "market_repos": 49,
+          "crowd": "稀疏",
+          "opp_tag": "★ 值得看",
+          "opp_score": 7.22,
+          "mature_products": 6,
+          "mature": [
+            {
+              "repo": "cheeriojs/cheerio",
+              "url": "https://github.com/cheeriojs/cheerio",
+              "stars": 30489,
+              "desc": "The fast, flexible, and elegant library for parsing and manipulating HTML and XML.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "rust-scraper/scraper",
+              "url": "https://github.com/rust-scraper/scraper",
+              "stars": 2419,
+              "desc": "HTML parsing and querying with CSS selectors",
+              "updated": "2026-09-14"
+            },
+            {
+              "repo": "oxylabs/how-to-scrape-google-images",
+              "url": "https://github.com/oxylabs/how-to-scrape-google-images",
+              "stars": 2117,
+              "desc": "Real time google image scraper. The process is automated by sending HTTP requests to retrieve image data which",
+              "updated": "2026-06-19"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "awlevin/typesafe-computer-use",
+              "url": "https://github.com/awlevin/typesafe-computer-use",
+              "source": "github_search"
+            },
+            {
+              "title": "Bartlett Distribution Services LLC 招聘：data scraping（Newark, NJ 07108 (Upper Clin",
+              "url": "https://www.indeed.com/viewjob?jk=c6dd8c024ade7f41",
+              "source": "indeed"
+            },
+            {
+              "title": "Texas Democratic Party 招聘：data scraping（Georgetown, TX 78626）",
+              "url": "https://www.indeed.com/viewjob?jk=0d9675c6c0cf0daa",
+              "source": "indeed"
+            },
+            {
+              "title": "Alpha Software Technologies 招聘：data scraping（United States）",
+              "url": "https://www.indeed.com/viewjob?jk=63fd59d049626dd5",
+              "source": "indeed"
+            }
+          ],
+          "advice": "★ 建议优先验证",
+          "advice_level": 4,
+          "advice_reasons": [
+            "8 条证据 · 2 个平台",
+            "存量仅 49 个（稀疏）",
+            "7 条招聘证据（企业已在为这类活付钱）"
+          ],
+          "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "头部仓库日均涨星 70",
+            "2 个平台出现",
+            "今日 8 条 ≥ 本周 8 条（当下密集）"
+          ]
+        },
+        {
+          "name": "报表与可视化",
+          "evidence": 3,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:Marcos66236/github-stars-history",
+              "repo": "Marcos66236/github-stars-history",
+              "url": "https://github.com/Marcos66236/github-stars-history",
+              "title": "Marcos66236/github-stars-history",
+              "text": "Track and visualize the stars history of any GitHub repository. Open-source growth analytics and velocity tracking.",
+              "language": "Python",
+              "stars_total": 276,
+              "forks": 30,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T16:39:45Z",
+              "pushed_at": "2026-09-17T19:18:52Z",
+              "license": "MIT",
+              "topics": [
+                "developer-tools",
+                "github-analytics",
+                "github-api",
+                "github-stars",
+                "github-trending",
+                "open-source",
+                "repository-analytics",
+                "star-history"
+              ],
+              "stars_window": 276,
+              "window": "created<=3d",
+              "collected_at": 1789696698,
+              "star_velocity": 114.1,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "prefilter_score": 6.0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:devagrawal09/jev-review",
+              "repo": "devagrawal09/jev-review",
+              "url": "https://github.com/devagrawal09/jev-review",
+              "title": "devagrawal09/jev-review",
+              "text": "A staged code-review workflow and local dashboard built with TypeSafe Jev.",
+              "language": "TypeScript",
+              "stars_total": 174,
+              "forks": 10,
+              "watchers": 0,
+              "open_issues": 1,
+              "created_at": "2026-09-16T21:45:36Z",
+              "pushed_at": "2026-09-17T00:29:25Z",
+              "license": "MIT",
+              "topics": [
+                "ai",
+                "code-review",
+                "jev",
+                "typesafe-ai",
+                "typescript"
+              ],
+              "stars_window": 174,
+              "window": "created<=3d",
+              "collected_at": 1789696698,
+              "star_velocity": 71.9,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.057 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 4.5
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:mirkovicdev/HFTENGINE",
+              "repo": "mirkovicdev/HFTENGINE",
+              "url": "https://github.com/mirkovicdev/HFTENGINE",
+              "title": "mirkovicdev/HFTENGINE",
+              "text": "Replay console for hftbacktest market-making backtests: order book, queue position of every resting order, feed and order latency, fills and the raw feed from the collector, on real recorded Binance Futures data. Rust runner on the hftbacktest crate, text-mode dashboard. A backtester, not a trading bot.",
+              "language": "TypeScript",
+              "stars_total": 110,
+              "forks": 12,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T17:49:06Z",
+              "pushed_at": "2026-09-17T12:47:25Z",
+              "license": "NOASSERTION",
+              "topics": [
+                "backtesting",
+                "binance",
+                "hft",
+                "hftbacktest",
+                "latency",
+                "market-making",
+                "order-book",
+                "quantitative-finance",
+                "queue-position",
+                "rust"
+              ],
+              "stars_window": 110,
+              "window": "created<=3d",
+              "collected_at": 1789696698,
+              "star_velocity": 45.5,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 2.0
+            }
+          ],
+          "velocity": 231.5,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 8.55,
+          "market_repos": 89,
+          "crowd": "中等",
+          "opp_tag": "★ 值得看",
+          "opp_score": 4.28,
+          "mature_products": 13,
+          "mature": [
+            {
+              "repo": "metabase/metabase",
+              "url": "https://github.com/metabase/metabase",
+              "stars": 49322,
+              "desc": "The easy-to-use open source Business Intelligence and Embedded Analytics tool that lets everyone work with dat",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "briefercloud/briefer",
+              "url": "https://github.com/briefercloud/briefer",
+              "stars": 4325,
+              "desc": "Dashboards and notebooks in a single place. Create powerful and flexible dashboards using code, or build beaut",
+              "updated": "2025-08-07"
+            },
+            {
+              "repo": "StructuredLabs/preswald",
+              "url": "https://github.com/StructuredLabs/preswald",
+              "stars": 4270,
+              "desc": "Preswald is a WASM packager for Python-based interactive data apps: bundle full complex data workflows, partic",
+              "updated": "2026-06-11"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Marcos66236/github-stars-history",
+              "url": "https://github.com/Marcos66236/github-stars-history",
+              "source": "github_search"
+            },
+            {
+              "title": "devagrawal09/jev-review",
+              "url": "https://github.com/devagrawal09/jev-review",
+              "source": "github_search"
+            },
+            {
+              "title": "mirkovicdev/HFTENGINE",
+              "url": "https://github.com/mirkovicdev/HFTENGINE",
+              "source": "github_search"
+            }
+          ],
+          "advice": "★ 值得看，但需补付费证据",
+          "advice_level": 3,
+          "advice_reasons": [
+            "3 条证据 · 1 个平台",
+            "存量仅 89 个，供给少"
+          ],
+          "advice_action": "先验证有没有人愿意为此掏钱（找原帖作者 / 招聘帖 / 付费竞品）",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "头部仓库日均涨星 114（较快）",
+            "今日 3 条 ≥ 本周 1 条（当下密集）",
+            "仅近期窗口出现（新近冒头）"
+          ]
+        },
+        {
+          "name": "文档与知识库",
+          "evidence": 1,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:nMaas8388/github-ranking-audit",
+              "repo": "nMaas8388/github-ranking-audit",
+              "url": "https://github.com/nMaas8388/github-ranking-audit",
+              "title": "nMaas8388/github-ranking-audit",
+              "text": "Audit your GitHub repository search ranking signals. Checks name, description, topics, README, stars, forks, and activity.",
+              "language": "Python",
+              "stars_total": 193,
+              "forks": 8,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-17T06:24:34Z",
+              "pushed_at": "2026-09-17T06:44:03Z",
+              "license": "MIT",
+              "topics": [
+                "developer-tools",
+                "github-api",
+                "github-growth",
+                "github-ranking",
+                "github-search",
+                "github-seo",
+                "github-stars",
+                "github-topics",
+                "open-source",
+                "python",
+                "readme-optimization",
+                "repository-analytics",
+                "repository-optimization",
+                "seo-audit"
+              ],
+              "stars_window": 193,
+              "window": "created<=3d",
+              "collected_at": 1789696698,
+              "star_velocity": 136.0,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.041 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 4.5
+            }
+          ],
+          "velocity": 136.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 5.41,
+          "market_repos": 1327,
+          "crowd": "红海",
+          "opp_tag": "红海",
+          "opp_score": 1.73,
+          "mature_products": 107,
+          "mature": [
+            {
+              "repo": "freeCodeCamp/devdocs",
+              "url": "https://github.com/freeCodeCamp/devdocs",
+              "stars": 39462,
+              "desc": "API Documentation Browser",
+              "updated": "2026-09-15"
+            },
+            {
+              "repo": "inkonchain/docs",
+              "url": "https://github.com/inkonchain/docs",
+              "stars": 36505,
+              "desc": "Ink Documentation",
+              "updated": "2026-09-15"
+            },
+            {
+              "repo": "docsifyjs/docsify",
+              "url": "https://github.com/docsifyjs/docsify",
+              "stars": 31513,
+              "desc": "🃏 A magical documentation site generator.",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "nMaas8388/github-ranking-audit",
+              "url": "https://github.com/nMaas8388/github-ranking-audit",
+              "source": "github_search"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "头部仓库日均涨星 136（较快）",
+            "今日 1 条 ≥ 本周 1 条（当下密集）",
+            "仅近期窗口出现（新近冒头）"
+          ]
+        },
+        {
+          "name": "支付与账单",
+          "evidence": 2,
+          "sources": [
+            "hn",
+            "reddit"
+          ],
+          "wtp": 1,
+          "pain": 1,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 580,
+          "heat_comments": 39,
+          "diversity": 2,
+          "heat": 697,
+          "wtp_total": 1,
+          "score": 4.8,
+          "market_repos": 37,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 2.87,
+          "mature_products": 6,
+          "mature": [
+            {
+              "repo": "OpenByteInc/QuantDinger",
+              "url": "https://github.com/OpenByteInc/QuantDinger",
+              "stars": 11710,
+              "desc": "Open-source AI Trading OS and commercial-ready multi-tenant SaaS platform — research markets, build Python str",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "getlago/lago",
+              "url": "https://github.com/getlago/lago",
+              "stars": 10570,
+              "desc": "Open Source Metering and Usage Based Billing API ⭐️ Consumption tracking, Subscription management, Pricing ite",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "killbill/killbill",
+              "url": "https://github.com/killbill/killbill",
+              "stars": 5737,
+              "desc": "Open-Source Subscription Billing & Payments Platform",
+              "updated": "2026-09-14"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Show HN: The bottom 50% of U.S. households are short after essentials (BLS data)",
+              "url": "https://news.ycombinator.com/item?id=49743608",
+              "source": "hn"
+            },
+            {
+              "title": "First Monthly Subscription I am legit shaking. What would be your first moves (i",
+              "url": "https://www.reddit.com/comments/1wi88io",
+              "source": "reddit"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "2 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "中",
+          "trend_score": 4,
+          "trend_reasons": [
+            "2 个平台出现",
+            "今日 2 条 ≥ 本周 1 条（当下密集）",
+            "出现付费信号"
+          ]
+        },
+        {
+          "name": "自托管与部署",
+          "evidence": 1,
+          "sources": [
+            "stackoverflow"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 8,
+          "heat_comments": 4,
+          "diversity": 1,
+          "heat": 20,
+          "wtp_total": 0,
+          "score": 1.8,
+          "market_repos": 182,
+          "crowd": "中等",
+          "opp_tag": "待验证",
+          "opp_score": 0.79,
+          "mature_products": null,
+          "mature": [
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156199,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "coollabsio/coolify",
+              "url": "https://github.com/coollabsio/coolify",
+              "stars": 61956,
+              "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "agentscope-ai/QwenPaw",
+              "url": "https://github.com/agentscope-ai/QwenPaw",
+              "stars": 35063,
+              "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha",
+              "updated": "2026-09-18"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Getting forbidden error on selenium chrome I am working on a Python Selenium app",
+              "url": "https://stackoverflow.com/questions/80003603/getting-forbidden-error-on-selenium-chrome",
+              "source": "stackoverflow"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "低",
+          "trend_score": 2,
+          "trend_reasons": [
+            "今日 1 条 / 本周 2 条（正在加速）"
+          ]
+        },
+        {
+          "name": "电商与跨境",
+          "evidence": 1,
+          "sources": [
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 1.8,
+          "mature_products": null,
+          "mature": [
+            {
+              "repo": "ever-co/ever-demand",
+              "url": "https://github.com/ever-co/ever-demand",
+              "stars": 1858,
+              "desc": "Ever® Demand™ - Open Commerce Platform - https://everdemand.co",
+              "updated": "2026-08-05"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Vibe Coding is the new Internet Dating?",
+              "url": "https://news.ycombinator.com/item?id=49720589",
+              "source": "hn"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "低",
+          "trend_score": 1,
+          "trend_reasons": [
+            "仅近期窗口出现（新近冒头）"
+          ]
+        }
+      ]
+    },
+    "week": {
+      "label": "本周",
+      "raw": 254,
+      "kept": 71,
+      "directions": [
+        {
+          "name": "AI 代理与自动化",
+          "evidence": 15,
+          "sources": [
+            "github_search",
+            "github_trending",
+            "hn",
+            "indeed",
+            "reddit"
+          ],
+          "wtp": 1,
+          "pain": 12,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:AetherLabsAI/RSIAgent",
+              "repo": "AetherLabsAI/RSIAgent",
+              "url": "https://github.com/AetherLabsAI/RSIAgent",
+              "title": "AetherLabsAI/RSIAgent",
+              "text": "A training-free multi-agent framework for recursive self-improvement in new environments through broad-then-deep autonomous exploration and reusable memory.",
+              "language": "Python",
+              "stars_total": 310,
+              "forks": 34,
+              "watchers": 0,
+              "open_issues": 2,
+              "created_at": "2026-09-13T01:48:25Z",
+              "pushed_at": "2026-09-16T04:05:23Z",
+              "license": "Apache-2.0",
+              "topics": [],
+              "stars_window": 310,
+              "window": "created<=7d",
+              "collected_at": 1789697212,
+              "star_velocity": 57.1,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "prefilter_score": 6.0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:weekly:addyosmani/agent-skills",
+              "repo": "addyosmani/agent-skills",
+              "url": "https://github.com/addyosmani/agent-skills",
+              "title": "addyosmani/agent-skills",
+              "text": "",
+              "language": "JavaScript",
+              "stars_total": 95878,
+              "forks": 10148,
+              "stars_window": 2560,
+              "window": "weekly",
+              "collected_at": 1789697209,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 2.0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:fhshaik/typesafe-mario",
+              "repo": "fhshaik/typesafe-mario",
+              "url": "https://github.com/fhshaik/typesafe-mario",
+              "title": "fhshaik/typesafe-mario",
+              "text": "A TypeSafe/Jev agent that plays Super Mario Bros. from structured emulator state.",
+              "language": "Python",
+              "stars_total": 218,
+              "forks": 23,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T04:57:42Z",
+              "pushed_at": "2026-09-16T04:59:33Z",
+              "license": null,
+              "topics": [],
+              "stars_window": 218,
+              "window": "created<=7d",
+              "collected_at": 1789697212,
+              "star_velocity": 89.9,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 2.0
+            }
+          ],
+          "velocity": 147.0,
+          "wtp_llm": 0,
+          "hiring": 7,
+          "heat_score": 1494,
+          "heat_comments": 44,
+          "diversity": 5,
+          "heat": 1626,
+          "wtp_total": 1,
+          "score": 24.66,
+          "market_repos": 3303,
+          "crowd": "红海",
+          "opp_tag": "已拥挤：需差异化切入",
+          "opp_score": 7.01,
+          "mature_products": 621,
+          "mature": [
+            {
+              "repo": "affaan-m/ECC",
+              "url": "https://github.com/affaan-m/ECC",
+              "stars": 261221,
+              "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "NousResearch/hermes-agent",
+              "url": "https://github.com/NousResearch/hermes-agent",
+              "stars": 246579,
+              "desc": "The agent that grows with you",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156198,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-18"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "AetherLabsAI/RSIAgent",
+              "url": "https://github.com/AetherLabsAI/RSIAgent",
+              "source": "github_search"
+            },
+            {
+              "title": "Rant: Stop building useless apps and products This sub and few adjacent are full",
+              "url": "https://www.reddit.com/comments/1wgxzx9",
+              "source": "reddit"
+            },
+            {
+              "title": "Applied Materials 招聘：automation（Santa Clara, CA 95054）",
+              "url": "https://www.indeed.com/viewjob?jk=a55d326dab47efc9",
+              "source": "indeed"
+            },
+            {
+              "title": "Johns Hopkins Applied Physics Laboratory (APL) 招聘：automation（Laurel, MD 20723）",
+              "url": "https://www.indeed.com/viewjob?jk=8226c0868f1ad2cc",
+              "source": "indeed"
+            }
+          ],
+          "advice": "已拥挤，不建议正面进入",
+          "advice_level": 1,
+          "advice_reasons": [
+            "17 条证据显示需求真实",
+            "但 GitHub 存量 3303 个（红海）"
+          ],
+          "advice_action": "除非有明确差异化切口（细分人群 / 现有产品的具体差评），否则跳过",
+          "trend_level": "高",
+          "trend_score": 7,
+          "trend_reasons": [
+            "头部仓库日均涨星 90（较快）",
+            "4 个平台独立出现（共振）",
+            "今日 17 条 ≥ 本周 15 条（当下密集）"
+          ]
+        },
+        {
+          "name": "数据采集与解析",
+          "evidence": 8,
+          "sources": [
+            "hn",
+            "indeed"
+          ],
+          "wtp": 0,
+          "pain": 8,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 7,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 2,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 9.6,
+          "market_repos": 49,
+          "crowd": "稀疏",
+          "opp_tag": "★ 值得看",
+          "opp_score": 5.42,
+          "mature_products": 6,
+          "mature": [
+            {
+              "repo": "cheeriojs/cheerio",
+              "url": "https://github.com/cheeriojs/cheerio",
+              "stars": 30489,
+              "desc": "The fast, flexible, and elegant library for parsing and manipulating HTML and XML.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "rust-scraper/scraper",
+              "url": "https://github.com/rust-scraper/scraper",
+              "stars": 2419,
+              "desc": "HTML parsing and querying with CSS selectors",
+              "updated": "2026-09-14"
+            },
+            {
+              "repo": "oxylabs/how-to-scrape-google-images",
+              "url": "https://github.com/oxylabs/how-to-scrape-google-images",
+              "stars": 2117,
+              "desc": "Real time google image scraper. The process is automated by sending HTTP requests to retrieve image data which",
+              "updated": "2026-06-19"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Bartlett Distribution Services LLC 招聘：data scraping（Newark, NJ 07108 (Upper Clin",
+              "url": "https://www.indeed.com/viewjob?jk=c6dd8c024ade7f41",
+              "source": "indeed"
+            },
+            {
+              "title": "Texas Democratic Party 招聘：data scraping（Georgetown, TX 78626）",
+              "url": "https://www.indeed.com/viewjob?jk=0d9675c6c0cf0daa",
+              "source": "indeed"
+            },
+            {
+              "title": "Alpha Software Technologies 招聘：data scraping（United States）",
+              "url": "https://www.indeed.com/viewjob?jk=63fd59d049626dd5",
+              "source": "indeed"
+            },
+            {
+              "title": "Farmland Fresh Dairies LLC 招聘：data scraping（Newark, NJ 07108 (Lower Clinton Hill",
+              "url": "https://www.indeed.com/viewjob?jk=11dd9bad265fd625",
+              "source": "indeed"
+            }
+          ],
+          "advice": "★ 建议优先验证",
+          "advice_level": 4,
+          "advice_reasons": [
+            "8 条证据 · 2 个平台",
+            "存量仅 49 个（稀疏）",
+            "7 条招聘证据（企业已在为这类活付钱）"
+          ],
+          "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "头部仓库日均涨星 70",
+            "2 个平台出现",
+            "今日 8 条 ≥ 本周 8 条（当下密集）"
+          ]
+        },
+        {
+          "name": "视频与音频处理",
+          "evidence": 2,
+          "sources": [
+            "github_search",
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:letorig/video-generator-client",
+              "repo": "letorig/video-generator-client",
+              "url": "https://github.com/letorig/video-generator-client",
+              "title": "letorig/video-generator-client",
+              "text": "Async Python wrapper for Seedance, Kling, MiniMax and Wan video generation. Supports CLI and a local web UI",
+              "language": "Python",
+              "stars_total": 533,
+              "forks": 84,
+              "watchers": 0,
+              "open_issues": 1,
+              "created_at": "2026-09-14T17:46:01Z",
+              "pushed_at": "2026-09-14T18:31:47Z",
+              "license": "MIT",
+              "topics": [
+                "kling",
+                "kling-ai",
+                "minimax-h3",
+                "seedance",
+                "seedance-2-5",
+                "video-generation",
+                "video-generation-api",
+                "video-generation-tool"
+              ],
+              "stars_window": 533,
+              "window": "created<=7d",
+              "collected_at": 1789697212,
+              "star_velocity": 120.5,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "prefilter_score": 6.0
+            }
+          ],
+          "velocity": 120.5,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 2,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 7.13,
+          "market_repos": 763,
+          "crowd": "拥挤",
+          "opp_tag": "红海",
+          "opp_score": 2.47,
+          "mature_products": 101,
+          "mature": [
+            {
+              "repo": "harry0703/MoneyPrinterTurbo",
+              "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+              "stars": 124469,
+              "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workf",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "FFmpeg/FFmpeg",
+              "url": "https://github.com/FFmpeg/FFmpeg",
+              "stars": 64312,
+              "desc": "Mirror of https://git.ffmpeg.org/ffmpeg.git",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "calesthio/OpenMontage",
+              "url": "https://github.com/calesthio/OpenMontage",
+              "stars": 59774,
+              "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent sk",
+              "updated": "2026-09-06"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "letorig/video-generator-client",
+              "url": "https://github.com/letorig/video-generator-client",
+              "source": "github_search"
+            },
+            {
+              "title": "Microsoft patches Windows and Excel – breaks audio, remote access, and paste",
+              "url": "https://news.ycombinator.com/item?id=49705642",
+              "source": "hn"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "2 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "中",
+          "trend_score": 3,
+          "trend_reasons": [
+            "头部仓库日均涨星 120（较快）",
+            "2 个平台出现"
+          ]
+        },
+        {
+          "name": "自托管与部署",
+          "evidence": 2,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:agentverse-os/AgentVerse-OS",
+              "repo": "agentverse-os/AgentVerse-OS",
+              "url": "https://github.com/agentverse-os/AgentVerse-OS",
+              "title": "agentverse-os/AgentVerse-OS",
+              "text": "Personal cloud OS for a developer and their AI agents on a single server. One-command install on Ubuntu, then everything in the browser: a windowed desktop, isolated workspaces with VS Code, Claude Code and Codex, a store of 944 self-hosted apps, backups and updates. Access only via Tailscale, nothing exposed to the internet. Rust core, Svelte UI.",
+              "language": "Rust",
+              "stars_total": 751,
+              "forks": 21,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-12T18:20:00Z",
+              "pushed_at": "2026-09-12T19:17:57Z",
+              "license": "Apache-2.0",
+              "topics": [],
+              "stars_window": 751,
+              "window": "created<=7d",
+              "collected_at": 1789697212,
+              "star_velocity": 116.9,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.028 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 4.5
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:groundboxerrespect/Dlls5-auto",
+              "repo": "groundboxerrespect/Dlls5-auto",
+              "url": "https://github.com/groundboxerrespect/Dlls5-auto",
+              "title": "groundboxerrespect/Dlls5-auto",
+              "text": "🎮 Self-hosted neural rendering & AI image enhancement service inspired by DLSS 5. Turn any photo, screenshot or game capture into a photoreal cinematic render — bloom, filmic tone mapping, 6 style presets, REST API, batch mode. Python + FastAPI + Docker. Free & open-source.",
+              "language": "Python",
+              "stars_total": 271,
+              "forks": 1,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-12T14:33:24Z",
+              "pushed_at": "2026-09-12T15:04:01Z",
+              "license": "MIT",
+              "topics": [
+                "dlls",
+                "dlls-5",
+                "dlls-enabler",
+                "dlls-neural-rendering",
+                "dlls-swapper",
+                "dlls5",
+                "dlls5-menu",
+                "dllsideloading",
+                "nvidia-dlss-5",
+                "optiscaler"
+              ],
+              "stars_window": 271,
+              "window": "created<=7d",
+              "collected_at": 1789697212,
+              "star_velocity": 42.2,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.004 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 4.5
+            }
+          ],
+          "velocity": 159.10000000000002,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 6.91,
+          "market_repos": 182,
+          "crowd": "中等",
+          "opp_tag": "待验证",
+          "opp_score": 3.03,
+          "mature_products": 39,
+          "mature": [
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156199,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "coollabsio/coolify",
+              "url": "https://github.com/coollabsio/coolify",
+              "stars": 61956,
+              "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "agentscope-ai/QwenPaw",
+              "url": "https://github.com/agentscope-ai/QwenPaw",
+              "stars": 35063,
+              "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha",
+              "updated": "2026-09-18"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "agentverse-os/AgentVerse-OS",
+              "url": "https://github.com/agentverse-os/AgentVerse-OS",
+              "source": "github_search"
+            },
+            {
+              "title": "groundboxerrespect/Dlls5-auto",
+              "url": "https://github.com/groundboxerrespect/Dlls5-auto",
+              "source": "github_search"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "低",
+          "trend_score": 2,
+          "trend_reasons": [
+            "今日 1 条 / 本周 2 条（正在加速）"
+          ]
+        },
+        {
+          "name": "安全与合规",
+          "evidence": 2,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:KillaBoi/BrokenPipe",
+              "repo": "KillaBoi/BrokenPipe",
+              "url": "https://github.com/KillaBoi/BrokenPipe",
+              "title": "KillaBoi/BrokenPipe",
+              "text": "Steam Client Service Local Privilege Escalation Vulnerability",
+              "language": "PowerShell",
+              "stars_total": 201,
+              "forks": 49,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-14T20:10:03Z",
+              "pushed_at": "2026-09-18T00:52:59Z",
+              "license": "Apache-2.0",
+              "topics": [],
+              "stars_window": 201,
+              "window": "created<=7d",
+              "collected_at": 1789697212,
+              "star_velocity": 45.4,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "prefilter_score": 6.0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:shinthink/blitzstrike",
+              "repo": "shinthink/blitzstrike",
+              "url": "https://github.com/shinthink/blitzstrike",
+              "title": "shinthink/blitzstrike",
+              "text": "⚡ Blitz Strike — a universal MCP penetration-testing toolbelt. Structured methodology: reconnaissance & attack-surface mapping, source-to-sink analysis, and live validation. 57 escalation chains, 130-tool catalog, intelligence data layer. One server, every agent.",
+              "language": "TypeScript",
+              "stars_total": 634,
+              "forks": 0,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-12T12:13:09Z",
+              "pushed_at": "2026-09-17T12:53:33Z",
+              "license": "MIT",
+              "topics": [
+                "active-directory",
+                "blue-team",
+                "bug-bounty",
+                "cve",
+                "defensive-security",
+                "exploit",
+                "mcp",
+                "mcp-server",
+                "nuclei",
+                "offensive-security",
+                "payloads",
+                "pentest",
+                "reconnaissance",
+                "red-team",
+                "reverse-engineering",
+                "security",
+                "security-tools",
+                "vulnerability-scanning",
+                "wordpress"
+              ],
+              "stars_window": 634,
+              "window": "created<=7d",
+              "collected_at": 1789697212,
+              "star_velocity": 98.7,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.000 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 4.5
+            }
+          ],
+          "velocity": 144.1,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 6.84,
+          "market_repos": 198,
+          "crowd": "中等",
+          "opp_tag": "待验证",
+          "opp_score": 2.95,
+          "mature_products": 38,
+          "mature": [
+            {
+              "repo": "wazuh/wazuh",
+              "url": "https://github.com/wazuh/wazuh",
+              "stars": 16920,
+              "desc": "Wazuh - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "CISOfy/lynis",
+              "url": "https://github.com/CISOfy/lynis",
+              "stars": 16356,
+              "desc": "Lynis - Security auditing tool for Linux, macOS, and UNIX-based systems. Assists with compliance testing (HIPA",
+              "updated": "2026-09-16"
+            },
+            {
+              "repo": "prowler-cloud/prowler",
+              "url": "https://github.com/prowler-cloud/prowler",
+              "stars": 14830,
+              "desc": "Prowler is the world’s most widely used open-source cloud security platform that automates security and compli",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "KillaBoi/BrokenPipe",
+              "url": "https://github.com/KillaBoi/BrokenPipe",
+              "source": "github_search"
+            },
+            {
+              "title": "shinthink/blitzstrike",
+              "url": "https://github.com/shinthink/blitzstrike",
+              "source": "github_search"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "1 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "低",
+          "trend_score": 2,
+          "trend_reasons": [
+            "头部仓库日均涨星 99（较快）"
+          ]
+        },
+        {
+          "name": "文档与知识库",
+          "evidence": 1,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:nMaas8388/github-ranking-audit",
+              "repo": "nMaas8388/github-ranking-audit",
+              "url": "https://github.com/nMaas8388/github-ranking-audit",
+              "title": "nMaas8388/github-ranking-audit",
+              "text": "Audit your GitHub repository search ranking signals. Checks name, description, topics, README, stars, forks, and activity.",
+              "language": "Python",
+              "stars_total": 193,
+              "forks": 8,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-17T06:24:34Z",
+              "pushed_at": "2026-09-17T06:44:03Z",
+              "license": "MIT",
+              "topics": [
+                "developer-tools",
+                "github-api",
+                "github-growth",
+                "github-ranking",
+                "github-search",
+                "github-seo",
+                "github-stars",
+                "github-topics",
+                "open-source",
+                "python",
+                "readme-optimization",
+                "repository-analytics",
+                "repository-optimization",
+                "seo-audit"
+              ],
+              "stars_window": 193,
+              "window": "created<=7d",
+              "collected_at": 1789697212,
+              "star_velocity": 135.5,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.041 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 4.5
+            }
+          ],
+          "velocity": 135.5,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 5.4,
+          "market_repos": 1327,
+          "crowd": "红海",
+          "opp_tag": "红海",
+          "opp_score": 1.73,
+          "mature_products": 107,
+          "mature": [
+            {
+              "repo": "freeCodeCamp/devdocs",
+              "url": "https://github.com/freeCodeCamp/devdocs",
+              "stars": 39462,
+              "desc": "API Documentation Browser",
+              "updated": "2026-09-15"
+            },
+            {
+              "repo": "inkonchain/docs",
+              "url": "https://github.com/inkonchain/docs",
+              "stars": 36505,
+              "desc": "Ink Documentation",
+              "updated": "2026-09-15"
+            },
+            {
+              "repo": "docsifyjs/docsify",
+              "url": "https://github.com/docsifyjs/docsify",
+              "stars": 31513,
+              "desc": "🃏 A magical documentation site generator.",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "nMaas8388/github-ranking-audit",
+              "url": "https://github.com/nMaas8388/github-ranking-audit",
+              "source": "github_search"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "头部仓库日均涨星 136（较快）",
+            "今日 1 条 ≥ 本周 1 条（当下密集）",
+            "仅近期窗口出现（新近冒头）"
+          ]
+        },
+        {
+          "name": "报表与可视化",
+          "evidence": 1,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:Marcos66236/github-stars-history",
+              "repo": "Marcos66236/github-stars-history",
+              "url": "https://github.com/Marcos66236/github-stars-history",
+              "title": "Marcos66236/github-stars-history",
+              "text": "Track and visualize the stars history of any GitHub repository. Open-source growth analytics and velocity tracking.",
+              "language": "Python",
+              "stars_total": 276,
+              "forks": 30,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T16:39:45Z",
+              "pushed_at": "2026-09-17T19:18:52Z",
+              "license": "MIT",
+              "topics": [
+                "developer-tools",
+                "github-analytics",
+                "github-api",
+                "github-stars",
+                "github-trending",
+                "open-source",
+                "repository-analytics",
+                "star-history"
+              ],
+              "stars_window": 276,
+              "window": "created<=7d",
+              "collected_at": 1789697212,
+              "star_velocity": 113.8,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "prefilter_score": 6.0
+            }
+          ],
+          "velocity": 113.8,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 5.29,
+          "market_repos": 89,
+          "crowd": "中等",
+          "opp_tag": "待验证",
+          "opp_score": 2.65,
+          "mature_products": 13,
+          "mature": [
+            {
+              "repo": "metabase/metabase",
+              "url": "https://github.com/metabase/metabase",
+              "stars": 49322,
+              "desc": "The easy-to-use open source Business Intelligence and Embedded Analytics tool that lets everyone work with dat",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "briefercloud/briefer",
+              "url": "https://github.com/briefercloud/briefer",
+              "stars": 4325,
+              "desc": "Dashboards and notebooks in a single place. Create powerful and flexible dashboards using code, or build beaut",
+              "updated": "2025-08-07"
+            },
+            {
+              "repo": "StructuredLabs/preswald",
+              "url": "https://github.com/StructuredLabs/preswald",
+              "stars": 4270,
+              "desc": "Preswald is a WASM packager for Python-based interactive data apps: bundle full complex data workflows, partic",
+              "updated": "2026-06-11"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Marcos66236/github-stars-history",
+              "url": "https://github.com/Marcos66236/github-stars-history",
+              "source": "github_search"
+            }
+          ],
+          "advice": "★ 值得看，但需补付费证据",
+          "advice_level": 3,
+          "advice_reasons": [
+            "3 条证据 · 1 个平台",
+            "存量仅 89 个，供给少"
+          ],
+          "advice_action": "先验证有没有人愿意为此掏钱（找原帖作者 / 招聘帖 / 付费竞品）",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "头部仓库日均涨星 114（较快）",
+            "今日 3 条 ≥ 本周 1 条（当下密集）",
+            "仅近期窗口出现（新近冒头）"
+          ]
+        },
+        {
+          "name": "代码质量与 CI",
+          "evidence": 1,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:Matthew0822/ToolReplay",
+              "repo": "Matthew0822/ToolReplay",
+              "url": "https://github.com/Matthew0822/ToolReplay",
+              "title": "Matthew0822/ToolReplay",
+              "text": "Audit AI agent tool-call transcripts: hash-chain sealing, deterministic replay, and scope overreach checks. Dependency-free Python CLI.",
+              "language": "Python",
+              "stars_total": 179,
+              "forks": 20,
+              "watchers": 0,
+              "open_issues": 1,
+              "created_at": "2026-09-14T10:11:00Z",
+              "pushed_at": "2026-09-14T12:09:08Z",
+              "license": "MIT",
+              "topics": [
+                "ai-agents",
+                "audit",
+                "cli",
+                "determinism",
+                "hash-chain",
+                "jsonl",
+                "permissions",
+                "python",
+                "replay",
+                "scope",
+                "security",
+                "tool-call"
+              ],
+              "stars_window": 179,
+              "window": "created<=7d",
+              "collected_at": 1789697212,
+              "star_velocity": 40.5,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "prefilter_score": 6.0
+            }
+          ],
+          "velocity": 40.5,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 4.63,
+          "market_repos": 17,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 3.23,
+          "mature_products": 3,
+          "mature": [
+            {
+              "repo": "cinder/Cinder",
+              "url": "https://github.com/cinder/Cinder",
+              "stars": 5539,
+              "desc": "Cinder is a community-developed, free and open source library for professional-quality creative coding in C++.",
+              "updated": "2026-03-20"
+            },
+            {
+              "repo": "cirosantilli/china-dictatorship",
+              "url": "https://github.com/cirosantilli/china-dictatorship",
+              "stars": 3211,
+              "desc": "反中共政治宣传库。Anti Chinese government propaganda. 住在中国真名用户的网友请别给星星，不然你要被警察请喝茶。常见问答集，新闻集和饭店和音乐建议。卐习万岁卐。冠状病毒审查郝海东新疆改造",
+              "updated": "2026-02-05"
+            },
+            {
+              "repo": "gege-circle/.github",
+              "url": "https://github.com/gege-circle/.github",
+              "stars": 2009,
+              "desc": "这里是GitHub的草场，也是戈戈圈爱好者的交流地，主要讨论动漫、游戏、科技、人文、生活等所有话题，欢迎各位小伙伴们在此讨论趣事。This is GitHub grassland, and the community p",
+              "updated": "2025-10-04"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Matthew0822/ToolReplay",
+              "url": "https://github.com/Matthew0822/ToolReplay",
+              "source": "github_search"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "低",
+          "trend_score": 1,
+          "trend_reasons": [
+            "头部仓库日均涨星 40"
+          ]
+        },
+        {
+          "name": "支付与账单",
+          "evidence": 1,
+          "sources": [
+            "reddit"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 577,
+          "heat_comments": 39,
+          "diversity": 1,
+          "heat": 694,
+          "wtp_total": 0,
+          "score": 1.8,
+          "market_repos": 37,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 1.08,
+          "mature_products": 6,
+          "mature": [
+            {
+              "repo": "OpenByteInc/QuantDinger",
+              "url": "https://github.com/OpenByteInc/QuantDinger",
+              "stars": 11710,
+              "desc": "Open-source AI Trading OS and commercial-ready multi-tenant SaaS platform — research markets, build Python str",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "getlago/lago",
+              "url": "https://github.com/getlago/lago",
+              "stars": 10570,
+              "desc": "Open Source Metering and Usage Based Billing API ⭐️ Consumption tracking, Subscription management, Pricing ite",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "killbill/killbill",
+              "url": "https://github.com/killbill/killbill",
+              "stars": 5737,
+              "desc": "Open-Source Subscription Billing & Payments Platform",
+              "updated": "2026-09-14"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "First Monthly Subscription I am legit shaking. What would be your first moves (i",
+              "url": "https://www.reddit.com/comments/1wi88io",
+              "source": "reddit"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "2 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "中",
+          "trend_score": 4,
+          "trend_reasons": [
+            "2 个平台出现",
+            "今日 2 条 ≥ 本周 1 条（当下密集）",
+            "出现付费信号"
+          ]
+        },
+        {
+          "name": "时间与日程管理",
+          "evidence": 1,
+          "sources": [
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 1.8,
+          "market_repos": 75,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 0.93,
+          "mature_products": 9,
+          "mature": [
+            {
+              "repo": "neuronetio/gantt-schedule-timeline-calendar",
+              "url": "https://github.com/neuronetio/gantt-schedule-timeline-calendar",
+              "stars": 3629,
+              "desc": "Gantt Gantt Gantt Timeline Schedule Calendar [ javascript gantt, js gantt, projects gantt, timeline, scheduler",
+              "updated": "2026-06-11"
+            },
+            {
+              "repo": "schej-it/timeful.app",
+              "url": "https://github.com/schej-it/timeful.app",
+              "stars": 1732,
+              "desc": "Timeful (formerly Schej) is a scheduling platform helps you find the best time for a group to meet. It is a fr",
+              "updated": "2026-09-02"
+            },
+            {
+              "repo": "acidb/mobiscroll",
+              "url": "https://github.com/acidb/mobiscroll",
+              "stars": 1549,
+              "desc": "Scheduling, event calendar and resource management UI components, and Mobiscroll Connect, the calendar connect",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Show HN: Syq – copy files between machines fast (better than rsync)",
+              "url": "https://news.ycombinator.com/item?id=49661996",
+              "source": "hn"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "低",
+          "trend_score": 1,
+          "trend_reasons": [
+            "本周 1 / 本月 2（升温）"
+          ]
+        }
+      ]
+    },
+    "month": {
+      "label": "本月",
+      "raw": 203,
+      "kept": 39,
+      "directions": [
+        {
+          "name": "AI 代理与自动化",
+          "evidence": 16,
+          "sources": [
+            "hn",
+            "reddit"
+          ],
+          "wtp": 1,
+          "pain": 16,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 1477,
+          "heat_comments": 44,
+          "diversity": 2,
+          "heat": 1609,
+          "wtp_total": 1,
+          "score": 18.8,
+          "market_repos": 3303,
+          "crowd": "红海",
+          "opp_tag": "已拥挤：需差异化切入",
+          "opp_score": 5.34,
+          "mature_products": 621,
+          "mature": [
+            {
+              "repo": "affaan-m/ECC",
+              "url": "https://github.com/affaan-m/ECC",
+              "stars": 261221,
+              "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "NousResearch/hermes-agent",
+              "url": "https://github.com/NousResearch/hermes-agent",
+              "stars": 246579,
+              "desc": "The agent that grows with you",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156198,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-18"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Rant: Stop building useless apps and products This sub and few adjacent are full",
+              "url": "https://www.reddit.com/comments/1wgxzx9",
+              "source": "reddit"
+            },
+            {
+              "title": "Proposal to prohibit vibe coded projects from being hosted on Sourcehut",
+              "url": "https://news.ycombinator.com/item?id=49362340",
+              "source": "hn"
+            },
+            {
+              "title": "Anthropic boss Dario Amodei calls for AI development to slow down",
+              "url": "https://news.ycombinator.com/item?id=49675132",
+              "source": "hn"
+            },
+            {
+              "title": "How accurate have Ed Zitron's AI skeptic predictions been?",
+              "url": "https://news.ycombinator.com/item?id=49529863",
+              "source": "hn"
+            }
+          ],
+          "advice": "已拥挤，不建议正面进入",
+          "advice_level": 1,
+          "advice_reasons": [
+            "17 条证据显示需求真实",
+            "但 GitHub 存量 3303 个（红海）"
+          ],
+          "advice_action": "除非有明确差异化切口（细分人群 / 现有产品的具体差评），否则跳过",
+          "trend_level": "高",
+          "trend_score": 7,
+          "trend_reasons": [
+            "头部仓库日均涨星 90（较快）",
+            "4 个平台独立出现（共振）",
+            "今日 17 条 ≥ 本周 15 条（当下密集）"
+          ]
+        },
+        {
+          "name": "监控与可观测",
+          "evidence": 1,
+          "sources": [
+            "hn"
+          ],
+          "wtp": 1,
+          "pain": 1,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 1,
+          "score": 3.0,
+          "market_repos": 277,
+          "crowd": "中等",
+          "opp_tag": "待验证",
+          "opp_score": 1.22,
+          "mature_products": 62,
+          "mature": [
+            {
+              "repo": "netdata/netdata",
+              "url": "https://github.com/netdata/netdata",
+              "stars": 80564,
+              "desc": "The fastest path to AI-powered full stack observability, even for lean teams.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "grafana/grafana",
+              "url": "https://github.com/grafana/grafana",
+              "stars": 76793,
+              "desc": "The open and composable observability and data visualization platform. Visualize metrics, logs, and traces fro",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "langfuse/langfuse",
+              "url": "https://github.com/langfuse/langfuse",
+              "stars": 34742,
+              "desc": "🪢 Open source agent evals & observability: Trace, evaluate, and improve LLM applications with one open platfor",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "One resignation turned the embers of AI fear into a wildfire",
+              "url": "https://news.ycombinator.com/item?id=49647380",
+              "source": "hn"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "低",
+          "trend_score": 1,
+          "trend_reasons": [
+            "出现付费信号"
+          ]
+        },
+        {
+          "name": "时间与日程管理",
+          "evidence": 2,
+          "sources": [
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 2,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 2.8,
+          "market_repos": 75,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 1.45,
+          "mature_products": 9,
+          "mature": [
+            {
+              "repo": "neuronetio/gantt-schedule-timeline-calendar",
+              "url": "https://github.com/neuronetio/gantt-schedule-timeline-calendar",
+              "stars": 3629,
+              "desc": "Gantt Gantt Gantt Timeline Schedule Calendar [ javascript gantt, js gantt, projects gantt, timeline, scheduler",
+              "updated": "2026-06-11"
+            },
+            {
+              "repo": "schej-it/timeful.app",
+              "url": "https://github.com/schej-it/timeful.app",
+              "stars": 1732,
+              "desc": "Timeful (formerly Schej) is a scheduling platform helps you find the best time for a group to meet. It is a fr",
+              "updated": "2026-09-02"
+            },
+            {
+              "repo": "acidb/mobiscroll",
+              "url": "https://github.com/acidb/mobiscroll",
+              "stars": 1549,
+              "desc": "Scheduling, event calendar and resource management UI components, and Mobiscroll Connect, the calendar connect",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Show HN: Syq – copy files between machines fast (better than rsync)",
+              "url": "https://news.ycombinator.com/item?id=49661996",
+              "source": "hn"
+            },
+            {
+              "title": "CoMaps: The Offline App That Guided Rescuers Without a Signal in Venezuela",
+              "url": "https://news.ycombinator.com/item?id=49455904",
+              "source": "hn"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "低",
+          "trend_score": 1,
+          "trend_reasons": [
+            "本周 1 / 本月 2（升温）"
+          ]
+        },
+        {
+          "name": "终端与开发者效率",
+          "evidence": 1,
+          "sources": [
+            "github_trending"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_trending",
+              "source_id": "trending:monthly:Lakr233/vphone-cli",
+              "repo": "Lakr233/vphone-cli",
+              "url": "https://github.com/Lakr233/vphone-cli",
+              "title": "Lakr233/vphone-cli",
+              "text": "",
+              "language": "Swift",
+              "stars_total": 13785,
+              "forks": 1626,
+              "stars_window": 5998,
+              "window": "monthly",
+              "collected_at": 1789697592,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "prefilter_score": 2.0
+            }
+          ],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 2.2,
+          "market_repos": 62,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 1.18,
+          "mature_products": 12,
+          "mature": [
+            {
+              "repo": "apollographql/apollo-client",
+              "url": "https://github.com/apollographql/apollo-client",
+              "stars": 19800,
+              "desc": "The industry-leading GraphQL client for TypeScript, JavaScript, React, Vue, Angular, and more. Apollo Client d",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "guarinogabriel/Mac-CLI",
+              "url": "https://github.com/guarinogabriel/Mac-CLI",
+              "stars": 9121,
+              "desc": " macOS command line tool for developers – The ultimate tool to manage your Mac. It provides a huge set of com",
+              "updated": "2026-02-28"
+            },
+            {
+              "repo": "donnemartin/dev-setup",
+              "url": "https://github.com/donnemartin/dev-setup",
+              "stars": 6267,
+              "desc": "macOS development environment setup:  Easy-to-understand instructions with automated setup scripts for develop",
+              "updated": "2023-02-27"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Lakr233/vphone-cli",
+              "url": "https://github.com/Lakr233/vphone-cli",
+              "source": "github_trending"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "低",
+          "trend_score": 0,
+          "trend_reasons": []
+        },
+        {
+          "name": "自托管与部署",
+          "evidence": 1,
+          "sources": [
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 1.8,
+          "market_repos": 182,
+          "crowd": "中等",
+          "opp_tag": "待验证",
+          "opp_score": 0.79,
+          "mature_products": 39,
+          "mature": [
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156199,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "coollabsio/coolify",
+              "url": "https://github.com/coollabsio/coolify",
+              "stars": 61956,
+              "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "agentscope-ai/QwenPaw",
+              "url": "https://github.com/agentscope-ai/QwenPaw",
+              "stars": 35063,
+              "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha",
+              "updated": "2026-09-18"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Keep Our Servers Running",
+              "url": "https://news.ycombinator.com/item?id=49638934",
+              "source": "hn"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "低",
+          "trend_score": 2,
+          "trend_reasons": [
+            "今日 1 条 / 本周 2 条（正在加速）"
+          ]
+        },
+        {
+          "name": "支付与账单",
+          "evidence": 1,
+          "sources": [
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 1.8,
+          "market_repos": 37,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 1.08,
+          "mature_products": 6,
+          "mature": [
+            {
+              "repo": "OpenByteInc/QuantDinger",
+              "url": "https://github.com/OpenByteInc/QuantDinger",
+              "stars": 11710,
+              "desc": "Open-source AI Trading OS and commercial-ready multi-tenant SaaS platform — research markets, build Python str",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "getlago/lago",
+              "url": "https://github.com/getlago/lago",
+              "stars": 10570,
+              "desc": "Open Source Metering and Usage Based Billing API ⭐️ Consumption tracking, Subscription management, Pricing ite",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "killbill/killbill",
+              "url": "https://github.com/killbill/killbill",
+              "stars": 5737,
+              "desc": "Open-Source Subscription Billing & Payments Platform",
+              "updated": "2026-09-14"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Anthropic appears to be A/B testing reduced effort levels in Claude Code",
+              "url": "https://news.ycombinator.com/item?id=49405875",
+              "source": "hn"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "2 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "中",
+          "trend_score": 4,
+          "trend_reasons": [
+            "2 个平台出现",
+            "今日 2 条 ≥ 本周 1 条（当下密集）",
+            "出现付费信号"
+          ]
+        },
+        {
+          "name": "数据采集与解析",
+          "evidence": 1,
+          "sources": [
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 1.8,
+          "market_repos": 49,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 1.02,
+          "mature_products": 6,
+          "mature": [
+            {
+              "repo": "cheeriojs/cheerio",
+              "url": "https://github.com/cheeriojs/cheerio",
+              "stars": 30489,
+              "desc": "The fast, flexible, and elegant library for parsing and manipulating HTML and XML.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "rust-scraper/scraper",
+              "url": "https://github.com/rust-scraper/scraper",
+              "stars": 2419,
+              "desc": "HTML parsing and querying with CSS selectors",
+              "updated": "2026-09-14"
+            },
+            {
+              "repo": "oxylabs/how-to-scrape-google-images",
+              "url": "https://github.com/oxylabs/how-to-scrape-google-images",
+              "stars": 2117,
+              "desc": "Real time google image scraper. The process is automated by sending HTTP requests to retrieve image data which",
+              "updated": "2026-06-19"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "google.com/goto: Google's anti-scraping update",
+              "url": "https://news.ycombinator.com/item?id=49671945",
+              "source": "hn"
+            }
+          ],
+          "advice": "★ 建议优先验证",
+          "advice_level": 4,
+          "advice_reasons": [
+            "8 条证据 · 2 个平台",
+            "存量仅 49 个（稀疏）",
+            "7 条招聘证据（企业已在为这类活付钱）"
+          ],
+          "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "头部仓库日均涨星 70",
+            "2 个平台出现",
+            "今日 8 条 ≥ 本周 8 条（当下密集）"
+          ]
+        },
+        {
+          "name": "客服与工单",
+          "evidence": 1,
+          "sources": [
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 1.8,
+          "market_repos": 24,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 1.18,
+          "mature_products": 11,
+          "mature": [
+            {
+              "repo": "uvdesk/community-skeleton",
+              "url": "https://github.com/uvdesk/community-skeleton",
+              "stars": 19590,
+              "desc": "UVdesk Open Source Community Helpdesk is a comprehensive ticketing support system designed for everyone, offer",
+              "updated": "2025-10-01"
+            },
+            {
+              "repo": "zammad/zammad",
+              "url": "https://github.com/zammad/zammad",
+              "stars": 5924,
+              "desc": "Zammad is a web based open source helpdesk/customer support system.",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "freescout-help-desk/freescout",
+              "url": "https://github.com/freescout-help-desk/freescout",
+              "stars": 4542,
+              "desc": "FreeScout — Free self-hosted omnichannel AI-powered helpdesk & shared mailbox",
+              "updated": "2026-09-16"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "No AI Fridays",
+              "url": "https://news.ycombinator.com/item?id=49499762",
+              "source": "hn"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "低",
+          "trend_score": 0,
+          "trend_reasons": []
+        },
+        {
+          "name": "集成与 API 网关",
+          "evidence": 1,
+          "sources": [
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 1.8,
+          "market_repos": 710,
+          "crowd": "拥挤",
+          "opp_tag": "红海",
+          "opp_score": 0.63,
+          "mature_products": 56,
+          "mature": [
+            {
+              "repo": "appsmithorg/appsmith",
+              "url": "https://github.com/appsmithorg/appsmith",
+              "stars": 40898,
+              "desc": "Platform to build admin panels, internal tools, and dashboards. Integrates with 25+ databases and any API.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "The-Vibe-Company/quivr",
+              "url": "https://github.com/The-Vibe-Company/quivr",
+              "stars": 39532,
+              "desc": "Opiniated RAG for integrating GenAI in your apps 🧠   Focus on your product rather than the RAG. Easy integrati",
+              "updated": "2026-08-31"
+            },
+            {
+              "repo": "deepseek-ai/awesome-deepseek-integration",
+              "url": "https://github.com/deepseek-ai/awesome-deepseek-integration",
+              "stars": 39161,
+              "desc": "Integrate the DeepSeek API into popular software",
+              "updated": "2026-02-23"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "CoMaps integration with the wider FLOSS ecosystem",
+              "url": "https://news.ycombinator.com/item?id=49488169",
+              "source": "hn"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "低",
+          "trend_score": 0,
+          "trend_reasons": []
+        },
+        {
+          "name": "文件与存储同步",
+          "evidence": 1,
+          "sources": [
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "diversity": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 1.8,
+          "market_repos": 12,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 1.34,
+          "mature_products": 1,
+          "mature": [
+            {
+              "repo": "sebastianfeldmann/phpbu",
+              "url": "https://github.com/sebastianfeldmann/phpbu",
+              "stars": 1305,
+              "desc": "PHP Backup Utility - Creates and encrypts database and file backups, syncs your backups to other servers or cl",
+              "updated": "2026-07-03"
+            },
+            {
+              "repo": "stefankueng/CryptSync",
+              "url": "https://github.com/stefankueng/CryptSync",
+              "stars": 443,
+              "desc": "CryptSync is a small utility that synchronizes two folders while encrypting the contents in one folder. That m",
+              "updated": "2026-07-28"
+            },
+            {
+              "repo": "VikasSukhija/Downloads",
+              "url": "https://github.com/VikasSukhija/Downloads",
+              "stars": 424,
+              "desc": "AD Health Check, Send HTML Email,  Ping machines, Encrypt Password,Bulk Password,Microsoft Teams,Monitor Certi",
+              "updated": "2025-02-16"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Creating Backup Storage Sucks",
+              "url": "https://news.ycombinator.com/item?id=49546160",
+              "source": "hn"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "低",
+          "trend_score": 0,
+          "trend_reasons": []
+        }
+      ]
+    }
+  },
+  "health": [
+    {
+      "source": "github_trending:daily",
+      "count": 20,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "github_search:3d",
+      "count": 50,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "hn:3d",
+      "count": 130,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:reddit:deep:r/SaaS",
+      "count": 3,
+      "ok": true,
+      "note": "r/SaaS: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:reddit:deep:r/microsaas",
+      "count": 3,
+      "ok": true,
+      "note": "r/microsaas: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:reddit:deep:r/SideProject",
+      "count": 3,
+      "ok": true,
+      "note": "r/SideProject: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:upwork[automation scrip]",
+      "count": 0,
+      "ok": false,
+      "note": "  exitCode: 1"
+    },
+    {
+      "source": "opencli:upwork[web scraping too]",
+      "count": 0,
+      "ok": false,
+      "note": "  exitCode: 1"
+    },
+    {
+      "source": "opencli:producthunt",
+      "count": 16,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:hn:show",
+      "count": 25,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:hn:ask",
+      "count": 17,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:stackoverflow#api",
+      "count": 0,
+      "ok": false,
+      "note": "返回空结果"
+    },
+    {
+      "source": "opencli:stackoverflow#automation",
+      "count": 2,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:lobsters#ai",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:lobsters#devops",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:devto#webdev",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:devto#ai",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:lesswrong",
+      "count": 10,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:hn:deep:show",
+      "count": 2,
+      "ok": true,
+      "note": "hn/show: 列表 25 条 → 深读 2 帖"
+    },
+    {
+      "source": "opencli:lobsters:deep",
+      "count": 2,
+      "ok": true,
+      "note": "热帖 25 条 → 深读 2 帖"
+    },
+    {
+      "source": "opencli:stackoverflow:deep:#automation",
+      "count": 2,
+      "ok": true,
+      "note": "#automation 2 条 → 深读 2 帖"
+    },
+    {
+      "source": "opencli:indeed[automation]",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:indeed[data scraping]",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:twitter[\"is there a tool\" la]",
+      "count": 0,
+      "ok": false,
+      "note": "该适配器需要登录：请在 Chrome 里登录目标站点（cookie 过期也要重登）"
+    },
+    {
+      "source": "opencli:xhs[效率工具]",
+      "count": 0,
+      "ok": false,
+      "note": "  exitCode: 75"
+    },
+    {
+      "source": "opencli:xhs[自动化办公]",
+      "count": 0,
+      "ok": false,
+      "note": "  exitCode: 75"
+    },
+    {
+      "source": "opencli:zhihu",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "github_trending:weekly",
+      "count": 21,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "github_search:7d",
+      "count": 50,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "hn:7d",
+      "count": 138,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:reddit:deep:r/SaaS",
+      "count": 3,
+      "ok": true,
+      "note": "r/SaaS: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:reddit:deep:r/microsaas",
+      "count": 3,
+      "ok": true,
+      "note": "r/microsaas: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:reddit:deep:r/SideProject",
+      "count": 3,
+      "ok": true,
+      "note": "r/SideProject: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:upwork[automation scrip]",
+      "count": 0,
+      "ok": false,
+      "note": "  exitCode: 1"
+    },
+    {
+      "source": "opencli:upwork[web scraping too]",
+      "count": 0,
+      "ok": false,
+      "note": "  exitCode: 1"
+    },
+    {
+      "source": "opencli:indeed[automation]",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:indeed[data scraping]",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:twitter[\"is there a tool\" la]",
+      "count": 0,
+      "ok": false,
+      "note": "该适配器需要登录：请在 Chrome 里登录目标站点（cookie 过期也要重登）"
+    },
+    {
+      "source": "opencli:xhs[效率工具]",
+      "count": 0,
+      "ok": false,
+      "note": "  exitCode: 75"
+    },
+    {
+      "source": "opencli:xhs[自动化办公]",
+      "count": 0,
+      "ok": false,
+      "note": "  exitCode: 75"
+    },
+    {
+      "source": "opencli:zhihu",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "github_trending:monthly",
+      "count": 22,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "github_search:30d",
+      "count": 0,
+      "ok": false,
+      "note": "请求失败 https://api.github.com/search/repositories?q=created%3A%3E2026-08-19%20star"
+    },
+    {
+      "source": "hn:30d",
+      "count": 172,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:reddit:deep:r/SaaS",
+      "count": 3,
+      "ok": true,
+      "note": "r/SaaS: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:reddit:deep:r/microsaas",
+      "count": 3,
+      "ok": true,
+      "note": "r/microsaas: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:reddit:deep:r/SideProject",
+      "count": 3,
+      "ok": true,
+      "note": "r/SideProject: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "github_count(拥挤度)",
+      "count": 0,
+      "ok": false,
+      "note": "电商与跨境: 请求失败 https://api.github.com/search/repositories?q=ecommerce%20inventory%20stars%3A%3E50&per_page=1 :"
+    }
+  ]
+}
