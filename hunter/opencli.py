@@ -353,3 +353,100 @@ if __name__ == "__main__":
         for r in rs[:2]:
             print("   -", r["title"][:80])
             print("     ", r["text"][:140])
+
+
+# ---------------------------------------------------------------- 第二批适配器
+# 接入原则：能 public 的不登录；需要登录的（indeed/twitter/zhihu/xhs）未登录时
+# 适配器会返回明确的 AUTH_REQUIRED，health 里可见，不静默吞掉。
+# 采集频率刻意压低（每站每天几页），社交平台对自动化访问敏感。
+
+def stackoverflow_tag(tag, limit=20, sort="hot"):
+    """SO 某标签下的热门问题——"怎么才能做到 X"就是未满足需求。全 public。"""
+    d, m = run(["stackoverflow", "tag", tag, "--sort", sort, "--limit", str(limit)])
+    rows = _rows(d)
+    return [_norm("stackoverflow", r, f"#{tag}") for r in rows], \
+        {"source": f"opencli:stackoverflow#{tag}", "count": len(rows),
+         "ok": m["ok"], "note": m["note"]}
+
+
+def lobsters_tag(tag, limit=15):
+    d, m = run(["lobsters", "tag", tag, "--limit", str(limit)])
+    rows = _rows(d)
+    return [_norm("lobsters", r, f"#{tag}") for r in rows], \
+        {"source": f"opencli:lobsters#{tag}", "count": len(rows),
+         "ok": m["ok"], "note": m["note"]}
+
+
+def devto_tag(tag, limit=15):
+    d, m = run(["devto", "tag", tag, "--limit", str(limit)])
+    rows = _rows(d)
+    return [_norm("devto", r, f"#{tag}") for r in rows], \
+        {"source": f"opencli:devto#{tag}", "count": len(rows),
+         "ok": m["ok"], "note": m["note"]}
+
+
+def lesswrong_top(limit=10):
+    d, m = run(["lesswrong", "top-week", "--limit", str(limit)])
+    rows = _rows(d)
+    return [_norm("lesswrong", r, "top-week") for r in rows], \
+        {"source": "opencli:lesswrong", "count": len(rows),
+         "ok": m["ok"], "note": m["note"]}
+
+
+def indeed_search(query):
+    """招聘搜索 = 企业在出钱招人做的事。注意该命令**没有 --limit**。
+
+    实测返回结构只有元数据：{rank,id,title:"",company,location,salary,tags,url}——
+    没有职位名和正文，所以必须用 company/salary/tags 自己拼 text，
+    通用 _norm 拼出来是空的（首版踩坑：15 条全因"噪音/过短"被拦）。
+    """
+    d, m = run(["indeed", "search", query], timeout=180)
+    rows = _rows(d)
+    out = []
+    for r in rows:
+        comp = r.get("company") or "未知公司"
+        sal = r.get("salary") or "薪资面议"
+        loc = r.get("location") or ""
+        tags = r.get("tags") or ""
+        url = r.get("url", "")
+        title = f"{comp} 招聘：{query}（{loc}）"
+        text = (f"{title}. 薪资 {sal}；类型 {tags}。"
+                f"企业正在出钱招人做「{query}」相关任务——该任务已被验证值得花钱。")
+        out.append({
+            "source": "indeed",
+            "source_id": f"indeed:{r.get('id') or url}",
+            "url": url,
+            "title": title[:150],
+            "text": text[:400],
+            "site": "indeed:search",
+            "salary": sal,
+            "raw": {k: v for k, v in r.items() if not isinstance(v, (dict, list))},
+            "collected_at": int(time.time()),
+        })
+    return out, {"source": f"opencli:indeed[{query[:14]}]", "count": len(out),
+                 "ok": m["ok"], "note": m["note"]}
+
+
+def zhihu_hot(limit=15):
+    d, m = run(["zhihu", "hot", "--limit", str(limit)])
+    rows = _rows(d)
+    return [_norm("zhihu", r, "hot") for r in rows], \
+        {"source": "opencli:zhihu", "count": len(rows),
+         "ok": m["ok"], "note": m["note"]}
+
+
+def twitter_search(query):
+    """X 搜索透传原始操作符（lang:en / since: / -filter:replies 可用）。无 --limit。"""
+    d, m = run(["twitter", "search", query], timeout=180)
+    rows = _rows(d)
+    return [_norm("twitter", r, "search") for r in rows], \
+        {"source": f"opencli:twitter[{query[:20]}]", "count": len(rows),
+         "ok": m["ok"], "note": m["note"]}
+
+
+def xhs_search(query, limit=15):
+    d, m = run(["xiaohongshu", "search", query, "--limit", str(limit)])
+    rows = _rows(d)
+    return [_norm("xiaohongshu", r, "search") for r in rows], \
+        {"source": f"opencli:xhs[{query[:12]}]", "count": len(rows),
+         "ok": m["ok"], "note": m["note"]}

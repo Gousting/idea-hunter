@@ -28,7 +28,9 @@ PAIN_PAT = re.compile(
     r"wish (there was|i could)|looking for (a|an|the) .{0,40}(tool|alternative|service)|"
     r"is there (a|an) .{0,40}(tool|alternative)|any (recommendation|alternative)s?|"
     r"would (gladly )?pay|happy to pay|willing to pay|shut up and take my money|"
-    r"paid (version|plan|alternative)|someone should build)", re.I)
+    r"paid (version|plan|alternative)|someone should build|"
+    r"求推荐|有没有好用的|有没有(什么)?(工具|软件|办法|方法)|太麻烦了?|"
+    r"怎么(自动|批量)|如何(自动|批量)|手动.{0,8}(复制|整理|处理|同步|导出))", re.I)
 
 # 付费意愿强信号（权重最高的那一类）
 WTP_PAT = re.compile(
@@ -50,6 +52,20 @@ STRONG_WTP = re.compile(
     r"|(\bwhere can i (buy|pay|subscribe)\b)"
     r"|(\bi'?d (happily|gladly)? ?pay \$?\d)",
     re.I)
+
+# 信源专属门槛：问题式/故障式提问（Stack Overflow）与招聘帖（Indeed）。
+# SO 实测教训：故障陈述式标题（"Getting forbidden error on selenium chrome"）不含
+# how/is there 等问句词，但"报错=被拦=没现成方案"，同样是需求代理。
+QUESTION_PAT = re.compile(
+    r"\b(how (do|to|can|would) (i|we|you)|why (does|do|is|are)|is there (a|an|any|way)"
+    r"|any (way|tool|recommendation)|can i|possible to|alternative to)"
+    r"|\b(getting|got|keep getting) .{0,30}error\b"
+    r"|\berror (when|on|after|in|with)\b"
+    r"|\b(fail(s|ed)? to|not working|stopped working|crash(es|ing)?)\b", re.I)
+HIRING_PAT = re.compile(
+    r"(we are (looking|searching) for|job (type|description|title)|responsibilities"
+    r"|qualifications|full[- ]?time|part[- ]?time|salary|per hour|apply now"
+    r"|requirements| hiring |岗位|招聘|薪资)", re.I)
 
 
 def is_collection(text, repo, topics=None):
@@ -76,7 +92,9 @@ def strong_wtp_hits(text):
 #   fork/star 比：健康 0.15–0.25，作弊 < 0.05
 # 下面只实现"不需要 token 也能算"的那部分。
 REPO_SOURCES = ("github_trending", "github_search")
-TEXT_SOURCES = ("hn", "github_issue", "browser", "reddit", "producthunt", "upwork")
+TEXT_SOURCES = ("hn", "github_issue", "browser", "reddit", "producthunt", "upwork",
+                "stackoverflow", "lobsters", "devto", "lesswrong", "indeed",
+                "twitter", "zhihu", "xiaohongshu")
 
 
 def _age_days(created):
@@ -179,6 +197,14 @@ def _norm_title(t):
 SOURCE_WEIGHT = {
     "github_issue": 4.0,
     "upwork": 3.4,        # 有人正在付钱找人做事：付费意愿的最强证据
+    "indeed": 3.2,        # 招聘 = 企业在出钱招人做的事（付费意愿证据）
+    "stackoverflow": 2.8,  # 提问 = 未满足需求，密度高
+    "twitter": 2.4,
+    "xiaohongshu": 2.2,
+    "zhihu": 2.0,
+    "lobsters": 1.8,
+    "devto": 1.8,
+    "lesswrong": 1.6,
     "reddit": 2.6,
     "browser": 2.4,
     "producthunt": 2.2,
@@ -231,6 +257,30 @@ def rule_filter(records, cfg):
         elif r["source"] in TEXT_SOURCES:
             if NOISE_PAT.match(text.strip()[:60]) or len(text) < cfg["min_text_len"]:
                 dropped.append({**r, "drop_stage": "L1", "drop_reason": "噪音/过短"})
+                continue
+            # 信源各自的"需求表达形式"不同，不能全用同一把尺子（实测第二批适配器
+            # 接入后 0 条通过：SO 的提问、Indeed 的招聘帖都不含第一人称付费构式）：
+            #   stackoverflow —— 问题式提问即需求代理（"how do I X" = X 难/没现成方案）
+            #   indeed        —— 招聘帖 = 企业出钱让人做事，工资是最硬的付费证据
+            if r["source"] == "stackoverflow":
+                if QUESTION_PAT.search(f"{r.get('title', '')} {text[:120]}"):
+                    r["pain_hits"] = ["question-form（提问即需求代理）"]
+                    r["wtp_hits"] = r["strong_wtp_hits"] = []
+                    r["record_type"] = "demand"
+                    r["prefilter_score"] = _prefilter_score(r)
+                    kept.append(r)
+                    continue
+                dropped.append({**r, "drop_stage": "L1", "drop_reason": "非问题式内容"})
+                continue
+            if r["source"] == "indeed":
+                if HIRING_PAT.search(text):
+                    r["pain_hits"] = ["hiring（企业出钱招人做 = 该任务值得花钱）"]
+                    r["wtp_hits"] = r["strong_wtp_hits"] = []
+                    r["record_type"] = "hiring"
+                    r["prefilter_score"] = _prefilter_score(r)
+                    kept.append(r)
+                    continue
+                dropped.append({**r, "drop_stage": "L1", "drop_reason": "非招聘正文"})
                 continue
             r["pain_hits"] = pain_hits(text)
             r["wtp_hits"] = wtp_hits(text)

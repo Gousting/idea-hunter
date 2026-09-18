@@ -254,6 +254,14 @@ PLATFORM_NAMES = {
     "producthunt": "Product Hunt（新发布·竞品情报）",
     "upwork": "Upwork（付费需求·最硬）",
     "browser": "浏览器通道（Indie Hackers 等）",
+    "stackoverflow": "Stack Overflow（提问=未满足需求）",
+    "lobsters": "Lobsters（技术讨论）",
+    "devto": "DEV.to（开发者文章）",
+    "lesswrong": "LessWrong（理性社区）",
+    "indeed": "Indeed（招聘=企业付费）",
+    "twitter": "X/Twitter（创始人发声）",
+    "zhihu": "知乎（中文需求讨论）",
+    "xiaohongshu": "小红书（中文消费需求）",
 }
 
 # 表格里的平台短码（省宽度）
@@ -261,6 +269,8 @@ SRC_SHORT = {
     "github_trending": "GT", "github_search": "GS", "github_issue": "GI",
     "hn": "HN", "reddit": "RD", "producthunt": "PH",
     "upwork": "UW", "browser": "BR",
+    "stackoverflow": "SO", "lobsters": "LB", "devto": "DT", "lesswrong": "LW",
+    "indeed": "IN", "twitter": "TW", "zhihu": "ZH", "xiaohongshu": "XHS",
 }
 
 

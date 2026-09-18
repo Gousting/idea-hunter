@@ -67,6 +67,15 @@ OC_TIME = {"今日": "", "本周": "week", "本月": "month"}
 # Upwork 查询：找"正在出钱找人做"的事 —— 付费意愿最硬的证据。
 UPWORK_QUERIES = ["automation script", "web scraping tool"]
 
+# 第二批 opencli 适配器（2026-09-17）。
+# 公开源挂今日窗口（热门问题/文章是"当下"）；需要登录的挂今日+本周，频率刻意压低。
+SO_TAGS = ["api", "automation"]            # SO 热门问题 = 未满足需求
+LB_TAGS = ["ai", "devops"]                 # lobsters 标签
+DT_TAGS = ["webdev", "ai"]                 # DEV.to 标签
+INDEED_QUERIES = ["automation", "data scraping"]   # 招聘 = 企业付费意愿
+TW_QUERIES = ['"is there a tool" lang:en -filter:replies']   # X 原生操作符透传
+XHS_QUERIES = ["效率工具", "自动化办公"]     # 小红书搜索词
+
 
 def collect_window(w, args, health):
     raw = []
@@ -126,6 +135,32 @@ def collect_window(w, args, health):
             oc_sources += [("producthunt:today", lambda: oc.producthunt_today()),
                            ("hn:show", lambda: oc.hackernews("show", 25)),
                            ("hn:ask", lambda: oc.hackernews("ask", 25))]
+        # ---- 第二批适配器（2026-09-17 接入）----
+        # 公开源（无需登录）：热门问题/文章都是"当下"，挂今日窗口
+        if w["label"] == "今日":
+            for t in SO_TAGS:
+                oc_sources.append((f"stackoverflow#{t}",
+                                   lambda tt=t: oc.stackoverflow_tag(tt, 20)))
+            for t in LB_TAGS:
+                oc_sources.append((f"lobsters#{t}",
+                                   lambda tt=t: oc.lobsters_tag(tt, 15)))
+            for t in DT_TAGS:
+                oc_sources.append((f"devto#{t}",
+                                   lambda tt=t: oc.devto_tag(tt, 15)))
+            oc_sources.append(("lesswrong:top-week",
+                               lambda: oc.lesswrong_top(10)))
+        # 需要登录的源：未登录时适配器报 AUTH_REQUIRED，health 可见，不静默
+        if w["label"] in ("今日", "本周"):
+            for q in INDEED_QUERIES:
+                oc_sources.append((f"indeed:{q[:16]}",
+                                   lambda qq=q: oc.indeed_search(qq)))
+            for q in TW_QUERIES:
+                oc_sources.append((f"twitter:{q[:20]}",
+                                   lambda qq=q: oc.twitter_search(qq)))
+            for q in XHS_QUERIES:
+                oc_sources.append((f"xhs:{q[:12]}",
+                                   lambda qq=q: oc.xhs_search(qq, 15)))
+            oc_sources.append(("zhihu:hot", lambda: oc.zhihu_hot(15)))
         for name, fn in oc_sources:
             try:
                 rs, h = fn()

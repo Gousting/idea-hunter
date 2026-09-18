@@ -29,6 +29,9 @@ PLATFORM_SHORT = {
     "github_trending": "GT·Trending", "github_search": "GS·Search",
     "github_issue": "GI·Issues", "hn": "HN", "reddit": "Reddit",
     "producthunt": "ProductHunt", "upwork": "Upwork", "browser": "浏览器",
+    "stackoverflow": "StackOverflow", "lobsters": "Lobsters", "devto": "DEV.to",
+    "lesswrong": "LessWrong", "indeed": "Indeed", "twitter": "X/Twitter",
+    "zhihu": "知乎", "xiaohongshu": "小红书",
 }
 CROWD_COLOR = {"红海": "#d9534f", "拥挤": "#f0ad4e",
                "中等": "#4da3d9", "稀疏": "#5cb85c"}
@@ -62,9 +65,15 @@ def build(json_path, cache_path, ann):
         # 与报告一致：应用 agent 标注 → 逐方向统计各平台条数
         plat_matrix = {}
         plat_total = {}
+        n_ann_hit = 0
         for r in kept:
             a = ann.get((r.get("source_id") or "")[:44])
-            name = (a[0] if a and a[0] != "无" else None) or dr.classify_best(r)[0]
+            if a:
+                n_ann_hit += 1
+                name = a[0] if a[0] != "无" else None
+            else:
+                name = None
+            name = name or dr.classify_best(r)[0]
             if not name:
                 continue
             src = r.get("source", "?")
@@ -87,7 +96,8 @@ def build(json_path, cache_path, ann):
             })
         data["windows"].append({"key": key, "label": win["label"],
                                 "raw": win.get("raw", 0), "kept": win.get("kept", 0),
-                                "dirs": dirs, "plat_total": plat_total})
+                                "dirs": dirs, "plat_total": plat_total,
+                                "ann_hits": n_ann_hit, "kept_n": len(kept)})
     return data
 
 
@@ -274,7 +284,16 @@ def main():
         print("找不到 directions/window_cache 文件");  return 2
     ann = load_annotations()
     data = build(jp, cp, ann)
-    mode = ("agent-语义分类（Claude 直读原文）" if ann else "关键词签名")
+    # 判定方式按实际命中率标注，不虚标：标注文件只覆盖旧缓存时，新采集的
+    # 记录大多走关键词签名，仍标"agent-语义分类"会误导（诚实性要求）。
+    if not ann:
+        mode = "关键词签名"
+    else:
+        hit = sum(w.get("ann_hits", 0) for w in data["windows"])
+        kept_n = sum(w.get("kept_n", 0) for w in data["windows"])
+        mode = ("agent-语义分类（Claude 直读原文）" if kept_n and hit >= kept_n * 0.5
+                else "关键词签名（含部分 agent 语义标注）")
+    data["mode"] = mode
 
     # ECharts 内嵌：看板必须离线可开。教训——之前走 CDN，预览环境加载不到就整页白屏
     # （页面 DOM 全由 JS 生成，echarts 未定义即抛异常，一行内容都出不来）。

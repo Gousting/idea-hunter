@@ -6,8 +6,8 @@ data/*.sqlite3
 # out/ 只保留最新示例产出，其余本地留存
 out/*
 !out/agent_annotations.json
-!out/directions_20260917-1703.md
-!out/directions_20260917-1703.json
-!out/dashboard_20260917-1706.html
+!out/directions_20260917-1807.md
+!out/directions_20260917-1807.json
+!out/dashboard_20260918-0910.html
 !out/report_20260917-1034.md
 !out/candidates_20260917-1034.json
