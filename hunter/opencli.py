@@ -139,6 +139,24 @@ def _i(v):
         return 0
 
 
+def _cn_num(v):
+    """解析中文数量串：'1160 万热度' → 11600000，'1.2 亿' → 120000000。
+
+    知乎等站的热度是中文单位字符串，直接 int() 会失败并静默变成 0（实测踩过：
+    知乎整榜热度全是 0，因为 '1160 万热度' 转不动）。
+    """
+    t = str(v or "").replace(",", "")
+    m = re.search(r"([\d.]+)\s*(亿|万|千)?", t)
+    if not m:
+        return 0
+    try:
+        n = float(m.group(1))
+    except Exception:
+        return 0
+    unit = m.group(2)
+    return int(n * {"亿": 1e8, "万": 1e4, "千": 1e3}.get(unit, 1))
+
+
 def _norm(src, d, site=""):
     """把各适配器不同的字段名统一成流水线的记录结构。
     适配器字段名不统一（name/title、tagline/selftext、permalink/url），
@@ -152,7 +170,12 @@ def _norm(src, d, site=""):
     sid = _pick(d, "id", "uuid", "slug", default=url) or f"{title[:40]}"
     # 结构化的讨论热度（别再塞进文本里 —— 塞了就没法参与计算，实测踩过）
     heat = {"score": max(_i(d.get(k)) for k in ("score", "ups", "votesCount", "votes", "points")),
-            "comments": max(_i(d.get(k)) for k in ("comments", "num_comments", "commentCount", "descendants"))}
+            "comments": max(_i(d.get(k)) for k in ("comments", "num_comments", "commentCount", "descendants")),
+            # 各站原生热度字段（量纲不同，由 platforms.heat_of 按站取用）
+            "answers": _i(d.get("answers")), "views": _i(d.get("views")),
+            "votes": _i(d.get("votesCount") or d.get("votes")),
+            "rank": _i(d.get("rank")),
+            "heat_num": _cn_num(d.get("heat"))}
     extra = []
     for k, label in (("score", "score"), ("comments", "comments"),
                      ("ups", "ups"), ("num_comments", "num_comments"),

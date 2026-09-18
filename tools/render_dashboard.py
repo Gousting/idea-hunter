@@ -42,6 +42,15 @@ def latest(pattern):
     return c[-1] if c else None
 
 
+def load_platforms():
+    """平台优先轨道的 JSON（run_platforms.py 产出）。没有就返回 None。"""
+    p = latest("platforms_*.json")
+    if not p:
+        return None
+    with open(p, encoding="utf-8") as f:
+        return json.load(f)
+
+
 def load_annotations():
     p = os.path.join(OUT, "agent_annotations.json")
     if os.path.isfile(p):
@@ -151,8 +160,10 @@ HTML = """<!DOCTYPE html>
 数据口径：证据数=窗口内独立候选条数；拥挤度=GitHub 同方向存量（红海≥1000/拥挤≥300/中等≥80/稀疏&lt;80）</div>
 <div class="tabs" id="tabs"></div>
 <div id="panels"></div>
+<div id="platforms"></div>
 <div class="panel"><h3>信源健康</h3><table id="health"></table></div>
 </div>
+<script>window.__PLATFORMS__ = __PLATFORMS_JSON__;</script>
 <script>
 const DATA = __DATA__;
 const CROWD_COLOR = __CROWDCOLOR__;
@@ -283,12 +294,54 @@ DATA.windows.forEach((w,i)=>{
 });
 show(0);
 
+// ---------- 平台热榜（平台优先轨道）----------
+const PF = window.__PLATFORMS__;
+if (PF) {
+  const el = document.getElementById('platforms');
+  const terms = {};
+  (PF.terms ? Object.entries(PF.terms) : []).forEach(([k,v])=>terms[k]=v);
+  el.innerHTML = `
+    <div class="panel" style="margin-top:16px">
+      <h3>平台热榜（平台优先轨道）</h3>
+      <div class="hint">不做需求门槛、不做方向归类，按各平台原生热度排序。
+        各站量纲不同（知乎是平台热度、HN 是点数、PH 是排名代理），<b>只比排名不比数值</b>。</div>
+      <div class="chart-sm" id="pfbar"></div>
+    </div>
+    <div class="panel"><h3>跨平台主题</h3>
+      <div class="hint">同一关键词出现在 ≥2 个平台。<b>关键词法有上限</b>：同义不同词不合并、中文用 n-gram 会切出碎片。</div>
+      ${(PF.topics&&PF.topics.length)?`<table>
+        <tr><th>主题</th><th>平台数</th><th>出现平台</th><th>热度合计</th></tr>
+        ${PF.topics.map(t=>`<tr><td><b>${t.topic}</b></td><td>${t.n_platforms}</td>
+          <td>${t.platforms.map(x=>PLAT_SHORT[x]||x).join('、')}</td><td>${t.heat}</td></tr>`).join('')}
+      </table>`:'<div class="hint">本轮无词汇交叉（热榜标题过短、样本不足）</div>'}
+    </div>
+    ${PF.platforms.map((p,i)=>`
+      <div class="panel">
+        <h3>${PLAT_SHORT[p.source]||p.source}　<span style="color:var(--muted);font-weight:400">${p.items.length} 条</span></h3>
+        ${terms[p.source]?`<div class="hint">平台高频词：${terms[p.source].map(x=>x.t+'('+x.n+')').join('、')}</div>`:''}
+        <table>
+          <tr><th>#</th><th>标题</th><th>平台热度</th><th>链接</th></tr>
+          ${p.items.map((it,j)=>`<tr><td>${j+1}</td><td>${it.title.slice(0,72)}</td>
+            <td>${it.heat}</td><td><a href="${it.url}" target="_blank" rel="noopener">打开</a></td></tr>`).join('')}
+        </table>
+      </div>`).join('')}`;
+  chart('pfbar', {
+    tooltip:{formatter:p=>`${p.name}<br>头部热度 ${p.value}`},
+    grid:{left:120,right:60,top:10,bottom:26},
+    xAxis:{type:'value'},
+    yAxis:{type:'category',data:PF.platforms.map(p=>PLAT_SHORT[p.source]||p.source)},
+    series:[{type:'bar',data:PF.platforms.map(p=>({value:p.items[0]?p.items[0].heat:0,
+      itemStyle:{color:'#4da3d9'}})),label:{show:true,position:'right',fontSize:11}}]
+  });
+}
+
 // ---------- 信源健康 ----------
 const h=document.getElementById('health');
 h.innerHTML='<tr><th>信源</th><th>条数</th><th>状态</th><th>备注</th></tr>'+
   DATA.health.map(x=>`<tr><td>${x.source}</td><td>${x.count}</td>
   <td>${x.ok?'✅':'❌'}</td><td>${(x.note||'').slice(0,80)}</td></tr>`).join('');
-</script></body></html>
+</script>
+</body></html>
 """
 
 
@@ -332,7 +385,8 @@ def main():
             .replace("__CROWDCOLOR__", json.dumps(CROWD_COLOR, ensure_ascii=False))
             .replace("__PLATSHORT__", json.dumps(PLATFORM_SHORT, ensure_ascii=False))
             .replace("__MODE__", json.dumps(mode, ensure_ascii=False))
-            .replace("__GENERATED__", data["generated_at"]))
+            .replace("__GENERATED__", data["generated_at"])
+            .replace("__PLATFORMS_JSON__", json.dumps(load_platforms(), ensure_ascii=False)))
     ts = time.strftime("%Y%m%d-%H%M")
     out = os.path.join(OUT, f"dashboard_{ts}.html")
     with open(out, "w", encoding="utf-8") as f:
