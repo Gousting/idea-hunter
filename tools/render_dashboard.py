@@ -93,6 +93,13 @@ def build(json_path, cache_path, ann):
                 "plat": plat_matrix.get(s["name"], {}),
                 "mature": s.get("mature", []),
                 "evidence_links": s.get("evidence_links", []),
+                "advice": s.get("advice", ""),
+                "advice_level": s.get("advice_level", 0),
+                "advice_action": s.get("advice_action", ""),
+                "advice_reasons": s.get("advice_reasons", []),
+                "trend_level": s.get("trend_level", ""),
+                "trend_score": s.get("trend_score", 0),
+                "trend_reasons": s.get("trend_reasons", []),
             })
         data["windows"].append({"key": key, "label": win["label"],
                                 "raw": win.get("raw", 0), "kept": win.get("kept", 0),
@@ -156,6 +163,8 @@ function chart(id, opt){
     return; }
   try{ echarts.init(document.getElementById(id)).setOption(opt); }catch(e){}
 }
+const ADVICE_COLOR = {4:'#5cb85c',3:'#7cb342',2:'#f0ad4e',1:'#d9534f',0:'#8b949e'};
+const TREND_COLOR = {'高':'#d9534f','中':'#f0ad4e','低':'#8b949e','':'#8b949e'};
 const fmt = n => n==null ? '—' : (n>=1000 ? n.toLocaleString('en-US') : n);
 const tagColor = t => t.includes('★')?'#5cb85c':t.includes('已拥挤')?'#d9534f':t.includes('红海')?'#c9764a':'#8b949e';
 
@@ -214,6 +223,12 @@ DATA.windows.forEach((w,i)=>{
            <span style="color:var(--muted)">★${fmt(m.stars)}·${m.updated||''}</span>`).join(' · ')||'—'}<br>
         <span style="color:var(--muted)">需求证据：</span>
         ${(d.evidence_links||[]).map(e=>`<a href="${e.url}" target="_blank" rel="noopener">${e.title.slice(0,42)}</a>`).join(' · ')||'—'}
+        ${d.advice?`<div style="margin-top:4px">
+          <span class="tag" style="background:${ADVICE_COLOR[d.advice_level]||'#8b949e'}">${d.advice}</span>
+          <span class="tag" style="background:${TREND_COLOR[d.trend_level]||'#8b949e'};margin-left:4px">趋势 ${d.trend_level}·${d.trend_score}</span>
+          <span style="color:var(--muted);font-size:11.5px"> · ${[...(d.advice_reasons||[]),...(d.trend_reasons||[])].join('；')}</span>
+          ${d.advice_action?`<div style="color:var(--muted);font-size:11.5px">建议动作：${d.advice_action}</div>`:''}
+        </div>`:''}
       </div>`).join('')}
   </div></div>`;
 

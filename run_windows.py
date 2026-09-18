@@ -23,7 +23,7 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from hunter import sources, filter as flt, directions as dr, opencli as oc, llm  # noqa: E402
+from hunter import sources, filter as flt, directions as dr, opencli as oc, llm, advice  # noqa: E402
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, "out")
@@ -296,6 +296,13 @@ def main():
 
     for e in crowd_errs:
         health.append({"source": "github_count(拥挤度)", "count": 0, "ok": False, "note": e})
+
+    # 建议与趋势：必须在**所有窗口**都算完后做（趋势要看跨窗口的增速与共振）
+    adv_map = advice.annotate({v["label"]: v["rows"] for v in results.values()})
+    hot = sorted((a for a in adv_map.items() if a[1]["trend"]["level"] == "高"),
+                 key=lambda kv: -kv[1]["trend"]["score"])
+    if hot:
+        print("  趋势高（可能爆发）：" + "、".join(n for n, _ in hot[:5]))
 
     ts = time.strftime("%Y%m%d-%H%M")
     rp = os.path.join(OUT, f"directions_{ts}.md")

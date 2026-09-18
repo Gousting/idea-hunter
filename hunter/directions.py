@@ -185,7 +185,7 @@ def aggregate(candidates):
         s = stat.setdefault(name, {
             "name": name, "evidence": 0, "sources": set(),
             "wtp": 0, "pain": 0, "items": [], "repos": [],
-            "velocity": 0.0, "wtp_llm": 0,
+            "velocity": 0.0, "wtp_llm": 0, "hiring": 0,
         })
         s["evidence"] += 1
         s["sources"].add(r.get("source"))
@@ -193,6 +193,8 @@ def aggregate(candidates):
             s["wtp"] += 1
         if (r.get("llm_wtp") or 0) >= 3:
             s["wtp_llm"] += 1
+        if r.get("record_type") == "hiring":
+            s["hiring"] += 1
         if r.get("pain_hits") or (r.get("llm_pain") or 0) >= 3:
             s["pain"] += 1
         if r.get("source") in ("github_trending", "github_search"):
@@ -397,6 +399,29 @@ def _quote(rec, limit=190):
     return t[:limit]
 
 
+def render_advice(rows):
+    """建议与趋势表。两个轴独立：建议=当下值不值得投入；趋势=变化速率。"""
+    if not any(s.get("advice") for s in rows):
+        return []
+    L = ["#### 建议与趋势", "",
+         "**建议结论**看当下值不值得投入（热度 × 拥挤度 × 付费信号）；"
+         "**趋势评级**看变化速率（头部仓库涨星速度 × 平台共振 × 窗口加速）。"
+         "两者可能背离 —— 很热但停滞、或证据少却在加速，都真实存在。", "",
+         "| 方向 | 建议结论 | 趋势 | 支撑理由 | 建议动作 |",
+         "|---|---|---|---|---|"]
+    for s in rows:
+        rs = list(s.get("advice_reasons") or []) + list(s.get("trend_reasons") or [])
+        L.append(f"| **{s['name']}** | {s.get('advice', '—')} | "
+                 f"{s.get('trend_level', '—')}（{s.get('trend_score', 0)}） | "
+                 f"{'；'.join(rs) or '—'} | {s.get('advice_action', '—')} |")
+    early = [s for s in rows if s.get("trend_level") == "高" and s.get("evidence", 0) < 3]
+    if early:
+        L += ["", "**早期加速信号**（趋势高但证据还少 —— 提前占位候选，失败风险也高）：", ""]
+        for s in early:
+            L.append(f"- **{s['name']}**：{'；'.join(s.get('trend_reasons') or [])}")
+    return L
+
+
 def render_window(window_label, rows, total_dirs, raw_count):
     L = [f"### {window_label} Top {len(rows)} 方向", "",
          f"（本窗口采集 {raw_count} 条，归类出 {total_dirs} 个候选方向）", ""]
@@ -430,6 +455,7 @@ def render_window(window_label, rows, total_dirs, raw_count):
               "「弱」不代表没价值，只代表本期只有一条独立证据 —— 需要下期复现才算成立。", ""]
 
     top = [s for s in rows if s["evidence"] >= 2][:3] or rows[:2]
+    L += render_advice(rows) + [""]
     L += [f"#### {window_label} 主要方向的证据原文", ""]
     for s in top:
         L.append(f"**{s['name']}**　证据 {s['evidence']} 条　信源 {', '.join(s['sources'])}")
