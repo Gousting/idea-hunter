@@ -1,56 +1,56 @@
 # 各平台热点汇总 · 各平台热榜
 
-（本窗口采集 288 条；**不做需求门槛、不做方向归类**，直接按平台原生热度排序——这一节回答的是"各平台在热什么"，不是"哪些方向有需求"）
+（本窗口采集 284 条；**不做需求门槛、不做方向归类**，直接按平台原生热度排序——这一节回答的是"各平台在热什么"，不是"哪些方向有需求"）
 
 > 热度口径按平台定制：HN/Lobsters=点数×2+评论×3；DEV.to/LessWrong=评论×3；知乎=回答数；SO=浏览数+回答×10；Product Hunt=投票×5；GitHub=日均涨星。各站量纲不同，**跨平台只比排名不比数值**。
 
 ## zhihu（15 条）
 
-平台高频词：为啥（3）、得关（2）、值得关（2）、得关注（2）、值得（2）、还有（2）
+平台高频词：还有（2）、的有（2）、真的有（2）、信息（2）、强制（2）、情况（2）
 
 | # | 标题 | 平台热度 | 链接 |
 |---:|---|---:|---|
-| 1 | 退休副省长家丢了 243 万元茅台等名酒，管家因盗窃罪获刑10年半，哪些细节值得关注？ | 9250000 | [打开](https://www.zhihu.com/question/2083586923906295347) |
-| 2 | 如何看待「快递小哥救助摔倒老人反被索赔超 92 万」一案，终审驳回全部诉求 ？法律怎样降低救人的风险？ | 6660000 | [打开](https://www.zhihu.com/question/2083927414493681147) |
+| 1 | 退休副省长家丢了 243 万元茅台等名酒，管家因盗窃罪获刑10年半，哪些细节值得关注？ | 9260000 | [打开](https://www.zhihu.com/question/2083586923906295347) |
+| 2 | 如何看待「快递小哥救助摔倒老人反被索赔超 92 万」一案，终审驳回全部诉求 ？法律怎样降低救人的风险？ | 6670000 | [打开](https://www.zhihu.com/question/2083927414493681147) |
 | 3 | 义乌开始卖载人飞碟飞行器了，单笔订单卖出 1.2 亿元，离普通人还有多远？商业化还要解决哪些问题？ | 4200000 | [打开](https://www.zhihu.com/question/2083949287025788571) |
 | 4 | 为什么生意再小，赚钱的速度都远超打工？ | 2340000 | [打开](https://www.zhihu.com/question/1973749451853169735) |
 | 5 | 名古屋亚运会用「邮轮+集装箱房」替代亚运村，巴黎奥运村极度简陋无空调，为啥如今的体育大赛越办越寒酸？ | 1780000 | [打开](https://www.zhihu.com/question/2081790151865406534) |
-| 6 | 很多老师称现在批改作业不能用×，要换成◯、△，是为了保护学生吗？真的有用吗？打×本身有问题吗？ | 1660000 | [打开](https://www.zhihu.com/question/2083585452137608098) |
+| 6 | 很多老师称现在批改作业不能用×，要换成◯、△，是为了保护学生吗？真的有用吗？打×本身有问题吗？ | 1670000 | [打开](https://www.zhihu.com/question/2083585452137608098) |
 | 7 | 全球陷入「抢钨大战」，两年时间价格上涨了约 9 倍，为啥会疯涨？钨这种稀有金属的战略价值体现在哪里？ | 1620000 | [打开](https://www.zhihu.com/question/2082873227517359039) |
 | 8 | 网传浙江师范大学强制新生填写父母工作单位、月收入等12项隐私信息，为啥要填这么详细？真的有必要吗？ | 1610000 | [打开](https://www.zhihu.com/question/2083934201863202786) |
-| 9 | 曝甲醛白菜的博主渔猎齐哥再曝广东清远「硫磺竹笋」，当地发布通报称情况属实，哪些信息值得关注？ | 1540000 | [打开](https://www.zhihu.com/question/2084183379600204463) |
-| 10 | 为什么麦当劳在中国不如肯德基？ | 1500000 | [打开](https://www.zhihu.com/question/644485856) |
+| 9 | 曝甲醛白菜的博主渔猎齐哥再曝广东清远「硫磺竹笋」，当地发布通报称情况属实，哪些信息值得关注？ | 1580000 | [打开](https://www.zhihu.com/question/2084183379600204463) |
+| 10 | 为什么麦当劳在中国不如肯德基？ | 1470000 | [打开](https://www.zhihu.com/question/644485856) |
 | 11 | 印度央行强制塔塔控股公司上市，或成印度史上最大 IPO，为什么还有强制上市的情况？ | 1450000 | [打开](https://www.zhihu.com/question/2083879086175117961) |
-| 12 | 母鸡孵蛋的时候不会感到无聊吗？ | 1430000 | [打开](https://www.zhihu.com/question/312601657) |
-| 13 | 如何看待华为突破冯诺依曼「单机」架构？ | 1410000 | [打开](https://www.zhihu.com/question/2084200588892451205) |
+| 12 | 母鸡孵蛋的时候不会感到无聊吗？ | 1440000 | [打开](https://www.zhihu.com/question/312601657) |
+| 13 | 如何看待华为突破冯诺依曼「单机」架构？ | 1430000 | [打开](https://www.zhihu.com/question/2084200588892451205) |
 | 14 | 都说雄性激素会让毛囊萎缩导致脱发，那为什么同样激素水平，有的人秃顶，有的人却发量浓密？ | 1190000 | [打开](https://www.zhihu.com/question/2083906822814094755) |
 | 15 | TES 拿下 LPL 三号种子席位挺进 S16，如何评价他们本次季后赛表现？ | 1180000 | [打开](https://www.zhihu.com/question/2084039837368193223) |
 
 ## juejin（15 条）
 
-平台高频词：时间段（1）、iso（1）、间段验（1）、化格（1）、段验证（1）、准与（1）
+平台高频词：validx（1）、iso（1）、jwt（1）、schema（1）、token（1）、chatgpt（1）
 
 | # | 标题 | 平台热度 | 链接 |
 |---:|---|---:|---|
 | 1 | ValidX时间段验证详解：ISO 8601标准与简化格式 | 11290 | [打开](https://juejin.cn/post/7684649314159312930) |
-| 2 | 被吹上天的 JWT，为什么主流网站一个都不用 | 4047 | [打开](https://juejin.cn/post/7684261460002701338) |
+| 2 | 被吹上天的 JWT，为什么主流网站一个都不用 | 4044 | [打开](https://juejin.cn/post/7684261460002701338) |
 | 3 | 只备份一个 schema，别把整库都搬走 | 3856 | [打开](https://juejin.cn/post/7685224902321848358) |
-| 4 | ChatGPT 开启无限 token | 1985 | [打开](https://juejin.cn/post/7685770509585629190) |
-| 5 | 一份 KDMS 评估报告，怎样排出迁移先后顺序 | 1049 | [打开](https://juejin.cn/post/7686361321610035246) |
-| 6 | JDK27正式发布，人麻了! | 1015 | [打开](https://juejin.cn/post/7686174631263404073) |
+| 4 | ChatGPT 开启无限 token | 1976 | [打开](https://juejin.cn/post/7685770509585629190) |
+| 5 | 一份 KDMS 评估报告，怎样排出迁移先后顺序 | 1042 | [打开](https://juejin.cn/post/7686361321610035246) |
+| 6 | JDK27正式发布，人麻了! | 1006 | [打开](https://juejin.cn/post/7686174631263404073) |
 | 7 | Kafka已正式接入AI | 836 | [打开](https://juejin.cn/post/7684573646439317514) |
-| 8 | AI会让程序员失业吗？200年前的手工织工已经给出了答案 | 804 | [打开](https://juejin.cn/post/7685276242113019938) |
-| 9 | 为什么越来越多人用OpenWiki？ | 644 | [打开](https://juejin.cn/post/7685591822258585626) |
+| 8 | AI会让程序员失业吗？200年前的手工织工已经给出了答案 | 802 | [打开](https://juejin.cn/post/7685276242113019938) |
+| 9 | 为什么越来越多人用OpenWiki？ | 639 | [打开](https://juejin.cn/post/7685591822258585626) |
 | 10 | “这需求用 AI 也就十分钟吧？”——周五深夜十一点，我在工位给 Cursor 擦屁股 | 474 | [打开](https://juejin.cn/post/7684460980934164495) |
-| 11 | GPT-6 Astra 的提示词泄露了，里面居然藏着个保安？ | 436 | [打开](https://juejin.cn/post/7685215742590517299) |
-| 12 | 给若依加审批流，不用 Flowable | 405 | [打开](https://juejin.cn/post/7685577977079185423) |
+| 11 | GPT-6 Astra 的提示词泄露了，里面居然藏着个保安？ | 434 | [打开](https://juejin.cn/post/7685215742590517299) |
+| 12 | 给若依加审批流，不用 Flowable | 404 | [打开](https://juejin.cn/post/7685577977079185423) |
 | 13 | 🎥 手搓一套直播高并发环境！一个后端小白从 0 到 1 的搭建笔记 | 321 | [打开](https://juejin.cn/post/7684154085232001059) |
-| 14 | 2026 爆火的「本体」：给大模型装上业务世界观 | 304 | [打开](https://juejin.cn/post/7684080641566834703) |
+| 14 | 2026 爆火的「本体」：给大模型装上业务世界观 | 303 | [打开](https://juejin.cn/post/7684080641566834703) |
 | 15 | 还在用 Electron？6 种跨平台桌面方案横评：Rust + Vue 把安装包从 224MB 干到 4.7MB | 264 | [打开](https://juejin.cn/post/7685261384724463658) |
 
 ## github_trending（15 条）
 
-平台高频词：tencent（2）、security-audit-skill（1）、cloudflare（1）、alibaba（1）、open-code-review（1）、browserskill（1）
+平台高频词：tencent（2）、cloudflare（1）、security-audit-skill（1）、alibaba（1）、open-code-review（1）、browserskill（1）
 
 | # | 标题 | 平台热度 | 链接 |
 |---:|---|---:|---|
@@ -72,11 +72,11 @@
 
 ## hn（15 条）
 
-平台高频词：share（2）、setup（2）、agent（2）、birds（1）、frame（1）、e-ink（1）
+平台高频词：setup（2）、share（2）、agent（2）、draws（1）、e-ink（1）、hears（1）
 
 | # | 标题 | 平台热度 | 链接 |
 |---:|---|---:|---|
-| 1 | Show HN: An e-ink frame that hears birds and draws them as 1800s illustratio | 5329 | [打开](https://github.com/arnegiacomo/fugleramme) |
+| 1 | Show HN: An e-ink frame that hears birds and draws them as 1800s illustratio | 5331 | [打开](https://github.com/arnegiacomo/fugleramme) |
 | 2 | Ask HN: What are you working on? (September 2026) | 4315 | [打开]() |
 | 3 | Show HN: I made a flight simulator, except you're just a passenger | 1491 | [打开](https://inflightsimulator.com) |
 | 4 | Neovim have a ~$800k Bitcoin donation sitting untouched since 2023 | 1329 | [打开]() |
@@ -94,7 +94,7 @@
 
 ## github_search（15 条）
 
-平台高频词：browser-use（1）、jev-ultrafast（1）、fast-jev-compaction（1）、tamaratran（1）、openjev（1）、theoleecj（1）
+平台高频词：jev-ultrafast（1）、browser-use（1）、tamaratran（1）、fast-jev-compaction（1）、openjev（1）、theoleecj（1）
 
 | # | 标题 | 平台热度 | 链接 |
 |---:|---|---:|---|
@@ -116,12 +116,12 @@
 
 ## lobsters（15 条）
 
-平台高频词：down（1）、shuts（1）、minds（1）、lost（1）、introducing（1）、gnome（1）
+平台高频词：shuts（1）、down（1）、lost（1）、minds（1）、gnome（1）、introducing（1）
 
 | # | 标题 | 平台热度 | 链接 |
 |---:|---|---:|---|
 | 1 | A/I Shuts Down | 648 | [打开](https://lobste.rs/s/wxnibb/i_shuts_down) |
-| 2 | Everybody's Lost Their Minds | 381 | [打开](https://lobste.rs/s/rok1za/everybody_s_lost_their_minds) |
+| 2 | Everybody's Lost Their Minds | 384 | [打开](https://lobste.rs/s/rok1za/everybody_s_lost_their_minds) |
 | 3 | Introducing GNOME 51 | 260 | [打开](https://lobste.rs/s/gs10ad/introducing_gnome_51) |
 | 4 | The end of verygoodsoftwarenotvirus.ru | 258 | [打开](https://lobste.rs/s/ihw0hq/end_verygoodsoftwarenotvirus_ru) |
 | 5 | I expected better from Google | 227 | [打开](https://lobste.rs/s/11uiiv/i_expected_better_from_google) |
@@ -138,7 +138,7 @@
 
 ## reddit（15 条）
 
-平台高频词：saas（3）、product（2）、hard（2）、daily（2）、paid（2）、rule（1）
+平台高频词：saas（3）、product（2）、hard（2）、daily（2）、paid（2）、category（1）
 
 | # | 标题 | 平台热度 | 链接 |
 |---:|---|---:|---|
@@ -158,27 +158,24 @@
 | 14 | This can't be real! | 21 | [打开](https://www.reddit.com/r/SaaS/comments/1wjbdy6/this_cant_be_real/) |
 | 15 | Agency owners: a paid AI pilot hit messy client data, then a 41-minute test. | 18 | [打开](https://www.reddit.com/r/SaaS/comments/1wj9f6v/agency_owners_a_paid_ai_pilot_hit_messy_client/) |
 
-## producthunt（15 条）
+## producthunt（12 条）
 
-平台高频词：notch（1）、design（1）、smartcheck（1）、miremotebridge（1）、productbridge（1）、score（1）
+平台高频词：typedash（1）、stile（1）、smartcheck（1）、m9r（1）、receipt（1）、scanner（1）
 
 | # | 标题 | 平台热度 | 链接 |
 |---:|---|---:|---|
-| 1 | Notch Design | 125 | [打开](https://www.producthunt.com/products/notch-design-2) |
-| 2 | SmartCheck | 120 | [打开](https://www.producthunt.com/products/smartcheck) |
-| 3 | MiRemoteBridge | 115 | [打开](https://www.producthunt.com/products/miremotebridge) |
-| 4 | ProductBridge | 110 | [打开](https://www.producthunt.com/products/productbridge) |
-| 5 | Verity Score | 105 | [打开](https://www.producthunt.com/products/verity-score-geo-ai-visibility) |
-| 6 | Wingman | 100 | [打开](https://www.producthunt.com/products/wingman-8) |
-| 7 | AEXGrid | 95 | [打开](https://www.producthunt.com/products/aexgrid) |
-| 8 | Edgee Codex Compressor V2 | 90 | [打开](https://www.producthunt.com/products/edgee) |
+| 1 | TypeDash | 125 | [打开](https://www.producthunt.com/products/typedash-2) |
+| 2 | Stile.iD | 120 | [打开](https://www.producthunt.com/products/stile-id) |
+| 3 | SmartCheck | 115 | [打开](https://www.producthunt.com/products/smartcheck) |
+| 4 | M9R | 110 | [打开](https://www.producthunt.com/products/m9r) |
+| 5 | Galactic Receipt Scanner | 105 | [打开](https://www.producthunt.com/products/galactic-receipt-scanner) |
+| 6 | Slurp | 100 | [打开](https://www.producthunt.com/products/slurp-2) |
+| 7 | Unvendor | 95 | [打开](https://www.producthunt.com/products/unvendor) |
+| 8 | AEXGrid | 90 | [打开](https://www.producthunt.com/products/aexgrid) |
 | 9 | MeshEdit | 85 | [打开](https://www.producthunt.com/products/meshedit) |
-| 10 | Sutura | 80 | [打开](https://www.producthunt.com/products/sutura) |
-| 11 | M9R | 75 | [打开](https://www.producthunt.com/products/m9r) |
-| 12 | Unvendor | 70 | [打开](https://www.producthunt.com/products/unvendor) |
-| 13 | Wombo | 65 | [打开](https://www.producthunt.com/products/wombo-the-ai-game-studio) |
-| 14 | Forma-oss | 60 | [打开](https://www.producthunt.com/products/forma-oss) |
-| 15 | StillTalk | 55 | [打开](https://www.producthunt.com/products/stilltalk) |
+| 10 | Wombo | 80 | [打开](https://www.producthunt.com/products/wombo-the-ai-game-studio) |
+| 11 | Mantle | 75 | [打开](https://www.producthunt.com/products/mantle-f52466f6-7b01-4f3c-b7de-a2e445d1f2e3) |
+| 12 | ProductBridge | 70 | [打开](https://www.producthunt.com/products/productbridge) |
 
 ## lesswrong（15 条）
 
@@ -204,7 +201,7 @@
 
 ## bluesky（10 条）
 
-平台高频词：trump（2）、gifted（1）、green（1）、xiv（1）、orb（1）、leo（1）
+平台高频词：trump（2）、orb（1）、pope（1）、gifted（1）、xiv（1）、leo（1）
 
 | # | 标题 | 平台热度 | 链接 |
 |---:|---|---:|---|
@@ -221,7 +218,7 @@
 
 ## stackoverflow（2 条）
 
-平台高频词：laravel（1）、auto（1）、identifiers（1）、generate（1）、form（1）、numbers（1）
+平台高频词：generate（1）、laravel（1）、identifiers（1）、numbers（1）、auto（1）、form（1）
 
 | # | 标题 | 平台热度 | 链接 |
 |---:|---|---:|---|
@@ -230,7 +227,7 @@
 
 ## devto（15 条）
 
-平台高频词：coding（2）、memory（2）、challenge（1）、edition（1）、dog（1）、weekend（1）
+平台高频词：coding（2）、memory（2）、dog（1）、challenge（1）、weekend（1）、edition（1）
 
 | # | 标题 | 平台热度 | 链接 |
 |---:|---|---:|---|
@@ -252,7 +249,7 @@
 
 ## indeed（15 条）
 
-平台高频词：招聘（15）、automation（15）、inc（4）、hybrid（3）、fort（3）、airlines（3）
+平台高频词：automation（15）、招聘（15）、inc（5）、hybrid（4）、technologies（3）、san（3）
 
 | # | 标题 | 平台热度 | 链接 |
 |---:|---|---:|---|
@@ -262,15 +259,15 @@
 | 4 | Applied Materials 招聘：automation（Santa Clara, CA 95054） | 0 | [打开](https://www.indeed.com/viewjob?jk=a55d326dab47efc9) |
 | 5 | Honeywell Aerospace 招聘：automation（United States） | 0 | [打开](https://www.indeed.com/viewjob?jk=e0b07dcee6705b52) |
 | 6 | INGRAM PROFESSIONAL SERVICES INC 招聘：automation（Midland, TX 79706） | 0 | [打开](https://www.indeed.com/viewjob?jk=8ef2ab0eeb9cc79e) |
-| 7 | Aperia Technologies, Inc 招聘：automation（San Mateo, CA） | 0 | [打开](https://www.indeed.com/viewjob?jk=e9da704742d2ca4a) |
-| 8 | State of Ohio - Auditor Of State 招聘：automation（Hybrid work in Ohio） | 0 | [打开](https://www.indeed.com/viewjob?jk=b557f97940833b20) |
-| 9 | American Airlines 招聘：automation（Fort Worth, TX） | 0 | [打开](https://www.indeed.com/viewjob?jk=dec970b7093a48e2) |
-| 10 | Cardless 招聘：automation（San Francisco, CA） | 0 | [打开](https://www.indeed.com/viewjob?jk=74a802fe8c56a9f6) |
-| 11 | Agilent Technologies, Inc. 招聘：automation（North Kingstown, RI 02852） | 0 | [打开](https://www.indeed.com/viewjob?jk=f02d89dcca6ec972) |
-| 12 | Siemens 招聘：automation（Hybrid work in Jacksonville, FL） | 0 | [打开](https://www.indeed.com/viewjob?jk=f25a9e85b6eeae8c) |
-| 13 | American Airlines 招聘：automation（Dallas/Fort Worth International Airport, TX） | 0 | [打开](https://www.indeed.com/viewjob?jk=efb560a4495bc159) |
-| 14 | American Airlines 招聘：automation（Dallas/Fort Worth International Airport, TX） | 0 | [打开](https://www.indeed.com/viewjob?jk=890abcdef0123456) |
-| 15 | BCD Travel 招聘：automation（United States） | 0 | [打开](https://www.indeed.com/viewjob?jk=b635c628574774ec) |
+| 7 | State of Ohio - Auditor Of State 招聘：automation（Hybrid work in Ohio） | 0 | [打开](https://www.indeed.com/viewjob?jk=b557f97940833b20) |
+| 8 | American Airlines 招聘：automation（Fort Worth, TX） | 0 | [打开](https://www.indeed.com/viewjob?jk=dec970b7093a48e2) |
+| 9 | Aperia Technologies, Inc 招聘：automation（San Mateo, CA） | 0 | [打开](https://www.indeed.com/viewjob?jk=e9da704742d2ca4a) |
+| 10 | Aperia Technologies, Inc 招聘：automation（San Mateo, CA） | 0 | [打开](https://www.indeed.com/viewjob?jk=789abcdef0123456) |
+| 11 | Altarum 招聘：automation（Hybrid work in Novi, MI） | 0 | [打开](https://www.indeed.com/viewjob?jk=a77187016a52dbc2) |
+| 12 | Agilent Technologies, Inc. 招聘：automation（North Kingstown, RI 02852） | 0 | [打开](https://www.indeed.com/viewjob?jk=f02d89dcca6ec972) |
+| 13 | BCD Travel 招聘：automation（United States） | 0 | [打开](https://www.indeed.com/viewjob?jk=b635c628574774ec) |
+| 14 | Cardless 招聘：automation（San Francisco, CA） | 0 | [打开](https://www.indeed.com/viewjob?jk=74a802fe8c56a9f6) |
+| 15 | Siemens 招聘：automation（Hybrid work in Jacksonville, FL） | 0 | [打开](https://www.indeed.com/viewjob?jk=f25a9e85b6eeae8c) |
 
 ## 跨平台主题（出现在 ≥2 个平台的关键词）
 
@@ -280,7 +277,6 @@
 |---|---:|---|---:|
 | **phone** | 3 | devto、hn、reddit | 545 |
 | **age** | 3 | devto、hn、lesswrong | 336 |
-| **怎样** | 2 | juejin、zhihu | 6661049 |
 | **saas** | 2 | hn、reddit | 1172 |
 | **device** | 2 | devto、hn | 517 |
 | **files** | 2 | hn、lobsters | 351 |
@@ -289,4 +285,5 @@
 | **check** | 2 | lesswrong、reddit | 156 |
 | **users** | 2 | lesswrong、reddit | 120 |
 | **strategy** | 2 | devto、reddit | 99 |
-| **hybrid** | 2 | bluesky、indeed | 88 |
+| **hybrid** | 2 | bluesky、indeed | 89 |
+| **days** | 2 | devto、reddit | 51 |

@@ -3,17 +3,23 @@ __pycache__/
 data/*.sqlite3
 .workbuddy/
 .DS_Store
-# out/ 只保留最新示例产出，其余本地留存
+
+# ------------------------------------------------------------------ out/ 入库策略
+# 只入库两类：① 稳定名产出（latest_*，读者只需要记这一个名字）
+#             ② 状态文件（机器可读，供后续脚本消费）
+# 带时间戳的每轮产物（dashboard_2026*/directions_2026*/...）留本地：
+# 它们每跑一次就变一次，入库只会造成噪音和频繁白名单维护。
 out/*
+!out/INDEX.md
+!out/latest_dashboard.html
+!out/latest_directions.md
+!out/latest_directions.json
+!out/latest_platforms.md
+!out/latest_analysis.md
 !out/agent_annotations.json
-!out/directions_20260918-1555.md
-!out/directions_20260918-1555.json
-!out/dashboard_20260918-1555.html
+!out/platform_analysis.json
+!out/resilience.json
+!out/validation_kits.json
+# 首轮的示例产出（保留作为格式参考）
 !out/report_20260917-1034.md
 !out/candidates_20260917-1034.json
-!out/platforms_20260918-1544.md
-!out/platforms_20260918-1544.json
-!out/analysis_20260918-1458.md
-!out/platform_analysis.json
-!out/validation_kits.json
-!out/resilience.json

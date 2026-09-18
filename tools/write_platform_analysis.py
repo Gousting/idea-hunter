@@ -220,6 +220,38 @@ ITEMS = [
     },
     {
         "tier": C, "pay": 0,
+        "title": "Bluesky 热榜（本轮新接入，实测与知乎同类）",
+        "why_hot": "新接入的免登录热榜，实测返回：Pope Leo XIV gifted green orb(125)、"
+                   "Trump threatens EU over Canada(120)、Sheeran openers quit in solidarity(115)"
+                   "—— 前 3 名全是政治/娱乐新闻",
+        "who_pays": "无",
+        "trigger": "无",
+        "supply": "—",
+        "verdict": "**实测结论：Bluesky trending 是新闻榜，与知乎同类，对软件选品零价值**。"
+                   "更重要的是——它原本被当作 Twitter（创始人原话）的免登录弱等效，"
+                   "这个替代**实测不成立**：创始人不会把产品思路发在热门话题榜上。"
+                   "已在 hunter/resilience.py 如实改注（弱等效 ≠ 覆盖）",
+        "action": "不作为需求信号源；若要 Bluesky 的创始人原话，需要可按关键词搜帖的接口（当前适配器只给热榜）",
+        "urls": [],
+    },
+    {
+        "tier": C, "pay": 0,
+        "title": "掘金热榜（本轮新接入，中文技术信号可用）",
+        "why_hot": "免登录中文技术热榜，实测前几名：ValidX 时间段验证详解(11289)、"
+                   "被吹上天的 JWT 为什么主流网站一个都不用(4011)、只备份一个 schema(3854)、"
+                   "ChatGPT 开启无限 token(1933)、JDK27 正式发布(971)、"
+                   "AI 会让程序员失业吗(792)",
+        "who_pays": "无（技术文章读者不为工具付费）",
+        "trigger": "—",
+        "supply": "—",
+        "verdict": "**不是付费机会，但比知乎/Bluesky 有价值**：它是**技术**热榜而非新闻榜，"
+                   "反映中文开发者的关注点（JWT 争议、备份策略、JDK 升级、AI 焦虑）。"
+                   "用途是「中文技术趋势的输入」，不是「消费需求的来源」",
+        "action": "当技术风向参考；找中文**消费级**需求仍需搜索类通道（小红书搜索、v2ex）",
+        "urls": [],
+    },
+    {
+        "tier": C, "pay": 0,
         "title": "Stack Overflow 零散技术问答",
         "why_hot": "Laravel 5 自动生成表单编号(636)、selenium 遇 forbidden 报错(60)",
         "who_pays": "无（开发者查文档式提问，属一次性技术求助）",
