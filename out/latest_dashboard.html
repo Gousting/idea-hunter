@@ -53,47 +53,120 @@ var Fr={},Gr={};var Wr,Hr=function(){function t(t,e,n){var i=this;this._sleepAft
         --red:#d9534f;--orange:#f0ad4e;--blue:#4da3d9;--green:#5cb85c}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);
-       font:14px/1.6 "Segoe UI","Microsoft YaHei",sans-serif}
-  .wrap{max-width:1180px;margin:0 auto;padding:20px 16px 60px}
-  h1{font-size:22px;margin:6px 0 2px}
-  .meta{color:var(--muted);font-size:12.5px;margin-bottom:14px}
-  .tabs{display:flex;gap:8px;margin:14px 0}
-  .tabs button{padding:7px 18px;border:1px solid var(--line);background:#fff;
-       border-radius:20px;cursor:pointer;font-size:13.5px}
-  .tabs button.on{background:#24292f;color:#fff;border-color:#24292f}
-  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0 14px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;
-        padding:12px 14px}
-  .card b{display:block;font-size:22px}
-  .card span{color:var(--muted);font-size:12px}
+       font:14px/1.62 "Segoe UI","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:20px;margin:4px 0 2px}
+  .meta{color:var(--muted);font-size:12.5px;margin-bottom:12px}
+  .meta details{display:inline-block}
+  .meta summary{cursor:pointer;color:var(--muted)}
+
+  /* 顶部视图切换 —— 摘要优先，其余按需展开 */
+  .nav{display:flex;gap:6px;margin:0 0 14px;flex-wrap:wrap;
+       position:sticky;top:0;background:var(--bg);padding:8px 0 10px;z-index:9;
+       border-bottom:1px solid var(--line)}
+  .nav button{padding:6px 16px;border:1px solid var(--line);background:#fff;
+       border-radius:18px;cursor:pointer;font-size:13.5px;color:var(--ink)}
+  .nav button.on{background:#24292f;color:#fff;border-color:#24292f}
+  .nav .spacer{flex:1}
+  .nav .when{color:var(--muted);font-size:12.5px;align-self:center}
+
+  .view{display:none}
+  .view.on{display:block}
+
+  /* KPI 条：小、紧凑，不做成大卡片占位置 */
+  .kpi{display:flex;gap:18px;flex-wrap:wrap;align-items:baseline;
+       background:var(--card);border:1px solid var(--line);border-radius:10px;
+       padding:10px 14px;margin-bottom:14px}
+  .kpi div{font-size:12.5px;color:var(--muted)}
+  .kpi b{font-size:17px;color:var(--ink);margin-right:4px}
+
   .panel{background:var(--card);border:1px solid var(--line);border-radius:10px;
-         padding:14px;margin-bottom:14px}
-  .panel h3{margin:2px 0 6px;font-size:15px}
+         padding:13px 14px;margin-bottom:12px}
+  .panel h3{margin:1px 0 5px;font-size:14.5px}
   .hint{color:var(--muted);font-size:12px;margin-bottom:4px}
-  .chart{width:100%;height:380px}
-  .chart-sm{width:100%;height:300px}
+  .muted{color:var(--muted)}
+  .xs{font-size:11.5px;color:var(--muted)}
+
+  /* 结论卡：摘要页的主视觉。一行结论 + 一行动作，其余折叠 */
+  .lead{border-left:3px solid var(--line);padding-left:11px;margin-bottom:12px}
+  .lead.a{border-left-color:#5cb85c}
+  .lead h3{font-size:15px;margin:0 0 3px}
+  .lead .why{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .lead .do{font-size:12.5px;margin-top:5px}
+  .lead .do b{color:#24292f}
+
   table{border-collapse:collapse;width:100%;font-size:12.5px}
-  th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left}
-  th{color:var(--muted);font-weight:600}
-  .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11.5px;color:#fff}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:860px){.grid2{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}}
+  th,td{border-bottom:1px solid var(--line);padding:5px 7px;text-align:left;
+        vertical-align:top}
+  th{color:var(--muted);font-weight:600;white-space:nowrap}
+  .num{text-align:right;white-space:nowrap}
+  .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11.5px;
+       color:#fff;white-space:nowrap}
+  .chart{width:100%;height:340px}
+  .chart-sm{width:100%;height:280px}
+  a{color:#0969da;text-decoration:none}
+  a:hover{text-decoration:underline}
+  details{margin-top:6px}
+  details>summary{cursor:pointer;color:var(--muted);font-size:12.5px;
+       padding:3px 0;list-style:none}
+  details>summary::-webkit-details-marker{display:none}
+  details>summary:before{content:"▸ ";color:var(--muted)}
+  details[open]>summary:before{content:"▾ "}
+  details.box{background:var(--card);border:1px solid var(--line);border-radius:10px;
+       padding:10px 14px;margin-bottom:12px}
+  pre{white-space:pre-wrap;background:var(--bg);padding:8px;border-radius:6px;
+      font-size:12px;margin:6px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
 </style></head><body><div class="wrap">
+
 <h1>idea-hunter · 方向看板</h1>
-<div class="meta">生成时间：2026-09-18 15:55:02　·　方向判定："关键词签名（含部分 agent 语义标注）"　·　
-数据口径：证据数=窗口内独立候选条数；拥挤度=GitHub 同方向存量（红海≥1000/拥挤≥300/中等≥80/稀疏&lt;80）</div>
-<!-- 面板优先级 = 用户要回答问题的顺序，不要随手调换：
-     ① analysis  热榜付费潜力判断（"这些热点里有没有值得做的"——判断层，最高优先）
-     ② validation 验证闭环（"我怎么证明它值得做"——行动）
-     ③ resilience 依赖对冲（"系统本身健不健康"——技术健康度，读者最少）
-     ④ tabs/panels 方向榜单  ⑤ platforms 平台热榜 -->
-<div id="analysis"></div>
-<div id="validation"></div>
-<div id="resilience"></div>
-<div class="tabs" id="tabs"></div>
-<div id="panels"></div>
-<div id="platforms"></div>
-<div class="panel"><h3>信源健康</h3><table id="health"></table></div>
+<div class="meta">
+  生成时间：2026-09-18 15:55:02　·　方向判定："关键词签名（含部分 agent 语义标注）"
+  <details><summary>　口径说明</summary>
+    <div class="hint" style="margin-top:6px">
+      证据数=窗口内独立候选条数。拥挤度=GitHub 同方向存量（红海≥1000 / 拥挤≥300 / 中等≥80 / 稀疏&lt;80）。
+      成型产品=GitHub stars&gt;1000 的存量，<b>只看开源</b>（闭源 SaaS 看不到，所以 0 只等于「开源侧没人做成」）。
+      共振只统计<b>原生榜</b>（排序由平台决定=独立发现）；关键词检索命中是同一查询的回声，不计共振。
+      各平台热度量纲不同，<b>只比排名不比数值</b>。
+    </div>
+  </details>
+</div>
+
+<nav class="nav" id="nav">
+  <button data-v="summary">摘要</button>
+  <button data-v="dirs">方向</button>
+  <button data-v="judge">判断</button>
+  <button data-v="plat">平台</button>
+  <button data-v="sys">系统</button>
+  <span class="spacer"></span>
+  <span class="when" id="when"></span>
+</nav>
+
+<!-- ============ 摘要：默认视图，一屏回答「现在该做什么」 ============ -->
+<section class="view on" id="v-summary">
+  <div class="kpi" id="kpi"></div>
+  <div id="summary"></div>
+</section>
+
+<!-- ============ 方向：榜单与图表（默认只看 Top5） ============ -->
+<section class="view" id="v-dirs">
+  <div class="nav" id="wtabs" style="border:0;position:static;padding:0 0 10px"></div>
+  <div id="panels"></div>
+</section>
+
+<!-- ============ 判断：热榜付费潜力（A/B 展开，C 折叠） ============ -->
+<section class="view" id="v-judge"><div id="analysis"></div></section>
+
+<!-- ============ 平台：各平台热榜（默认每站 5 条） ============ -->
+<section class="view" id="v-plat"><div id="platforms"></div></section>
+
+<!-- ============ 系统：健康度（细节默认折叠） ============ -->
+<section class="view" id="v-sys"><div id="resilience"></div><div id="validation"></div>
+  <details class="box"><summary>信源健康明细（53 条）</summary>
+    <table id="health"></table></details>
+</section>
+
 </div>
 <script>window.__PLATFORMS__ = {"generated_at": "2026-09-18 15:46:14", "collected": 284, "terms": {"zhihu": [{"t": "还有", "n": 2}, {"t": "的有", "n": 2}, {"t": "真的有", "n": 2}, {"t": "信息", "n": 2}, {"t": "强制", "n": 2}, {"t": "情况", "n": 2}], "juejin": [{"t": "validx", "n": 1}, {"t": "iso", "n": 1}, {"t": "jwt", "n": 1}, {"t": "schema", "n": 1}, {"t": "token", "n": 1}, {"t": "chatgpt", "n": 1}], "github_trending": [{"t": "tencent", "n": 2}, {"t": "cloudflare", "n": 1}, {"t": "security-audit-skill", "n": 1}, {"t": "alibaba", "n": 1}, {"t": "open-code-review", "n": 1}, {"t": "browserskill", "n": 1}], "hn": [{"t": "setup", "n": 2}, {"t": "share", "n": 2}, {"t": "agent", "n": 2}, {"t": "draws", "n": 1}, {"t": "e-ink", "n": 1}, {"t": "hears", "n": 1}], "github_search": [{"t": "jev-ultrafast", "n": 1}, {"t": "browser-use", "n": 1}, {"t": "tamaratran", "n": 1}, {"t": "fast-jev-compaction", "n": 1}, {"t": "openjev", "n": 1}, {"t": "theoleecj", "n": 1}], "lobsters": [{"t": "shuts", "n": 1}, {"t": "down", "n": 1}, {"t": "lost", "n": 1}, {"t": "minds", "n": 1}, {"t": "gnome", "n": 1}, {"t": "introducing", "n": 1}], "reddit": [{"t": "saas", "n": 3}, {"t": "product", "n": 2}, {"t": "hard", "n": 2}, {"t": "daily", "n": 2}, {"t": "paid", "n": 2}, {"t": "category", "n": 1}], "producthunt": [{"t": "typedash", "n": 1}, {"t": "stile", "n": 1}, {"t": "smartcheck", "n": 1}, {"t": "m9r", "n": 1}, {"t": "receipt", "n": 1}, {"t": "scanner", "n": 1}], "lesswrong": [{"t": "ais", "n": 2}, {"t": "current", "n": 2}, {"t": "seems", "n": 2}, {"t": "talker", "n": 1}, {"t": "doer", "n": 1}, {"t": "control", "n": 1}], "bluesky": [{"t": "trump", "n": 2}, {"t": "orb", "n": 1}, {"t": "pope", "n": 1}, {"t": "gifted", "n": 1}, {"t": "xiv", "n": 1}, {"t": "leo", "n": 1}], "stackoverflow": [{"t": "generate", "n": 1}, {"t": "laravel", "n": 1}, {"t": "identifiers", "n": 1}, {"t": "numbers", "n": 1}, {"t": "auto", "n": 1}, {"t": "form", "n": 1}], "devto": [{"t": "coding", "n": 2}, {"t": "memory", "n": 2}, {"t": "dog", "n": 1}, {"t": "challenge", "n": 1}, {"t": "weekend", "n": 1}, {"t": "edition", "n": 1}], "indeed": [{"t": "automation", "n": 15}, {"t": "招聘", "n": 15}, {"t": "inc", "n": 5}, {"t": "hybrid", "n": 4}, {"t": "technologies", "n": 3}, {"t": "san", "n": 3}]}, "platforms": [{"source": "zhihu", "items": [{"title": "退休副省长家丢了 243 万元茅台等名酒，管家因盗窃罪获刑10年半，哪些细节值得关注？", "url": "https://www.zhihu.com/question/2083586923906295347", "heat": 9260000, "source": "zhihu"}, {"title": "如何看待「快递小哥救助摔倒老人反被索赔超 92 万」一案，终审驳回全部诉求 ？法律怎样降低救人的风险？", "url": "https://www.zhihu.com/question/2083927414493681147", "heat": 6670000, "source": "zhihu"}, {"title": "义乌开始卖载人飞碟飞行器了，单笔订单卖出 1.2 亿元，离普通人还有多远？商业化还要解决哪些问题？", "url": "https://www.zhihu.com/question/2083949287025788571", "heat": 4200000, "source": "zhihu"}, {"title": "为什么生意再小，赚钱的速度都远超打工？", "url": "https://www.zhihu.com/question/1973749451853169735", "heat": 2340000, "source": "zhihu"}, {"title": "名古屋亚运会用「邮轮+集装箱房」替代亚运村，巴黎奥运村极度简陋无空调，为啥如今的体育大赛越办越寒酸？", "url": "https://www.zhihu.com/question/2081790151865406534", "heat": 1780000, "source": "zhihu"}, {"title": "很多老师称现在批改作业不能用×，要换成◯、△，是为了保护学生吗？真的有用吗？打×本身有问题吗？", "url": "https://www.zhihu.com/question/2083585452137608098", "heat": 1670000, "source": "zhihu"}, {"title": "全球陷入「抢钨大战」，两年时间价格上涨了约 9 倍，为啥会疯涨？钨这种稀有金属的战略价值体现在哪里？", "url": "https://www.zhihu.com/question/2082873227517359039", "heat": 1620000, "source": "zhihu"}, {"title": "网传浙江师范大学强制新生填写父母工作单位、月收入等12项隐私信息，为啥要填这么详细？真的有必要吗？", "url": "https://www.zhihu.com/question/2083934201863202786", "heat": 1610000, "source": "zhihu"}, {"title": "曝甲醛白菜的博主渔猎齐哥再曝广东清远「硫磺竹笋」，当地发布通报称情况属实，哪些信息值得关注？", "url": "https://www.zhihu.com/question/2084183379600204463", "heat": 1580000, "source": "zhihu"}, {"title": "为什么麦当劳在中国不如肯德基？", "url": "https://www.zhihu.com/question/644485856", "heat": 1470000, "source": "zhihu"}, {"title": "印度央行强制塔塔控股公司上市，或成印度史上最大 IPO，为什么还有强制上市的情况？", "url": "https://www.zhihu.com/question/2083879086175117961", "heat": 1450000, "source": "zhihu"}, {"title": "母鸡孵蛋的时候不会感到无聊吗？", "url": "https://www.zhihu.com/question/312601657", "heat": 1440000, "source": "zhihu"}, {"title": "如何看待华为突破冯诺依曼「单机」架构？", "url": "https://www.zhihu.com/question/2084200588892451205", "heat": 1430000, "source": "zhihu"}, {"title": "都说雄性激素会让毛囊萎缩导致脱发，那为什么同样激素水平，有的人秃顶，有的人却发量浓密？", "url": "https://www.zhihu.com/question/2083906822814094755", "heat": 1190000, "source": "zhihu"}, {"title": "TES 拿下 LPL 三号种子席位挺进 S16，如何评价他们本次季后赛表现？", "url": "https://www.zhihu.com/question/2084039837368193223", "heat": 1180000, "source": "zhihu"}]}, {"source": "juejin", "items": [{"title": "ValidX时间段验证详解：ISO 8601标准与简化格式", "url": "https://juejin.cn/post/7684649314159312930", "heat": 11290, "source": "juejin"}, {"title": "被吹上天的 JWT，为什么主流网站一个都不用", "url": "https://juejin.cn/post/7684261460002701338", "heat": 4044, "source": "juejin"}, {"title": "只备份一个 schema，别把整库都搬走", "url": "https://juejin.cn/post/7685224902321848358", "heat": 3856, "source": "juejin"}, {"title": "ChatGPT 开启无限 token", "url": "https://juejin.cn/post/7685770509585629190", "heat": 1976, "source": "juejin"}, {"title": "一份 KDMS 评估报告，怎样排出迁移先后顺序", "url": "https://juejin.cn/post/7686361321610035246", "heat": 1042, "source": "juejin"}, {"title": "JDK27正式发布，人麻了!", "url": "https://juejin.cn/post/7686174631263404073", "heat": 1006, "source": "juejin"}, {"title": "Kafka已正式接入AI", "url": "https://juejin.cn/post/7684573646439317514", "heat": 836, "source": "juejin"}, {"title": "AI会让程序员失业吗？200年前的手工织工已经给出了答案", "url": "https://juejin.cn/post/7685276242113019938", "heat": 802, "source": "juejin"}, {"title": "为什么越来越多人用OpenWiki？", "url": "https://juejin.cn/post/7685591822258585626", "heat": 639, "source": "juejin"}, {"title": "“这需求用 AI 也就十分钟吧？”——周五深夜十一点，我在工位给 Cursor 擦屁股", "url": "https://juejin.cn/post/7684460980934164495", "heat": 474, "source": "juejin"}, {"title": "GPT-6 Astra 的提示词泄露了，里面居然藏着个保安？", "url": "https://juejin.cn/post/7685215742590517299", "heat": 434, "source": "juejin"}, {"title": "给若依加审批流，不用 Flowable", "url": "https://juejin.cn/post/7685577977079185423", "heat": 404, "source": "juejin"}, {"title": "🎥 手搓一套直播高并发环境！一个后端小白从 0 到 1 的搭建笔记", "url": "https://juejin.cn/post/7684154085232001059", "heat": 321, "source": "juejin"}, {"title": "2026 爆火的「本体」：给大模型装上业务世界观", "url": "https://juejin.cn/post/7684080641566834703", "heat": 303, "source": "juejin"}, {"title": "还在用 Electron？6 种跨平台桌面方案横评：Rust + Vue 把安装包从 224MB 干到 4.7MB", "url": "https://juejin.cn/post/7685261384724463658", "heat": 264, "source": "juejin"}]}, {"source": "github_trending", "items": [{"title": "cloudflare/security-audit-skill", "url": "https://github.com/cloudflare/security-audit-skill", "heat": 3607, "source": "github_trending"}, {"title": "alibaba/open-code-review", "url": "https://github.com/alibaba/open-code-review", "heat": 3286, "source": "github_trending"}, {"title": "Tencent/BrowserSkill", "url": "https://github.com/Tencent/BrowserSkill", "heat": 1302, "source": "github_trending"}, {"title": "affaan-m/ECC", "url": "https://github.com/affaan-m/ECC", "heat": 1171, "source": "github_trending"}, {"title": "Tencent/WeKnora", "url": "https://github.com/Tencent/WeKnora", "heat": 1125, "source": "github_trending"}, {"title": "alphaXiv/OpenResearch", "url": "https://github.com/alphaXiv/OpenResearch", "heat": 939, "source": "github_trending"}, {"title": "NationalSecurityAgency/ghidra", "url": "https://github.com/NationalSecurityAgency/ghidra", "heat": 912, "source": "github_trending"}, {"title": "JustVugg/colibri", "url": "https://github.com/JustVugg/colibri", "heat": 873, "source": "github_trending"}, {"title": "abue-ammar/tinycast", "url": "https://github.com/abue-ammar/tinycast", "heat": 739, "source": "github_trending"}, {"title": "addyosmani/agent-skills", "url": "https://github.com/addyosmani/agent-skills", "heat": 680, "source": "github_trending"}, {"title": "jamiepine/voicebox", "url": "https://github.com/jamiepine/voicebox", "heat": 667, "source": "github_trending"}, {"title": "anthropics/claude-code", "url": "https://github.com/anthropics/claude-code", "heat": 538, "source": "github_trending"}, {"title": "ever-co/ever-gauzy", "url": "https://github.com/ever-co/ever-gauzy", "heat": 470, "source": "github_trending"}, {"title": "cline/cline", "url": "https://github.com/cline/cline", "heat": 380, "source": "github_trending"}, {"title": "TencentCloud/Octop", "url": "https://github.com/TencentCloud/Octop", "heat": 367, "source": "github_trending"}]}, {"source": "hn", "items": [{"title": "Show HN: An e-ink frame that hears birds and draws them as 1800s illustrations", "url": "https://github.com/arnegiacomo/fugleramme", "heat": 5331, "source": "hn"}, {"title": "Ask HN: What are you working on? (September 2026)", "url": "", "heat": 4315, "source": "hn"}, {"title": "Show HN: I made a flight simulator, except you're just a passenger", "url": "https://inflightsimulator.com", "heat": 1491, "source": "hn"}, {"title": "Neovim have a ~$800k Bitcoin donation sitting untouched since 2023", "url": "", "heat": 1329, "source": "hn"}, {"title": "Show HN: Share your AI Setup, Learn from others", "url": "https://mysetup.ai/", "heat": 775, "source": "hn"}, {"title": "Show HN: Hacking a $20 4G wireless hotspot into a texting device", "url": "https://bkovac.github.io/modem-thing/", "heat": 516, "source": "hn"}, {"title": "Ask HN: How to recover Google auth after phone stolen?", "url": "", "heat": 514, "source": "hn"}, {"title": "Show HN: I built a new version of my fun spatial 3D online meeting app", "url": "https://flat.social", "heat": 344, "source": "hn"}, {"title": "Show HN: How Stale Is Your AI? Release age and training cutoff for 20 models", "url": "https://stale.jock.pl/", "heat": 294, "source": "hn"}, {"title": "Show HN: Snapdrop: Instantly share files between devices. No setup, no signup", "url": "https://snapdrop.me", "heat": 227, "source": "hn"}, {"title": "Ask HN: Are 80s high school hobby programmers overwhelmingly pro-AI?", "url": "", "heat": 149, "source": "hn"}, {"title": "Show HN: Aclif – Agent CLI framework: one grammar, canonical names across SaaS", "url": "https://www.aclif.ai/", "heat": 110, "source": "hn"}, {"title": "Show HN: AttaLambda: a language where types and data are made of untyped lambdas", "url": "https://attalambda.com", "heat": 107, "source": "hn"}, {"title": "Open-sourced jev architecture last year with model,paper and dataset", "url": "", "heat": 103, "source": "hn"}, {"title": "Show HN: Craigslist for agent skills, curated by a human", "url": "https://skillbay.sh/", "heat": 94, "source": "hn"}]}, {"source": "github_search", "items": [{"title": "browser-use/jev-ultrafast", "url": "https://github.com/browser-use/jev-ultrafast", "heat": 3032, "source": "github_search"}, {"title": "tamaratran/fast-jev-compaction", "url": "https://github.com/tamaratran/fast-jev-compaction", "heat": 1351, "source": "github_search"}, {"title": "TheoLeeCJ/openjev", "url": "https://github.com/TheoLeeCJ/openjev", "heat": 1008, "source": "github_search"}, {"title": "vinnylarouge/jevlike", "url": "https://github.com/vinnylarouge/jevlike", "heat": 739, "source": "github_search"}, {"title": "jarrodwatts/jev-trader", "url": "https://github.com/jarrodwatts/jev-trader", "heat": 611, "source": "github_search"}, {"title": "ctdal/cve-2026-41940-PoC", "url": "https://github.com/ctdal/cve-2026-41940-PoC", "heat": 479, "source": "github_search"}, {"title": "korcarc/text-humanizer", "url": "https://github.com/korcarc/text-humanizer", "heat": 465, "source": "github_search"}, {"title": "yynxxxxx/gpt_sub_analysis", "url": "https://github.com/yynxxxxx/gpt_sub_analysis", "heat": 386, "source": "github_search"}, {"title": "Mak5er/AirCard", "url": "https://github.com/Mak5er/AirCard", "heat": 302, "source": "github_search"}, {"title": "Marcos66236/github-stars-history", "url": "https://github.com/Marcos66236/github-stars-history", "heat": 276, "source": "github_search"}, {"title": "fhshaik/typesafe-mario", "url": "https://github.com/fhshaik/typesafe-mario", "heat": 237, "source": "github_search"}, {"title": "thruwire/foreman", "url": "https://github.com/thruwire/foreman", "heat": 231, "source": "github_search"}, {"title": "nMaas8388/github-ranking-audit", "url": "https://github.com/nMaas8388/github-ranking-audit", "heat": 193, "source": "github_search"}, {"title": "devagrawal09/jev-review", "url": "https://github.com/devagrawal09/jev-review", "heat": 191, "source": "github_search"}, {"title": "awlevin/typesafe-computer-use", "url": "https://github.com/awlevin/typesafe-computer-use", "heat": 177, "source": "github_search"}]}, {"source": "lobsters", "items": [{"title": "A/I Shuts Down", "url": "https://lobste.rs/s/wxnibb/i_shuts_down", "heat": 648, "source": "lobsters"}, {"title": "Everybody's Lost Their Minds", "url": "https://lobste.rs/s/rok1za/everybody_s_lost_their_minds", "heat": 384, "source": "lobsters"}, {"title": "Introducing GNOME 51", "url": "https://lobste.rs/s/gs10ad/introducing_gnome_51", "heat": 260, "source": "lobsters"}, {"title": "The end of verygoodsoftwarenotvirus.ru", "url": "https://lobste.rs/s/ihw0hq/end_verygoodsoftwarenotvirus_ru", "heat": 258, "source": "lobsters"}, {"title": "I expected better from Google", "url": "https://lobste.rs/s/11uiiv/i_expected_better_from_google", "heat": 227, "source": "lobsters"}, {"title": "I Don't Like LLMs", "url": "https://lobste.rs/s/pkj7mf/i_don_t_like_llms", "heat": 209, "source": "lobsters"}, {"title": "How to get a DOI for your blog posts", "url": "https://lobste.rs/s/lvld5b/how_get_doi_for_your_blog_posts", "heat": 197, "source": "lobsters"}, {"title": "Forgery of C2PA on a Pixel 10", "url": "https://lobste.rs/s/tgrvxh/forgery_c2pa_on_pixel_10", "heat": 165, "source": "lobsters"}, {"title": "Why i'm still bearish on LLMs after Navier-Stokes", "url": "https://lobste.rs/s/cianny/why_i_m_still_bearish_on_llms_after_navier", "heat": 137, "source": "lobsters"}, {"title": "Why .tar.gz files can't be combined with cat", "url": "https://lobste.rs/s/lox1su/why_tar_gz_files_can_t_be_combined_with_cat", "heat": 124, "source": "lobsters"}, {"title": "The Golden Spike, and Resurrecting the Vale(n) Programming Language", "url": "https://lobste.rs/s/fjnkn4/golden_spike_resurrecting_vale_n", "heat": 120, "source": "lobsters"}, {"title": "Be alert: targeted attacks on prominent Rustaceans", "url": "https://lobste.rs/s/uz30ed/be_alert_targeted_attacks_on_prominent", "heat": 115, "source": "lobsters"}, {"title": "Unicode 18.0.0", "url": "https://lobste.rs/s/sh6yeo/unicode_18_0_0", "heat": 115, "source": "lobsters"}, {"title": "Flock cameras are riddled with security vulnerabilities and hard-coded credentials", "url": "https://lobste.rs/s/eyg3oe/flock_cameras_are_riddled_with_security", "heat": 93, "source": "lobsters"}, {"title": "Your Donations at Work: One Year of Sponsored Servo Development", "url": "https://lobste.rs/s/oigetg/your_donations_at_work_one_year_sponsored", "heat": 83, "source": "lobsters"}]}, {"source": "reddit", "items": [{"title": "New rule banning a SaaS product category: No Promotional or Advertising SaaS", "url": "https://www.reddit.com/r/SaaS/comments/1u0z4vz/new_rule_banning_a_saas_product_category_no/", "heat": 873, "source": "reddit"}, {"title": "First Monthly Subscription", "url": "https://www.reddit.com/r/SaaS/comments/1wi88io/first_monthly_subscription/", "heat": 690, "source": "reddit"}, {"title": "Anyone is interested in becoming a Mod  in r/SaaS?", "url": "https://www.reddit.com/r/SaaS/comments/1v8d8d2/anyone_is_interested_in_becoming_a_mod_in_rsaas/", "heat": 165, "source": "reddit"}, {"title": "Keep hustling hard everybody 💪", "url": "https://www.reddit.com/r/SaaS/comments/1wivwbg/keep_hustling_hard_everybody/", "heat": 153, "source": "reddit"}, {"title": "What have you guys actually done to market your apps? The “dark side” of being a solo dev 😅", "url": "https://www.reddit.com/r/SaaS/comments/1wiwqpl/what_have_you_guys_actually_done_to_market_your/", "heat": 111, "source": "reddit"}, {"title": "Tally is doing $5M+ ARR with 11 people. I decoded their AEO strategy.", "url": "https://www.reddit.com/r/SaaS/comments/1wime93/tally_is_doing_5m_arr_with_11_people_i_decoded/", "heat": 96, "source": "reddit"}, {"title": "Burned hundreds on Reddit Ads", "url": "https://www.reddit.com/r/SaaS/comments/1wj8yif/burned_hundreds_on_reddit_ads/", "heat": 72, "source": "reddit"}, {"title": "300+ daily active users, but consistent paid conversions are still hard. What would you investigate first?", "url": "https://www.reddit.com/r/SaaS/comments/1wjg4ez/300_daily_active_users_but_consistent_paid/", "heat": 36, "source": "reddit"}, {"title": "120K+ Daily views on TikTok with a Phone Farm", "url": "https://www.reddit.com/r/SaaS/comments/1wja0h7/120k_daily_views_on_tiktok_with_a_phone_farm/", "heat": 30, "source": "reddit"}, {"title": "We built the product. Then we realized we might be solving the wrong problem.", "url": "https://www.reddit.com/r/SaaS/comments/1wji7oo/we_built_the_product_then_we_realized_we_might_be/", "heat": 27, "source": "reddit"}, {"title": "1 paying user 1 month later still 1!!", "url": "https://www.reddit.com/r/SaaS/comments/1wjeidv/1_paying_user_1_month_later_still_1/", "heat": 24, "source": "reddit"}, {"title": "Check out my SaaS and tell me what needs to improve", "url": "https://www.reddit.com/r/SaaS/comments/1wjhrrn/check_out_my_saas_and_tell_me_what_needs_to/", "heat": 24, "source": "reddit"}, {"title": "Google cut my site from 4,539 impressions a day to 328 in three days. Every SEO tool I ran the same week said the site was perfect.", "url": "https://www.reddit.com/r/SaaS/comments/1wjdw96/google_cut_my_site_from_4539_impressions_a_day_to/", "heat": 21, "source": "reddit"}, {"title": "This can't be real!", "url": "https://www.reddit.com/r/SaaS/comments/1wjbdy6/this_cant_be_real/", "heat": 21, "source": "reddit"}, {"title": "Agency owners: a paid AI pilot hit messy client data, then a 41-minute test. How would you structure the next one?", "url": "https://www.reddit.com/r/SaaS/comments/1wj9f6v/agency_owners_a_paid_ai_pilot_hit_messy_client/", "heat": 18, "source": "reddit"}]}, {"source": "producthunt", "items": [{"title": "TypeDash", "url": "https://www.producthunt.com/products/typedash-2", "heat": 125, "source": "producthunt"}, {"title": "Stile.iD", "url": "https://www.producthunt.com/products/stile-id", "heat": 120, "source": "producthunt"}, {"title": "SmartCheck", "url": "https://www.producthunt.com/products/smartcheck", "heat": 115, "source": "producthunt"}, {"title": "M9R", "url": "https://www.producthunt.com/products/m9r", "heat": 110, "source": "producthunt"}, {"title": "Galactic Receipt Scanner", "url": "https://www.producthunt.com/products/galactic-receipt-scanner", "heat": 105, "source": "producthunt"}, {"title": "Slurp", "url": "https://www.producthunt.com/products/slurp-2", "heat": 100, "source": "producthunt"}, {"title": "Unvendor", "url": "https://www.producthunt.com/products/unvendor", "heat": 95, "source": "producthunt"}, {"title": "AEXGrid", "url": "https://www.producthunt.com/products/aexgrid", "heat": 90, "source": "producthunt"}, {"title": "MeshEdit", "url": "https://www.producthunt.com/products/meshedit", "heat": 85, "source": "producthunt"}, {"title": "Wombo", "url": "https://www.producthunt.com/products/wombo-the-ai-game-studio", "heat": 80, "source": "producthunt"}, {"title": "Mantle", "url": "https://www.producthunt.com/products/mantle-f52466f6-7b01-4f3c-b7de-a2e445d1f2e3", "heat": 75, "source": "producthunt"}, {"title": "ProductBridge", "url": "https://www.producthunt.com/products/productbridge", "heat": 70, "source": "producthunt"}]}, {"source": "lesswrong", "items": [{"title": "The Talker Does Not Control The Doer (in Current AIs)", "url": "https://www.lesswrong.com/posts/cJX2ssssGoYqnijwi/the-talker-does-not-control-the-doer-in-current-ais", "heat": 201, "source": "lesswrong"}, {"title": "Some ways AI could kill us all", "url": "https://www.lesswrong.com/posts/LAPa2jxoq3n63GzTr/some-ways-ai-could-kill-us-all", "heat": 138, "source": "lesswrong"}, {"title": "Is METR A Meaningful Check On Anthropic?", "url": "https://www.lesswrong.com/posts/eeJB8x2pK8injCuBN/is-metr-a-meaningful-check-on-anthropic", "heat": 132, "source": "lesswrong"}, {"title": "For Love of the Lightcone, Don't Partisanize AI Safety", "url": "https://www.lesswrong.com/posts/Rx38cuCpL9hguLCDq/for-love-of-the-lightcone-don-t-partisanize-ai-safety", "heat": 120, "source": "lesswrong"}, {"title": "Teleoperated Humans", "url": "https://www.lesswrong.com/posts/mWQSiHG3Qz9qYx3D7/teleoperated-humans", "heat": 90, "source": "lesswrong"}, {"title": "There is a channel to 900M weekly users. What goes in it?", "url": "https://www.lesswrong.com/posts/gJJ9YHzuBvwAXrthW/there-is-a-channel-to-900m-weekly-users-what-goes-in-it", "heat": 84, "source": "lesswrong"}, {"title": "Cooperation with AIs seems to be a low-hanging fruit for better eval practices", "url": "https://www.lesswrong.com/posts/fztW73KCCs3MZXFJh/cooperation-with-ais-seems-to-be-a-low-hanging-fruit-for", "heat": 81, "source": "lesswrong"}, {"title": "Model Weight Exfiltration Seems Overrated", "url": "https://www.lesswrong.com/posts/AuYh8WueNGwkQg4ei/model-weight-exfiltration-seems-overrated", "heat": 63, "source": "lesswrong"}, {"title": "If Anyone Builds It, Everyone Dies: One Year Closer", "url": "https://www.lesswrong.com/posts/BFrRJYgpBvziuuJLs/if-anyone-builds-it-everyone-dies-one-year-closer", "heat": 54, "source": "lesswrong"}, {"title": "Consider how your global governance proposal is different from the EU Code of Practice", "url": "https://www.lesswrong.com/posts/2vHsTtQF23TBNhvKX/consider-how-your-global-governance-proposal-is-different", "heat": 39, "source": "lesswrong"}, {"title": "Current alignment techniques might be ineffective (and actively bad) in the age of RL", "url": "https://www.lesswrong.com/posts/nLaQmJf4KgXimQpoM/current-alignment-techniques-might-be-ineffective-and", "heat": 24, "source": "lesswrong"}, {"title": "I am refusing to work on Cloud TPUs", "url": "https://www.lesswrong.com/posts/wM5vbT9evBhM3fP3x/i-am-refusing-to-work-on-cloud-tpus", "heat": 21, "source": "lesswrong"}, {"title": "Quick notes from teaching technical profiles how to talk in public", "url": "https://www.lesswrong.com/posts/nKsyMfNsAuTrxmjmi/quick-notes-from-teaching-technical-profiles-how-to-talk-in", "heat": 21, "source": "lesswrong"}, {"title": "Op-Ed: I Worked at Google DeepMind. You Should Listen to the Warnings About AI", "url": "https://www.lesswrong.com/posts/YGTWfyZb9oE5EQPu6/op-ed-i-worked-at-google-deepmind-you-should-listen-to-the", "heat": 12, "source": "lesswrong"}, {"title": "AI as orderly evacuation vs stampede", "url": "https://www.lesswrong.com/posts/FCMG4qnxks3yEqBbh/ai-as-orderly-evacuation-vs-stampede", "heat": 12, "source": "lesswrong"}]}, {"source": "bluesky", "items": [{"title": "Pope Leo XIV gifted green orb", "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/db2ec5600a03", "heat": 125, "source": "bluesky"}, {"title": "Trump threatens EU over Canada", "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/113616dc081e", "heat": 120, "source": "bluesky"}, {"title": "Sheeran openers quit in solidarity", "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/fd3df2e6ca68", "heat": 115, "source": "bluesky"}, {"title": "RFK Jr. addresses anti-vaccine conference", "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/c8672ae66b0e", "heat": 110, "source": "bluesky"}, {"title": "Microsoft exec AI remarks in NYT suit", "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/97dafc70ca6e", "heat": 105, "source": "bluesky"}, {"title": "Kennedy Center demolition case", "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/21f579e58f3f", "heat": 100, "source": "bluesky"}, {"title": "Iran ties Hormuz reopening to Trump exit", "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/218cbc278fef", "heat": 95, "source": "bluesky"}, {"title": "BBC opens Doctor Who tender", "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/92eea4315020", "heat": 90, "source": "bluesky"}, {"title": "Russia's hybrid war on Europe", "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/9b03def205dd", "heat": 85, "source": "bluesky"}, {"title": "BirdOfTheDay theme: owl, duck, goose", "url": "https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/c23831e69961", "heat": 80, "source": "bluesky"}]}, {"source": "stackoverflow", "items": [{"title": "Laravel 5 Auto Generate Form Numbers / Identifiers", "url": "https://stackoverflow.com/questions/33547735/laravel-5-auto-generate-form-numbers-identifiers", "heat": 636, "source": "stackoverflow"}, {"title": "Getting forbidden error on selenium chrome", "url": "https://stackoverflow.com/questions/80003603/getting-forbidden-error-on-selenium-chrome", "heat": 60, "source": "stackoverflow"}]}, {"source": "devto", "items": [{"title": "Congrats to the DEV Weekend Challenge: Dog Days Edition Winners!", "url": "https://dev.to/devteam/congrats-to-the-dev-weekend-challenge-dog-days-edition-winners-300g", "heat": 30, "source": "devto"}, {"title": "Deno 2.6's minimum dependency age flag ignores year and month durations", "url": "https://dev.to/alexgeorgiev17/deno-26s-minimum-dependency-age-flag-ignores-year-and-month-durations-1ac5", "heat": 18, "source": "devto"}, {"title": "What If Your Coding Agent Could Remember What It Learned Yesterday?", "url": "https://dev.to/nishikantaray/what-if-your-coding-agent-could-remember-what-it-learned-yesterday-2okj", "heat": 12, "source": "devto"}, {"title": "Git Bisect for Your Data", "url": "https://dev.to/devopsdaily/git-bisect-for-your-data-12dd", "heat": 6, "source": "devto"}, {"title": "The Code I Couldn't Leave Alone", "url": "https://dev.to/shubhradev/the-code-i-couldnt-leave-alone-33hf", "heat": 6, "source": "devto"}, {"title": "The Bottleneck Moved From Writing Code to Proving It", "url": "https://dev.to/debashish_ghosal/the-bottleneck-moved-from-writing-code-to-proving-it-5bpm", "heat": 6, "source": "devto"}, {"title": "Serving Gemma 4 on an AMD MI300X: What $1.99 an Hour Buys", "url": "https://dev.to/gde/serving-gemma-4-on-an-amd-mi300x-what-199-an-hour-buys-52h9", "heat": 3, "source": "devto"}, {"title": "Debug Log #3: I Had Claude Code Backtest a Trading Strategy for a Week, and It Found Three Bugs In Its Own Simulation", "url": "https://dev.to/just_a_side_project/debug-log-3-i-had-claude-code-backtest-a-trading-strategy-for-a-week-and-it-found-three-bugs-in-5g50", "heat": 3, "source": "devto"}, {"title": "Stop Debouncing Resize. The Browser Already Watches It.", "url": "https://dev.to/parsajiravand/stop-debouncing-resize-the-browser-already-watches-it-1eh6", "heat": 3, "source": "devto"}, {"title": "Frameworks Are Institutional Memory", "url": "https://dev.to/kenwalger/frameworks-are-institutional-memory-b3l", "heat": 0, "source": "devto"}, {"title": "The clipboard bridge that had to wait for the device", "url": "https://dev.to/joduchan/the-clipboard-bridge-that-had-to-wait-for-the-device-31jb", "heat": 0, "source": "devto"}, {"title": "Architecting Battery-Efficient Geofencing for Automated Sound Profiles", "url": "https://dev.to/haseebthedev0/architecting-battery-efficient-geofencing-for-automated-sound-profiles-4f33", "heat": 0, "source": "devto"}, {"title": "How I built an AI Coding Mentor (KODA) entirely on a $150 Android phone 📱🐯", "url": "https://dev.to/koda2026/how-i-built-an-ai-coding-mentor-koda-entirely-on-a-150-android-phone-2c89", "heat": 0, "source": "devto"}, {"title": "A failed compaction wiped my AI session, so I built it infinite memory", "url": "https://dev.to/geco_50/a-failed-compaction-wiped-my-ai-session-so-i-built-it-infinite-memory-18ie", "heat": 0, "source": "devto"}, {"title": "My Benchmark Judged Five Models Against a Threshold Built for Three", "url": "https://dev.to/ofri-peretz/my-benchmark-judged-five-models-against-a-threshold-built-for-three-a0l", "heat": 0, "source": "devto"}]}, {"source": "indeed", "items": [{"title": "Live Nation 招聘：automation（Remote）", "url": "https://www.indeed.com/viewjob?jk=5d7289ce78c6ab65", "heat": 0, "source": "indeed"}, {"title": "BAE Systems Inc. 招聘：automation（Remote in Charlotte, NC）", "url": "https://www.indeed.com/viewjob?jk=058eb67ab8018673", "heat": 0, "source": "indeed"}, {"title": "Johns Hopkins University 招聘：automation（Hybrid work in Baltimore, MD 21218）", "url": "https://www.indeed.com/viewjob?jk=fcb56cc3453612c1", "heat": 0, "source": "indeed"}, {"title": "Applied Materials 招聘：automation（Santa Clara, CA 95054）", "url": "https://www.indeed.com/viewjob?jk=a55d326dab47efc9", "heat": 0, "source": "indeed"}, {"title": "Honeywell Aerospace 招聘：automation（United States）", "url": "https://www.indeed.com/viewjob?jk=e0b07dcee6705b52", "heat": 0, "source": "indeed"}, {"title": "INGRAM PROFESSIONAL SERVICES INC 招聘：automation（Midland, TX 79706）", "url": "https://www.indeed.com/viewjob?jk=8ef2ab0eeb9cc79e", "heat": 0, "source": "indeed"}, {"title": "State of Ohio - Auditor Of State 招聘：automation（Hybrid work in Ohio）", "url": "https://www.indeed.com/viewjob?jk=b557f97940833b20", "heat": 0, "source": "indeed"}, {"title": "American Airlines 招聘：automation（Fort Worth, TX）", "url": "https://www.indeed.com/viewjob?jk=dec970b7093a48e2", "heat": 0, "source": "indeed"}, {"title": "Aperia Technologies, Inc 招聘：automation（San Mateo, CA）", "url": "https://www.indeed.com/viewjob?jk=e9da704742d2ca4a", "heat": 0, "source": "indeed"}, {"title": "Aperia Technologies, Inc 招聘：automation（San Mateo, CA）", "url": "https://www.indeed.com/viewjob?jk=789abcdef0123456", "heat": 0, "source": "indeed"}, {"title": "Altarum 招聘：automation（Hybrid work in Novi, MI）", "url": "https://www.indeed.com/viewjob?jk=a77187016a52dbc2", "heat": 0, "source": "indeed"}, {"title": "Agilent Technologies, Inc. 招聘：automation（North Kingstown, RI 02852）", "url": "https://www.indeed.com/viewjob?jk=f02d89dcca6ec972", "heat": 0, "source": "indeed"}, {"title": "BCD Travel 招聘：automation（United States）", "url": "https://www.indeed.com/viewjob?jk=b635c628574774ec", "heat": 0, "source": "indeed"}, {"title": "Cardless 招聘：automation（San Francisco, CA）", "url": "https://www.indeed.com/viewjob?jk=74a802fe8c56a9f6", "heat": 0, "source": "indeed"}, {"title": "Siemens 招聘：automation（Hybrid work in Jacksonville, FL）", "url": "https://www.indeed.com/viewjob?jk=f25a9e85b6eeae8c", "heat": 0, "source": "indeed"}]}], "topics": [{"topic": "phone", "platforms": ["devto", "hn", "reddit"], "n_platforms": 3, "heat": 545}, {"topic": "age", "platforms": ["devto", "hn", "lesswrong"], "n_platforms": 3, "heat": 336}, {"topic": "saas", "platforms": ["hn", "reddit"], "n_platforms": 2, "heat": 1172}, {"topic": "device", "platforms": ["devto", "hn"], "n_platforms": 2, "heat": 517}, {"topic": "files", "platforms": ["hn", "lobsters"], "n_platforms": 2, "heat": 351}, {"topic": "language", "platforms": ["hn", "lobsters"], "n_platforms": 2, "heat": 227}, {"topic": "agent", "platforms": ["devto", "hn"], "n_platforms": 2, "heat": 216}, {"topic": "check", "platforms": ["lesswrong", "reddit"], "n_platforms": 2, "heat": 156}, {"topic": "users", "platforms": ["lesswrong", "reddit"], "n_platforms": 2, "heat": 120}, {"topic": "strategy", "platforms": ["devto", "reddit"], "n_platforms": 2, "heat": 99}, {"topic": "hybrid", "platforms": ["bluesky", "indeed"], "n_platforms": 2, "heat": 89}, {"topic": "days", "platforms": ["devto", "reddit"], "n_platforms": 2, "heat": 51}], "health": [{"source": "github_trending", "count": 20, "ok": true, "note": ""}, {"source": "github_search", "count": 50, "ok": true, "note": ""}, {"source": "opencli:hn:show", "count": 25, "ok": true, "note": ""}, {"source": "opencli:hn:ask", "count": 15, "ok": true, "note": ""}, {"source": "opencli:producthunt", "count": 12, "ok": true, "note": ""}, {"source": "opencli:lobsters:hot", "count": 25, "ok": true, "note": ""}, {"source": "opencli:devto:top", "count": 25, "ok": true, "note": ""}, {"source": "opencli:lesswrong", "count": 20, "ok": true, "note": ""}, {"source": "opencli:juejin:hot", "count": 20, "ok": true, "note": "免登录弱等效（中文技术热榜）"}, {"source": "opencli:bluesky:trending", "count": 10, "ok": true, "note": "免登录弱等效（仅热门话题，不可按关键词搜；内容偏新闻，价值低）"}, {"source": "opencli:stackoverflow#automation", "count": 2, "ok": true, "note": ""}, {"source": "opencli:stackoverflow#api", "count": 0, "ok": false, "note": "返回空结果"}, {"source": "opencli:reddit:SaaS", "count": 25, "ok": true, "note": ""}, {"source": "opencli:zhihu", "count": 20, "ok": true, "note": ""}, {"source": "opencli:indeed[automation]", "count": 15, "ok": true, "note": ""}]};
 window.__ANALYSIS__ = {"generated_at": "2026-09-18 16:02:53", "note": "判断口径：付费潜力 ≠ 热度，本轮样本里两者依旧近乎负相关——热度榜首是社会新闻（771 万）与个人兴趣项目（5330），而付费路径最清晰的是热度仅 96 的 AEO 拆解帖。核心筛选问题是：**这个热点背后有没有新生成的付费环节**——新增支出才有新机会，旧预算搬家只是替换竞争。本轮变化：最密集的痛点簇从 MCP 转到「独立开发者获客与变现」（约 1770 赞）；大厂把 AI 能力开源成 skill 的「三连」正在把供给端填满，这对独立开发者是不利的结构变化；上一轮的 MCP 证据（PH 的 MCPJam）本轮已不在榜，按「证据变了就改判断」下调。**值得单独去读的两处**：HN 的「Ask HN: What are you working on?」（4315 赞，开发者自述在做什么，是需求挖掘的金矿）；r/SaaS 的「First Monthly Subscription」（690 赞，评论区是第一批付费客户是怎么来的）", "items": [{"tier": "A", "pay": 5, "title": "独立开发者的获客与变现（本轮最密集痛点簇）", "who_pays": "独立开发者 / 小团队。**已经在花钱**：有帖明确说 Reddit 广告烧了几百刀无效", "trigger": "钱已经在花（旧预算存在）+ 渠道被社区规则封堵 → 需要**合规且可归因**的新渠道。属「旧预算迁移 + 渠道重构」，不是纯新增支出，所以盘子不如 AEO 大，但痛点密度更高", "supply": "获客工具普遍难做（效果难归因、退款率高），现有产品多为泛用型；而「第一个付费订阅」被顶上热榜说明这个阶段的人群极度渴望路径指引", "verdict": "值得验证。这是本轮**痛点密度最高**的方向，且付费行为已被验证（广告费真花了）", "action": "读那 4 条原帖评论区，记录他们试过的渠道与失败原因；找 5 个独立开发者问最近一次付费获客的具体金额与结果", "urls": ["https://www.reddit.com/r/SaaS/comments/1u0z4vz/new_rule_banning_a_saas_product_category_no/", "https://www.reddit.com/r/SaaS/comments/1wiwqpl/what_have_you_guys_actually_done_to_market_your/", "https://www.reddit.com/r/SaaS/comments/1wime93/tally_is_doing_5m_arr_with_11_people_i_decoded/"]}, {"tier": "A", "pay": 5, "title": "AEO（Answer Engine Optimization）工具", "who_pays": "B2B SaaS 营销负责人——预算正从 SEO 迁移到 AEO，是**新生成的付费环节**", "trigger": "搜索入口转向 AI 答案，传统 SEO 工具的度量与优化方法失效。与「独立开发者获客」同源但**买家不同**：一个卖给个人，一个卖给企业市场部，后者付费能力强得多", "supply": "海外有零星工具，国内少；开源侧几乎无成型产品（GitHub stars>1000 侧未见）", "verdict": "最高价值候选。有案例、有预算迁移、有口径空白", "action": "读原帖拿具体打法；查 \"AEO\" 相关工具存量与定价；找 3 家做 SEO 工具/SaaS 的公司问他们是否已被客户问到 AEO", "urls": ["https://www.reddit.com/r/SaaS/comments/1wime93/tally_is_doing_5m_arr_with_11_people_i_decoded/"]}, {"tier": "A", "pay": 4, "title": "团队 AI 用量与配置管理（AI FinOps）", "who_pays": "团队工程经理 / 财务——AI 订阅已从零星支出变成固定账单大头且不可控", "trigger": "AI 工具支出规模化 → 出现「谁在用、用多少、怎么配」的管理空白。属**新生成的支出管理环节**（不是替换既有工具）", "supply": "少见成型产品；大厂倾向内部自建，外部工具仍空白", "verdict": "值得验证。新支出管理环节，且连续两轮出现在 HN 首页说明需求不减", "action": "确认是否已有 \"FinOps for AI\" 产品；问 3 个 20+ 人团队现在怎么管 AI 账单和配置", "urls": ["https://www.producthunt.com/products/tinykpi"]}, {"tier": "A", "pay": 4, "title": "MCP 服务器的测试与可观测（证据转弱，需复核）", "who_pays": "企业 AI 工程团队（MCP 进生产后出错就是事故）", "trigger": "MCP 生态刚起、上线即出现测试/调试/可观测空白，与当年 API 测试催生 Postman 同一路径", "supply": "仍稀缺，但**连续缺席热榜 = 需求没有想象中那么急**", "verdict": "降级保留在 A 级下缘：逻辑成立但热度证据不足，**先验证再投入**。若下一轮仍无 MCP 工具上榜，应移到 B 级", "action": "搜 MCP 仓库 issue 里「怎么测/怎么调试」类提问的数量与时间分布；确认 Postman / Insomnia 是否已进入这个赛道", "urls": []}, {"tier": "B", "pay": 3, "title": "jev 生态配套工具（本轮最强爆发信号，持续升温）", "who_pays": "早期采用者 / 开发者；付费形态**仍未出现**", "trigger": "技术名词两周内形成仓库簇（5 仓）+ 已分化出上下文压缩与交易应用+ 安全研究者进场 = 生态从「玩具」走向「需要被审视」", "supply": "几乎空白（太新）——但这也意味着没有人验证过它能不能活过三个月", "verdict": "观察 + 提前占位。风险最高；若成势，第一批机会是部署/成本/监控工具链", "action": "读 HN 相关讨论的评论区找早期使用者的抱怨（缺什么就是机会）；持续跟踪 2-3 周，重点看是否有公司把它放进生产", "urls": ["https://github.com/browser-use/jev-ultrafast", "https://github.com/tamaratran/fast-jev-compaction"]}, {"tier": "B", "pay": 3, "title": "大厂 AI 能力「技能化」开源（本轮新增信号）", "who_pays": "企业安全/研发团队（合规与代码质量是硬支出）——但**钱可能付给大厂**", "trigger": "合规压力 + 大厂把内部能力下沉为可复用 skill，**供给被大厂自己填满**——这是对独立开发者不利的结构变化", "supply": "大厂亲自下场且开源免费：正面做工具几乎无空间", "verdict": "做工具难（对手免费且背书更强）；现实路线是「给不会用这些 skill 的中小企业做落地服务」", "action": "先判断自己能否接受「服务而非工具」的形态；调研中小企业做安全审计/代码审查的实际预算与采购方式", "urls": ["https://github.com/cloudflare/security-audit-skill", "https://github.com/alibaba/open-code-review"]}, {"tier": "B", "pay": 2, "title": "AI 研究/文献检索平台", "who_pays": "研究者个人（WTP 低）或高校机构（采购周期长、渠道封闭）", "trigger": "AI 辅助科研的检索/复现需求真实，但**买单方是机构不是个人**，销售周期极长", "supply": "已有 arXiv 官方 + 若干学术搜索，同质化高", "verdict": "需求真实但商业模式弱（个人不付钱、机构难触达）；除非能切入企业 R&D 场景", "action": "确认是否存在「企业研发团队文献/专利」付费场景；否则排除", "urls": ["https://github.com/alphaXiv/OpenResearch"]}, {"tier": "C", "pay": 0, "title": "知乎热榜全部条目（6/6，连续两轮）", "who_pays": "无", "trigger": "无", "supply": "—", "verdict": "**连续两轮确认：中文热榜是新闻/社会话题榜，不是技术社区，对软件选品零价值**。这不是「今天恰好如此」，而是平台定位决定的——已把它从热点通道主动排除（见 hunter/paths.py）", "action": "整站排除。要中文需求信号应用**搜索**而非热榜，或改看 v2ex / 掘金", "urls": []}, {"tier": "C", "pay": 0, "title": "LessWrong 全部条目", "who_pays": "无（讨论公共风险，读者不为工具付费）", "trigger": "无", "supply": "—", "verdict": "排除整站。但**注意最后一条**：「There is a channel to 900M weekly users. What goes in it?」属于渠道机会讨论，可作为「分发」主题的输入，单独拎出来看", "action": "排除；仅从该站抽取「渠道/分发」类帖子作为获客主题的补充输入", "urls": []}, {"tier": "C", "pay": 0, "title": "Lobsters 情绪/公告类条目", "who_pays": "无", "trigger": "情绪表达与个人观点，没有可解决的任务", "supply": "—", "verdict": "排除。Lobsters 是「高质量观点社区」而非「付费需求社区」，热榜整体偏观点；偶尔出现的具体需求帖需逐条筛", "action": "只保留其中的具体需求帖，其余当技术风向参考", "urls": []}, {"tier": "C", "pay": 0, "title": "纯开源项目与个人兴趣项目", "who_pays": "无（开源免费 / 个人作品，不是可售产品）", "trigger": "无", "supply": "—", "verdict": "**不是产品机会，是竞品情报与供给数据**：它们告诉你某个方向已经有多少人在做、以及技术能做到什么程度。HN 那三个兴趣项目说明「个人能独立做出完整硬件/模拟器项目」，对工具的启发是：门槛已经低到个人可以做完整产品", "action": "当供给数据用（喂给拥挤度评估），不当机会用", "urls": []}, {"tier": "C", "pay": 0, "title": "Product Hunt 兴趣/工具类（Higgsfield API、Figo、Pitchfire、Opyt…）", "who_pays": "混合：Higgsfield 是给开发者的视频生成 API（有付费方），其余多为消费/兴趣向（ARPU 低）", "trigger": "兴趣型消费为主，非刚需支出；且 PH 热度是**排名代理**不是真票数，不可跨站比较", "supply": "同类产品在 PH 上每周轮换，更替快", "verdict": "**唯一例外是 Higgsfield API**（开发者付费、按量计费），它印证了「AI 视频生成 API 化」这条线仍有付费空间；其余当竞品情报看", "action": "把 Higgsfield 归入「视频与音频处理」方向的供给证据；其余只做竞品情报", "urls": ["https://www.producthunt.com/products/higgsfield-api"]}, {"tier": "C", "pay": 0, "title": "Indeed 招聘帖（Live Nation / Applied Materials / BAE Systems / Johns Hopkins / Honeywell）", "who_pays": "—", "trigger": "—", "supply": "—", "verdict": "不是产品机会，是**需求侧付费证据**：跨行业企业在持续为「自动化」投人投钱。它的价值是给自动化类方向的需求强度提供第三方背书", "action": "用来佐证「数据采集与解析」「AI 代理与自动化」的需求强度，不单独成方向", "urls": []}, {"tier": "C", "pay": 0, "title": "Bluesky 热榜（本轮新接入，实测与知乎同类）", "who_pays": "无", "trigger": "无", "supply": "—", "verdict": "**实测结论：Bluesky trending 是新闻榜，与知乎同类，对软件选品零价值**。更重要的是——它原本被当作 Twitter（创始人原话）的免登录弱等效，这个替代**实测不成立**：创始人不会把产品思路发在热门话题榜上。已在 hunter/resilience.py 如实改注（弱等效 ≠ 覆盖）", "action": "不作为需求信号源；若要 Bluesky 的创始人原话，需要可按关键词搜帖的接口（当前适配器只给热榜）", "urls": []}, {"tier": "C", "pay": 0, "title": "掘金热榜（本轮新接入，中文技术信号可用）", "who_pays": "无（技术文章读者不为工具付费）", "trigger": "—", "supply": "—", "verdict": "**不是付费机会，但比知乎/Bluesky 有价值**：它是**技术**热榜而非新闻榜，反映中文开发者的关注点（JWT 争议、备份策略、JDK 升级、AI 焦虑）。用途是「中文技术趋势的输入」，不是「消费需求的来源」", "action": "当技术风向参考；找中文**消费级**需求仍需搜索类通道（小红书搜索、v2ex）", "urls": []}, {"tier": "C", "pay": 0, "title": "Stack Overflow 零散技术问答", "who_pays": "无（开发者查文档式提问，属一次性技术求助）", "trigger": "技术细节问题，不是产品级需求", "supply": "—", "verdict": "不构成方向。但**「故障式提问」是有效的需求线索**——同一类报错在大样本下重复出现时，说明某个工具链有稳定性缺口（用于需求轨道）", "action": "作为需求轨道的证据输入，不在热榜判断里单独成项", "urls": []}]};
@@ -103,100 +176,211 @@ window.__RESILIENCE__ = {"rows": [{"capability": "开源供给（在做什么）
 const DATA = {"generated_at": "2026-09-18 15:55:02", "windows": [{"key": "day", "label": "今日", "path_stats": [139, 49, 0.7393617021276596], "raw": 476, "kept": 188, "dirs": [{"name": "AI 代理与自动化", "evidence": 25, "score": 36.03, "opp_score": 10.24, "market": 3303, "crowd": "红海", "opp_tag": "已拥挤：需差异化切入", "wtp": 0, "heat": 376, "mature_products": 621, "pain": 12, "sources": ["github_bounty", "github_search", "github_trending", "hn", "indeed", "juejin", "producthunt", "reddit"], "hot": 4, "resonance": 6, "native_sources": ["github_search", "github_trending", "hn", "juejin", "producthunt", "reddit"], "keyword_sources": ["github_bounty", "hn", "indeed"], "plat": {"github_search": 8, "indeed": 4, "reddit": 1, "producthunt": 2, "github_trending": 5, "hn": 4, "github_bounty": 3, "juejin": 1}, "mature": [{"repo": "affaan-m/ECC", "url": "https://github.com/affaan-m/ECC", "stars": 261358, "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev", "updated": "2026-09-17"}, {"repo": "NousResearch/hermes-agent", "url": "https://github.com/NousResearch/hermes-agent", "stars": 246639, "desc": "The agent that grows with you", "updated": "2026-09-18"}, {"repo": "langgenius/dify", "url": "https://github.com/langgenius/dify", "stars": 156226, "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De", "updated": "2026-09-18"}], "evidence_links": [{"title": "kuhnhomeuk-cell/procedural-film", "url": "https://github.com/kuhnhomeuk-cell/procedural-film", "source": "github_search"}, {"title": "vlad-terin/jev-browser", "url": "https://github.com/vlad-terin/jev-browser", "source": "github_search"}, {"title": "jarrodwatts/jev-trader", "url": "https://github.com/jarrodwatts/jev-trader", "source": "github_search"}, {"title": "awlevin/typesafe-computer-use", "url": "https://github.com/awlevin/typesafe-computer-use", "source": "github_search"}], "advice": "已拥挤，不建议正面进入", "advice_level": 1, "advice_action": "除非有明确差异化切口（细分人群 / 现有产品的具体差评），否则跳过", "advice_reasons": ["25 条证据显示需求真实", "但 GitHub 存量 3303 个（红海）"], "trend_level": "高", "trend_score": 8, "trend_reasons": ["头部仓库日均涨星 231（极快）", "6 个平台原生榜独立出现（真共振）", "今日 25 条 ≥ 本周 22 条（当下密集）"]}, {"name": "报表与可视化", "evidence": 4, "score": 11.13, "opp_score": 5.58, "market": 89, "crowd": "中等", "opp_tag": "★ 值得看", "wtp": 0, "heat": 37, "mature_products": 13, "pain": 1, "sources": ["github_search", "hn", "reddit"], "hot": 1, "resonance": 3, "native_sources": ["github_search", "hn", "reddit"], "keyword_sources": [], "plat": {"github_search": 3, "reddit": 1, "hn": 1}, "mature": [{"repo": "metabase/metabase", "url": "https://github.com/metabase/metabase", "stars": 49324, "desc": "The easy-to-use open source Business Intelligence and Embedded Analytics tool that lets everyone work with dat", "updated": "2026-09-18"}, {"repo": "briefercloud/briefer", "url": "https://github.com/briefercloud/briefer", "stars": 4325, "desc": "Dashboards and notebooks in a single place. Create powerful and flexible dashboards using code, or build beaut", "updated": "2025-08-07"}, {"repo": "StructuredLabs/preswald", "url": "https://github.com/StructuredLabs/preswald", "stars": 4270, "desc": "Preswald is a WASM packager for Python-based interactive data apps: bundle full complex data workflows, partic", "updated": "2026-06-11"}], "evidence_links": [{"title": "Marcos66236/github-stars-history", "url": "https://github.com/Marcos66236/github-stars-history", "source": "github_search"}, {"title": "devagrawal09/jev-review", "url": "https://github.com/devagrawal09/jev-review", "source": "github_search"}, {"title": "[FOR HIRE] The Last Google Ads Guy You'll Ever Hire", "url": "https://www.reddit.com/r/forhire/comments/1wj8p84/for_hire_the_last_google_ads_guy_youll_ever_hire/", "source": "reddit"}, {"title": "mirkovicdev/HFTENGINE", "url": "https://github.com/mirkovicdev/HFTENGINE", "source": "github_search"}], "advice": "★ 建议优先验证", "advice_level": 4, "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品", "advice_reasons": ["4 条证据 · 3 个平台", "存量仅 89 个（稀疏）", "1 条出钱证据（招聘/赏金：有人已在为这类活付费）"], "trend_level": "高", "trend_score": 8, "trend_reasons": ["头部仓库日均涨星 104（较快）", "3 个平台原生榜独立出现（真共振）", "今日 4 条 ≥ 本周 3 条（当下密集）", "仅近期窗口出现（新近冒头）"]}, {"name": "视频与音频处理", "evidence": 8, "score": 10.8, "opp_score": 3.74, "market": 763, "crowd": "拥挤", "opp_tag": "已拥挤：需差异化切入", "wtp": 0, "heat": 72, "mature_products": 101, "pain": 7, "sources": ["devto", "github_bounty", "github_trending", "reddit"], "hot": 1, "resonance": 3, "native_sources": ["devto", "github_trending", "reddit"], "keyword_sources": ["github_bounty"], "plat": {"reddit": 4, "github_trending": 1, "github_bounty": 1, "devto": 1}, "mature": [{"repo": "harry0703/MoneyPrinterTurbo", "url": "https://github.com/harry0703/MoneyPrinterTurbo", "stars": 124487, "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workf", "updated": "2026-09-18"}, {"repo": "FFmpeg/FFmpeg", "url": "https://github.com/FFmpeg/FFmpeg", "stars": 64317, "desc": "Mirror of https://git.ffmpeg.org/ffmpeg.git", "updated": "2026-09-17"}, {"repo": "calesthio/OpenMontage", "url": "https://github.com/calesthio/OpenMontage", "stars": 59813, "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent sk", "updated": "2026-09-06"}], "evidence_links": [{"title": "​[Hiring] Visual Director & Short-Form Video Editor for Emo-Trap/Underground Pro", "url": "https://www.reddit.com/r/forhire/comments/1wjhyjt/hiring_visual_director_shortform_video_editor_for/", "source": "reddit"}, {"title": "[FOR HIRE] Graphic Design, Motion Graphics, Branding, Social Content & Video Edi", "url": "https://www.reddit.com/r/forhire/comments/1wjiif2/for_hire_graphic_design_motion_graphics_branding/", "source": "reddit"}, {"title": "[For Hire] Affordable Photo & Video Editing - High Quality Results !", "url": "https://www.reddit.com/r/forhire/comments/1wjg795/for_hire_affordable_photo_video_editing_high/", "source": "reddit"}, {"title": "[FOR HIRE] Card Artist | Capcom & ATLUS Aesthetic (Projects start at 50 USD)", "url": "https://www.reddit.com/r/forhire/comments/1wizny8/for_hire_card_artist_capcom_atlus_aesthetic/", "source": "reddit"}], "advice": "需求真实但供给密集，需差异化", "advice_level": 2, "advice_action": "先扒 3-5 个现有产品的差评与退款理由，找未被满足的细分场景", "advice_reasons": ["8 条证据 · 4 个平台", "存量 763 个，已有多家在解"], "trend_level": "高", "trend_score": 5, "trend_reasons": ["3 个平台原生榜独立出现（真共振）", "今日 8 条 / 本周 10 条（正在加速）"]}, {"name": "数据采集与解析", "evidence": 5, "score": 9.18, "opp_score": 5.18, "market": 49, "crowd": "稀疏", "opp_tag": "★ 值得看", "wtp": 0, "heat": 360, "mature_products": 6, "pain": 4, "sources": ["github_bounty", "github_search", "indeed", "lobsters"], "hot": 1, "resonance": 2, "native_sources": ["github_search", "lobsters"], "keyword_sources": ["github_bounty", "indeed"], "plat": {"github_search": 1, "indeed": 3, "github_bounty": 1, "lobsters": 1}, "mature": [{"repo": "cheeriojs/cheerio", "url": "https://github.com/cheeriojs/cheerio", "stars": 30491, "desc": "The fast, flexible, and elegant library for parsing and manipulating HTML and XML.", "updated": "2026-09-18"}, {"repo": "rust-scraper/scraper", "url": "https://github.com/rust-scraper/scraper", "stars": 2420, "desc": "HTML parsing and querying with CSS selectors", "updated": "2026-09-14"}, {"repo": "oxylabs/how-to-scrape-google-images", "url": "https://github.com/oxylabs/how-to-scrape-google-images", "stars": 2117, "desc": "Real time google image scraper. The process is automated by sending HTTP requests to retrieve image data which", "updated": "2026-06-19"}], "evidence_links": [{"title": "justoneapi-labs/xiaohongshu-api", "url": "https://github.com/justoneapi-labs/xiaohongshu-api", "source": "github_search"}, {"title": "Bartlett Distribution Services LLC 招聘：data scraping（Newark, NJ 07108 (Upper Clin", "url": "https://www.indeed.com/viewjob?jk=c6dd8c024ade7f41", "source": "indeed"}, {"title": "INTERNATIONAL HIGHLIGHT LLC 招聘：data scraping（Boston, MA 02125 (North Dorchester ", "url": "https://www.indeed.com/viewjob?jk=6417d71cb37e683c", "source": "indeed"}, {"title": "Farmland Fresh Dairies LLC 招聘：data scraping（Newark, NJ 07108 (Lower Clinton Hill", "url": "https://www.indeed.com/viewjob?jk=11dd9bad265fd625", "source": "indeed"}], "advice": "★ 建议优先验证", "advice_level": 4, "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品", "advice_reasons": ["5 条证据 · 4 个平台", "存量仅 49 个（稀疏）", "4 条出钱证据（招聘/赏金：有人已在为这类活付费）"], "trend_level": "中", "trend_score": 4, "trend_reasons": ["2 个平台原生榜独立出现（真共振）", "仅近期窗口出现（新近冒头）"]}, {"name": "文档与知识库", "evidence": 2, "score": 7.91, "opp_score": 2.53, "market": 1327, "crowd": "红海", "opp_tag": "红海", "wtp": 0, "heat": 646, "mature_products": 107, "pain": 1, "sources": ["github_search", "juejin", "reddit"], "hot": 1, "resonance": 3, "native_sources": ["github_search", "juejin", "reddit"], "keyword_sources": [], "plat": {"github_search": 1, "reddit": 1, "juejin": 1}, "mature": [{"repo": "freeCodeCamp/devdocs", "url": "https://github.com/freeCodeCamp/devdocs", "stars": 39463, "desc": "API Documentation Browser", "updated": "2026-09-15"}, {"repo": "inkonchain/docs", "url": "https://github.com/inkonchain/docs", "stars": 36505, "desc": "Ink Documentation", "updated": "2026-09-15"}, {"repo": "docsifyjs/docsify", "url": "https://github.com/docsifyjs/docsify", "stars": 31513, "desc": "🃏 A magical documentation site generator.", "updated": "2026-09-17"}], "evidence_links": [{"title": "nMaas8388/github-ranking-audit", "url": "https://github.com/nMaas8388/github-ranking-audit", "source": "github_search"}, {"title": "[FOR HIRE] CAD Draftsman / Architectural Drafter — AutoCAD, 3D Visualization, Co", "url": "https://www.reddit.com/r/forhire/comments/1wjh261/for_hire_cad_draftsman_architectural_drafter/", "source": "reddit"}, {"title": "为什么越来越多人用OpenWiki？", "url": "https://juejin.cn/post/7685591822258585626", "source": "juejin"}], "advice": "待观察，证据偏弱", "advice_level": 2, "advice_action": "记进观察名单，看下个窗口能否复现", "advice_reasons": ["3 个平台各 1 条，尚未形成共振"], "trend_level": "高", "trend_score": 8, "trend_reasons": ["头部仓库日均涨星 117（较快）", "3 个平台原生榜独立出现（真共振）", "今日 2 条 ≥ 本周 2 条（当下密集）", "仅近期窗口出现（新近冒头）"]}, {"name": "内容创作与分发", "evidence": 2, "score": 6.57, "opp_score": 3.97, "market": 35, "crowd": "稀疏", "opp_tag": "待验证", "wtp": 0, "heat": 288, "mature_products": 4, "pain": 1, "sources": ["github_bounty", "github_search"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": ["github_bounty"], "plat": {"github_search": 1, "github_bounty": 1}, "mature": [{"repo": "TryGhost/Ghost", "url": "https://github.com/TryGhost/Ghost", "stars": 55347, "desc": "Independent technology for modern publishing, memberships, subscriptions and newsletters.", "updated": "2026-09-18"}, {"repo": "yaojingang/GEOFlow", "url": "https://github.com/yaojingang/GEOFlow", "stars": 3652, "desc": "Open-source GEO content engineering and multi-site distribution platform with AI quality inspection, illustrat", "updated": "2026-09-18"}, {"repo": "blogifierdotnet/Blogifier", "url": "https://github.com/blogifierdotnet/Blogifier", "stars": 1295, "desc": "Blogifier is an open-source publishing platform Written in ASP.NET and Blazor WebAssembly. With Blogifier make", "updated": "2026-03-16"}], "evidence_links": [{"title": "korcarc/text-humanizer", "url": "https://github.com/korcarc/text-humanizer", "source": "github_search"}, {"title": "Reverse bounty", "url": "https://github.com/OmniBlocks/monorepo/issues/795", "source": "github_bounty"}], "advice": "待观察，证据偏弱", "advice_level": 2, "advice_action": "记进观察名单，看下个窗口能否复现", "advice_reasons": ["2 个平台各 1 条，尚未形成共振"], "trend_level": "高", "trend_score": 6, "trend_reasons": ["头部仓库日均涨星 176（较快）", "1 个平台原生榜出现", "今日 2 条 ≥ 本周 2 条（当下密集）"]}, {"name": "终端与开发者效率", "evidence": 2, "score": 5.64, "opp_score": 3.04, "market": 62, "crowd": "稀疏", "opp_tag": "待验证", "wtp": 0, "heat": 0, "mature_products": 12, "pain": 1, "sources": ["github_search", "hn"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": ["hn"], "plat": {"github_search": 1, "hn": 1}, "mature": [{"repo": "apollographql/apollo-client", "url": "https://github.com/apollographql/apollo-client", "stars": 19801, "desc": "The industry-leading GraphQL client for TypeScript, JavaScript, React, Vue, Angular, and more. Apollo Client d", "updated": "2026-09-17"}, {"repo": "guarinogabriel/Mac-CLI", "url": "https://github.com/guarinogabriel/Mac-CLI", "stars": 9121, "desc": " macOS command line tool for developers – The ultimate tool to manage your Mac. It provides a huge set of com", "updated": "2026-02-28"}, {"repo": "donnemartin/dev-setup", "url": "https://github.com/donnemartin/dev-setup", "stars": 6267, "desc": "macOS development environment setup:  Easy-to-understand instructions with automated setup scripts for develop", "updated": "2023-02-27"}], "evidence_links": [{"title": "kdbhalala/avdslim", "url": "https://github.com/kdbhalala/avdslim", "source": "github_search"}, {"title": "Cpak – OCI application package format for Linux desktops, servers and devices", "url": "https://news.ycombinator.com/item?id=49709877", "source": "hn"}], "advice": "待观察，证据偏弱", "advice_level": 2, "advice_action": "记进观察名单，看下个窗口能否复现", "advice_reasons": ["2 个平台各 1 条，尚未形成共振"], "trend_level": "中", "trend_score": 4, "trend_reasons": ["头部仓库日均涨星 41", "1 个平台原生榜出现", "今日 2 条 / 本周 3 条（正在加速）"]}, {"name": "支付与账单", "evidence": 3, "score": 5.0, "opp_score": 2.99, "market": 37, "crowd": "稀疏", "opp_tag": "★ 值得看", "wtp": 1, "heat": 693, "mature_products": 6, "pain": 2, "sources": ["hn", "reddit"], "hot": 0, "resonance": 1, "native_sources": ["reddit"], "keyword_sources": ["hn"], "plat": {"hn": 1, "reddit": 2}, "mature": [{"repo": "OpenByteInc/QuantDinger", "url": "https://github.com/OpenByteInc/QuantDinger", "stars": 11712, "desc": "Open-source AI Trading OS and commercial-ready multi-tenant SaaS platform — research markets, build Python str", "updated": "2026-09-18"}, {"repo": "getlago/lago", "url": "https://github.com/getlago/lago", "stars": 10572, "desc": "Open Source Metering and Usage Based Billing API ⭐️ Consumption tracking, Subscription management, Pricing ite", "updated": "2026-09-17"}, {"repo": "killbill/killbill", "url": "https://github.com/killbill/killbill", "stars": 5737, "desc": "Open-Source Subscription Billing & Payments Platform", "updated": "2026-09-14"}], "evidence_links": [{"title": "Show HN: The bottom 50% of U.S. households are short after essentials (BLS data)", "url": "https://news.ycombinator.com/item?id=49743608", "source": "hn"}, {"title": "First Monthly Subscription I am legit shaking. What would be your first moves (i", "url": "https://www.reddit.com/comments/1wi88io", "source": "reddit"}, {"title": "[FOR HIRE] Designer and illustrator - mascots, logos, tshirt art and branding", "url": "https://www.reddit.com/r/forhire/comments/1wj22qz/for_hire_designer_and_illustrator_mascots_logos/", "source": "reddit"}], "advice": "★ 建议优先验证", "advice_level": 4, "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品", "advice_reasons": ["3 条证据 · 2 个平台", "存量仅 37 个（稀疏）", "已出现付费信号"], "trend_level": "中", "trend_score": 4, "trend_reasons": ["1 个平台原生榜出现", "出现付费信号", "仅近期窗口出现（新近冒头）"]}, {"name": "集成与 API 网关", "evidence": 1, "score": 4.86, "opp_score": 1.7, "market": 710, "crowd": "拥挤", "opp_tag": "红海", "wtp": 0, "heat": 0, "mature_products": 56, "pain": 0, "sources": ["github_search"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": [], "plat": {"github_search": 1}, "mature": [{"repo": "appsmithorg/appsmith", "url": "https://github.com/appsmithorg/appsmith", "stars": 40898, "desc": "Platform to build admin panels, internal tools, and dashboards. Integrates with 25+ databases and any API.", "updated": "2026-09-18"}, {"repo": "The-Vibe-Company/quivr", "url": "https://github.com/The-Vibe-Company/quivr", "stars": 39532, "desc": "Opiniated RAG for integrating GenAI in your apps 🧠   Focus on your product rather than the RAG. Easy integrati", "updated": "2026-08-31"}, {"repo": "deepseek-ai/awesome-deepseek-integration", "url": "https://github.com/deepseek-ai/awesome-deepseek-integration", "stars": 39165, "desc": "Integrate the DeepSeek API into popular software", "updated": "2026-02-23"}], "evidence_links": [{"title": "dofastted/vm2api", "url": "https://github.com/dofastted/vm2api", "source": "github_search"}], "advice": "信号不足，暂不判断", "advice_level": 0, "advice_action": "不下结论；若趋势评级高可提前留意", "advice_reasons": ["单条证据支撑不了结论"], "trend_level": "中", "trend_score": 3, "trend_reasons": ["头部仓库日均涨星 58", "1 个平台原生榜出现", "仅近期窗口出现（新近冒头）"]}, {"name": "获客与 SEO", "evidence": 3, "score": 3.8, "opp_score": 2.52, "market": 22, "crowd": "稀疏", "opp_tag": "★ 值得看", "wtp": 0, "heat": 0, "mature_products": 3, "pain": 3, "sources": ["reddit"], "hot": 0, "resonance": 1, "native_sources": ["reddit"], "keyword_sources": [], "plat": {"reddit": 3}, "mature": [{"repo": "coreyhaines31/marketingskills", "url": "https://github.com/coreyhaines31/marketingskills", "stars": 50754, "desc": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.", "updated": "2026-09-05"}, {"repo": "nextacular/nextacular", "url": "https://github.com/nextacular/nextacular", "stars": 1388, "desc": "An open-source starter kit that will help you build full-stack multi-tenant SaaS platforms efficiently and hel", "updated": "2026-05-30"}, {"repo": "ALwrity/ALwrity", "url": "https://github.com/ALwrity/ALwrity", "stars": 1164, "desc": "ALwrity - AI-first Digital Marketing Platform. AI Content Strategy and Planning, Multimodal content generation", "updated": "2026-09-15"}], "evidence_links": [{"title": "[Hiring] Mid/Senior Ad Campaign Manager (User Acquisition) - Remote (Brazil Mark", "url": "https://www.reddit.com/r/forhire/comments/1wjdnj7/hiring_midsenior_ad_campaign_manager_user/", "source": "reddit"}, {"title": "[FOR HIRE] Digital Marketing Support | Virtual Assistant | SEO, WordPress, Googl", "url": "https://www.reddit.com/r/forhire/comments/1wj5ohv/for_hire_digital_marketing_support_virtual/", "source": "reddit"}, {"title": "[For Hire] Reliable Copywriter That Won't Break the Bank", "url": "https://www.reddit.com/r/forhire/comments/1wj3135/for_hire_reliable_copywriter_that_wont_break_the/", "source": "reddit"}], "advice": "★ 建议优先验证", "advice_level": 4, "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品", "advice_reasons": ["3 条证据 · 1 个平台", "存量仅 22 个（稀疏）", "3 条出钱证据（招聘/赏金：有人已在为这类活付费）"], "trend_level": "中", "trend_score": 3, "trend_reasons": ["1 个平台原生榜出现", "仅近期窗口出现（新近冒头）"]}], "plat_total": {"github_search": 16, "indeed": 7, "stackoverflow": 1, "hn": 8, "reddit": 21, "producthunt": 4, "github_trending": 8, "github_bounty": 7, "lobsters": 2, "devto": 1, "juejin": 2}, "ann_hits": 24, "kept_n": 188}, {"key": "week", "label": "本周", "path_stats": [69, 53, 0.5655737704918032], "raw": 322, "kept": 122, "dirs": [{"name": "AI 代理与自动化", "evidence": 22, "score": 31.66, "opp_score": 8.99, "market": 3303, "crowd": "红海", "opp_tag": "已拥挤：需差异化切入", "wtp": 1, "heat": 1744, "mature_products": 621, "pain": 14, "sources": ["github_bounty", "github_search", "github_trending", "hn", "indeed", "reddit"], "hot": 0, "resonance": 3, "native_sources": ["github_search", "github_trending", "reddit"], "keyword_sources": ["github_bounty", "hn", "indeed"], "plat": {"github_search": 5, "reddit": 2, "indeed": 4, "github_trending": 3, "hn": 4, "github_bounty": 3}, "mature": [{"repo": "affaan-m/ECC", "url": "https://github.com/affaan-m/ECC", "stars": 261358, "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev", "updated": "2026-09-17"}, {"repo": "NousResearch/hermes-agent", "url": "https://github.com/NousResearch/hermes-agent", "stars": 246639, "desc": "The agent that grows with you", "updated": "2026-09-18"}, {"repo": "langgenius/dify", "url": "https://github.com/langgenius/dify", "stars": 156226, "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De", "updated": "2026-09-18"}], "evidence_links": [{"title": "AetherLabsAI/RSIAgent", "url": "https://github.com/AetherLabsAI/RSIAgent", "source": "github_search"}, {"title": "Rant: Stop building useless apps and products This sub and few adjacent are full", "url": "https://www.reddit.com/comments/1wgxzx9", "source": "reddit"}, {"title": "jarrodwatts/jev-trader", "url": "https://github.com/jarrodwatts/jev-trader", "source": "github_search"}, {"title": "mpociot/claude-siri-ai", "url": "https://github.com/mpociot/claude-siri-ai", "source": "github_search"}], "advice": "已拥挤，不建议正面进入", "advice_level": 1, "advice_action": "除非有明确差异化切口（细分人群 / 现有产品的具体差评），否则跳过", "advice_reasons": ["25 条证据显示需求真实", "但 GitHub 存量 3303 个（红海）"], "trend_level": "高", "trend_score": 8, "trend_reasons": ["头部仓库日均涨星 231（极快）", "6 个平台原生榜独立出现（真共振）", "今日 25 条 ≥ 本周 22 条（当下密集）"]}, {"name": "视频与音频处理", "evidence": 10, "score": 15.69, "opp_score": 5.43, "market": 763, "crowd": "拥挤", "opp_tag": "已拥挤：需差异化切入", "wtp": 0, "heat": 48, "mature_products": 101, "pain": 8, "sources": ["github_bounty", "github_search", "hn", "reddit"], "hot": 0, "resonance": 2, "native_sources": ["github_search", "reddit"], "keyword_sources": ["github_bounty", "hn"], "plat": {"github_search": 2, "reddit": 4, "hn": 1, "github_bounty": 1}, "mature": [{"repo": "harry0703/MoneyPrinterTurbo", "url": "https://github.com/harry0703/MoneyPrinterTurbo", "stars": 124487, "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workf", "updated": "2026-09-18"}, {"repo": "FFmpeg/FFmpeg", "url": "https://github.com/FFmpeg/FFmpeg", "stars": 64317, "desc": "Mirror of https://git.ffmpeg.org/ffmpeg.git", "updated": "2026-09-17"}, {"repo": "calesthio/OpenMontage", "url": "https://github.com/calesthio/OpenMontage", "stars": 59813, "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent sk", "updated": "2026-09-06"}], "evidence_links": [{"title": "letorig/video-generator-client", "url": "https://github.com/letorig/video-generator-client", "source": "github_search"}, {"title": "groundboxerrespect/Dlls5-auto", "url": "https://github.com/groundboxerrespect/Dlls5-auto", "source": "github_search"}, {"title": "​[Hiring] Visual Director & Short-Form Video Editor for Emo-Trap/Underground Pro", "url": "https://www.reddit.com/r/forhire/comments/1wjhyjt/hiring_visual_director_shortform_video_editor_for/", "source": "reddit"}, {"title": "[FOR HIRE] Graphic Design, Motion Graphics, Branding, Social Content & Video Edi", "url": "https://www.reddit.com/r/forhire/comments/1wjiif2/for_hire_graphic_design_motion_graphics_branding/", "source": "reddit"}], "advice": "需求真实但供给密集，需差异化", "advice_level": 2, "advice_action": "先扒 3-5 个现有产品的差评与退款理由，找未被满足的细分场景", "advice_reasons": ["8 条证据 · 4 个平台", "存量 763 个，已有多家在解"], "trend_level": "高", "trend_score": 5, "trend_reasons": ["3 个平台原生榜独立出现（真共振）", "今日 8 条 / 本周 10 条（正在加速）"]}, {"name": "自托管与部署", "evidence": 4, "score": 10.6, "opp_score": 4.64, "market": 182, "crowd": "中等", "opp_tag": "★ 值得看", "wtp": 0, "heat": 0, "mature_products": 39, "pain": 0, "sources": ["github_search", "github_trending"], "hot": 0, "resonance": 2, "native_sources": ["github_search", "github_trending"], "keyword_sources": [], "plat": {"github_search": 3, "github_trending": 1}, "mature": [{"repo": "langgenius/dify", "url": "https://github.com/langgenius/dify", "stars": 156226, "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De", "updated": "2026-09-18"}, {"repo": "coollabsio/coolify", "url": "https://github.com/coollabsio/coolify", "stars": 61968, "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ", "updated": "2026-09-17"}, {"repo": "agentscope-ai/QwenPaw", "url": "https://github.com/agentscope-ai/QwenPaw", "stars": 35070, "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha", "updated": "2026-09-18"}], "evidence_links": [{"title": "danieldeer/seriousdb", "url": "https://github.com/danieldeer/seriousdb", "source": "github_search"}, {"title": "agentverse-os/AgentVerse-OS", "url": "https://github.com/agentverse-os/AgentVerse-OS", "source": "github_search"}, {"title": "MiaAI-Lab/DeepSeek-v4.1-Flash-EXL3-2x-DGX-Sparks", "url": "https://github.com/MiaAI-Lab/DeepSeek-v4.1-Flash-EXL3-2x-DGX-Sparks", "source": "github_search"}, {"title": "home-assistant/core", "url": "https://github.com/home-assistant/core", "source": "github_trending"}], "advice": "★ 值得看，但需补付费证据", "advice_level": 3, "advice_action": "先验证有没有人愿意为此掏钱（找原帖作者 / 招聘帖 / 付费竞品）", "advice_reasons": ["4 条证据 · 2 个平台", "存量仅 182 个，供给少"], "trend_level": "高", "trend_score": 5, "trend_reasons": ["头部仓库日均涨星 114（较快）", "2 个平台原生榜独立出现（真共振）", "本周 4 / 本月 3（升温）"]}, {"name": "报表与可视化", "evidence": 3, "score": 8.77, "opp_score": 4.39, "market": 89, "crowd": "中等", "opp_tag": "★ 值得看", "wtp": 0, "heat": 0, "mature_products": 13, "pain": 1, "sources": ["github_search", "reddit"], "hot": 0, "resonance": 2, "native_sources": ["github_search", "reddit"], "keyword_sources": [], "plat": {"github_search": 2, "reddit": 1}, "mature": [{"repo": "metabase/metabase", "url": "https://github.com/metabase/metabase", "stars": 49324, "desc": "The easy-to-use open source Business Intelligence and Embedded Analytics tool that lets everyone work with dat", "updated": "2026-09-18"}, {"repo": "briefercloud/briefer", "url": "https://github.com/briefercloud/briefer", "stars": 4325, "desc": "Dashboards and notebooks in a single place. Create powerful and flexible dashboards using code, or build beaut", "updated": "2025-08-07"}, {"repo": "StructuredLabs/preswald", "url": "https://github.com/StructuredLabs/preswald", "stars": 4270, "desc": "Preswald is a WASM packager for Python-based interactive data apps: bundle full complex data workflows, partic", "updated": "2026-06-11"}], "evidence_links": [{"title": "Marcos66236/github-stars-history", "url": "https://github.com/Marcos66236/github-stars-history", "source": "github_search"}, {"title": "devagrawal09/jev-review", "url": "https://github.com/devagrawal09/jev-review", "source": "github_search"}, {"title": "[FOR HIRE] The Last Google Ads Guy You'll Ever Hire", "url": "https://www.reddit.com/r/forhire/comments/1wj8p84/for_hire_the_last_google_ads_guy_youll_ever_hire/", "source": "reddit"}], "advice": "★ 建议优先验证", "advice_level": 4, "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品", "advice_reasons": ["4 条证据 · 3 个平台", "存量仅 89 个（稀疏）", "1 条出钱证据（招聘/赏金：有人已在为这类活付费）"], "trend_level": "高", "trend_score": 8, "trend_reasons": ["头部仓库日均涨星 104（较快）", "3 个平台原生榜独立出现（真共振）", "今日 4 条 ≥ 本周 3 条（当下密集）", "仅近期窗口出现（新近冒头）"]}, {"name": "安全与合规", "evidence": 3, "score": 8.4, "opp_score": 3.62, "market": 198, "crowd": "中等", "opp_tag": "★ 值得看", "wtp": 0, "heat": 0, "mature_products": 38, "pain": 0, "sources": ["github_search"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": [], "plat": {"github_search": 3}, "mature": [{"repo": "wazuh/wazuh", "url": "https://github.com/wazuh/wazuh", "stars": 16924, "desc": "Wazuh - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.", "updated": "2026-09-18"}, {"repo": "CISOfy/lynis", "url": "https://github.com/CISOfy/lynis", "stars": 16356, "desc": "Lynis - Security auditing tool for Linux, macOS, and UNIX-based systems. Assists with compliance testing (HIPA", "updated": "2026-09-16"}, {"repo": "prowler-cloud/prowler", "url": "https://github.com/prowler-cloud/prowler", "stars": 14831, "desc": "Prowler is the world’s most widely used open-source cloud security platform that automates security and compli", "updated": "2026-09-17"}], "evidence_links": [{"title": "KazamaDono/taoxd", "url": "https://github.com/KazamaDono/taoxd", "source": "github_search"}, {"title": "KillaBoi/BrokenPipe", "url": "https://github.com/KillaBoi/BrokenPipe", "source": "github_search"}, {"title": "shinthink/blitzstrike", "url": "https://github.com/shinthink/blitzstrike", "source": "github_search"}], "advice": "★ 值得看，但需补付费证据", "advice_level": 3, "advice_action": "先验证有没有人愿意为此掏钱（找原帖作者 / 招聘帖 / 付费竞品）", "advice_reasons": ["3 条证据 · 1 个平台", "存量仅 198 个，供给少"], "trend_level": "中", "trend_score": 4, "trend_reasons": ["头部仓库日均涨星 95（较快）", "1 个平台原生榜出现", "本周 3 / 本月 2（升温）"]}, {"name": "代码质量与 CI", "evidence": 3, "score": 7.85, "opp_score": 5.48, "market": 17, "crowd": "稀疏", "opp_tag": "★ 值得看", "wtp": 0, "heat": 224, "mature_products": 3, "pain": 1, "sources": ["github_bounty", "github_search"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": ["github_bounty"], "plat": {"github_search": 2, "github_bounty": 1}, "mature": [{"repo": "cinder/Cinder", "url": "https://github.com/cinder/Cinder", "stars": 5539, "desc": "Cinder is a community-developed, free and open source library for professional-quality creative coding in C++.", "updated": "2026-03-20"}, {"repo": "cirosantilli/china-dictatorship", "url": "https://github.com/cirosantilli/china-dictatorship", "stars": 3211, "desc": "反中共政治宣传库。Anti Chinese government propaganda. 住在中国真名用户的网友请别给星星，不然你要被警察请喝茶。常见问答集，新闻集和饭店和音乐建议。卐习万岁卐。冠状病毒审查郝海东新疆改造", "updated": "2026-02-05"}, {"repo": "gege-circle/.github", "url": "https://github.com/gege-circle/.github", "stars": 2009, "desc": "这里是GitHub的草场，也是戈戈圈爱好者的交流地，主要讨论动漫、游戏、科技、人文、生活等所有话题，欢迎各位小伙伴们在此讨论趣事。This is GitHub grassland, and the community p", "updated": "2025-10-04"}], "evidence_links": [{"title": "apple/xcode-project-format", "url": "https://github.com/apple/xcode-project-format", "source": "github_search"}, {"title": "Qiuner/birdview", "url": "https://github.com/Qiuner/birdview", "source": "github_search"}, {"title": "Bounty", "url": "https://github.com/OmniBlocks/Boxy-gh/issues/143", "source": "github_bounty"}], "advice": "★ 建议优先验证", "advice_level": 4, "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品", "advice_reasons": ["3 条证据 · 2 个平台", "存量仅 17 个（稀疏）", "1 条出钱证据（招聘/赏金：有人已在为这类活付费）"], "trend_level": "高", "trend_score": 5, "trend_reasons": ["头部仓库日均涨星 87（较快）", "1 个平台原生榜出现", "本周 3 / 本月 3（升温）"]}, {"name": "文档与知识库", "evidence": 2, "score": 7.11, "opp_score": 2.27, "market": 1327, "crowd": "红海", "opp_tag": "红海", "wtp": 0, "heat": 0, "mature_products": 107, "pain": 1, "sources": ["github_search", "reddit"], "hot": 0, "resonance": 2, "native_sources": ["github_search", "reddit"], "keyword_sources": [], "plat": {"github_search": 1, "reddit": 1}, "mature": [{"repo": "freeCodeCamp/devdocs", "url": "https://github.com/freeCodeCamp/devdocs", "stars": 39463, "desc": "API Documentation Browser", "updated": "2026-09-15"}, {"repo": "inkonchain/docs", "url": "https://github.com/inkonchain/docs", "stars": 36505, "desc": "Ink Documentation", "updated": "2026-09-15"}, {"repo": "docsifyjs/docsify", "url": "https://github.com/docsifyjs/docsify", "stars": 31513, "desc": "🃏 A magical documentation site generator.", "updated": "2026-09-17"}], "evidence_links": [{"title": "nMaas8388/github-ranking-audit", "url": "https://github.com/nMaas8388/github-ranking-audit", "source": "github_search"}, {"title": "[FOR HIRE] CAD Draftsman / Architectural Drafter — AutoCAD, 3D Visualization, Co", "url": "https://www.reddit.com/r/forhire/comments/1wjh261/for_hire_cad_draftsman_architectural_drafter/", "source": "reddit"}], "advice": "待观察，证据偏弱", "advice_level": 2, "advice_action": "记进观察名单，看下个窗口能否复现", "advice_reasons": ["3 个平台各 1 条，尚未形成共振"], "trend_level": "高", "trend_score": 8, "trend_reasons": ["头部仓库日均涨星 117（较快）", "3 个平台原生榜独立出现（真共振）", "今日 2 条 ≥ 本周 2 条（当下密集）", "仅近期窗口出现（新近冒头）"]}, {"name": "终端与开发者效率", "evidence": 3, "score": 6.75, "opp_score": 3.63, "market": 62, "crowd": "稀疏", "opp_tag": "★ 值得看", "wtp": 0, "heat": 0, "mature_products": 12, "pain": 2, "sources": ["github_search", "hn"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": ["hn"], "plat": {"github_search": 1, "hn": 2}, "mature": [{"repo": "apollographql/apollo-client", "url": "https://github.com/apollographql/apollo-client", "stars": 19801, "desc": "The industry-leading GraphQL client for TypeScript, JavaScript, React, Vue, Angular, and more. Apollo Client d", "updated": "2026-09-17"}, {"repo": "guarinogabriel/Mac-CLI", "url": "https://github.com/guarinogabriel/Mac-CLI", "stars": 9121, "desc": " macOS command line tool for developers – The ultimate tool to manage your Mac. It provides a huge set of com", "updated": "2026-02-28"}, {"repo": "donnemartin/dev-setup", "url": "https://github.com/donnemartin/dev-setup", "stars": 6267, "desc": "macOS development environment setup:  Easy-to-understand instructions with automated setup scripts for develop", "updated": "2023-02-27"}], "evidence_links": [{"title": "lingyired/status-trio", "url": "https://github.com/lingyired/status-trio", "source": "github_search"}, {"title": "Working with Git Worktrees in Magit", "url": "https://news.ycombinator.com/item?id=49655548", "source": "hn"}, {"title": "Cpak – OCI application package format for Linux desktops, servers and devices", "url": "https://news.ycombinator.com/item?id=49709877", "source": "hn"}], "advice": "待观察，证据偏弱", "advice_level": 2, "advice_action": "记进观察名单，看下个窗口能否复现", "advice_reasons": ["2 个平台各 1 条，尚未形成共振"], "trend_level": "中", "trend_score": 4, "trend_reasons": ["头部仓库日均涨星 41", "1 个平台原生榜出现", "今日 2 条 / 本周 3 条（正在加速）"]}, {"name": "内容创作与分发", "evidence": 2, "score": 6.57, "opp_score": 3.97, "market": 35, "crowd": "稀疏", "opp_tag": "待验证", "wtp": 0, "heat": 288, "mature_products": 4, "pain": 1, "sources": ["github_bounty", "github_search"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": ["github_bounty"], "plat": {"github_search": 1, "github_bounty": 1}, "mature": [{"repo": "TryGhost/Ghost", "url": "https://github.com/TryGhost/Ghost", "stars": 55347, "desc": "Independent technology for modern publishing, memberships, subscriptions and newsletters.", "updated": "2026-09-18"}, {"repo": "yaojingang/GEOFlow", "url": "https://github.com/yaojingang/GEOFlow", "stars": 3652, "desc": "Open-source GEO content engineering and multi-site distribution platform with AI quality inspection, illustrat", "updated": "2026-09-18"}, {"repo": "blogifierdotnet/Blogifier", "url": "https://github.com/blogifierdotnet/Blogifier", "stars": 1295, "desc": "Blogifier is an open-source publishing platform Written in ASP.NET and Blazor WebAssembly. With Blogifier make", "updated": "2026-03-16"}], "evidence_links": [{"title": "korcarc/text-humanizer", "url": "https://github.com/korcarc/text-humanizer", "source": "github_search"}, {"title": "Reverse bounty", "url": "https://github.com/OmniBlocks/monorepo/issues/795", "source": "github_bounty"}], "advice": "待观察，证据偏弱", "advice_level": 2, "advice_action": "记进观察名单，看下个窗口能否复现", "advice_reasons": ["2 个平台各 1 条，尚未形成共振"], "trend_level": "高", "trend_score": 6, "trend_reasons": ["头部仓库日均涨星 176（较快）", "1 个平台原生榜出现", "今日 2 条 ≥ 本周 2 条（当下密集）"]}, {"name": "育儿与生活服务", "evidence": 1, "score": 5.65, "opp_score": 5.65, "market": 0, "crowd": "稀疏", "opp_tag": "待验证", "wtp": 0, "heat": 0, "mature_products": 0, "pain": 0, "sources": ["github_search"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": [], "plat": {"github_search": 1}, "mature": [], "evidence_links": [{"title": "Chuloo/mural", "url": "https://github.com/Chuloo/mural", "source": "github_search"}], "advice": "信号不足，暂不判断", "advice_level": 0, "advice_action": "不下结论；若趋势评级高可提前留意", "advice_reasons": ["单条证据支撑不了结论"], "trend_level": "中", "trend_score": 3, "trend_reasons": ["头部仓库日均涨星 199（较快）", "1 个平台原生榜出现"]}], "plat_total": {"github_search": 22, "reddit": 22, "indeed": 6, "github_trending": 4, "hn": 10, "github_bounty": 7}, "ann_hits": 39, "kept_n": 122}, {"key": "month", "label": "本月", "path_stats": [36, 29, 0.5538461538461539], "raw": 252, "kept": 65, "dirs": [{"name": "AI 代理与自动化", "evidence": 25, "score": 35.34, "opp_score": 10.04, "market": 3303, "crowd": "红海", "opp_tag": "已拥挤：需差异化切入", "wtp": 1, "heat": 1625, "mature_products": 621, "pain": 12, "sources": ["github_search", "github_trending", "hn", "reddit"], "hot": 0, "resonance": 3, "native_sources": ["github_search", "github_trending", "reddit"], "keyword_sources": ["hn"], "plat": {"github_search": 10, "reddit": 1, "hn": 11, "github_trending": 3}, "mature": [{"repo": "affaan-m/ECC", "url": "https://github.com/affaan-m/ECC", "stars": 261358, "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev", "updated": "2026-09-17"}, {"repo": "NousResearch/hermes-agent", "url": "https://github.com/NousResearch/hermes-agent", "stars": 246639, "desc": "The agent that grows with you", "updated": "2026-09-18"}, {"repo": "langgenius/dify", "url": "https://github.com/langgenius/dify", "stars": 156226, "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De", "updated": "2026-09-18"}], "evidence_links": [{"title": "totec448-spec/chat-on-steroids", "url": "https://github.com/totec448-spec/chat-on-steroids", "source": "github_search"}, {"title": "nateherkai/scroll-craft", "url": "https://github.com/nateherkai/scroll-craft", "source": "github_search"}, {"title": "achimala/dream-loop", "url": "https://github.com/achimala/dream-loop", "source": "github_search"}, {"title": "lnkiai/m3e-canvas", "url": "https://github.com/lnkiai/m3e-canvas", "source": "github_search"}], "advice": "已拥挤，不建议正面进入", "advice_level": 1, "advice_action": "除非有明确差异化切口（细分人群 / 现有产品的具体差评），否则跳过", "advice_reasons": ["25 条证据显示需求真实", "但 GitHub 存量 3303 个（红海）"], "trend_level": "高", "trend_score": 8, "trend_reasons": ["头部仓库日均涨星 231（极快）", "6 个平台原生榜独立出现（真共振）", "今日 25 条 ≥ 本周 22 条（当下密集）"]}, {"name": "内容创作与分发", "evidence": 5, "score": 11.93, "opp_score": 7.22, "market": 35, "crowd": "稀疏", "opp_tag": "★ 值得看", "wtp": 0, "heat": 0, "mature_products": 4, "pain": 0, "sources": ["github_search"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": [], "plat": {"github_search": 5}, "mature": [{"repo": "TryGhost/Ghost", "url": "https://github.com/TryGhost/Ghost", "stars": 55347, "desc": "Independent technology for modern publishing, memberships, subscriptions and newsletters.", "updated": "2026-09-18"}, {"repo": "yaojingang/GEOFlow", "url": "https://github.com/yaojingang/GEOFlow", "stars": 3652, "desc": "Open-source GEO content engineering and multi-site distribution platform with AI quality inspection, illustrat", "updated": "2026-09-18"}, {"repo": "blogifierdotnet/Blogifier", "url": "https://github.com/blogifierdotnet/Blogifier", "stars": 1295, "desc": "Blogifier is an open-source publishing platform Written in ASP.NET and Blazor WebAssembly. With Blogifier make", "updated": "2026-03-16"}], "evidence_links": [{"title": "Nanako0129/sepia", "url": "https://github.com/Nanako0129/sepia", "source": "github_search"}, {"title": "sebbbi/NoGraphicsAPI", "url": "https://github.com/sebbbi/NoGraphicsAPI", "source": "github_search"}, {"title": "yang0/handraw-style", "url": "https://github.com/yang0/handraw-style", "source": "github_search"}, {"title": "larashero3-dotcom/lieflat-less-ai-tone", "url": "https://github.com/larashero3-dotcom/lieflat-less-ai-tone", "source": "github_search"}], "advice": "待观察，证据偏弱", "advice_level": 2, "advice_action": "记进观察名单，看下个窗口能否复现", "advice_reasons": ["2 个平台各 1 条，尚未形成共振"], "trend_level": "高", "trend_score": 6, "trend_reasons": ["头部仓库日均涨星 176（较快）", "1 个平台原生榜出现", "今日 2 条 ≥ 本周 2 条（当下密集）"]}, {"name": "终端与开发者效率", "evidence": 5, "score": 10.66, "opp_score": 5.74, "market": 62, "crowd": "稀疏", "opp_tag": "★ 值得看", "wtp": 0, "heat": 0, "mature_products": 12, "pain": 2, "sources": ["github_search", "github_trending", "hn"], "hot": 0, "resonance": 2, "native_sources": ["github_search", "github_trending"], "keyword_sources": ["hn"], "plat": {"github_search": 1, "github_trending": 2, "hn": 2}, "mature": [{"repo": "apollographql/apollo-client", "url": "https://github.com/apollographql/apollo-client", "stars": 19801, "desc": "The industry-leading GraphQL client for TypeScript, JavaScript, React, Vue, Angular, and more. Apollo Client d", "updated": "2026-09-17"}, {"repo": "guarinogabriel/Mac-CLI", "url": "https://github.com/guarinogabriel/Mac-CLI", "stars": 9121, "desc": " macOS command line tool for developers – The ultimate tool to manage your Mac. It provides a huge set of com", "updated": "2026-02-28"}, {"repo": "donnemartin/dev-setup", "url": "https://github.com/donnemartin/dev-setup", "stars": 6267, "desc": "macOS development environment setup:  Easy-to-understand instructions with automated setup scripts for develop", "updated": "2023-02-27"}], "evidence_links": [{"title": "omacom/try-omarchy", "url": "https://github.com/omacom/try-omarchy", "source": "github_search"}, {"title": "omacom/omarchy", "url": "https://github.com/omacom/omarchy", "source": "github_trending"}, {"title": "Lakr233/vphone-cli", "url": "https://github.com/Lakr233/vphone-cli", "source": "github_trending"}, {"title": "Working with Git Worktrees in Magit", "url": "https://news.ycombinator.com/item?id=49655548", "source": "hn"}], "advice": "待观察，证据偏弱", "advice_level": 2, "advice_action": "记进观察名单，看下个窗口能否复现", "advice_reasons": ["2 个平台各 1 条，尚未形成共振"], "trend_level": "中", "trend_score": 4, "trend_reasons": ["头部仓库日均涨星 41", "1 个平台原生榜出现", "今日 2 条 / 本周 3 条（正在加速）"]}, {"name": "监控与可观测", "evidence": 3, "score": 8.63, "opp_score": 3.51, "market": 277, "crowd": "中等", "opp_tag": "★ 值得看", "wtp": 1, "heat": 0, "mature_products": 62, "pain": 2, "sources": ["github_search", "hn"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": ["hn"], "plat": {"github_search": 1, "hn": 2}, "mature": [{"repo": "netdata/netdata", "url": "https://github.com/netdata/netdata", "stars": 80566, "desc": "The fastest path to AI-powered full stack observability, even for lean teams.", "updated": "2026-09-18"}, {"repo": "grafana/grafana", "url": "https://github.com/grafana/grafana", "stars": 76795, "desc": "The open and composable observability and data visualization platform. Visualize metrics, logs, and traces fro", "updated": "2026-09-18"}, {"repo": "langfuse/langfuse", "url": "https://github.com/langfuse/langfuse", "stars": 34755, "desc": "🪢 Open source agent evals & observability: Trace, evaluate, and improve LLM applications with one open platfor", "updated": "2026-09-17"}], "evidence_links": [{"title": "vinzdg/codenotch", "url": "https://github.com/vinzdg/codenotch", "source": "github_search"}, {"title": "One resignation turned the embers of AI fear into a wildfire", "url": "https://news.ycombinator.com/item?id=49647380", "source": "hn"}, {"title": "Show HN: Watches user sessions, finds bugs that matter, and fixes them", "url": "https://news.ycombinator.com/item?id=49479539", "source": "hn"}], "advice": "★ 建议优先验证", "advice_level": 4, "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品", "advice_reasons": ["3 条证据 · 2 个平台", "存量仅 277 个（稀疏）", "已出现付费信号"], "trend_level": "中", "trend_score": 4, "trend_reasons": ["头部仓库日均涨星 142（较快）", "1 个平台原生榜出现", "出现付费信号"]}, {"name": "代码质量与 CI", "evidence": 3, "score": 8.08, "opp_score": 5.64, "market": 17, "crowd": "稀疏", "opp_tag": "★ 值得看", "wtp": 0, "heat": 0, "mature_products": 3, "pain": 1, "sources": ["github_search", "hn"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": ["hn"], "plat": {"github_search": 2, "hn": 1}, "mature": [{"repo": "cinder/Cinder", "url": "https://github.com/cinder/Cinder", "stars": 5539, "desc": "Cinder is a community-developed, free and open source library for professional-quality creative coding in C++.", "updated": "2026-03-20"}, {"repo": "cirosantilli/china-dictatorship", "url": "https://github.com/cirosantilli/china-dictatorship", "stars": 3211, "desc": "反中共政治宣传库。Anti Chinese government propaganda. 住在中国真名用户的网友请别给星星，不然你要被警察请喝茶。常见问答集，新闻集和饭店和音乐建议。卐习万岁卐。冠状病毒审查郝海东新疆改造", "updated": "2026-02-05"}, {"repo": "gege-circle/.github", "url": "https://github.com/gege-circle/.github", "stars": 2009, "desc": "这里是GitHub的草场，也是戈戈圈爱好者的交流地，主要讨论动漫、游戏、科技、人文、生活等所有话题，欢迎各位小伙伴们在此讨论趣事。This is GitHub grassland, and the community p", "updated": "2025-10-04"}], "evidence_links": [{"title": "shadcn-ui/lint", "url": "https://github.com/shadcn-ui/lint", "source": "github_search"}, {"title": "shadcn-ui/cn", "url": "https://github.com/shadcn-ui/cn", "source": "github_search"}, {"title": "How well do agents use test/verification techniques?", "url": "https://news.ycombinator.com/item?id=49640663", "source": "hn"}], "advice": "★ 建议优先验证", "advice_level": 4, "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品", "advice_reasons": ["3 条证据 · 2 个平台", "存量仅 17 个（稀疏）", "1 条出钱证据（招聘/赏金：有人已在为这类活付费）"], "trend_level": "高", "trend_score": 5, "trend_reasons": ["头部仓库日均涨星 87（较快）", "1 个平台原生榜出现", "本周 3 / 本月 3（升温）"]}, {"name": "视频与音频处理", "evidence": 2, "score": 7.09, "opp_score": 2.45, "market": 763, "crowd": "拥挤", "opp_tag": "红海", "wtp": 0, "heat": 0, "mature_products": 101, "pain": 0, "sources": ["github_search"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": [], "plat": {"github_search": 2}, "mature": [{"repo": "harry0703/MoneyPrinterTurbo", "url": "https://github.com/harry0703/MoneyPrinterTurbo", "stars": 124487, "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workf", "updated": "2026-09-18"}, {"repo": "FFmpeg/FFmpeg", "url": "https://github.com/FFmpeg/FFmpeg", "stars": 64317, "desc": "Mirror of https://git.ffmpeg.org/ffmpeg.git", "updated": "2026-09-17"}, {"repo": "calesthio/OpenMontage", "url": "https://github.com/calesthio/OpenMontage", "stars": 59813, "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent sk", "updated": "2026-09-06"}], "evidence_links": [{"title": "FireRedTeam/FireRedAudio", "url": "https://github.com/FireRedTeam/FireRedAudio", "source": "github_search"}, {"title": "Vincentwei1021/anything2explainer", "url": "https://github.com/Vincentwei1021/anything2explainer", "source": "github_search"}], "advice": "需求真实但供给密集，需差异化", "advice_level": 2, "advice_action": "先扒 3-5 个现有产品的差评与退款理由，找未被满足的细分场景", "advice_reasons": ["8 条证据 · 4 个平台", "存量 763 个，已有多家在解"], "trend_level": "高", "trend_score": 5, "trend_reasons": ["3 个平台原生榜独立出现（真共振）", "今日 8 条 / 本周 10 条（正在加速）"]}, {"name": "自托管与部署", "evidence": 3, "score": 6.94, "opp_score": 3.04, "market": 182, "crowd": "中等", "opp_tag": "★ 值得看", "wtp": 0, "heat": 0, "mature_products": 39, "pain": 2, "sources": ["github_search", "hn"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": ["hn"], "plat": {"github_search": 1, "hn": 2}, "mature": [{"repo": "langgenius/dify", "url": "https://github.com/langgenius/dify", "stars": 156226, "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De", "updated": "2026-09-18"}, {"repo": "coollabsio/coolify", "url": "https://github.com/coollabsio/coolify", "stars": 61968, "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ", "updated": "2026-09-17"}, {"repo": "agentscope-ai/QwenPaw", "url": "https://github.com/agentscope-ai/QwenPaw", "stars": 35070, "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha", "updated": "2026-09-18"}], "evidence_links": [{"title": "Git-Agni/prod-FARM-IOS-Core", "url": "https://github.com/Git-Agni/prod-FARM-IOS-Core", "source": "github_search"}, {"title": "Keep Our Servers Running", "url": "https://news.ycombinator.com/item?id=49638934", "source": "hn"}, {"title": "Why your local LLM feels dumber than it is", "url": "https://news.ycombinator.com/item?id=49407702", "source": "hn"}], "advice": "★ 值得看，但需补付费证据", "advice_level": 3, "advice_action": "先验证有没有人愿意为此掏钱（找原帖作者 / 招聘帖 / 付费竞品）", "advice_reasons": ["4 条证据 · 2 个平台", "存量仅 182 个，供给少"], "trend_level": "高", "trend_score": 5, "trend_reasons": ["头部仓库日均涨星 114（较快）", "2 个平台原生榜独立出现（真共振）", "本周 4 / 本月 3（升温）"]}, {"name": "安全与合规", "evidence": 2, "score": 5.88, "opp_score": 2.54, "market": 198, "crowd": "中等", "opp_tag": "待验证", "wtp": 0, "heat": 0, "mature_products": 38, "pain": 1, "sources": ["github_search", "hn"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": ["hn"], "plat": {"github_search": 1, "hn": 1}, "mature": [{"repo": "wazuh/wazuh", "url": "https://github.com/wazuh/wazuh", "stars": 16924, "desc": "Wazuh - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.", "updated": "2026-09-18"}, {"repo": "CISOfy/lynis", "url": "https://github.com/CISOfy/lynis", "stars": 16356, "desc": "Lynis - Security auditing tool for Linux, macOS, and UNIX-based systems. Assists with compliance testing (HIPA", "updated": "2026-09-16"}, {"repo": "prowler-cloud/prowler", "url": "https://github.com/prowler-cloud/prowler", "stars": 14831, "desc": "Prowler is the world’s most widely used open-source cloud security platform that automates security and compli", "updated": "2026-09-17"}], "evidence_links": [{"title": "N4darae/anti-mage", "url": "https://github.com/N4darae/anti-mage", "source": "github_search"}, {"title": "Actively exploited sandbox RCE in all Chromium versions", "url": "https://news.ycombinator.com/item?id=49575163", "source": "hn"}], "advice": "★ 值得看，但需补付费证据", "advice_level": 3, "advice_action": "先验证有没有人愿意为此掏钱（找原帖作者 / 招聘帖 / 付费竞品）", "advice_reasons": ["3 条证据 · 1 个平台", "存量仅 198 个，供给少"], "trend_level": "中", "trend_score": 4, "trend_reasons": ["头部仓库日均涨星 95（较快）", "1 个平台原生榜出现", "本周 3 / 本月 2（升温）"]}, {"name": "电商与跨境", "evidence": 1, "score": 5.54, "opp_score": 3.92, "market": 16, "crowd": "稀疏", "opp_tag": "待验证", "wtp": 0, "heat": 0, "mature_products": 1, "pain": 0, "sources": ["github_search"], "hot": 0, "resonance": 1, "native_sources": ["github_search"], "keyword_sources": [], "plat": {"github_search": 1}, "mature": [{"repo": "ever-co/ever-demand", "url": "https://github.com/ever-co/ever-demand", "stars": 1858, "desc": "Ever® Demand™ - Open Commerce Platform - https://everdemand.co", "updated": "2026-08-05"}], "evidence_links": [{"title": "anthropics/commerce-agents", "url": "https://github.com/anthropics/commerce-agents", "source": "github_search"}], "advice": "信号不足，暂不判断", "advice_level": 0, "advice_action": "不下结论；若趋势评级高可提前留意", "advice_reasons": ["单条证据支撑不了结论"], "trend_level": "中", "trend_score": 3, "trend_reasons": ["头部仓库日均涨星 168（较快）", "1 个平台原生榜出现"]}, {"name": "文件与存储同步", "evidence": 2, "score": 2.0, "opp_score": 1.49, "market": 12, "crowd": "稀疏", "opp_tag": "待验证", "wtp": 0, "heat": 0, "mature_products": 1, "pain": 2, "sources": ["hn"], "hot": 0, "resonance": 0, "native_sources": [], "keyword_sources": ["hn"], "plat": {"hn": 2}, "mature": [{"repo": "sebastianfeldmann/phpbu", "url": "https://github.com/sebastianfeldmann/phpbu", "stars": 1305, "desc": "PHP Backup Utility - Creates and encrypts database and file backups, syncs your backups to other servers or cl", "updated": "2026-07-03"}, {"repo": "stefankueng/CryptSync", "url": "https://github.com/stefankueng/CryptSync", "stars": 443, "desc": "CryptSync is a small utility that synchronizes two folders while encrypting the contents in one folder. That m", "updated": "2026-07-28"}, {"repo": "VikasSukhija/Downloads", "url": "https://github.com/VikasSukhija/Downloads", "stars": 424, "desc": "AD Health Check, Send HTML Email,  Ping machines, Encrypt Password,Bulk Password,Microsoft Teams,Monitor Certi", "updated": "2025-02-16"}], "evidence_links": [{"title": "Show HN: Syq – copy files between machines fast (better than rsync)", "url": "https://news.ycombinator.com/item?id=49661996", "source": "hn"}, {"title": "Creating Backup Storage Sucks", "url": "https://news.ycombinator.com/item?id=49546160", "source": "hn"}], "advice": "待观察，证据偏弱", "advice_level": 2, "advice_action": "记进观察名单，看下个窗口能否复现", "advice_reasons": ["1 个平台各 1 条，尚未形成共振"], "trend_level": "低", "trend_score": 0, "trend_reasons": ["⚠ 另有 1 个平台仅关键词检索命中（非独立发现，不计共振）"]}], "plat_total": {"github_search": 24, "reddit": 1, "hn": 26, "github_trending": 5}, "ann_hits": 53, "kept_n": 65}], "health": [{"source": "github_trending:daily", "count": 20, "ok": true, "note": ""}, {"source": "github_search:3d", "count": 50, "ok": true, "note": ""}, {"source": "hn:3d", "count": 133, "ok": true, "note": ""}, {"source": "opencli:upwork[automation scrip]", "count": 0, "ok": false, "skipped": true, "note": "适配器侧故障（多次 exitCode 1，与站点改版有关）→ 已由 github_bounty + r/forhire 覆盖"}, {"source": "opencli:upwork[web scraping too]", "count": 0, "ok": false, "skipped": true, "note": "适配器侧故障（多次 exitCode 1，与站点改版有关）→ 已由 github_bounty + r/forhire 覆盖"}, {"source": "opencli:twitter[\"is there a tool\" la]", "count": 0, "ok": false, "skipped": true, "note": "需在 Chrome 登录 X 后可用 → 登录即恢复，当前由 bluesky:trending 弱覆盖"}, {"source": "opencli:reddit:deep:r/SaaS", "count": 3, "ok": true, "note": "r/SaaS: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"}, {"source": "opencli:reddit:deep:r/microsaas", "count": 3, "ok": true, "note": "r/microsaas: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"}, {"source": "opencli:reddit:deep:r/SideProject", "count": 3, "ok": true, "note": "r/SideProject: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"}, {"source": "opencli:github_bounties[bounty]", "count": 40, "ok": true, "note": "开放赏金 40 条（免登录，付费证据/非独立发现）"}, {"source": "reddit:forhire", "count": 25, "ok": true, "note": "1 个子版块"}, {"source": "opencli:juejin:hot", "count": 20, "ok": true, "note": "免登录弱等效（中文技术热榜，非消费社区）"}, {"source": "opencli:bluesky:trending", "count": 10, "ok": true, "note": "免登录弱等效（仅热门话题，不可按关键词搜；内容偏新闻，价值低）"}, {"source": "opencli:producthunt", "count": 20, "ok": true, "note": ""}, {"source": "opencli:hn:show", "count": 25, "ok": true, "note": ""}, {"source": "opencli:hn:ask", "count": 15, "ok": true, "note": ""}, {"source": "opencli:stackoverflow#api", "count": 0, "ok": false, "note": "返回空结果"}, {"source": "opencli:stackoverflow#automation", "count": 2, "ok": true, "note": ""}, {"source": "opencli:lobsters#ai", "count": 15, "ok": true, "note": ""}, {"source": "opencli:lobsters#devops", "count": 15, "ok": true, "note": ""}, {"source": "opencli:devto#webdev", "count": 15, "ok": true, "note": ""}, {"source": "opencli:devto#ai", "count": 15, "ok": true, "note": ""}, {"source": "opencli:lesswrong", "count": 10, "ok": true, "note": ""}, {"source": "opencli:hn:deep:show", "count": 2, "ok": true, "note": "hn/show: 列表 25 条 → 深读 2 帖"}, {"source": "opencli:lobsters:deep", "count": 2, "ok": true, "note": "热帖 25 条 → 深读 2 帖"}, {"source": "opencli:stackoverflow:deep:#automation", "count": 2, "ok": true, "note": "#automation 2 条 → 深读 2 帖"}, {"source": "opencli:indeed[automation]", "count": 15, "ok": true, "note": ""}, {"source": "opencli:indeed[data scraping]", "count": 15, "ok": true, "note": ""}, {"source": "opencli:xhs[效率工具]", "count": 0, "ok": false, "note": "  exitCode: 75"}, {"source": "opencli:xhs[自动化办公]", "count": 0, "ok": false, "note": "  exitCode: 75"}, {"source": "opencli:zhihu", "count": 15, "ok": true, "note": ""}, {"source": "github_trending:weekly", "count": 21, "ok": true, "note": ""}, {"source": "github_search:7d", "count": 50, "ok": true, "note": ""}, {"source": "hn:7d", "count": 142, "ok": true, "note": ""}, {"source": "opencli:upwork[automation scrip]", "count": 0, "ok": false, "skipped": true, "note": "适配器侧故障（多次 exitCode 1，与站点改版有关）→ 已由 github_bounty + r/forhire 覆盖"}, {"source": "opencli:upwork[web scraping too]", "count": 0, "ok": false, "skipped": true, "note": "适配器侧故障（多次 exitCode 1，与站点改版有关）→ 已由 github_bounty + r/forhire 覆盖"}, {"source": "opencli:twitter[\"is there a tool\" la]", "count": 0, "ok": false, "skipped": true, "note": "需在 Chrome 登录 X 后可用 → 登录即恢复，当前由 bluesky:trending 弱覆盖"}, {"source": "opencli:reddit:deep:r/SaaS", "count": 3, "ok": true, "note": "r/SaaS: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"}, {"source": "opencli:reddit:deep:r/microsaas", "count": 3, "ok": true, "note": "r/microsaas: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"}, {"source": "opencli:reddit:deep:r/SideProject", "count": 3, "ok": true, "note": "r/SideProject: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"}, {"source": "opencli:github_bounties[bounty]", "count": 40, "ok": true, "note": "开放赏金 40 条（免登录，付费证据/非独立发现）"}, {"source": "reddit:forhire", "count": 25, "ok": true, "note": "1 个子版块"}, {"source": "opencli:indeed[automation]", "count": 15, "ok": true, "note": ""}, {"source": "opencli:indeed[data scraping]", "count": 15, "ok": true, "note": ""}, {"source": "opencli:xhs[效率工具]", "count": 0, "ok": false, "note": "  exitCode: 75"}, {"source": "opencli:xhs[自动化办公]", "count": 0, "ok": false, "note": "  exitCode: 75"}, {"source": "opencli:zhihu", "count": 15, "ok": true, "note": ""}, {"source": "github_trending:monthly", "count": 22, "ok": true, "note": ""}, {"source": "github_search:30d", "count": 50, "ok": true, "note": ""}, {"source": "hn:30d", "count": 172, "ok": true, "note": ""}, {"source": "opencli:reddit:deep:r/SaaS", "count": 3, "ok": true, "note": "r/SaaS: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"}, {"source": "opencli:reddit:deep:r/microsaas", "count": 3, "ok": true, "note": "r/microsaas: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"}, {"source": "opencli:reddit:deep:r/SideProject", "count": 3, "ok": true, "note": "r/SideProject: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"}], "mode": "关键词签名（含部分 agent 语义标注）"};
 const CROWD_COLOR = {"红海": "#d9534f", "拥挤": "#f0ad4e", "中等": "#4da3d9", "稀疏": "#5cb85c"};
 const PLAT_SHORT = {"github_trending": "GT·Trending", "github_search": "GS·Search", "github_issue": "GI·Issues", "hn": "HN", "reddit": "Reddit", "producthunt": "ProductHunt", "upwork": "Upwork", "browser": "浏览器", "stackoverflow": "StackOverflow", "lobsters": "Lobsters", "devto": "DEV.to", "lesswrong": "LessWrong", "indeed": "Indeed", "twitter": "X/Twitter", "zhihu": "知乎", "xiaohongshu": "小红书", "juejin": "掘金", "bluesky": "Bluesky"};
-const MODE_TEXT = "关键词签名（含部分 agent 语义标注）";
-// 图表初始化加保护：ECharts 万一没加载成功，表格/卡片仍然完整可读，不整页白屏
-function chart(id, opt){
-  if(!window.echarts){ const el=document.getElementById(id);
-    if(el) el.innerHTML='<div style="color:#8b949e;font-size:12px;padding:20px">图表组件未加载（本文件应已内嵌 ECharts，若见此提示说明文件被裁剪）</div>';
-    return; }
-  try{ echarts.init(document.getElementById(id)).setOption(opt); }catch(e){}
-}
-const ADVICE_COLOR = {4:'#5cb85c',3:'#7cb342',2:'#f0ad4e',1:'#d9534f',0:'#8b949e'};
-// 统一的轻量 markdown（只处理 **粗体**）。必须在所有使用它的块之前声明——
-// 否则后面的块先执行会撞 TDZ（Block 级作用域）报 ReferenceError，整段不渲染。
+
+/* ---------- 小工具（都必须在所有使用它们的块之前声明：TDZ 会整段不渲染）---------- */
 const md = x => (x||'').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+const ADVICE_COLOR = {5:'#5cb85c',4:'#5cb85c',3:'#7cb342',2:'#f0ad4e',1:'#d9534f',0:'#8b949e'};
 const TREND_COLOR = {'高':'#d9534f','中':'#f0ad4e','低':'#8b949e','':'#8b949e'};
 const fmt = n => n==null ? '—' : (n>=1000 ? n.toLocaleString('en-US') : n);
-const tagColor = t => t.includes('★')?'#5cb85c':t.includes('已拥挤')?'#d9534f':t.includes('红海')?'#c9764a':'#8b949e';
+const tagColor = t => t.includes('★')?'#5cb85c':t.includes('已拥挤')?'#d9534f'
+                      :t.includes('红海')?'#c9764a':'#8b949e';
+const join = (a,n) => (a||[]).slice(0,n).join('；');
 
-// ---------- 标签页 ----------
-const tabs=document.getElementById('tabs'), panels=document.getElementById('panels');
+/* ---------- 图表懒初始化 ----------
+   坑：容器 display:none 时 echarts.init 会按 0 尺寸渲染，切回来是空白。
+   所以只登记 opts，等容器真正可见时才绘制，只绘一次。 */
+const PENDING = {};
+function chart(id, opt){ PENDING[id] = opt; }
+function paintCharts(){
+  if(!window.echarts) return;
+  Object.keys(PENDING).forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el || el.dataset.painted) return;
+    if(!el.offsetParent) return;          // 不可见 → 留到下次
+    try{ echarts.init(el).setOption(PENDING[id]); el.dataset.painted='1'; }catch(e){}
+  });
+}
+window.addEventListener('resize', ()=>{
+  if(!window.echarts) return;
+  document.querySelectorAll('.chart,.chart-sm').forEach(el=>{
+    const c = echarts.getInstanceByDom(el); if(c) c.resize();
+  });
+});
+
+/* ---------- 视图切换 ---------- */
+const NAV = document.getElementById('nav');
+function showView(v){
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on', s.id==='v-'+v));
+  [...NAV.querySelectorAll('button')].forEach(b=>b.classList.toggle('on', b.dataset.v===v));
+  paintCharts();          // 视图可见后再画图（否则 0 尺寸）
+  window.scrollTo({top:0,behavior:'instant'});
+}
+NAV.querySelectorAll('button').forEach(b=>b.onclick=()=>showView(b.dataset.v));
+
+/* ---------- 摘要：最重要的一屏 ---------- */
+const VS = window.__VALIDATION__, RS_ = window.__RESILIENCE__, AN_ = window.__ANALYSIS__;
+(function buildSummary(){
+  const day = DATA.windows[0] || {};
+  const ps = day.path_stats && day.path_stats.length===3 ? day.path_stats : null;
+  const natRate = ps ? Math.round(ps[2]*100)+'%' : '—';
+  const ns = VS && VS.stats ? VS.stats : null;
+
+  /* 该看的方向：跨窗口取建议档最高的前 3 个（今日优先），同名只留一个 */
+  const rank = {5:0,4:1,3:2,2:3,1:4,0:5};
+  const seen = {}, picks = [];
+  DATA.windows.forEach(w=>{
+    (w.dirs||[]).forEach(d=>{
+      if(seen[d.name]) return;
+      if((d.advice_level||0) < 3) return;
+      seen[d.name] = 1;
+      picks.push({...d, win:w.label, nat:d.native});
+    });
+  });
+  picks.sort((a,b)=> (rank[a.advice_level]-rank[b.advice_level])   /* rank 小 = 档位高，升序即"最该看的在前" */
+                     || ((b.trend_score||0)-(a.trend_score||0)));
+  const top = picks.slice(0,3);
+
+  /* 热榜里值得看的：只看 A 级，最多 2 条 */
+  const aHot = ((AN_&&AN_.items)||[]).filter(i=>i.tier==='A').slice(0,2);
+
+  document.getElementById('kpi').innerHTML = `
+    <div><b>${ns ? ns.north_star : '—'}</b>／目标 ≥${ns ? ns.target : 1}
+      验证通过方向（北极星）</div>
+    <div><b>${natRate}</b>今日原生榜贡献率</div>
+    <div><b>${top.length}</b>个够格方向（按建议档排序，最多 3 个）</div>`;
+
+  const leadCard = d => `
+    <div class="panel lead ${(d.advice_level>=4)?'a':''}">
+      <h3>${d.name}　<span class="tag" style="background:${ADVICE_COLOR[d.advice_level]}">${d.advice||'—'}</span>
+        <span class="tag" style="background:${TREND_COLOR[d.trend_level]}">趋势 ${d.trend_level||'—'}</span>
+        <span class="xs">　${d.win}</span></h3>
+      <div class="why">为什么：${join(d.advice_reasons,2) || '—'}${d.trend_reasons&&d.trend_reasons.length?'；'+d.trend_reasons[0]:''}</div>
+      <div class="do">下一步：<b>${(d.advice_action||'—')}</b></div>
+      <div class="xs" style="margin-top:3px">
+        需求证据 ${d.evidence} · 热点 ${d.hot||0} · 原生共振 ${d.resonance||0}
+        · 出钱证据 ${d.wtp||0} · 存量 ${fmt(d.market)} · 成型产品 ${d.mature_products==null?'—':d.mature_products}
+        <a href="#" onclick="showView('dirs');return false">查看证据与项目链接 →</a></div>
+    </div>`;
+
+  const hotCard = it => `
+    <div class="lead" style="border-left-color:#5cb85c">
+      <h3 style="font-size:14.5px">${it.title}　<span class="xs">付费潜力 ${it.pay}/5</span></h3>
+      <div class="why">谁付钱：${(it.who_pays||'—').slice(0,90)}</div>
+      <div class="do">${md(it.verdict||'').slice(0,120)}</div>
+    </div>`;
+
+  document.getElementById('summary').innerHTML = `
+    <div class="panel"><h3>现在该做什么</h3>
+      ${top.length ? top.map(leadCard).join('')
+        : '<div class="hint">本轮没有达到「值得看」门槛的方向——这本身是结论：宁可说没有，也不硬推。</div>'}
+    </div>
+    ${aHot.length ? `<div class="panel"><h3>热榜里值得看的（A 级，共 ${((AN_.items||[]).filter(i=>i.tier==='A')).length} 条）</h3>
+      <div class="hint">热榜是素材，这里是判断：付费路径明确 = 有人已经在为这件事花钱。完整判断见「判断」页。</div>
+      ${aHot.map(hotCard).join('')}
+      <a href="#" onclick="showView('judge');return false" class="xs">看全部判断 →</a></div>` : ''}
+    ${ns ? `<div class="panel" style="padding:10px 14px">
+      <div class="hint" style="margin:0">
+        北极星（近 ${ns.window_days} 天验证通过方向数）=
+        <b style="color:${ns.north_star>=ns.target?'#5cb85c':'#d9534f'}">${ns.north_star}</b>：
+        整条流水线不产生价值，只有某个方向被真实验证过才产生价值。
+        <a href="#" onclick="showView('sys');return false">看验证包 →</a></div></div>` : ''}`;
+
+  document.getElementById('when').textContent = DATA.windows.map(w=>w.label+' '+w.kept+' 条').join(' · ');
+})();
+
+/* ---------- 方向视图 ---------- */
+const wtabs = document.getElementById('wtabs'), panels = document.getElementById('panels');
+const TOPN = 5;   // 默认只看 Top5：Top10 里后几名通常证据都很弱，看不看差别不大
 DATA.windows.forEach((w,i)=>{
   const b=document.createElement('button'); b.textContent=w.label;
-  b.onclick=()=>show(i); tabs.appendChild(b);
+  b.onclick=()=>showWin(i); wtabs.appendChild(b);
   const d=document.createElement('div'); d.id='win'+i; panels.appendChild(d);
 });
-function show(i){
-  [...tabs.children].forEach((b,j)=>b.classList.toggle('on',j===i));
-  [...panels.children].forEach((p,j)=>p.style.display=j===i?'block':'none');
+function showWin(i){
+  [...wtabs.children].forEach((b,j)=>b.classList.toggle('on',j===i));
+  [...panels.children].forEach((p,j)=>{ p.style.display = j===i?'block':'none'; });
+  paintCharts();
 }
-
-// ---------- 每个窗口 ----------
 DATA.windows.forEach((w,i)=>{
   const el=document.getElementById('win'+i);
-  const wtp=w.dirs.reduce((s,d)=>s+(d.wtp>0?1:0),0);
   const ps=w.path_stats&&w.path_stats.length===3?w.path_stats:null;
-  const natRate=ps?(ps[2]*100).toFixed(0)+'%':'—';
+  const natRate=ps?Math.round(ps[2]*100)+'%':'—';
   const natOk=ps&&ps[2]>=0.4;
-  el.innerHTML=`
-  <div class="cards">
-    <div class="card"><b>${w.raw}</b><span>原始采集</span></div>
-    <div class="card"><b>${w.kept}</b><span>规则层留存</span></div>
-    <div class="card"><b>${natRate}</b><span>原生榜贡献率${natOk?'（达标 ≥40%）':'（未达标 <40%）'}</span></div>
-    <div class="card"><b>${wtp}</b><span>带付费信号的方向</span></div>
-  </div>
-  <div class="panel"><h3>证据通道说明</h3>
-    <div class="hint">需求证据＝过痛点/付费构式门槛；平台热点证据＝原生榜且热度达标（不走门槛）。
-      <b>共振只统计原生榜</b>（排序由平台决定＝独立发现）；关键词检索命中是同一个查询在多个平台的回声，
-      <b>不计入共振</b>——这正是"假共振"的修复点。</div></div>
-  <div class="panel"><h3>机会象限（热度 × 拥挤度）</h3>
-    <div class="hint">右下=热但已挤满（红海）；左下=没人做但也没人要（待验证）；
-      越靠左上越稀缺。气泡大小=综合评分，颜色=拥挤度。虚线：热度≥3、存量≥300。</div>
-    <div class="chart" id="quad${i}"></div></div>
-  <div class="grid2">
-    <div class="panel"><h3>机会分排名</h3><div class="hint">机会分=热度分÷log(存量+10)，拥挤会稀释机会</div>
-      <div class="chart-sm" id="bar${i}"></div></div>
-    <div class="panel"><h3>平台 × 方向 支撑矩阵</h3>
-      <div class="hint">同一方向被几个平台独立发现 = 信号更硬；只有一个平台的要先打折</div>
-      <div class="chart-sm" id="heat${i}"></div></div>
-  </div>
-  <div class="panel"><h3>本窗口数据来源构成</h3>
-    <div class="hint">GitHub 是供给侧（在做什么≠有人要），Reddit 才是需求侧原话</div>
-    <div class="chart-sm" id="pie${i}"></div></div>
-  <div class="panel"><h3>Top10 明细</h3><table>
-    <tr><th>#</th><th>方向</th><th>机会</th><th>需求</th><th>热点</th><th>共振(原生/检索)</th><th>讨论热度</th><th>付费</th><th>存量</th><th>成型产品</th><th>拥挤度</th><th>评分</th><th>机会分</th></tr>
-    ${w.dirs.map((d,j)=>`<tr><td>${j+1}</td><td><b>${d.name}</b></td>
-      <td><span class="tag" style="background:${tagColor(d.opp_tag)}">${d.opp_tag}</span></td>
-      <td>${d.evidence}</td><td>${d.hot||0}</td>
-      <td>${d.resonance||0}
-        <span style="color:var(--muted);font-size:11.5px">
-        （${(d.native_sources||[]).map(s=>PLAT_SHORT[s]||s).join('、')||'—'} /
-         ${(d.keyword_sources||[]).map(s=>PLAT_SHORT[s]||s).join('、')||'—'}）</span></td>
-      <td>${d.heat||'—'}</td>
-      <td>${d.wtp||'—'}</td><td>${fmt(d.market)}</td>
-      <td>${d.mature_products==null?'—':(d.mature_products===0?'<b style="color:#5cb85c">0</b>':d.mature_products)}</td>
-      <td><span class="tag" style="background:${CROWD_COLOR[d.crowd]||'#8b949e'}">${d.crowd}</span></td>
-      <td>${d.score}</td><td>${d.opp_score??'—'}</td></tr>`).join('')}
-  </table>
-  <div style="margin-top:10px">
-    ${w.dirs.map((d,j)=>`
-      <div style="padding:6px 0;border-bottom:1px dashed var(--line)">
-        <b>${j+1}. ${d.name}</b><br>
-        <span style="color:var(--muted)">成熟项目：</span>
-        ${(d.mature||[]).map(m=>`<a href="${m.url}" target="_blank" rel="noopener">${m.repo}</a>
-           <span style="color:var(--muted)">★${fmt(m.stars)}·${m.updated||''}</span>`).join(' · ')||'—'}<br>
-        <span style="color:var(--muted)">需求证据：</span>
-        ${(d.evidence_links||[]).map(e=>`<a href="${e.url}" target="_blank" rel="noopener">${e.title.slice(0,42)}</a>`).join(' · ')||'—'}
-        ${d.advice?`<div style="margin-top:4px">
-          <span class="tag" style="background:${ADVICE_COLOR[d.advice_level]||'#8b949e'}">${d.advice}</span>
-          <span class="tag" style="background:${TREND_COLOR[d.trend_level]||'#8b949e'};margin-left:4px">趋势 ${d.trend_level}·${d.trend_score}</span>
-          <span style="color:var(--muted);font-size:11.5px"> · ${[...(d.advice_reasons||[]),...(d.trend_reasons||[])].join('；')}</span>
-          ${d.advice_action?`<div style="color:var(--muted);font-size:11.5px">建议动作：${d.advice_action}</div>`:''}
-        </div>`:''}
-      </div>`).join('')}
-  </div></div>`;
+  const wd=`w${i}`;
 
-  // 象限散点
+  const row = (d,j) => `<tr>
+    <td>${j+1}</td>
+    <td><b>${d.name}</b>
+      ${d.advice?`<div class="xs"><span class="tag" style="background:${ADVICE_COLOR[d.advice_level]}">${d.advice}</span>
+        <span class="tag" style="background:${TREND_COLOR[d.trend_level]};margin-left:3px">趋势 ${d.trend_level}</span></div>`:''}</td>
+    <td class="num">${d.evidence}</td>
+    <td class="num">${d.hot||0}</td>
+    <td class="num">${d.resonance||0}</td>
+    <td class="num">${d.wtp||0}</td>
+    <td class="num">${fmt(d.market)}</td>
+    <td class="num">${d.mature_products==null?'—':d.mature_products}</td>
+    <td><span class="tag" style="background:${CROWD_COLOR[d.crowd]||'#8b949e'}">${d.crowd||'—'}</span></td>
+    <td class="num"><b>${d.opp_score??d.score}</b></td>
+  </tr>`;
+
+  const caseRow = (d,j) => `
+    <div style="padding:7px 0;border-bottom:1px dashed var(--line)">
+      <b>${j+1}. ${d.name}</b>　<span class="xs">${d.advice||''}</span><br>
+      <span class="xs">成熟项目：</span>${(d.mature||[]).map(m=>
+        `<a href="${m.url}" target="_blank" rel="noopener">${m.repo}</a> <span class="xs">★${fmt(m.stars)}</span>`
+      ).join(' · ')||'<span class="xs">—</span>'}<br>
+      <span class="xs">需求原帖：</span>${(d.evidence_links||[]).map(e=>
+        `<a href="${e.url}" target="_blank" rel="noopener">${e.title.slice(0,36)}</a>`).join(' · ')||'<span class="xs">—</span>'}
+      ${d.advice_action?`<div class="xs" style="margin-top:3px">建议动作：${d.advice_action}</div>`:''}
+    </div>`;
+
+  /* 表格按「机会分」降序显示：表头写的就是这个口径，顺序必须与之一致。
+     注意 w.dirs 本身是按综合评分排的（机会分顺序不同，实测 10.24/5.58/3.74/5.18/2.53
+     并非降序）——标签与实际不符会让人怀疑数据。案例区沿用同一顺序。 */
+  const srt = [...w.dirs].sort((a,b)=>(b.opp_score??-1)-(a.opp_score??-1));
+  el.innerHTML = `
+  <div class="kpi">
+    <div><b>${w.raw}</b>原始采集</div>
+    <div><b>${w.kept}</b>规则层留存</div>
+    <div><b>${natRate}</b>原生榜贡献率${natOk?'（达标）':'（未达标 &lt;40%）'}</div>
+  </div>
+  <div class="panel">
+    <h3>Top ${Math.min(TOPN,srt.length)}　<span class="xs">（按机会分排序；机会分=热度÷log(存量+10)，拥挤会稀释机会）</span></h3>
+    <table>
+      <tr><th>#</th><th>方向</th><th class="num">需求</th><th class="num">热点</th>
+          <th class="num">原生<br>共振</th><th class="num">出钱<br>证据</th>
+          <th class="num">存量</th><th class="num">成型<br>产品</th><th>拥挤度</th><th class="num">机会分</th></tr>
+      ${srt.slice(0,TOPN).map(row).join('')}
+    </table>
+    <div id="more${i}" style="display:none">
+      <table>${srt.slice(TOPN).map((d,j)=>row(d,j+TOPN)).join('')}</table>
+    </div>
+    ${srt.length>TOPN?`<div style="margin-top:8px">
+      <a href="#" class="xs" id="tg${i}"
+         onclick="var m=document.getElementById('more${i}');var o=m.style.display==='none';
+                  m.style.display=o?'block':'none';this.textContent=o?'收起':'显示其余 ${srt.length-TOPN} 个 →';return false">
+        显示其余 ${srt.length-TOPN} 个 →</a></div>`:''}
+  </div>
+  <details class="box"><summary>真实案例与建议动作（${srt.length} 个方向）</summary>
+    ${srt.map(caseRow).join('')}</details>
+  <details class="box"><summary>图表：机会象限 / 机会分 / 平台×方向 / 来源构成</summary>
+    <div class="panel" style="border:0;padding:0;margin:10px 0 0">
+      <h3>机会象限（热度 × 拥挤度）</h3>
+      <div class="hint">右下=热但已挤满（红海）；左下=没人做但也没人要；越靠左上越稀缺。
+        气泡大小=综合评分，颜色=拥挤度。虚线：热度≥3、存量≥300。</div>
+      <div class="chart" id="quad${i}"></div></div>
+    <div class="grid2">
+      <div><h3 style="font-size:13.5px;margin:10px 0 4px">机会分排名</h3>
+        <div class="chart-sm" id="bar${i}"></div></div>
+      <div><h3 style="font-size:13.5px;margin:10px 0 4px">平台 × 方向 支撑矩阵</h3>
+        <div class="hint">被越多平台独立发现，信号越硬</div>
+        <div class="chart-sm" id="heat${i}"></div></div>
+    </div>
+    <h3 style="font-size:13.5px;margin:10px 0 4px">本窗口数据来源构成</h3>
+    <div class="chart-sm" id="pie${i}"></div>
+  </details>`;
+
+  /* 图表只登记，等「方向」视图可见时才绘（隐藏容器 init = 0 尺寸） */
   chart('quad'+i, {
     tooltip:{formatter:p=>`${p.data[3]}<br>证据 ${p.data[0]} · 存量 ${fmt(p.data[1])} · 评分 ${p.data[2]}<br>${p.data[4]}`},
     grid:{left:60,right:30,top:30,bottom:50},
@@ -210,16 +394,14 @@ DATA.windows.forEach((w,i)=>{
         data:[{xAxis:3},{yAxis:300}]}},
       {type:'line',data:[]}]
   });
-  // 机会分条形
   const bs=[...w.dirs].sort((a,b)=>(b.opp_score??0)-(a.opp_score??0)).slice(0,10).reverse();
   chart('bar'+i, {
-    tooltip:{}, grid:{left:130,right:40,top:10,bottom:26},
+    tooltip:{}, grid:{left:120,right:40,top:10,bottom:26},
     xAxis:{type:'value'}, yAxis:{type:'category',data:bs.map(d=>d.name)},
     series:[{type:'bar',data:bs.map(d=>({value:d.opp_score??d.score,
       itemStyle:{color:CROWD_COLOR[d.crowd]||'#4da3d9'}})),
       label:{show:true,position:'right',fontSize:11}}]
   });
-  // 平台×方向 热力
   const dirs=[...w.dirs].slice(0,10);
   const platSet=new Set(); dirs.forEach(d=>Object.keys(d.plat).forEach(p=>platSet.add(p)));
   const plats=[...platSet];
@@ -227,13 +409,12 @@ DATA.windows.forEach((w,i)=>{
     if(d.plat[p]) hData.push([x,y,d.plat[p]]);}));
   chart('heat'+i, {
     tooltip:{formatter:p=>`${dirs[p.data[1]].name} × ${PLAT_SHORT[p.data[0]]||p.data[0]}：${p.data[2]} 条`},
-    grid:{left:130,right:20,top:8,bottom:60},
+    grid:{left:120,right:20,top:8,bottom:60},
     xAxis:{type:'category',data:plats.map(p=>PLAT_SHORT[p]||p),axisLabel:{rotate:30,fontSize:11}},
     yAxis:{type:'category',data:dirs.map(d=>d.name),inverse:true},
     visualMap:{show:false,min:0,max:6,inRange:{color:['#eef3f8','#2c7fb8']}},
     series:[{type:'heatmap',data:hData,label:{show:true,fontSize:11}}]
   });
-  // 平台构成
   chart('pie'+i, {
     tooltip:{}, legend:{bottom:0,fontSize:11},
     series:[{type:'pie',radius:['38%','62%'],
@@ -241,160 +422,83 @@ DATA.windows.forEach((w,i)=>{
       label:{fontSize:11}}]
   });
 });
-show(0);
+showWin(0);
 
-// ---------- 源健康与依赖对冲（P0-3）----------
-const RS = window.__RESILIENCE__;
-if (RS && RS.rows) {
-  const C = {covered:'#5cb85c', degraded:'#f0ad4e', lost:'#d9534f'};
-  const LB = {covered:'✅ 正常', degraded:'⚠️ 降级（仅等效源）', lost:'❌ 缺口'};
-  const okGap = RS.gap_rate < 0.20, okFail = RS.fail_rate < 0.10;
-  document.getElementById('resilience').innerHTML = `
-    <div class="panel">
-      <h3>源健康与依赖对冲　
-        <span class="tag" style="background:${okGap?'#5cb85c':'#d9534f'}">能力缺口 ${(RS.gap_rate*100).toFixed(0)}%／目标 &lt;20%</span>
-        <span class="tag" style="background:${okFail?'#5cb85c':'#d9534f'};margin-left:4px">硬失败率 ${(RS.fail_rate*100).toFixed(0)}%／目标 &lt;10%</span></h3>
-      <div class="hint">口径：按<b>能力</b>而非按源统计——一个源失败不等于能力缺失；
-        唯一提供某能力的源挂了才是缺口。已知不可用的源（upwork / twitter）
-        <b>跳过而不计入失败</b>，否则失败率被永久污染、真实退化被掩盖。所以
-        「失败率低」必须与「跳过 ${Object.keys(RS.skipped||{}).length} 个」一起读。</div>
-      <table><tr><th>能力</th><th>状态</th><th>主源可用</th><th>主源失败</th><th>等效源撑着</th><th>已知跳过</th></tr>
-      ${RS.rows.map(r=>`<tr>
-        <td><b>${r.capability}</b></td>
-        <td><span class="tag" style="background:${C[r.state]}">${LB[r.state]}</span></td>
-        <td>${(r.primary_ok||[]).join('、')||'—'}</td>
-        <td>${(r.primary_failed||[]).join('、')||'—'}</td>
-        <td>${(r.equivalent_ok||[]).join('、')||'—'}</td>
-        <td>${(r.skipped||[]).join('、')||'—'}</td></tr>`).join('')}
-      </table>
-    </div>
-    <div class="panel"><h3>采集机制与合规登记</h3>
-      <div class="hint">登录态自动化 = 中-高风险（可能违反站点自动化条款 + 账号风险）。
-        GummySearch 是在盈利状态（$35K MRR / 1 万付费用户）下被 Reddit API 政策逼停的——
-        「业务健康」保护不了「依赖单一平台」这一结构性风险。</div>
-      <table><tr><th>源</th><th>采集机制</th><th>合规风险</th></tr>
-      ${Object.entries(RS.compliance||{}).map(([k,v])=>`<tr><td>${k}</td><td>${v[0]}</td>
-        <td><span class="tag" style="background:${v[1].includes('高')?'#d9534f':(v[1].includes('中')?'#f0ad4e':'#5cb85c')}">${v[1]}</span></td></tr>`).join('')}
-      </table>
-    </div>`;
-}
-
-// ---------- 验证闭环（P0-2）：北极星 + 可执行验证包 ----------
-const V = window.__VALIDATION__;
-if (V && V.stats) {
-  const st = V.stats, ok = st.north_star >= st.target;
-  document.getElementById('validation').innerHTML = `
-    <div class="panel">
-      <h3>验证闭环　
-        <span class="tag" style="background:${ok?'#5cb85c':'#d9534f'}">
-          北极星 ${st.north_star} / 目标 ≥${st.target}（近 ${st.window_days} 天验证通过方向数）</span></h3>
-      <div class="hint">整条流水线不产生价值，只有"某个方向被真实验证过"才产生价值——
-        这个指标同时度量信号质量与工作闭环。</div>
-      <div class="hint"><b>判定标准</b>：通过 = ≥2 个独立受访者<b>已在为此付费或给出明确预算</b>；
-        表达"有意思"不算证据。待续 = 1 个；否决 = 0 个。时间盒 5 人 / 3 天，
-        受访者须来自 ≥2 个不同社区（防同温层）。</div>
-      <div class="hint">待续 ${st.pending.length} · 否决 ${st.rejected.length} ·
-        误杀复活 ${st.resurrected.length} · 误杀率 ${st.mistake_rate==null?'—':(st.mistake_rate*100).toFixed(0)+'%'} ·
-        台账 ${st.total_records} 条</div>
-    </div>
-    <div class="panel"><h3>待验证队列（够格但还没有记录的方向）</h3>
-      ${(V.queue&&V.queue.length)?`<table><tr><th>窗口</th><th>方向</th><th>建议</th><th>趋势</th></tr>
-        ${V.queue.map(q=>`<tr><td>${q.window}</td><td><b>${q.direction}</b></td>
-          <td>${q.advice}</td><td>${q.trend}</td></tr>`).join('')}</table>`
-        :'<div class="hint">队列为空——够格的方向都已有记录。</div>'}
-    </div>
-    ${(V.kits||[]).map(k=>`
-      <div class="panel">
-        <h3>${k.direction}　<span style="color:var(--muted);font-weight:400">${k.window}</span></h3>
-        <table style="font-size:12.5px">
-          <tr><td style="width:88px;color:var(--muted)">验证目标</td><td>${md(k.target)}</td></tr>
-          <tr><td style="color:var(--muted)">去哪问</td><td>${(k.communities||[]).join('；')}</td></tr>
-          <tr><td style="color:var(--muted)">问什么</td><td>${(k.questions||[]).map((q,i)=>`${i+1}) [${q[0]}] ${q[1]}`).join('<br>')}</td></tr>
-          <tr><td style="color:var(--muted)">判定</td><td>通过：${k.criteria.pass}<br>待续：${k.criteria.pending}<br>否决：${k.criteria.reject}</td></tr>
-          <tr><td style="color:var(--muted)">样本</td><td>${k.budget}</td></tr>
-        </table>
-        <details style="margin-top:6px"><summary style="cursor:pointer;color:var(--muted);font-size:12.5px">
-          可直接复制的脚本（DM / 发帖）</summary>
-          <pre style="white-space:pre-wrap;background:var(--bg);padding:8px;border-radius:6px;font-size:12px">${(k.scripts.dm_en||'').replace(/</g,'&lt;')}</pre>
-          <pre style="white-space:pre-wrap;background:var(--bg);padding:8px;border-radius:6px;font-size:12px">${(k.scripts.post_en||'').replace(/</g,'&lt;')}</pre>
-          <pre style="white-space:pre-wrap;background:var(--bg);padding:8px;border-radius:6px;font-size:12px">${(k.scripts.dm_zh||'').replace(/</g,'&lt;')}</pre>
-        </details>
-      </div>`).join('')}`;
-}
-
-// ---------- 热榜付费潜力分析（judgment 层，放最前）----------
+/* ---------- 判断视图：A/B 展开，C 折叠 ---------- */
 const AN = window.__ANALYSIS__;
 if (AN && AN.items) {
   const TIER = {A:{l:'A 级 · 付费路径明确', c:'#5cb85c'},
                 B:{l:'B 级 · 有可能需验证', c:'#f0ad4e'},
                 C:{l:'C 级 · 无付费路径', c:'#8b949e'}};
   const card = it => `
-    <div class="panel" style="margin-bottom:10px">
-      <h3>${it.title}
-        <span class="tag" style="background:${TIER[it.tier].c};margin-left:6px">
-          ${TIER[it.tier].l}　付费潜力 ${it.pay}/5</span></h3>
-      <table style="font-size:12.5px">
-        <tr><td style="width:96px;color:var(--muted)">谁付钱</td><td>${md(it.who_pays)||'—'}</td></tr>
-        <tr><td style="color:var(--muted)">付费触发点</td><td>${md(it.trigger)||'—'}</td></tr>
-        <tr><td style="color:var(--muted)">现有供给</td><td>${md(it.supply)||'—'}</td></tr>
-        <tr><td style="color:var(--muted)">结论</td><td><b>${md(it.verdict)||'—'}</b></td></tr>
-        <tr><td style="color:var(--muted)">建议动作</td><td>${md(it.action)||'—'}</td></tr>
-      </table>
-      ${(it.urls&&it.urls.length)?`<div style="margin-top:4px;font-size:12px">
-        ${it.urls.map(u=>`<a href="${u}" target="_blank" rel="noopener">原帖</a>`).join(' · ')}</div>`:''}
+    <div class="panel lead ${it.tier==='A'?'a':''}">
+      <h3>${it.title}　<span class="tag" style="background:${TIER[it.tier].c}">${it.pay}/5</span></h3>
+      <div class="why"><b>结论</b>：${md(it.verdict)||'—'}</div>
+      <div class="do"><b>下一步</b>：${md(it.action)||'—'}</div>
+      <details><summary>四问详情（谁付钱 / 付费触发点 / 现有供给 / 为什么上榜）</summary>
+        <table>
+          <tr><td style="width:92px" class="muted">谁付钱</td><td>${md(it.who_pays)||'—'}</td></tr>
+          <tr><td class="muted">付费触发点</td><td>${md(it.trigger)||'—'}</td></tr>
+          <tr><td class="muted">现有供给</td><td>${md(it.supply)||'—'}</td></tr>
+          <tr><td class="muted">为什么上榜</td><td>${md(it.why_hot)||'—'}</td></tr>
+        </table>
+        ${(it.urls&&it.urls.length)?`<div class="xs" style="margin-top:5px">原帖：
+          ${it.urls.map(u=>`<a href="${u}" target="_blank" rel="noopener">打开</a>`).join(' · ')}</div>`:''}
+      </details>
     </div>`;
-  const el = document.getElementById('analysis');
   const ab = AN.items.filter(i=>i.tier!=='C'), cc = AN.items.filter(i=>i.tier==='C');
-  el.innerHTML = `
-    <div class="panel">
-      <h3>热榜内容的付费潜力分析</h3>
-      <div class="hint">${(AN.note||'').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</div>
-      <div class="hint">四个必答问题：谁付钱（具体角色）· 付费触发点（新增支出还是旧预算搬家）·
-        现有供给（有没有人做成）· 能否 2-4 周做出 MVP。</div>
+  document.getElementById('analysis').innerHTML = `
+    <div class="panel"><h3>热榜内容的付费潜力判断</h3>
+      <div class="hint">核心问题：<b>这个热点背后有没有新生成的付费环节</b>——
+        新增支出才有新机会，旧预算搬家只是替换竞争。</div>
+      <details><summary>判断口径与本轮变化（含"值得单独去读的两处"）</summary>
+        <div class="hint" style="margin-top:6px">${md(AN.note||'')}</div></details>
     </div>
     ${ab.map(card).join('')}
-    <div class="panel">
-      <h3>C 级 · 无付费路径（明确排除，省时间）</h3>
+    <details class="box"><summary>C 级 · 无付费路径（${cc.length} 条，明确排除以省时间）</summary>
       <table><tr><th>条目</th><th>为什么排除</th></tr>
       ${cc.map(i=>`<tr><td><b>${i.title}</b></td><td>${md(i.verdict)}</td></tr>`).join('')}
-      </table>
-    </div>`;
+      </table></details>`;
 }
 
-// ---------- 平台热榜（平台优先轨道）----------
+/* ---------- 平台视图：每站默认只看前 5 条 ---------- */
 const PF = window.__PLATFORMS__;
 if (PF) {
-  const el = document.getElementById('platforms');
+  const PLAT_N = 5;
   const terms = {};
   (PF.terms ? Object.entries(PF.terms) : []).forEach(([k,v])=>terms[k]=v);
-  el.innerHTML = `
-    <div class="panel" style="margin-top:16px">
-      <h3>平台热榜（平台优先轨道）</h3>
-      <div class="hint">不做需求门槛、不做方向归类，按各平台原生热度排序。
-        各站量纲不同（知乎是平台热度、HN 是点数、PH 是排名代理），<b>只比排名不比数值</b>。</div>
-      <div class="chart-sm" id="pfbar"></div>
+  const platTable = (p, n) => `
+    <table>
+      <tr><th style="width:26px">#</th><th>标题</th><th class="num" style="width:64px">热度</th></tr>
+      ${p.items.map((it,j)=>`<tr${j>=n?' class="hideme" style="display:none"':''}>
+        <td>${j+1}</td>
+        <td><a href="${it.url}" target="_blank" rel="noopener">${it.title.slice(0,88)}</a></td>
+        <td class="num">${it.heat}</td></tr>`).join('')}
+    </table>
+    ${p.items.length>n?`<div style="margin-top:6px"><a href="#" class="xs"
+      onclick="var rs=this.closest('div').parentNode.querySelectorAll('.hideme');
+               var o=rs[0].style.display==='none';
+               rs.forEach(r=>r.style.display=o?'table-row':'none');
+               this.textContent=o?'收起':'显示全部 ${p.items.length} 条';
+               return false">显示全部 ${p.items.length} 条</a></div>`:''}`;
+  document.getElementById('platforms').innerHTML = `
+    <div class="panel"><h3>平台热榜（${PF.platforms.length} 个平台，共 ${PF.collected} 条）</h3>
+      <div class="hint">这一层<b>不做门槛、不做归类</b>，排序是各平台自己的热度。
+        各站量纲不同（HN 是点数、知乎是平台热度、Product Hunt / Bluesky 是排名代理），
+        <b>只比排名不比数值</b>。默认每站显示前 ${PLAT_N} 条。</div>
+      ${PF.topics&&PF.topics.length?`<div class="hint"><b>跨平台主题</b>（≥2 个平台出现的关键词）：
+        ${PF.topics.map(t=>`${t.topic}(${t.platforms.length})`).join('、')}</div>`:''}
+      <div class="chart-sm" id="pfbar" style="margin-top:8px"></div>
     </div>
-    <div class="panel"><h3>跨平台主题</h3>
-      <div class="hint">同一关键词出现在 ≥2 个平台。<b>关键词法有上限</b>：同义不同词不合并、中文用 n-gram 会切出碎片。</div>
-      ${(PF.topics&&PF.topics.length)?`<table>
-        <tr><th>主题</th><th>平台数</th><th>出现平台</th><th>热度合计</th></tr>
-        ${PF.topics.map(t=>`<tr><td><b>${t.topic}</b></td><td>${t.n_platforms}</td>
-          <td>${t.platforms.map(x=>PLAT_SHORT[x]||x).join('、')}</td><td>${t.heat}</td></tr>`).join('')}
-      </table>`:'<div class="hint">本轮无词汇交叉（热榜标题过短、样本不足）</div>'}
-    </div>
-    ${PF.platforms.map((p,i)=>`
-      <div class="panel">
-        <h3>${PLAT_SHORT[p.source]||p.source}　<span style="color:var(--muted);font-weight:400">${p.items.length} 条</span></h3>
-        ${terms[p.source]?`<div class="hint">平台高频词：${terms[p.source].map(x=>x.t+'('+x.n+')').join('、')}</div>`:''}
-        <table>
-          <tr><th>#</th><th>标题</th><th>平台热度</th><th>链接</th></tr>
-          ${p.items.map((it,j)=>`<tr><td>${j+1}</td><td>${it.title.slice(0,72)}</td>
-            <td>${it.heat}</td><td><a href="${it.url}" target="_blank" rel="noopener">打开</a></td></tr>`).join('')}
-        </table>
-      </div>`).join('')}`;
+    ${PF.platforms.map(p=>`
+      <details class="box">
+        <summary><b>${PLAT_SHORT[p.source]||p.source}</b>　<span class="xs">${p.items.length} 条
+          ${terms[p.source]?`· 高频词 ${terms[p.source].slice(0,5).map(x=>x.t).join('、')}`:''}</span></summary>
+        <div style="margin-top:8px">${platTable(p, PLAT_N, true)}</div>
+      </details>`).join('')}`;
   chart('pfbar', {
-    tooltip:{formatter:p=>`${p.name}<br>头部热度 ${p.value}`},
-    grid:{left:120,right:60,top:10,bottom:26},
+    tooltip:{formatter:p=>`${p.name}<br>头部热度 ${p.value}（量纲不同，只比排名）`},
+    grid:{left:110,right:60,top:10,bottom:26},
     xAxis:{type:'value'},
     yAxis:{type:'category',data:PF.platforms.map(p=>PLAT_SHORT[p.source]||p.source)},
     series:[{type:'bar',data:PF.platforms.map(p=>({value:p.items[0]?p.items[0].heat:0,
@@ -402,10 +506,79 @@ if (PF) {
   });
 }
 
-// ---------- 信源健康 ----------
+/* ---------- 系统视图 ---------- */
+const RS = window.__RESILIENCE__;
+if (RS && RS.rows) {
+  const C = {covered:'#5cb85c', degraded:'#f0ad4e', lost:'#d9534f'};
+  const LB = {covered:'✅ 正常', degraded:'⚠️ 降级', lost:'❌ 缺口'};
+  const okGap = RS.gap_rate < 0.20, okFail = RS.fail_rate < 0.10;
+  document.getElementById('resilience').innerHTML = `
+    <div class="kpi">
+      <div><b style="color:${okGap?'#5cb85c':'#d9534f'}">${Math.round(RS.gap_rate*100)}%</b>能力缺口（目标 &lt;20%）</div>
+      <div><b style="color:${okFail?'#5cb85c':'#d9534f'}">${Math.round(RS.fail_rate*100)}%</b>硬失败率（目标 &lt;10%）</div>
+      <div>已知不可用源跳过 <b>${Object.keys(RS.skipped||{}).length}</b> 个（不计入失败）</div>
+    </div>
+    <div class="panel"><h3>能力覆盖矩阵</h3>
+      <div class="hint">按<b>能力</b>而非按源统计：一个源失败不等于能力缺失；唯一提供某能力的源挂了才是缺口。
+        「失败率低」必须与「跳过几个」一起读。</div>
+      <table>
+        <tr><th>能力</th><th>状态</th><th>可用主源</th><th>等效源撑着</th></tr>
+        ${RS.rows.map(r=>`<tr>
+          <td><b>${r.capability}</b></td>
+          <td><span class="tag" style="background:${C[r.state]}">${LB[r.state]}</span></td>
+          <td class="xs">${(r.primary_ok||[]).join('、')||'—'}
+            ${(r.primary_failed||[]).length?`<br><span style="color:#d9534f">失败：${r.primary_failed.join('、')}</span>`:''}</td>
+          <td class="xs">${(r.equivalent_ok||[]).join('、')||'—'}
+            ${(r.skipped||[]).length?`<br>跳过：${r.skipped.join('、')}`:''}</td></tr>`).join('')}
+      </table>
+    </div>
+    <details class="box"><summary>采集机制与合规登记</summary>
+      <table><tr><th>源</th><th>机制</th><th>合规风险</th></tr>
+      ${Object.entries(RS.compliance||{}).map(([k,v])=>`<tr><td>${k}</td><td class="xs">${v[0]}</td>
+        <td><span class="tag" style="background:${v[1].includes('高')?'#d9534f':(v[1].includes('中')?'#f0ad4e':'#5cb85c')}">${v[1]}</span></td></tr>`).join('')}
+      </table>
+      <div class="hint" style="margin-top:6px">登录态自动化 = 中-高风险（可能违反站点自动化条款 + 账号风险）。
+        GummySearch 是在盈利状态（$35K MRR / 1 万付费用户）下被 Reddit API 政策逼停的——
+        「业务健康」保护不了「依赖单一平台」这一结构性风险。</div></details>`;
+}
+const V = window.__VALIDATION__;
+if (V && V.stats) {
+  const st = V.stats, ok = st.north_star >= st.target;
+  document.getElementById('validation').innerHTML = `
+    <div class="panel"><h3>验证闭环　
+      <span class="tag" style="background:${ok?'#5cb85c':'#d9534f'}">北极星 ${st.north_star} / 目标 ≥${st.target}</span></h3>
+      <div class="hint">整条流水线不产生价值，只有某个方向被真实验证过才产生价值。
+        判定标准：通过 = ≥2 个独立受访者<b>已在为此付费或给出明确预算</b>；表达「有意思」不算。
+        时间盒 5 人 / 3 天，受访者须来自 ≥2 个不同社区（防同温层）。</div>
+    </div>
+    <details class="box"><summary>待验证队列（${(V.queue||[]).length} 个方向）</summary>
+      ${(V.queue&&V.queue.length)?`<table><tr><th>窗口</th><th>方向</th><th>建议</th><th>趋势</th></tr>
+        ${V.queue.map(q=>`<tr><td>${q.window}</td><td><b>${q.direction}</b></td>
+          <td class="xs">${q.advice}</td><td>${q.trend}</td></tr>`).join('')}</table>`
+        :'<div class="hint">队列为空。</div>'}</details>
+    ${(V.kits||[]).map(k=>`
+      <details class="box"><summary><b>验证包 · ${k.direction}</b>　<span class="xs">${k.window}</span></summary>
+        <table style="margin-top:8px">
+          <tr><td style="width:86px" class="muted">验证目标</td><td>${md(k.target)}</td></tr>
+          <tr><td class="muted">去哪问</td><td>${(k.communities||[]).join('；')}</td></tr>
+          <tr><td class="muted">问什么</td><td>${(k.questions||[]).map((q,i)=>`${i+1}) [${q[0]}] ${q[1]}`).join('<br>')}</td></tr>
+          <tr><td class="muted">怎么判定</td><td>通过：${k.criteria.pass}<br>待续：${k.criteria.pending}<br>否决：${k.criteria.reject}</td></tr>
+          <tr><td class="muted">样本</td><td>${k.budget}</td></tr>
+        </table>
+        <details><summary>可直接复制的脚本（英文 DM / Ask HN 发帖 / 中文 DM）</summary>
+          <pre>${(k.scripts.dm_en||'').replace(/</g,'&lt;')}</pre>
+          <pre>${(k.scripts.post_en||'').replace(/</g,'&lt;')}</pre>
+          <pre>${(k.scripts.dm_zh||'').replace(/</g,'&lt;')}</pre>
+        </details>
+      </details>`).join('')}`;
+}
 const h=document.getElementById('health');
-h.innerHTML='<tr><th>信源</th><th>条数</th><th>状态</th><th>备注</th></tr>'+
-  DATA.health.map(x=>`<tr><td>${x.source}</td><td>${x.count}</td>
-  <td>${x.ok?'✅':'❌'}</td><td>${(x.note||'').slice(0,80)}</td></tr>`).join('');
+h.innerHTML='<tr><th>信源</th><th class="num">条数</th><th>状态</th><th>备注</th></tr>'+
+  DATA.health.filter(x=>!(x.ok&&x.count)).map(x=>`<tr><td>${x.source}</td><td class="num">${x.count}</td>
+  <td>${x.skipped?'⏭ 跳过':(x.ok?'✅':'❌')}</td><td class="xs">${(x.note||'').slice(0,90)}</td></tr>`).join('')
+  ||'<tr><td colspan="4" class="hint">本批全部信源正常</td></tr>';
+/* 正常信源不铺在表里 —— 45 个源里只看有问题的，这是最有用的过滤 */
+
+showView('summary');
 </script>
 </body></html>

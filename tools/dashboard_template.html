@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>idea-hunter · 方向看板</title>
+<script>__ECHARTS__</script>
+<style>
+  :root{--bg:#f6f8fa;--card:#fff;--ink:#24292f;--muted:#57606a;--line:#d8dee4;
+        --red:#d9534f;--orange:#f0ad4e;--blue:#4da3d9;--green:#5cb85c}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:14px/1.62 "Segoe UI","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:20px;margin:4px 0 2px}
+  .meta{color:var(--muted);font-size:12.5px;margin-bottom:12px}
+  .meta details{display:inline-block}
+  .meta summary{cursor:pointer;color:var(--muted)}
+
+  /* 顶部视图切换 —— 摘要优先，其余按需展开 */
+  .nav{display:flex;gap:6px;margin:0 0 14px;flex-wrap:wrap;
+       position:sticky;top:0;background:var(--bg);padding:8px 0 10px;z-index:9;
+       border-bottom:1px solid var(--line)}
+  .nav button{padding:6px 16px;border:1px solid var(--line);background:#fff;
+       border-radius:18px;cursor:pointer;font-size:13.5px;color:var(--ink)}
+  .nav button.on{background:#24292f;color:#fff;border-color:#24292f}
+  .nav .spacer{flex:1}
+  .nav .when{color:var(--muted);font-size:12.5px;align-self:center}
+
+  .view{display:none}
+  .view.on{display:block}
+
+  /* KPI 条：小、紧凑，不做成大卡片占位置 */
+  .kpi{display:flex;gap:18px;flex-wrap:wrap;align-items:baseline;
+       background:var(--card);border:1px solid var(--line);border-radius:10px;
+       padding:10px 14px;margin-bottom:14px}
+  .kpi div{font-size:12.5px;color:var(--muted)}
+  .kpi b{font-size:17px;color:var(--ink);margin-right:4px}
+
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:10px;
+         padding:13px 14px;margin-bottom:12px}
+  .panel h3{margin:1px 0 5px;font-size:14.5px}
+  .hint{color:var(--muted);font-size:12px;margin-bottom:4px}
+  .muted{color:var(--muted)}
+  .xs{font-size:11.5px;color:var(--muted)}
+
+  /* 结论卡：摘要页的主视觉。一行结论 + 一行动作，其余折叠 */
+  .lead{border-left:3px solid var(--line);padding-left:11px;margin-bottom:12px}
+  .lead.a{border-left-color:#5cb85c}
+  .lead h3{font-size:15px;margin:0 0 3px}
+  .lead .why{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .lead .do{font-size:12.5px;margin-top:5px}
+  .lead .do b{color:#24292f}
+
+  table{border-collapse:collapse;width:100%;font-size:12.5px}
+  th,td{border-bottom:1px solid var(--line);padding:5px 7px;text-align:left;
+        vertical-align:top}
+  th{color:var(--muted);font-weight:600;white-space:nowrap}
+  .num{text-align:right;white-space:nowrap}
+  .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11.5px;
+       color:#fff;white-space:nowrap}
+  .chart{width:100%;height:340px}
+  .chart-sm{width:100%;height:280px}
+  a{color:#0969da;text-decoration:none}
+  a:hover{text-decoration:underline}
+  details{margin-top:6px}
+  details>summary{cursor:pointer;color:var(--muted);font-size:12.5px;
+       padding:3px 0;list-style:none}
+  details>summary::-webkit-details-marker{display:none}
+  details>summary:before{content:"▸ ";color:var(--muted)}
+  details[open]>summary:before{content:"▾ "}
+  details.box{background:var(--card);border:1px solid var(--line);border-radius:10px;
+       padding:10px 14px;margin-bottom:12px}
+  pre{white-space:pre-wrap;background:var(--bg);padding:8px;border-radius:6px;
+      font-size:12px;margin:6px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
+
+<h1>idea-hunter · 方向看板</h1>
+<div class="meta">
+  生成时间：__GENERATED__　·　方向判定：__MODE__
+  <details><summary>　口径说明</summary>
+    <div class="hint" style="margin-top:6px">
+      证据数=窗口内独立候选条数。拥挤度=GitHub 同方向存量（红海≥1000 / 拥挤≥300 / 中等≥80 / 稀疏&lt;80）。
+      成型产品=GitHub stars&gt;1000 的存量，<b>只看开源</b>（闭源 SaaS 看不到，所以 0 只等于「开源侧没人做成」）。
+      共振只统计<b>原生榜</b>（排序由平台决定=独立发现）；关键词检索命中是同一查询的回声，不计共振。
+      各平台热度量纲不同，<b>只比排名不比数值</b>。
+    </div>
+  </details>
+</div>
+
+<nav class="nav" id="nav">
+  <button data-v="summary">摘要</button>
+  <button data-v="dirs">方向</button>
+  <button data-v="judge">判断</button>
+  <button data-v="plat">平台</button>
+  <button data-v="sys">系统</button>
+  <span class="spacer"></span>
+  <span class="when" id="when"></span>
+</nav>
+
+<!-- ============ 摘要：默认视图，一屏回答「现在该做什么」 ============ -->
+<section class="view on" id="v-summary">
+  <div class="kpi" id="kpi"></div>
+  <div id="summary"></div>
+</section>
+
+<!-- ============ 方向：榜单与图表（默认只看 Top5） ============ -->
+<section class="view" id="v-dirs">
+  <div class="nav" id="wtabs" style="border:0;position:static;padding:0 0 10px"></div>
+  <div id="panels"></div>
+</section>
+
+<!-- ============ 判断：热榜付费潜力（A/B 展开，C 折叠） ============ -->
+<section class="view" id="v-judge"><div id="analysis"></div></section>
+
+<!-- ============ 平台：各平台热榜（默认每站 5 条） ============ -->
+<section class="view" id="v-plat"><div id="platforms"></div></section>
+
+<!-- ============ 系统：健康度（细节默认折叠） ============ -->
+<section class="view" id="v-sys"><div id="resilience"></div><div id="validation"></div>
+  <details class="box"><summary>信源健康明细（__HEALTH_N__ 条）</summary>
+    <table id="health"></table></details>
+</section>
+
+</div>
+<script>window.__PLATFORMS__ = __PLATFORMS_JSON__;
+window.__ANALYSIS__ = __ANALYSIS_JSON__;
+window.__VALIDATION__ = __VALIDATION_JSON__;
+window.__RESILIENCE__ = __RESILIENCE_JSON__;</script>
+<script>
+const DATA = __DATA__;
+const CROWD_COLOR = __CROWDCOLOR__;
+const PLAT_SHORT = __PLATSHORT__;
+
+/* ---------- 小工具（都必须在所有使用它们的块之前声明：TDZ 会整段不渲染）---------- */
+const md = x => (x||'').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+const ADVICE_COLOR = {5:'#5cb85c',4:'#5cb85c',3:'#7cb342',2:'#f0ad4e',1:'#d9534f',0:'#8b949e'};
+const TREND_COLOR = {'高':'#d9534f','中':'#f0ad4e','低':'#8b949e','':'#8b949e'};
+const fmt = n => n==null ? '—' : (n>=1000 ? n.toLocaleString('en-US') : n);
+const tagColor = t => t.includes('★')?'#5cb85c':t.includes('已拥挤')?'#d9534f'
+                      :t.includes('红海')?'#c9764a':'#8b949e';
+const join = (a,n) => (a||[]).slice(0,n).join('；');
+
+/* ---------- 图表懒初始化 ----------
+   坑：容器 display:none 时 echarts.init 会按 0 尺寸渲染，切回来是空白。
+   所以只登记 opts，等容器真正可见时才绘制，只绘一次。 */
+const PENDING = {};
+function chart(id, opt){ PENDING[id] = opt; }
+function paintCharts(){
+  if(!window.echarts) return;
+  Object.keys(PENDING).forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el || el.dataset.painted) return;
+    if(!el.offsetParent) return;          // 不可见 → 留到下次
+    try{ echarts.init(el).setOption(PENDING[id]); el.dataset.painted='1'; }catch(e){}
+  });
+}
+window.addEventListener('resize', ()=>{
+  if(!window.echarts) return;
+  document.querySelectorAll('.chart,.chart-sm').forEach(el=>{
+    const c = echarts.getInstanceByDom(el); if(c) c.resize();
+  });
+});
+
+/* ---------- 视图切换 ---------- */
+const NAV = document.getElementById('nav');
+function showView(v){
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on', s.id==='v-'+v));
+  [...NAV.querySelectorAll('button')].forEach(b=>b.classList.toggle('on', b.dataset.v===v));
+  paintCharts();          // 视图可见后再画图（否则 0 尺寸）
+  window.scrollTo({top:0,behavior:'instant'});
+}
+NAV.querySelectorAll('button').forEach(b=>b.onclick=()=>showView(b.dataset.v));
+
+/* ---------- 摘要：最重要的一屏 ---------- */
+const VS = window.__VALIDATION__, RS_ = window.__RESILIENCE__, AN_ = window.__ANALYSIS__;
+(function buildSummary(){
+  const day = DATA.windows[0] || {};
+  const ps = day.path_stats && day.path_stats.length===3 ? day.path_stats : null;
+  const natRate = ps ? Math.round(ps[2]*100)+'%' : '—';
+  const ns = VS && VS.stats ? VS.stats : null;
+
+  /* 该看的方向：跨窗口取建议档最高的前 3 个（今日优先），同名只留一个 */
+  const rank = {5:0,4:1,3:2,2:3,1:4,0:5};
+  const seen = {}, picks = [];
+  DATA.windows.forEach(w=>{
+    (w.dirs||[]).forEach(d=>{
+      if(seen[d.name]) return;
+      if((d.advice_level||0) < 3) return;
+      seen[d.name] = 1;
+      picks.push({...d, win:w.label, nat:d.native});
+    });
+  });
+  picks.sort((a,b)=> (rank[a.advice_level]-rank[b.advice_level])   /* rank 小 = 档位高，升序即"最该看的在前" */
+                     || ((b.trend_score||0)-(a.trend_score||0)));
+  const top = picks.slice(0,3);
+
+  /* 热榜里值得看的：只看 A 级，最多 2 条 */
+  const aHot = ((AN_&&AN_.items)||[]).filter(i=>i.tier==='A').slice(0,2);
+
+  document.getElementById('kpi').innerHTML = `
+    <div><b>${ns ? ns.north_star : '—'}</b>／目标 ≥${ns ? ns.target : 1}
+      验证通过方向（北极星）</div>
+    <div><b>${natRate}</b>今日原生榜贡献率</div>
+    <div><b>${top.length}</b>个够格方向（按建议档排序，最多 3 个）</div>`;
+
+  const leadCard = d => `
+    <div class="panel lead ${(d.advice_level>=4)?'a':''}">
+      <h3>${d.name}　<span class="tag" style="background:${ADVICE_COLOR[d.advice_level]}">${d.advice||'—'}</span>
+        <span class="tag" style="background:${TREND_COLOR[d.trend_level]}">趋势 ${d.trend_level||'—'}</span>
+        <span class="xs">　${d.win}</span></h3>
+      <div class="why">为什么：${join(d.advice_reasons,2) || '—'}${d.trend_reasons&&d.trend_reasons.length?'；'+d.trend_reasons[0]:''}</div>
+      <div class="do">下一步：<b>${(d.advice_action||'—')}</b></div>
+      <div class="xs" style="margin-top:3px">
+        需求证据 ${d.evidence} · 热点 ${d.hot||0} · 原生共振 ${d.resonance||0}
+        · 出钱证据 ${d.wtp||0} · 存量 ${fmt(d.market)} · 成型产品 ${d.mature_products==null?'—':d.mature_products}
+        <a href="#" onclick="showView('dirs');return false">查看证据与项目链接 →</a></div>
+    </div>`;
+
+  const hotCard = it => `
+    <div class="lead" style="border-left-color:#5cb85c">
+      <h3 style="font-size:14.5px">${it.title}　<span class="xs">付费潜力 ${it.pay}/5</span></h3>
+      <div class="why">谁付钱：${(it.who_pays||'—').slice(0,90)}</div>
+      <div class="do">${md(it.verdict||'').slice(0,120)}</div>
+    </div>`;
+
+  document.getElementById('summary').innerHTML = `
+    <div class="panel"><h3>现在该做什么</h3>
+      ${top.length ? top.map(leadCard).join('')
+        : '<div class="hint">本轮没有达到「值得看」门槛的方向——这本身是结论：宁可说没有，也不硬推。</div>'}
+    </div>
+    ${aHot.length ? `<div class="panel"><h3>热榜里值得看的（A 级，共 ${((AN_.items||[]).filter(i=>i.tier==='A')).length} 条）</h3>
+      <div class="hint">热榜是素材，这里是判断：付费路径明确 = 有人已经在为这件事花钱。完整判断见「判断」页。</div>
+      ${aHot.map(hotCard).join('')}
+      <a href="#" onclick="showView('judge');return false" class="xs">看全部判断 →</a></div>` : ''}
+    ${ns ? `<div class="panel" style="padding:10px 14px">
+      <div class="hint" style="margin:0">
+        北极星（近 ${ns.window_days} 天验证通过方向数）=
+        <b style="color:${ns.north_star>=ns.target?'#5cb85c':'#d9534f'}">${ns.north_star}</b>：
+        整条流水线不产生价值，只有某个方向被真实验证过才产生价值。
+        <a href="#" onclick="showView('sys');return false">看验证包 →</a></div></div>` : ''}`;
+
+  document.getElementById('when').textContent = DATA.windows.map(w=>w.label+' '+w.kept+' 条').join(' · ');
+})();
+
+/* ---------- 方向视图 ---------- */
+const wtabs = document.getElementById('wtabs'), panels = document.getElementById('panels');
+const TOPN = 5;   // 默认只看 Top5：Top10 里后几名通常证据都很弱，看不看差别不大
+DATA.windows.forEach((w,i)=>{
+  const b=document.createElement('button'); b.textContent=w.label;
+  b.onclick=()=>showWin(i); wtabs.appendChild(b);
+  const d=document.createElement('div'); d.id='win'+i; panels.appendChild(d);
+});
+function showWin(i){
+  [...wtabs.children].forEach((b,j)=>b.classList.toggle('on',j===i));
+  [...panels.children].forEach((p,j)=>{ p.style.display = j===i?'block':'none'; });
+  paintCharts();
+}
+DATA.windows.forEach((w,i)=>{
+  const el=document.getElementById('win'+i);
+  const ps=w.path_stats&&w.path_stats.length===3?w.path_stats:null;
+  const natRate=ps?Math.round(ps[2]*100)+'%':'—';
+  const natOk=ps&&ps[2]>=0.4;
+  const wd=`w${i}`;
+
+  const row = (d,j) => `<tr>
+    <td>${j+1}</td>
+    <td><b>${d.name}</b>
+      ${d.advice?`<div class="xs"><span class="tag" style="background:${ADVICE_COLOR[d.advice_level]}">${d.advice}</span>
+        <span class="tag" style="background:${TREND_COLOR[d.trend_level]};margin-left:3px">趋势 ${d.trend_level}</span></div>`:''}</td>
+    <td class="num">${d.evidence}</td>
+    <td class="num">${d.hot||0}</td>
+    <td class="num">${d.resonance||0}</td>
+    <td class="num">${d.wtp||0}</td>
+    <td class="num">${fmt(d.market)}</td>
+    <td class="num">${d.mature_products==null?'—':d.mature_products}</td>
+    <td><span class="tag" style="background:${CROWD_COLOR[d.crowd]||'#8b949e'}">${d.crowd||'—'}</span></td>
+    <td class="num"><b>${d.opp_score??d.score}</b></td>
+  </tr>`;
+
+  const caseRow = (d,j) => `
+    <div style="padding:7px 0;border-bottom:1px dashed var(--line)">
+      <b>${j+1}. ${d.name}</b>　<span class="xs">${d.advice||''}</span><br>
+      <span class="xs">成熟项目：</span>${(d.mature||[]).map(m=>
+        `<a href="${m.url}" target="_blank" rel="noopener">${m.repo}</a> <span class="xs">★${fmt(m.stars)}</span>`
+      ).join(' · ')||'<span class="xs">—</span>'}<br>
+      <span class="xs">需求原帖：</span>${(d.evidence_links||[]).map(e=>
+        `<a href="${e.url}" target="_blank" rel="noopener">${e.title.slice(0,36)}</a>`).join(' · ')||'<span class="xs">—</span>'}
+      ${d.advice_action?`<div class="xs" style="margin-top:3px">建议动作：${d.advice_action}</div>`:''}
+    </div>`;
+
+  /* 表格按「机会分」降序显示：表头写的就是这个口径，顺序必须与之一致。
+     注意 w.dirs 本身是按综合评分排的（机会分顺序不同，实测 10.24/5.58/3.74/5.18/2.53
+     并非降序）——标签与实际不符会让人怀疑数据。案例区沿用同一顺序。 */
+  const srt = [...w.dirs].sort((a,b)=>(b.opp_score??-1)-(a.opp_score??-1));
+  el.innerHTML = `
+  <div class="kpi">
+    <div><b>${w.raw}</b>原始采集</div>
+    <div><b>${w.kept}</b>规则层留存</div>
+    <div><b>${natRate}</b>原生榜贡献率${natOk?'（达标）':'（未达标 &lt;40%）'}</div>
+  </div>
+  <div class="panel">
+    <h3>Top ${Math.min(TOPN,srt.length)}　<span class="xs">（按机会分排序；机会分=热度÷log(存量+10)，拥挤会稀释机会）</span></h3>
+    <table>
+      <tr><th>#</th><th>方向</th><th class="num">需求</th><th class="num">热点</th>
+          <th class="num">原生<br>共振</th><th class="num">出钱<br>证据</th>
+          <th class="num">存量</th><th class="num">成型<br>产品</th><th>拥挤度</th><th class="num">机会分</th></tr>
+      ${srt.slice(0,TOPN).map(row).join('')}
+    </table>
+    <div id="more${i}" style="display:none">
+      <table>${srt.slice(TOPN).map((d,j)=>row(d,j+TOPN)).join('')}</table>
+    </div>
+    ${srt.length>TOPN?`<div style="margin-top:8px">
+      <a href="#" class="xs" id="tg${i}"
+         onclick="var m=document.getElementById('more${i}');var o=m.style.display==='none';
+                  m.style.display=o?'block':'none';this.textContent=o?'收起':'显示其余 ${srt.length-TOPN} 个 →';return false">
+        显示其余 ${srt.length-TOPN} 个 →</a></div>`:''}
+  </div>
+  <details class="box"><summary>真实案例与建议动作（${srt.length} 个方向）</summary>
+    ${srt.map(caseRow).join('')}</details>
+  <details class="box"><summary>图表：机会象限 / 机会分 / 平台×方向 / 来源构成</summary>
+    <div class="panel" style="border:0;padding:0;margin:10px 0 0">
+      <h3>机会象限（热度 × 拥挤度）</h3>
+      <div class="hint">右下=热但已挤满（红海）；左下=没人做但也没人要；越靠左上越稀缺。
+        气泡大小=综合评分，颜色=拥挤度。虚线：热度≥3、存量≥300。</div>
+      <div class="chart" id="quad${i}"></div></div>
+    <div class="grid2">
+      <div><h3 style="font-size:13.5px;margin:10px 0 4px">机会分排名</h3>
+        <div class="chart-sm" id="bar${i}"></div></div>
+      <div><h3 style="font-size:13.5px;margin:10px 0 4px">平台 × 方向 支撑矩阵</h3>
+        <div class="hint">被越多平台独立发现，信号越硬</div>
+        <div class="chart-sm" id="heat${i}"></div></div>
+    </div>
+    <h3 style="font-size:13.5px;margin:10px 0 4px">本窗口数据来源构成</h3>
+    <div class="chart-sm" id="pie${i}"></div>
+  </details>`;
+
+  /* 图表只登记，等「方向」视图可见时才绘（隐藏容器 init = 0 尺寸） */
+  chart('quad'+i, {
+    tooltip:{formatter:p=>`${p.data[3]}<br>证据 ${p.data[0]} · 存量 ${fmt(p.data[1])} · 评分 ${p.data[2]}<br>${p.data[4]}`},
+    grid:{left:60,right:30,top:30,bottom:50},
+    xAxis:{name:'证据数（热度）',type:'value',minInterval:1,nameLocation:'middle',nameGap:28},
+    yAxis:{name:'存量项目（拥挤度）',type:'log',min:5,nameLocation:'middle',nameGap:34},
+    series:[{type:'scatter',symbolSize:d=>8+Math.sqrt(d[2])*5,
+      data:w.dirs.map(d=>[d.evidence,d.market||5,d.score,d.name,d.opp_tag]),
+      itemStyle:{color:p=>CROWD_COLOR[p.data[4]]||'#4da3d9',opacity:.85},
+      label:{show:true,formatter:p=>p.data[3],position:'top',fontSize:11}},
+      {type:'line',markLine:{silent:true,symbol:'none',lineStyle:{type:'dashed',color:'#bbb'},
+        data:[{xAxis:3},{yAxis:300}]}},
+      {type:'line',data:[]}]
+  });
+  const bs=[...w.dirs].sort((a,b)=>(b.opp_score??0)-(a.opp_score??0)).slice(0,10).reverse();
+  chart('bar'+i, {
+    tooltip:{}, grid:{left:120,right:40,top:10,bottom:26},
+    xAxis:{type:'value'}, yAxis:{type:'category',data:bs.map(d=>d.name)},
+    series:[{type:'bar',data:bs.map(d=>({value:d.opp_score??d.score,
+      itemStyle:{color:CROWD_COLOR[d.crowd]||'#4da3d9'}})),
+      label:{show:true,position:'right',fontSize:11}}]
+  });
+  const dirs=[...w.dirs].slice(0,10);
+  const platSet=new Set(); dirs.forEach(d=>Object.keys(d.plat).forEach(p=>platSet.add(p)));
+  const plats=[...platSet];
+  const hData=[]; dirs.forEach((d,y)=>plats.forEach((p,x)=>{
+    if(d.plat[p]) hData.push([x,y,d.plat[p]]);}));
+  chart('heat'+i, {
+    tooltip:{formatter:p=>`${dirs[p.data[1]].name} × ${PLAT_SHORT[p.data[0]]||p.data[0]}：${p.data[2]} 条`},
+    grid:{left:120,right:20,top:8,bottom:60},
+    xAxis:{type:'category',data:plats.map(p=>PLAT_SHORT[p]||p),axisLabel:{rotate:30,fontSize:11}},
+    yAxis:{type:'category',data:dirs.map(d=>d.name),inverse:true},
+    visualMap:{show:false,min:0,max:6,inRange:{color:['#eef3f8','#2c7fb8']}},
+    series:[{type:'heatmap',data:hData,label:{show:true,fontSize:11}}]
+  });
+  chart('pie'+i, {
+    tooltip:{}, legend:{bottom:0,fontSize:11},
+    series:[{type:'pie',radius:['38%','62%'],
+      data:Object.entries(w.plat_total).map(([k,v])=>({name:PLAT_SHORT[k]||k,value:v})),
+      label:{fontSize:11}}]
+  });
+});
+showWin(0);
+
+/* ---------- 判断视图：A/B 展开，C 折叠 ---------- */
+const AN = window.__ANALYSIS__;
+if (AN && AN.items) {
+  const TIER = {A:{l:'A 级 · 付费路径明确', c:'#5cb85c'},
+                B:{l:'B 级 · 有可能需验证', c:'#f0ad4e'},
+                C:{l:'C 级 · 无付费路径', c:'#8b949e'}};
+  const card = it => `
+    <div class="panel lead ${it.tier==='A'?'a':''}">
+      <h3>${it.title}　<span class="tag" style="background:${TIER[it.tier].c}">${it.pay}/5</span></h3>
+      <div class="why"><b>结论</b>：${md(it.verdict)||'—'}</div>
+      <div class="do"><b>下一步</b>：${md(it.action)||'—'}</div>
+      <details><summary>四问详情（谁付钱 / 付费触发点 / 现有供给 / 为什么上榜）</summary>
+        <table>
+          <tr><td style="width:92px" class="muted">谁付钱</td><td>${md(it.who_pays)||'—'}</td></tr>
+          <tr><td class="muted">付费触发点</td><td>${md(it.trigger)||'—'}</td></tr>
+          <tr><td class="muted">现有供给</td><td>${md(it.supply)||'—'}</td></tr>
+          <tr><td class="muted">为什么上榜</td><td>${md(it.why_hot)||'—'}</td></tr>
+        </table>
+        ${(it.urls&&it.urls.length)?`<div class="xs" style="margin-top:5px">原帖：
+          ${it.urls.map(u=>`<a href="${u}" target="_blank" rel="noopener">打开</a>`).join(' · ')}</div>`:''}
+      </details>
+    </div>`;
+  const ab = AN.items.filter(i=>i.tier!=='C'), cc = AN.items.filter(i=>i.tier==='C');
+  document.getElementById('analysis').innerHTML = `
+    <div class="panel"><h3>热榜内容的付费潜力判断</h3>
+      <div class="hint">核心问题：<b>这个热点背后有没有新生成的付费环节</b>——
+        新增支出才有新机会，旧预算搬家只是替换竞争。</div>
+      <details><summary>判断口径与本轮变化（含"值得单独去读的两处"）</summary>
+        <div class="hint" style="margin-top:6px">${md(AN.note||'')}</div></details>
+    </div>
+    ${ab.map(card).join('')}
+    <details class="box"><summary>C 级 · 无付费路径（${cc.length} 条，明确排除以省时间）</summary>
+      <table><tr><th>条目</th><th>为什么排除</th></tr>
+      ${cc.map(i=>`<tr><td><b>${i.title}</b></td><td>${md(i.verdict)}</td></tr>`).join('')}
+      </table></details>`;
+}
+
+/* ---------- 平台视图：每站默认只看前 5 条 ---------- */
+const PF = window.__PLATFORMS__;
+if (PF) {
+  const PLAT_N = 5;
+  const terms = {};
+  (PF.terms ? Object.entries(PF.terms) : []).forEach(([k,v])=>terms[k]=v);
+  const platTable = (p, n) => `
+    <table>
+      <tr><th style="width:26px">#</th><th>标题</th><th class="num" style="width:64px">热度</th></tr>
+      ${p.items.map((it,j)=>`<tr${j>=n?' class="hideme" style="display:none"':''}>
+        <td>${j+1}</td>
+        <td><a href="${it.url}" target="_blank" rel="noopener">${it.title.slice(0,88)}</a></td>
+        <td class="num">${it.heat}</td></tr>`).join('')}
+    </table>
+    ${p.items.length>n?`<div style="margin-top:6px"><a href="#" class="xs"
+      onclick="var rs=this.closest('div').parentNode.querySelectorAll('.hideme');
+               var o=rs[0].style.display==='none';
+               rs.forEach(r=>r.style.display=o?'table-row':'none');
+               this.textContent=o?'收起':'显示全部 ${p.items.length} 条';
+               return false">显示全部 ${p.items.length} 条</a></div>`:''}`;
+  document.getElementById('platforms').innerHTML = `
+    <div class="panel"><h3>平台热榜（${PF.platforms.length} 个平台，共 ${PF.collected} 条）</h3>
+      <div class="hint">这一层<b>不做门槛、不做归类</b>，排序是各平台自己的热度。
+        各站量纲不同（HN 是点数、知乎是平台热度、Product Hunt / Bluesky 是排名代理），
+        <b>只比排名不比数值</b>。默认每站显示前 ${PLAT_N} 条。</div>
+      ${PF.topics&&PF.topics.length?`<div class="hint"><b>跨平台主题</b>（≥2 个平台出现的关键词）：
+        ${PF.topics.map(t=>`${t.topic}(${t.platforms.length})`).join('、')}</div>`:''}
+      <div class="chart-sm" id="pfbar" style="margin-top:8px"></div>
+    </div>
+    ${PF.platforms.map(p=>`
+      <details class="box">
+        <summary><b>${PLAT_SHORT[p.source]||p.source}</b>　<span class="xs">${p.items.length} 条
+          ${terms[p.source]?`· 高频词 ${terms[p.source].slice(0,5).map(x=>x.t).join('、')}`:''}</span></summary>
+        <div style="margin-top:8px">${platTable(p, PLAT_N, true)}</div>
+      </details>`).join('')}`;
+  chart('pfbar', {
+    tooltip:{formatter:p=>`${p.name}<br>头部热度 ${p.value}（量纲不同，只比排名）`},
+    grid:{left:110,right:60,top:10,bottom:26},
+    xAxis:{type:'value'},
+    yAxis:{type:'category',data:PF.platforms.map(p=>PLAT_SHORT[p.source]||p.source)},
+    series:[{type:'bar',data:PF.platforms.map(p=>({value:p.items[0]?p.items[0].heat:0,
+      itemStyle:{color:'#4da3d9'}})),label:{show:true,position:'right',fontSize:11}}]
+  });
+}
+
+/* ---------- 系统视图 ---------- */
+const RS = window.__RESILIENCE__;
+if (RS && RS.rows) {
+  const C = {covered:'#5cb85c', degraded:'#f0ad4e', lost:'#d9534f'};
+  const LB = {covered:'✅ 正常', degraded:'⚠️ 降级', lost:'❌ 缺口'};
+  const okGap = RS.gap_rate < 0.20, okFail = RS.fail_rate < 0.10;
+  document.getElementById('resilience').innerHTML = `
+    <div class="kpi">
+      <div><b style="color:${okGap?'#5cb85c':'#d9534f'}">${Math.round(RS.gap_rate*100)}%</b>能力缺口（目标 &lt;20%）</div>
+      <div><b style="color:${okFail?'#5cb85c':'#d9534f'}">${Math.round(RS.fail_rate*100)}%</b>硬失败率（目标 &lt;10%）</div>
+      <div>已知不可用源跳过 <b>${Object.keys(RS.skipped||{}).length}</b> 个（不计入失败）</div>
+    </div>
+    <div class="panel"><h3>能力覆盖矩阵</h3>
+      <div class="hint">按<b>能力</b>而非按源统计：一个源失败不等于能力缺失；唯一提供某能力的源挂了才是缺口。
+        「失败率低」必须与「跳过几个」一起读。</div>
+      <table>
+        <tr><th>能力</th><th>状态</th><th>可用主源</th><th>等效源撑着</th></tr>
+        ${RS.rows.map(r=>`<tr>
+          <td><b>${r.capability}</b></td>
+          <td><span class="tag" style="background:${C[r.state]}">${LB[r.state]}</span></td>
+          <td class="xs">${(r.primary_ok||[]).join('、')||'—'}
+            ${(r.primary_failed||[]).length?`<br><span style="color:#d9534f">失败：${r.primary_failed.join('、')}</span>`:''}</td>
+          <td class="xs">${(r.equivalent_ok||[]).join('、')||'—'}
+            ${(r.skipped||[]).length?`<br>跳过：${r.skipped.join('、')}`:''}</td></tr>`).join('')}
+      </table>
+    </div>
+    <details class="box"><summary>采集机制与合规登记</summary>
+      <table><tr><th>源</th><th>机制</th><th>合规风险</th></tr>
+      ${Object.entries(RS.compliance||{}).map(([k,v])=>`<tr><td>${k}</td><td class="xs">${v[0]}</td>
+        <td><span class="tag" style="background:${v[1].includes('高')?'#d9534f':(v[1].includes('中')?'#f0ad4e':'#5cb85c')}">${v[1]}</span></td></tr>`).join('')}
+      </table>
+      <div class="hint" style="margin-top:6px">登录态自动化 = 中-高风险（可能违反站点自动化条款 + 账号风险）。
+        GummySearch 是在盈利状态（$35K MRR / 1 万付费用户）下被 Reddit API 政策逼停的——
+        「业务健康」保护不了「依赖单一平台」这一结构性风险。</div></details>`;
+}
+const V = window.__VALIDATION__;
+if (V && V.stats) {
+  const st = V.stats, ok = st.north_star >= st.target;
+  document.getElementById('validation').innerHTML = `
+    <div class="panel"><h3>验证闭环　
+      <span class="tag" style="background:${ok?'#5cb85c':'#d9534f'}">北极星 ${st.north_star} / 目标 ≥${st.target}</span></h3>
+      <div class="hint">整条流水线不产生价值，只有某个方向被真实验证过才产生价值。
+        判定标准：通过 = ≥2 个独立受访者<b>已在为此付费或给出明确预算</b>；表达「有意思」不算。
+        时间盒 5 人 / 3 天，受访者须来自 ≥2 个不同社区（防同温层）。</div>
+    </div>
+    <details class="box"><summary>待验证队列（${(V.queue||[]).length} 个方向）</summary>
+      ${(V.queue&&V.queue.length)?`<table><tr><th>窗口</th><th>方向</th><th>建议</th><th>趋势</th></tr>
+        ${V.queue.map(q=>`<tr><td>${q.window}</td><td><b>${q.direction}</b></td>
+          <td class="xs">${q.advice}</td><td>${q.trend}</td></tr>`).join('')}</table>`
+        :'<div class="hint">队列为空。</div>'}</details>
+    ${(V.kits||[]).map(k=>`
+      <details class="box"><summary><b>验证包 · ${k.direction}</b>　<span class="xs">${k.window}</span></summary>
+        <table style="margin-top:8px">
+          <tr><td style="width:86px" class="muted">验证目标</td><td>${md(k.target)}</td></tr>
+          <tr><td class="muted">去哪问</td><td>${(k.communities||[]).join('；')}</td></tr>
+          <tr><td class="muted">问什么</td><td>${(k.questions||[]).map((q,i)=>`${i+1}) [${q[0]}] ${q[1]}`).join('<br>')}</td></tr>
+          <tr><td class="muted">怎么判定</td><td>通过：${k.criteria.pass}<br>待续：${k.criteria.pending}<br>否决：${k.criteria.reject}</td></tr>
+          <tr><td class="muted">样本</td><td>${k.budget}</td></tr>
+        </table>
+        <details><summary>可直接复制的脚本（英文 DM / Ask HN 发帖 / 中文 DM）</summary>
+          <pre>${(k.scripts.dm_en||'').replace(/</g,'&lt;')}</pre>
+          <pre>${(k.scripts.post_en||'').replace(/</g,'&lt;')}</pre>
+          <pre>${(k.scripts.dm_zh||'').replace(/</g,'&lt;')}</pre>
+        </details>
+      </details>`).join('')}`;
+}
+const h=document.getElementById('health');
+h.innerHTML='<tr><th>信源</th><th class="num">条数</th><th>状态</th><th>备注</th></tr>'+
+  DATA.health.filter(x=>!(x.ok&&x.count)).map(x=>`<tr><td>${x.source}</td><td class="num">${x.count}</td>
+  <td>${x.skipped?'⏭ 跳过':(x.ok?'✅':'❌')}</td><td class="xs">${(x.note||'').slice(0,90)}</td></tr>`).join('')
+  ||'<tr><td colspan="4" class="hint">本批全部信源正常</td></tr>';
+/* 正常信源不铺在表里 —— 45 个源里只看有问题的，这是最有用的过滤 */
+
+showView('summary');
+</script>
+</body></html>
