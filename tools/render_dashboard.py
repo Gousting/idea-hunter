@@ -75,6 +75,7 @@ def build(json_path, cache_path, ann):
         cache = json.load(f)
     sys.path.insert(0, ROOT)
     from hunter import directions as dr
+    from hunter import paths as ph
 
     data = {"generated_at": rep.get("generated_at", ""),
             "windows": [], "health": rep.get("health", [])}
@@ -110,6 +111,10 @@ def build(json_path, cache_path, ann):
                 "mature_products": s.get("mature_products"),
                 "pain": s.get("pain", 0),
                 "sources": s.get("sources", []),
+                "hot": s.get("hot", 0),
+                "resonance": s.get("resonance", 0),
+                "native_sources": s.get("native_sources", []),
+                "keyword_sources": s.get("keyword_sources", []),
                 "plat": plat_matrix.get(s["name"], {}),
                 "mature": s.get("mature", []),
                 "evidence_links": s.get("evidence_links", []),
@@ -121,7 +126,10 @@ def build(json_path, cache_path, ann):
                 "trend_score": s.get("trend_score", 0),
                 "trend_reasons": s.get("trend_reasons", []),
             })
+        # 贡献率直接从缓存算，不依赖上游 JSON 是否导出该字段
+        n_nat, n_kw, rate = ph.counts(kept)
         data["windows"].append({"key": key, "label": win["label"],
+                                "path_stats": [n_nat, n_kw, rate],
                                 "raw": win.get("raw", 0), "kept": win.get("kept", 0),
                                 "dirs": dirs, "plat_total": plat_total,
                                 "ann_hits": n_ann_hit, "kept_n": len(kept)})
@@ -208,13 +216,20 @@ function show(i){
 DATA.windows.forEach((w,i)=>{
   const el=document.getElementById('win'+i);
   const wtp=w.dirs.reduce((s,d)=>s+(d.wtp>0?1:0),0);
+  const ps=w.path_stats&&w.path_stats.length===3?w.path_stats:null;
+  const natRate=ps?(ps[2]*100).toFixed(0)+'%':'—';
+  const natOk=ps&&ps[2]>=0.4;
   el.innerHTML=`
   <div class="cards">
     <div class="card"><b>${w.raw}</b><span>原始采集</span></div>
     <div class="card"><b>${w.kept}</b><span>规则层留存</span></div>
-    <div class="card"><b>${w.dirs.length}</b><span>候选方向</span></div>
+    <div class="card"><b>${natRate}</b><span>原生榜贡献率${natOk?'（达标 ≥40%）':'（未达标 <40%）'}</span></div>
     <div class="card"><b>${wtp}</b><span>带付费信号的方向</span></div>
   </div>
+  <div class="panel"><h3>证据通道说明</h3>
+    <div class="hint">需求证据＝过痛点/付费构式门槛；平台热点证据＝原生榜且热度达标（不走门槛）。
+      <b>共振只统计原生榜</b>（排序由平台决定＝独立发现）；关键词检索命中是同一个查询在多个平台的回声，
+      <b>不计入共振</b>——这正是"假共振"的修复点。</div></div>
   <div class="panel"><h3>机会象限（热度 × 拥挤度）</h3>
     <div class="hint">右下=热但已挤满（红海）；左下=没人做但也没人要（待验证）；
       越靠左上越稀缺。气泡大小=综合评分，颜色=拥挤度。虚线：热度≥3、存量≥300。</div>
@@ -230,10 +245,14 @@ DATA.windows.forEach((w,i)=>{
     <div class="hint">GitHub 是供给侧（在做什么≠有人要），Reddit 才是需求侧原话</div>
     <div class="chart-sm" id="pie${i}"></div></div>
   <div class="panel"><h3>Top10 明细</h3><table>
-    <tr><th>#</th><th>方向</th><th>机会</th><th>证据</th><th>平台</th><th>讨论热度</th><th>付费</th><th>存量</th><th>成型产品</th><th>拥挤度</th><th>评分</th><th>机会分</th></tr>
+    <tr><th>#</th><th>方向</th><th>机会</th><th>需求</th><th>热点</th><th>共振(原生/检索)</th><th>讨论热度</th><th>付费</th><th>存量</th><th>成型产品</th><th>拥挤度</th><th>评分</th><th>机会分</th></tr>
     ${w.dirs.map((d,j)=>`<tr><td>${j+1}</td><td><b>${d.name}</b></td>
       <td><span class="tag" style="background:${tagColor(d.opp_tag)}">${d.opp_tag}</span></td>
-      <td>${d.evidence}</td><td>${d.sources.map(s=>PLAT_SHORT[s]||s).join('、')}</td>
+      <td>${d.evidence}</td><td>${d.hot||0}</td>
+      <td>${d.resonance||0}
+        <span style="color:var(--muted);font-size:11.5px">
+        （${(d.native_sources||[]).map(s=>PLAT_SHORT[s]||s).join('、')||'—'} /
+         ${(d.keyword_sources||[]).map(s=>PLAT_SHORT[s]||s).join('、')||'—'}）</span></td>
       <td>${d.heat||'—'}</td>
       <td>${d.wtp||'—'}</td><td>${fmt(d.market)}</td>
       <td>${d.mature_products==null?'—':(d.mature_products===0?'<b style="color:#5cb85c">0</b>':d.mature_products)}</td>
@@ -307,7 +326,7 @@ show(0);
 
 // ---------- 热榜付费潜力分析（judgment 层，放最前）----------
 const AN = window.__ANALYSIS__;
-const md = x => (x||'').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+const md = x => (x||'').replace(/\\*\\*(.+?)\\*\\*/g,'<b>$1</b>');
 if (AN && AN.items) {
   const TIER = {A:{l:'A 级 · 付费路径明确', c:'#5cb85c'},
                 B:{l:'B 级 · 有可能需验证', c:'#f0ad4e'},

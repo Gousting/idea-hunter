@@ -20,6 +20,8 @@ import math
 import re
 import time
 
+from . import paths as _paths   # 证据获取路径（原生榜 / 关键词检索 / 评论深读）
+
 # (方向名, 关键词签名, GitHub 检索词)
 # 注意：所有短词必须加 \b 词边界。踩过的坑——
 #   `feed` 会命中 "feedback"、`rag` 会命中 "storage"、
@@ -187,9 +189,21 @@ def aggregate(candidates):
             "wtp": 0, "pain": 0, "items": [], "repos": [],
             "velocity": 0.0, "wtp_llm": 0, "hiring": 0,
             "heat_score": 0, "heat_comments": 0,
+            "hot": 0, "native_sources": set(), "keyword_sources": set(),
         })
-        s["evidence"] += 1
-        s["sources"].add(r.get("source"))
+        is_hot = r.get("record_type") == "platform_hot"
+        if is_hot:
+            s["hot"] += 1            # 平台热点证据（原生榜 + 热度达标）
+        else:
+            s["evidence"] += 1       # 需求证据（过门槛）
+        src = r.get("source")
+        s["sources"].add(src)
+        # 共振只看"原生榜/源自原生榜的深读"——关键词命中是同一个查询的回声，
+        # 不能当独立发现（P0-1 的核心修正）
+        if _paths.is_native(r):
+            s["native_sources"].add(src)
+        else:
+            s["keyword_sources"].add(src)
         if r.get("strong_wtp_hits"):
             s["wtp"] += 1
         if (r.get("llm_wtp") or 0) >= 3:
@@ -219,14 +233,17 @@ def aggregate(candidates):
         if len(s["items"]) < 12:
             s["items"].append(r)
     for s in stat.values():
-        s["diversity"] = len(s["sources"])
+        s["diversity"] = len(s["sources"])              # 全部平台数（展示用）
+        s["resonance"] = len(s["native_sources"])       # 真共振：原生榜独立发现数
+        s["native_sources"] = sorted(x for x in s["native_sources"] if x)
+        s["keyword_sources"] = sorted(x for x in s["keyword_sources"] if x)
         # 讨论热度合成值：赞同数 + 评论数×3（评论多=讨论规模大，单赞不算讨论）
         s["heat"] = s["heat_score"] + s["heat_comments"] * 3
         # 付费信号取两种来源的并集口径：关键词构式命中 或 LLM 判定 wtp>=3
         s["wtp_total"] = max(s["wtp"], s["wtp_llm"])
         s["score"] = round(
             s["evidence"] * 1.0
-            + s["diversity"] * 0.8
+            + s["resonance"] * 0.8   # 用真共振替代"平台名字数"
             + s["wtp_total"] * 1.2
             + math.log10(s["velocity"] + 1) * 1.5
             + min(len(s["repos"]), 5) * 0.4, 2)
@@ -463,20 +480,29 @@ def render_advice(rows):
     return L
 
 
-def render_window(window_label, rows, total_dirs, raw_count):
+def render_window(window_label, rows, total_dirs, raw_count, path_stats=None):
     L = [f"### {window_label} Top {len(rows)} 方向", "",
          f"（本窗口采集 {raw_count} 条，归类出 {total_dirs} 个候选方向）", ""]
+    if path_stats:
+        n_nat, n_kw, rate = path_stats
+        flag = "达标" if rate >= 0.40 else "**未达标**"
+        L += [f"**原生榜贡献率 {rate:.0%}**（原生 {n_nat} / 关键词 {n_kw}｜目标 ≥40%：{flag}）"
+              "　—— 原生榜=排序由平台决定（真独立发现）；关键词检索=排序由我的查询决定"
+              "（同一查询的回声，不计入共振）。", ""]
     if not rows:
         L.append("_本窗口没有出现可归类的方向，说明信号不足或门槛过严。_")
         return "\n".join(L)
     has_crowd = any("crowd" in s for s in rows)
     if has_crowd:
-        L += ["| # | 方向 | 机会 | 证据强度 | 证据数 | 平台 | 讨论热度 | 付费信号 | 存量 | 成型产品 | 拥挤度 | 评分 | 机会分 |",
-              "|---:|---|---|---:|---:|---|---:|---:|---:|---:|---|---:|---:|"]
+        L += ["| # | 方向 | 机会 | 强度 | 需求证据 | 热点 | 共振(原生/检索) | 讨论热度 | 付费 | 存量 | 成型 | 拥挤度 | 评分 | 机会分 |",
+              "|---:|---|---|---:|---:|---:|---|---:|---:|---:|---:|---|---:|---:|"]
         for i, s in enumerate(rows, 1):
-            plats = "、".join(SRC_SHORT.get(x, x) for x in s.get("sources", []))
+            nat = "、".join(SRC_SHORT.get(x, x) for x in s.get("native_sources", [])) or "—"
+            kw = "、".join(SRC_SHORT.get(x, x) for x in s.get("keyword_sources", [])) or "—"
             L.append(f"| {i} | **{s['name']}** | {s.get('opp_tag', '—')} | "
-                     f"{strength(s['evidence'])} | {s['evidence']} | {plats} | "
+                     f"{strength(s.get('evidence', 0) + s.get('hot', 0))} | "
+                     f"{s.get('evidence', 0)} | {s.get('hot', 0)} | "
+                     f"{s.get('resonance', 0)}（{nat} / {kw}） | "
                      f"{s.get('heat', 0)} | {s.get('wtp_total', s.get('wtp', 0))} | "
                      f"{s.get('market_repos', '—')} | {s.get('mature_products', '—')} | "
                      f"{s.get('crowd', '—')} | {s['score']} | {s.get('opp_score', '—')} |")
@@ -493,7 +519,7 @@ def render_window(window_label, rows, total_dirs, raw_count):
                   "「★ 值得看」= 高热度 + 低拥挤；「已拥挤」= 高热度 + 红海，需差异化切入。"
                   "拥挤度阈值（红海≥1000 / 拥挤≥300 / 中等≥80 / 稀疏<80）来自实测分布，"
                   "且 GitHub 存量数受关键词选择影响，只作相对比较。"]
-    L += ["", "> 强度口径：证据数 ≥5 强 / ≥3 中 / 2 偏弱 / 1 弱。"
+    L += ["", "> 强度口径：需求证据+热点合计 ≥5 强 / ≥3 中 / 2 偏弱 / 1 弱。"
               "「弱」不代表没价值，只代表本期只有一条独立证据 —— 需要下期复现才算成立。", ""]
 
     top = [s for s in rows if s["evidence"] >= 2][:3] or rows[:2]

@@ -23,7 +23,8 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from hunter import sources, filter as flt, directions as dr, opencli as oc, llm, advice  # noqa: E402
+from hunter import (sources, filter as flt, directions as dr, opencli as oc, llm,  # noqa: E402
+                    advice, paths)
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, "out")
@@ -257,7 +258,7 @@ def main():
             dr.attach_real_cases(rows, sources.github_mature, cache=crowd_cache)
             results[k] = {"label": v.get("label", k), "raw": v.get("raw", len(kept)),
                           "kept": len(kept), "stat": stat, "rows": rows,
-                          "records": kept}
+                          "records": kept, "path_stats": paths.counts(kept)}
             print(f"  [{v.get('label', k)}] {len(kept)} 条 → {len(rows)} 个方向"
                   f"（拥挤度已补 {done} 个）")
         health = blob.get("health", [])
@@ -289,7 +290,8 @@ def main():
             dr.attach_supply(rows, sources.github_mature_count, cache=crowd_cache)
             dr.attach_real_cases(rows, sources.github_mature, cache=crowd_cache)
             results[k] = {"label": w["label"], "raw": len(uniq), "kept": len(kept),
-                          "stat": stat, "rows": rows, "records": kept}
+                          "stat": stat, "rows": rows, "records": kept,
+                          "path_stats": paths.counts(kept)}
             cache[k] = {"label": w["label"], "raw": len(uniq), "kept": kept}
             print(f"  {len(uniq)} 条 → 规则层 {len(kept)} 条 → {len(stat)} 个候选方向 "
                   f"→ 输出 {len(rows)} 个（拥挤度已补 {done} 个）")
@@ -321,6 +323,7 @@ def main():
         json.dump({"generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
                    "windows": {k: {"label": v["label"], "raw": v["raw"],
                                    "kept": v["kept"],
+                                   "path_stats": list(v.get("path_stats") or []),
                                    "directions": [{kk: (sorted(vv) if isinstance(vv, set) else vv)
                                                    for kk, vv in s.items() if kk != "items"}
                                                   for s in v["rows"]]}
@@ -343,6 +346,9 @@ def render(results, health, args, classify_mode="关键词签名"):
             if "llm" in classify_mode else
             "关键词模式下签名宽度不等（AI 方向最宽），跨方向证据数不可直接比热度。"), "",
          "证据数 = 该方向在本时间窗内的独立候选条数（同一候选只计入一个方向，避免重复计数）。", "",
+         "**两条证据通道**：需求证据（过痛点/付费构式门槛）与平台热点证据"
+         "（原生榜+热度达标，不走门槛）。**共振只统计原生榜**——"
+         "关键词检索命中是同一个查询在多个平台的回声，不等于独立发现。", "",
          "**评分** = 证据数×1.0 + 信源多样性×0.8 + 付费信号×1.2 + 仓库热度×1.5 + 仓库数×0.4", "",
          "**强度**：≥5 强 / ≥3 中 / 2 偏弱 / 1 弱。弱信号不等于没价值，"
          "但只有一条独立证据时不足以支撑判断 —— 它需要在下个窗口复现才算成立。", "",
@@ -360,7 +366,8 @@ def render(results, health, args, classify_mode="关键词签名"):
          "---", ""]
     for k, v in results.items():
         L += [f"## {v['label']}", "",
-              dr.render_window(v["label"], v["rows"], len(v["stat"]), v["raw"]),
+              dr.render_window(v["label"], v["rows"], len(v["stat"]), v["raw"],
+                               path_stats=v.get("path_stats")),
               "", dr.platform_view(v.get("records", [])),
               "", "---", ""]
 

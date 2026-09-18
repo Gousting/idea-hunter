@@ -91,6 +91,12 @@ def strong_wtp_hits(text):
 #   零关注者星标账号：真实项目 5–12%，作弊项目 36–76%
 #   fork/star 比：健康 0.15–0.25，作弊 < 0.05
 # 下面只实现"不需要 token 也能算"的那部分。
+# 平台热点证据的门槛：原生榜单 + 热度达标即可进入（不走痛点/付费构式门槛）。
+# 为什么必须有这条通道：原先的热榜条目因不含"痛点构式"被全量拦掉，
+# 导致留存证据里原生榜只占 24%，"多平台共振"实际测的是关键词回声（P0-1）。
+from .platforms import heat_of as _heat_of            # noqa: E402
+from .paths import HOT_MIN, infer as _path_of, LABEL as PATH_LABEL  # noqa: E402
+
 REPO_SOURCES = ("github_trending", "github_search")
 TEXT_SOURCES = ("hn", "github_issue", "browser", "reddit", "producthunt", "upwork",
                 "stackoverflow", "lobsters", "devto", "lesswrong", "indeed",
@@ -255,6 +261,16 @@ def rule_filter(records, cfg):
             r["record_type"] = "supply"
 
         elif r["source"] in TEXT_SOURCES:
+            # 平台原生热点通道：排序由平台决定，热度达标即视为"社区在关注"，
+            # 不走痛点门槛（否则热榜全被拦，共振退化为关键词回声）。
+            if (_path_of(r) == "platform" and r["source"] in HOT_MIN
+                    and _heat_of(r["source"], r) >= HOT_MIN[r["source"]]):
+                r["path"] = "platform"
+                r["pain_hits"] = r["wtp_hits"] = r["strong_wtp_hits"] = []
+                r["record_type"] = "platform_hot"
+                r["prefilter_score"] = _prefilter_score(r)
+                kept.append(r)
+                continue
             if NOISE_PAT.match(text.strip()[:60]) or len(text) < cfg["min_text_len"]:
                 dropped.append({**r, "drop_stage": "L1", "drop_reason": "噪音/过短"})
                 continue
@@ -303,6 +319,7 @@ def rule_filter(records, cfg):
             kept.append(r)
             continue
 
+        r["path"] = _path_of(r)
         r["prefilter_score"] = _prefilter_score(r)
         kept.append(r)
 

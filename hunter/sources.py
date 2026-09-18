@@ -443,6 +443,7 @@ def hn_pain_points(queries, days=120, per_page=40):
             out.append({
                 "source": "hn",
                 "source_id": f"hn:{oid}",
+                "path": "keyword",
                 "repo": "",
                 "url": f"https://news.ycombinator.com/item?id={oid}",
                 "title": (h.get("story_title") or "")[:160],

@@ -14,7 +14,7 @@
 
 趋势评分口径（可复算）：
   涨星速度  vmax≥200→+3 / ≥80→+2 / ≥30→+1
-  平台共振  diversity≥3→+2 / ==2→+1
+  平台共振  原生榜独立出现≥2→+2 / ==1→+1（关键词检索命中不算，见 hunter/paths.py）
   窗口加速  今日/本周≥0.5→+2；本周/本月≥0.4→+1
   付费信号  wtp_total>0→+1
   新近出现  仅今日窗口有→+1
@@ -54,13 +54,17 @@ def trend_of(name, rows_by_window):
         score += 1
         reasons.append(f"头部仓库日均涨星 {v:.0f}")
 
-    div = len(row_any.get("sources", []))
-    if div >= 3:
+    # 共振只看原生榜（独立发现）。关键词命中是同一个查询的回声，不计共振。
+    res = row_any.get("resonance", 0)
+    kw = len(row_any.get("keyword_sources") or [])
+    if res >= 2:
         score += 2
-        reasons.append(f"{div} 个平台独立出现（共振）")
-    elif div == 2:
+        reasons.append(f"{res} 个平台原生榜独立出现（真共振）")
+    elif res == 1:
         score += 1
-        reasons.append("2 个平台出现")
+        reasons.append("1 个平台原生榜出现")
+    if kw and kw > res:
+        reasons.append(f"⚠ 另有 {kw} 个平台仅关键词检索命中（非独立发现，不计共振）")
 
     d, w, m = ev.get("今日", 0), ev.get("本周", 0), ev.get("本月", 0)
     # 注意：三个窗口是**独立采集**的（不是包含关系），所以 d 可能大于 w。

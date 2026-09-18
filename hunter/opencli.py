@@ -157,7 +157,7 @@ def _cn_num(v):
     return int(n * {"亿": 1e8, "万": 1e4, "千": 1e3}.get(unit, 1))
 
 
-def _norm(src, d, site=""):
+def _norm(src, d, site="", path="platform"):
     """把各适配器不同的字段名统一成流水线的记录结构。
     适配器字段名不统一（name/title、tagline/selftext、permalink/url），
     所以这里用"多候选键名"的方式容错，而不是为每个站点写死字段。"""
@@ -188,6 +188,8 @@ def _norm(src, d, site=""):
         "source": src,
         "source_id": f"{src}:{site}:{sid}",
         "repo": "",
+        # 获取路径：原生榜单 / 关键词检索 / 评论深读（决定能否作为"共振"证据）
+        "path": path,
         "heat": heat,
         "url": url,
         "title": title[:200],
@@ -343,7 +345,7 @@ def reddit_deep(subreddit, top_n=3, sort="top", time_filter="week",
 
 
 
-def _merge_thread(src, rows, sid, url, site, limit_chars=800):
+def _merge_thread(src, rows, sid, url, site, limit_chars=800, path="deep"):
     """把平铺的线程输出合并成一条记录：首项是主帖，其余是各级评论。
 
     为什么抽出来：Reddit / Hacker News / Lobsters / Stack Overflow 的 read
@@ -381,6 +383,7 @@ def _merge_thread(src, rows, sid, url, site, limit_chars=800):
         # 归类只用帖子主题（评论区会跑题），信号检测才用全文
         "topic_text": f"{title}. {post_text}"[:600],
         "site": site,
+        "path": path,
         "comment_count": len(bodies),
         "comment_score_sum": total_score,
         "heat": {"score": _i(post.get("score")), "comments": len(bodies),
@@ -459,7 +462,7 @@ def upwork_search(query, per_page=30, sort="recency", location=""):
         args += ["--location", location]
     d, m = run(args, timeout=180)
     rows = _rows(d)
-    return [_norm("upwork", r, "search") for r in rows], \
+    return [_norm("upwork", r, "search", path="keyword") for r in rows], \
         {"source": f"opencli:upwork[{query[:16]}]", "count": len(rows),
          "ok": m["ok"], "note": m["note"]}
 
@@ -555,6 +558,7 @@ def indeed_search(query):
             "title": title[:150],
             "text": text[:400],
             "site": "indeed:search",
+            "path": "keyword",
             "salary": sal,
             "raw": {k: v for k, v in r.items() if not isinstance(v, (dict, list))},
             "collected_at": int(time.time()),
@@ -575,7 +579,7 @@ def twitter_search(query):
     """X 搜索透传原始操作符（lang:en / since: / -filter:replies 可用）。无 --limit。"""
     d, m = run(["twitter", "search", query], timeout=180)
     rows = _rows(d)
-    return [_norm("twitter", r, "search") for r in rows], \
+    return [_norm("twitter", r, "search", path="keyword") for r in rows], \
         {"source": f"opencli:twitter[{query[:20]}]", "count": len(rows),
          "ok": m["ok"], "note": m["note"]}
 
@@ -583,6 +587,6 @@ def twitter_search(query):
 def xhs_search(query, limit=15):
     d, m = run(["xiaohongshu", "search", query, "--limit", str(limit)])
     rows = _rows(d)
-    return [_norm("xiaohongshu", r, "search") for r in rows], \
+    return [_norm("xiaohongshu", r, "search", path="keyword") for r in rows], \
         {"source": f"opencli:xhs[{query[:12]}]", "count": len(rows),
          "ok": m["ok"], "note": m["note"]}
