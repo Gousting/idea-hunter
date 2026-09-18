@@ -24,7 +24,7 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from hunter import (sources, filter as flt, directions as dr, opencli as oc, llm,  # noqa: E402
-                    advice, paths)
+                    advice, paths, validate as vd)
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, "out")
@@ -314,10 +314,20 @@ def main():
     if hot:
         print("  趋势高（可能爆发）：" + "、".join(n for n, _ in hot[:5]))
 
+    # 验证闭环（P0-2）：给够格方向生成可执行验证包，并读台账算北极星
+    rows_by_window = {v["label"]: v["rows"] for v in results.values()}
+    kit_md, kits = vd.build_kits(rows_by_window)
+    vstats = vd.stats()
+    vqueue = vd.pending_queue(rows_by_window)
+    with open(os.path.join(OUT, "validation_kits.json"), "w", encoding="utf-8") as f:
+        json.dump({"kits": kits, "stats": vstats, "queue": vqueue},
+                  f, ensure_ascii=False, default=str)
+
     ts = time.strftime("%Y%m%d-%H%M")
     rp = os.path.join(OUT, f"directions_{ts}.md")
     with open(rp, "w", encoding="utf-8") as f:
-        f.write(render(results, health, args, classify_mode))
+        f.write(render(results, health, args, classify_mode,
+                       kit_md=kit_md, vstats=vstats))
     jp = os.path.join(OUT, f"directions_{ts}.json")
     with open(jp, "w", encoding="utf-8") as f:
         json.dump({"generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -337,7 +347,7 @@ def main():
     return 0
 
 
-def render(results, health, args, classify_mode="关键词签名"):
+def render(results, health, args, classify_mode="关键词签名", kit_md=None, vstats=None):
     L = ["# 值得看的方向 Top10 · 按时效性分层", "",
          f"生成时间：{time.strftime('%Y-%m-%d %H:%M')}", "",
          "**判定口径**：把散点候选聚合成「方向」后按证据强度排序。",
@@ -404,7 +414,21 @@ def render(results, health, args, classify_mode="关键词签名"):
         L += ["_本轮没有方向同时满足「高热度 + 低拥挤」。"
               "头部方向都偏拥挤（红海），需要差异化切入，或等下个窗口复现后再看。_"]
 
-    L += ["", "## 信源健康", "", "| 信源 | 条数 | 状态 | 备注 |", "|---|---:|---|---|"]
+    L += ["", "## 验证闭环（P0-2）", ""]
+    if vstats:
+        ok = "✅ 达标" if vstats["north_star"] >= vstats["target"] else "❌ 未达标"
+        L += [f"**北极星：近 {vstats['window_days']} 天验证通过方向数 "
+              f"{vstats['north_star']} / 目标 ≥{vstats['target']}　{ok}**", "",
+              f"（待续 {len(vstats['pending'])} 个 · 否决 {len(vstats['rejected'])} 个 · "
+              f"误杀复活 {len(vstats['resurrected'])} 个 · 误杀率 "
+              f"{'—' if vstats['mistake_rate'] is None else format(vstats['mistake_rate'], '.0%')}）", "",
+              "> 判定标准：**通过 = ≥2 个独立受访者已在为此付费或给出明确预算**。"
+              "表达\"有意思\"不算证据。", "",
+              "> 记录方式：`python tools/validation.py log \"<方向>\" --result pass "
+              "--intents 3 --note \"...\"`；待验证队列：`python tools/validation.py queue`。", ""]
+    if kit_md:
+        L += ["### 验证包（可直接执行：去哪问 / 问什么 / 怎么判定 / 可复制脚本）", ""] + kit_md
+    L += ["## 信源健康", "", "| 信源 | 条数 | 状态 | 备注 |", "|---|---:|---|---|"]
     for h in health:
         L.append(f"| {h['source']} | {h.get('count', 0)} | "
                  f"{'✅' if h.get('ok') else '❌'} | {h.get('note', '')} |")

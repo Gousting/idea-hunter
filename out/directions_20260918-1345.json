@@ -1,10 +1,15 @@
 {
-  "generated_at": "2026-09-18 11:41:10",
+  "generated_at": "2026-09-18 13:45:51",
   "windows": {
     "day": {
       "label": "今日",
       "raw": 391,
       "kept": 97,
+      "path_stats": [
+        82,
+        15,
+        0.845360824742268
+      ],
       "directions": [
         {
           "name": "AI 代理与自动化",
@@ -214,7 +219,7 @@
           "heat": 399,
           "wtp_total": 0,
           "score": 18.97,
-          "market_repos": 3302,
+          "market_repos": 3303,
           "crowd": "红海",
           "opp_tag": "已拥挤：需差异化切入",
           "opp_score": 5.39,
@@ -223,21 +228,21 @@
             {
               "repo": "affaan-m/ECC",
               "url": "https://github.com/affaan-m/ECC",
-              "stars": 261261,
+              "stars": 261322,
               "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev",
               "updated": "2026-09-17"
             },
             {
               "repo": "NousResearch/hermes-agent",
               "url": "https://github.com/NousResearch/hermes-agent",
-              "stars": 246600,
+              "stars": 246628,
               "desc": "The agent that grows with you",
               "updated": "2026-09-18"
             },
             {
               "repo": "langgenius/dify",
               "url": "https://github.com/langgenius/dify",
-              "stars": 156206,
+              "stars": 156218,
               "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
               "updated": "2026-09-18"
             }
@@ -268,7 +273,7 @@
           "advice_level": 1,
           "advice_reasons": [
             "10 条证据显示需求真实",
-            "但 GitHub 存量 3302 个（红海）"
+            "但 GitHub 存量 3303 个（红海）"
           ],
           "advice_action": "除非有明确差异化切口（细分人群 / 现有产品的具体差评），否则跳过",
           "trend_level": "高",
@@ -349,6 +354,29 @@
           "opp_tag": "★ 值得看",
           "opp_score": 7.22,
           "mature_products": 6,
+          "mature": [
+            {
+              "repo": "cheeriojs/cheerio",
+              "url": "https://github.com/cheeriojs/cheerio",
+              "stars": 30491,
+              "desc": "The fast, flexible, and elegant library for parsing and manipulating HTML and XML.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "rust-scraper/scraper",
+              "url": "https://github.com/rust-scraper/scraper",
+              "stars": 2420,
+              "desc": "HTML parsing and querying with CSS selectors",
+              "updated": "2026-09-14"
+            },
+            {
+              "repo": "oxylabs/how-to-scrape-google-images",
+              "url": "https://github.com/oxylabs/how-to-scrape-google-images",
+              "stars": 2117,
+              "desc": "Real time google image scraper. The process is automated by sending HTTP requests to retrieve image data which",
+              "updated": "2026-06-19"
+            }
+          ],
           "evidence_links": [
             {
               "title": "awlevin/typesafe-computer-use",
@@ -531,7 +559,7 @@
             {
               "repo": "metabase/metabase",
               "url": "https://github.com/metabase/metabase",
-              "stars": 49323,
+              "stars": 49324,
               "desc": "The easy-to-use open source Business Intelligence and Embedded Analytics tool that lets everyone work with dat",
               "updated": "2026-09-18"
             },
@@ -665,7 +693,7 @@
             {
               "repo": "freeCodeCamp/devdocs",
               "url": "https://github.com/freeCodeCamp/devdocs",
-              "stars": 39462,
+              "stars": 39463,
               "desc": "API Documentation Browser",
               "updated": "2026-09-15"
             },
@@ -742,7 +770,7 @@
             {
               "repo": "OpenByteInc/QuantDinger",
               "url": "https://github.com/OpenByteInc/QuantDinger",
-              "stars": 11710,
+              "stars": 11712,
               "desc": "Open-source AI Trading OS and commercial-ready multi-tenant SaaS platform — research markets, build Python str",
               "updated": "2026-09-18"
             },
@@ -823,21 +851,21 @@
             {
               "repo": "langgenius/dify",
               "url": "https://github.com/langgenius/dify",
-              "stars": 156206,
+              "stars": 156218,
               "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
               "updated": "2026-09-18"
             },
             {
               "repo": "coollabsio/coolify",
               "url": "https://github.com/coollabsio/coolify",
-              "stars": 61962,
+              "stars": 61965,
               "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ",
               "updated": "2026-09-17"
             },
             {
               "repo": "agentscope-ai/QwenPaw",
               "url": "https://github.com/agentscope-ai/QwenPaw",
-              "stars": 35064,
+              "stars": 35068,
               "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha",
               "updated": "2026-09-18"
             }
@@ -937,6 +965,11 @@
       "label": "本周",
       "raw": 246,
       "kept": 62,
+      "path_stats": [
+        32,
+        30,
+        0.5161290322580645
+      ],
       "directions": [
         {
           "name": "AI 代理与自动化",
@@ -1024,7 +1057,7 @@
           "heat": 1628,
           "wtp_total": 1,
           "score": 23.86,
-          "market_repos": 3302,
+          "market_repos": 3303,
           "crowd": "红海",
           "opp_tag": "已拥挤：需差异化切入",
           "opp_score": 6.78,
@@ -1033,21 +1066,21 @@
             {
               "repo": "affaan-m/ECC",
               "url": "https://github.com/affaan-m/ECC",
-              "stars": 261261,
+              "stars": 261322,
               "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev",
               "updated": "2026-09-17"
             },
             {
               "repo": "NousResearch/hermes-agent",
               "url": "https://github.com/NousResearch/hermes-agent",
-              "stars": 246600,
+              "stars": 246628,
               "desc": "The agent that grows with you",
               "updated": "2026-09-18"
             },
             {
               "repo": "langgenius/dify",
               "url": "https://github.com/langgenius/dify",
-              "stars": 156206,
+              "stars": 156218,
               "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
               "updated": "2026-09-18"
             }
@@ -1078,7 +1111,7 @@
           "advice_level": 1,
           "advice_reasons": [
             "10 条证据显示需求真实",
-            "但 GitHub 存量 3302 个（红海）"
+            "但 GitHub 存量 3303 个（红海）"
           ],
           "advice_action": "除非有明确差异化切口（细分人群 / 现有产品的具体差评），否则跳过",
           "trend_level": "高",
@@ -1124,14 +1157,14 @@
             {
               "repo": "cheeriojs/cheerio",
               "url": "https://github.com/cheeriojs/cheerio",
-              "stars": 30490,
+              "stars": 30491,
               "desc": "The fast, flexible, and elegant library for parsing and manipulating HTML and XML.",
               "updated": "2026-09-18"
             },
             {
               "repo": "rust-scraper/scraper",
               "url": "https://github.com/rust-scraper/scraper",
-              "stars": 2419,
+              "stars": 2420,
               "desc": "HTML parsing and querying with CSS selectors",
               "updated": "2026-09-14"
             },
@@ -1284,7 +1317,7 @@
             {
               "repo": "metabase/metabase",
               "url": "https://github.com/metabase/metabase",
-              "stars": 49323,
+              "stars": 49324,
               "desc": "The easy-to-use open source Business Intelligence and Embedded Analytics tool that lets everyone work with dat",
               "updated": "2026-09-18"
             },
@@ -1432,21 +1465,21 @@
             {
               "repo": "langgenius/dify",
               "url": "https://github.com/langgenius/dify",
-              "stars": 156206,
+              "stars": 156218,
               "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
               "updated": "2026-09-18"
             },
             {
               "repo": "coollabsio/coolify",
               "url": "https://github.com/coollabsio/coolify",
-              "stars": 61962,
+              "stars": 61965,
               "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ",
               "updated": "2026-09-17"
             },
             {
               "repo": "agentscope-ai/QwenPaw",
               "url": "https://github.com/agentscope-ai/QwenPaw",
-              "stars": 35064,
+              "stars": 35068,
               "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha",
               "updated": "2026-09-18"
             }
@@ -1575,12 +1608,16 @@
           "heat": 0,
           "wtp_total": 0,
           "score": 6.84,
+          "market_repos": 198,
+          "crowd": "中等",
+          "opp_tag": "待验证",
+          "opp_score": 2.95,
           "mature_products": 38,
           "mature": [
             {
               "repo": "wazuh/wazuh",
               "url": "https://github.com/wazuh/wazuh",
-              "stars": 16922,
+              "stars": 16924,
               "desc": "Wazuh - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.",
               "updated": "2026-09-18"
             },
@@ -1594,7 +1631,7 @@
             {
               "repo": "prowler-cloud/prowler",
               "url": "https://github.com/prowler-cloud/prowler",
-              "stars": 14830,
+              "stars": 14831,
               "desc": "Prowler is the world’s most widely used open-source cloud security platform that automates security and compli",
               "updated": "2026-09-17"
             }
@@ -1692,6 +1729,29 @@
           "opp_tag": "红海",
           "opp_score": 2.19,
           "mature_products": 101,
+          "mature": [
+            {
+              "repo": "harry0703/MoneyPrinterTurbo",
+              "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+              "stars": 124485,
+              "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workf",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "FFmpeg/FFmpeg",
+              "url": "https://github.com/FFmpeg/FFmpeg",
+              "stars": 64314,
+              "desc": "Mirror of https://git.ffmpeg.org/ffmpeg.git",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "calesthio/OpenMontage",
+              "url": "https://github.com/calesthio/OpenMontage",
+              "stars": 59797,
+              "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent sk",
+              "updated": "2026-09-06"
+            }
+          ],
           "evidence_links": [
             {
               "title": "letorig/video-generator-client",
@@ -1794,7 +1854,7 @@
             {
               "repo": "freeCodeCamp/devdocs",
               "url": "https://github.com/freeCodeCamp/devdocs",
-              "stars": 39462,
+              "stars": 39463,
               "desc": "API Documentation Browser",
               "updated": "2026-09-15"
             },
@@ -1972,6 +2032,11 @@
       "label": "本月",
       "raw": 253,
       "kept": 64,
+      "path_stats": [
+        35,
+        29,
+        0.546875
+      ],
       "directions": [
         {
           "name": "AI 代理与自动化",
@@ -2368,7 +2433,7 @@
           "heat": 1626,
           "wtp_total": 1,
           "score": 35.59,
-          "market_repos": 3302,
+          "market_repos": 3303,
           "crowd": "红海",
           "opp_tag": "已拥挤：需差异化切入",
           "opp_score": 10.11,
@@ -2377,21 +2442,21 @@
             {
               "repo": "affaan-m/ECC",
               "url": "https://github.com/affaan-m/ECC",
-              "stars": 261261,
+              "stars": 261322,
               "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev",
               "updated": "2026-09-17"
             },
             {
               "repo": "NousResearch/hermes-agent",
               "url": "https://github.com/NousResearch/hermes-agent",
-              "stars": 246600,
+              "stars": 246628,
               "desc": "The agent that grows with you",
               "updated": "2026-09-18"
             },
             {
               "repo": "langgenius/dify",
               "url": "https://github.com/langgenius/dify",
-              "stars": 156206,
+              "stars": 156218,
               "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
               "updated": "2026-09-18"
             }
@@ -2422,7 +2487,7 @@
           "advice_level": 1,
           "advice_reasons": [
             "10 条证据显示需求真实",
-            "但 GitHub 存量 3302 个（红海）"
+            "但 GitHub 存量 3303 个（红海）"
           ],
           "advice_action": "除非有明确差异化切口（细分人群 / 现有产品的具体差评），否则跳过",
           "trend_level": "高",
@@ -2521,7 +2586,7 @@
             {
               "repo": "deepseek-ai/awesome-deepseek-integration",
               "url": "https://github.com/deepseek-ai/awesome-deepseek-integration",
-              "stars": 39162,
+              "stars": 39163,
               "desc": "Integrate the DeepSeek API into popular software",
               "updated": "2026-02-23"
             }
@@ -2617,7 +2682,7 @@
           "crowd": "稀疏",
           "opp_tag": "待验证",
           "opp_score": 3.74,
-          "mature_products": null,
+          "mature_products": 3,
           "mature": [
             {
               "repo": "cinder/Cinder",
@@ -2791,6 +2856,29 @@
           "opp_tag": "待验证",
           "opp_score": 0.9,
           "mature_products": 62,
+          "mature": [
+            {
+              "repo": "netdata/netdata",
+              "url": "https://github.com/netdata/netdata",
+              "stars": 80564,
+              "desc": "The fastest path to AI-powered full stack observability, even for lean teams.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "grafana/grafana",
+              "url": "https://github.com/grafana/grafana",
+              "stars": 76794,
+              "desc": "The open and composable observability and data visualization platform. Visualize metrics, logs, and traces fro",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "langfuse/langfuse",
+              "url": "https://github.com/langfuse/langfuse",
+              "stars": 34746,
+              "desc": "🪢 Open source agent evals & observability: Trace, evaluate, and improve LLM applications with one open platfor",
+              "updated": "2026-09-17"
+            }
+          ],
           "evidence_links": [
             {
               "title": "One resignation turned the embers of AI fear into a wildfire",
@@ -2861,7 +2949,7 @@
           "crowd": "稀疏",
           "opp_tag": "待验证",
           "opp_score": 1.18,
-          "mature_products": 12,
+          "mature_products": null,
           "mature": [
             {
               "repo": "apollographql/apollo-client",
@@ -3014,21 +3102,21 @@
             {
               "repo": "langgenius/dify",
               "url": "https://github.com/langgenius/dify",
-              "stars": 156206,
+              "stars": 156218,
               "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
               "updated": "2026-09-18"
             },
             {
               "repo": "coollabsio/coolify",
               "url": "https://github.com/coollabsio/coolify",
-              "stars": 61962,
+              "stars": 61965,
               "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ",
               "updated": "2026-09-17"
             },
             {
               "repo": "agentscope-ai/QwenPaw",
               "url": "https://github.com/agentscope-ai/QwenPaw",
-              "stars": 35064,
+              "stars": 35068,
               "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha",
               "updated": "2026-09-18"
             }
@@ -3086,7 +3174,7 @@
             {
               "repo": "OpenByteInc/QuantDinger",
               "url": "https://github.com/OpenByteInc/QuantDinger",
-              "stars": 11710,
+              "stars": 11712,
               "desc": "Open-source AI Trading OS and commercial-ready multi-tenant SaaS platform — research markets, build Python str",
               "updated": "2026-09-18"
             },
@@ -3158,14 +3246,14 @@
             {
               "repo": "cheeriojs/cheerio",
               "url": "https://github.com/cheeriojs/cheerio",
-              "stars": 30490,
+              "stars": 30491,
               "desc": "The fast, flexible, and elegant library for parsing and manipulating HTML and XML.",
               "updated": "2026-09-18"
             },
             {
               "repo": "rust-scraper/scraper",
               "url": "https://github.com/rust-scraper/scraper",
-              "stars": 2419,
+              "stars": 2420,
               "desc": "HTML parsing and querying with CSS selectors",
               "updated": "2026-09-14"
             },
@@ -3485,12 +3573,6 @@
       "count": 3,
       "ok": true,
       "note": "r/SideProject: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
-    },
-    {
-      "source": "github_count(拥挤度)",
-      "count": 0,
-      "ok": false,
-      "note": "安全与合规: 请求失败 https://api.github.com/search/repositories?q=security%20compliance%20stars%3A%3E50&per_page=1 :"
     }
   ]
 }

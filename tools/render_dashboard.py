@@ -51,6 +51,15 @@ def load_analysis():
         return json.load(f)
 
 
+def load_validation():
+    """验证闭环数据（P0-2）：验证包 + 北极星 + 待验证队列。"""
+    p = os.path.join(OUT, "validation_kits.json")
+    if not os.path.isfile(p):
+        return None
+    with open(p, encoding="utf-8") as f:
+        return json.load(f)
+
+
 def load_platforms():
     """平台优先轨道的 JSON（run_platforms.py 产出）。没有就返回 None。"""
     p = latest("platforms_*.json")
@@ -175,6 +184,7 @@ HTML = """<!DOCTYPE html>
 <h1>idea-hunter · 方向看板</h1>
 <div class="meta">生成时间：__GENERATED__　·　方向判定：__MODE__　·　
 数据口径：证据数=窗口内独立候选条数；拥挤度=GitHub 同方向存量（红海≥1000/拥挤≥300/中等≥80/稀疏&lt;80）</div>
+<div id="validation"></div>
 <div id="analysis"></div>
 <div class="tabs" id="tabs"></div>
 <div id="panels"></div>
@@ -182,7 +192,8 @@ HTML = """<!DOCTYPE html>
 <div class="panel"><h3>信源健康</h3><table id="health"></table></div>
 </div>
 <script>window.__PLATFORMS__ = __PLATFORMS_JSON__;
-window.__ANALYSIS__ = __ANALYSIS_JSON__;</script>
+window.__ANALYSIS__ = __ANALYSIS_JSON__;
+window.__VALIDATION__ = __VALIDATION_JSON__;</script>
 <script>
 const DATA = __DATA__;
 const CROWD_COLOR = __CROWDCOLOR__;
@@ -196,6 +207,9 @@ function chart(id, opt){
   try{ echarts.init(document.getElementById(id)).setOption(opt); }catch(e){}
 }
 const ADVICE_COLOR = {4:'#5cb85c',3:'#7cb342',2:'#f0ad4e',1:'#d9534f',0:'#8b949e'};
+// 统一的轻量 markdown（只处理 **粗体**）。必须在所有使用它的块之前声明——
+// 否则后面的块先执行会撞 TDZ（Block 级作用域）报 ReferenceError，整段不渲染。
+const md = x => (x||'').replace(/\\*\\*(.+?)\\*\\*/g,'<b>$1</b>');
 const TREND_COLOR = {'高':'#d9534f','中':'#f0ad4e','低':'#8b949e','':'#8b949e'};
 const fmt = n => n==null ? '—' : (n>=1000 ? n.toLocaleString('en-US') : n);
 const tagColor = t => t.includes('★')?'#5cb85c':t.includes('已拥挤')?'#d9534f':t.includes('红海')?'#c9764a':'#8b949e';
@@ -324,9 +338,51 @@ DATA.windows.forEach((w,i)=>{
 });
 show(0);
 
+// ---------- 验证闭环（P0-2）：北极星 + 可执行验证包 ----------
+const V = window.__VALIDATION__;
+if (V && V.stats) {
+  const st = V.stats, ok = st.north_star >= st.target;
+  document.getElementById('validation').innerHTML = `
+    <div class="panel">
+      <h3>验证闭环　
+        <span class="tag" style="background:${ok?'#5cb85c':'#d9534f'}">
+          北极星 ${st.north_star} / 目标 ≥${st.target}（近 ${st.window_days} 天验证通过方向数）</span></h3>
+      <div class="hint">整条流水线不产生价值，只有"某个方向被真实验证过"才产生价值——
+        这个指标同时度量信号质量与工作闭环。</div>
+      <div class="hint"><b>判定标准</b>：通过 = ≥2 个独立受访者<b>已在为此付费或给出明确预算</b>；
+        表达"有意思"不算证据。待续 = 1 个；否决 = 0 个。时间盒 5 人 / 3 天，
+        受访者须来自 ≥2 个不同社区（防同温层）。</div>
+      <div class="hint">待续 ${st.pending.length} · 否决 ${st.rejected.length} ·
+        误杀复活 ${st.resurrected.length} · 误杀率 ${st.mistake_rate==null?'—':(st.mistake_rate*100).toFixed(0)+'%'} ·
+        台账 ${st.total_records} 条</div>
+    </div>
+    <div class="panel"><h3>待验证队列（够格但还没有记录的方向）</h3>
+      ${(V.queue&&V.queue.length)?`<table><tr><th>窗口</th><th>方向</th><th>建议</th><th>趋势</th></tr>
+        ${V.queue.map(q=>`<tr><td>${q.window}</td><td><b>${q.direction}</b></td>
+          <td>${q.advice}</td><td>${q.trend}</td></tr>`).join('')}</table>`
+        :'<div class="hint">队列为空——够格的方向都已有记录。</div>'}
+    </div>
+    ${(V.kits||[]).map(k=>`
+      <div class="panel">
+        <h3>${k.direction}　<span style="color:var(--muted);font-weight:400">${k.window}</span></h3>
+        <table style="font-size:12.5px">
+          <tr><td style="width:88px;color:var(--muted)">验证目标</td><td>${md(k.target)}</td></tr>
+          <tr><td style="color:var(--muted)">去哪问</td><td>${(k.communities||[]).join('；')}</td></tr>
+          <tr><td style="color:var(--muted)">问什么</td><td>${(k.questions||[]).map((q,i)=>`${i+1}) [${q[0]}] ${q[1]}`).join('<br>')}</td></tr>
+          <tr><td style="color:var(--muted)">判定</td><td>通过：${k.criteria.pass}<br>待续：${k.criteria.pending}<br>否决：${k.criteria.reject}</td></tr>
+          <tr><td style="color:var(--muted)">样本</td><td>${k.budget}</td></tr>
+        </table>
+        <details style="margin-top:6px"><summary style="cursor:pointer;color:var(--muted);font-size:12.5px">
+          可直接复制的脚本（DM / 发帖）</summary>
+          <pre style="white-space:pre-wrap;background:var(--bg);padding:8px;border-radius:6px;font-size:12px">${(k.scripts.dm_en||'').replace(/</g,'&lt;')}</pre>
+          <pre style="white-space:pre-wrap;background:var(--bg);padding:8px;border-radius:6px;font-size:12px">${(k.scripts.post_en||'').replace(/</g,'&lt;')}</pre>
+          <pre style="white-space:pre-wrap;background:var(--bg);padding:8px;border-radius:6px;font-size:12px">${(k.scripts.dm_zh||'').replace(/</g,'&lt;')}</pre>
+        </details>
+      </div>`).join('')}`;
+}
+
 // ---------- 热榜付费潜力分析（judgment 层，放最前）----------
 const AN = window.__ANALYSIS__;
-const md = x => (x||'').replace(/\\*\\*(.+?)\\*\\*/g,'<b>$1</b>');
 if (AN && AN.items) {
   const TIER = {A:{l:'A 级 · 付费路径明确', c:'#5cb85c'},
                 B:{l:'B 级 · 有可能需验证', c:'#f0ad4e'},
@@ -457,7 +513,8 @@ def main():
             .replace("__MODE__", json.dumps(mode, ensure_ascii=False))
             .replace("__GENERATED__", data["generated_at"])
             .replace("__PLATFORMS_JSON__", json.dumps(load_platforms(), ensure_ascii=False))
-            .replace("__ANALYSIS_JSON__", json.dumps(load_analysis(), ensure_ascii=False)))
+            .replace("__ANALYSIS_JSON__", json.dumps(load_analysis(), ensure_ascii=False))
+            .replace("__VALIDATION_JSON__", json.dumps(load_validation(), ensure_ascii=False)))
     ts = time.strftime("%Y%m%d-%H%M")
     out = os.path.join(OUT, f"dashboard_{ts}.html")
     with open(out, "w", encoding="utf-8") as f:
