@@ -719,6 +719,50 @@ class TestLeadExtraction(unittest.TestCase):
         L = {"title": "讨论一下薪资水平", "text": "讨论一下薪资水平", "url": "u"}
         self.assertNotEqual(leads.lead_kind(L), "hiring")
 
+    def test_from_cache_prefers_own_cache_and_reports_missing(self):
+        """踩过的坑：第一版只读 `window_cache_*.json`（那是 run_windows.py 的产出），
+        leads.py 自己从不保存 —— 全新用户照 README 敲 --from-cache 会拿到 0 条，
+        而且**退出码是 0**，分不清是工具坏了还是没数据。
+
+        这里验证：① 读得到自己的 leads_cache；② 没有缓存时如实报告（ok=False + 说明）。
+        """
+        import leads
+        import json as _json
+        import os as _os
+        import tempfile
+
+        d = tempfile.mkdtemp()
+        orig_out = leads.OUT
+        try:
+            leads.OUT = d
+            # ① 没有缓存 → 如实报告
+            recs, health = leads.from_cache()
+            self.assertEqual(recs, [])
+            self.assertFalse(health[0]["ok"])
+            self.assertIn("找不到任何缓存", health[0]["note"])
+
+            # ② 有 leads_cache → 读得到
+            cache = _os.path.join(d, "leads_cache_20260920-1100.json")
+            with open(cache, "w", encoding="utf-8") as f:
+                _json.dump({"leads": [{"title": "写个爬虫", "text": "写个爬虫",
+                                       "url": "u", "source": "v2ex"}]}, f)
+            recs, health = leads.from_cache()
+            self.assertEqual(len(recs), 1)
+            self.assertTrue(health[0]["ok"])
+            self.assertIn("复用上一轮的过滤结果", health[0]["note"])
+        finally:
+            leads.OUT = orig_out
+            import shutil
+            shutil.rmtree(d, ignore_errors=True)
+
+    def test_lead_carries_record_type_for_cache_reuse(self):
+        """缓存复用要能识别"这条已由 hunter/filter.py 做过供需过滤"，
+        否则 forhire 的 [Hiring] 帖会被二次判断。"""
+        import leads
+        L = leads.to_lead({"title": "[Hiring] need a script", "text": "x" * 200,
+                           "url": "u", "source": "reddit", "record_type": "hiring"}, "reddit")
+        self.assertEqual(L["record_type"], "hiring")
+
     def test_verdicts_are_discriminating(self):
         """实测原阈值下 30/30 全判「值得联系」，等于没有筛选能力。"""
         import leads

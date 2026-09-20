@@ -411,10 +411,18 @@ def to_lead(rec, source):
         "author": rec.get("author") or "",
         "age_days": _age_days(rec),
         "group": repo_of(rec.get("url") or ""),
+        # 带上 record_type：项目已有通道（bounty/forhire）在 hunter/filter.py
+        # 已做过供需过滤，缓存复用时要能识别出来、不再二次判断。
+        "record_type": rec.get("record_type") or "",
         "supply_side": is_supply_side(txt, title),
         "junk_title": not title_quality(title),
     }
     lead["tech"] = tech_tags(lead)          # 能力画像的词汇表，见 TECH_TAGS
+    # 缓存复用时保留深读痕迹 —— 否则重跑会把"已深读"当成"没读到正文"，
+    # 于是话术里误报一句"建议先点开链接看一眼"（实测踩过）。
+    for k in ("deep", "deep_note"):
+        if k in rec:
+            lead[k] = rec[k]
     return score_lead(lead)
 
 
@@ -1083,25 +1091,41 @@ def profile_weights():
 
 # ---------------------------------------------------------------- 离线模式
 def from_cache(path=None):
-    """从已有的 window_cache_*.json 抽线索 —— 不联网、秒出。
+    """从已有的采集缓存抽线索 —— 不联网、秒出。
 
-    这些记录已经被 rule_filter 过了一遍（含 forhire 供需过滤），
-    所以是现成的高质量线索池。
+    两级缓存（踩过的坑）：第一版只读 `window_cache_*.json`，那是
+    **run_windows.py 的产出**，leads.py 自己从不保存 —— 于是全新用户照 README
+    敲 `--from-cache` 会拿到 0 条，而且**退出码是 0**，分不清是工具坏了还是没数据。
+    现在优先读 leads.py 自己存的 `leads_cache_*.json`，再退回 window_cache。
     """
     if not path:
-        c = sorted(glob.glob(os.path.join(OUT, "window_cache_*.json")))
-        if not c:
-            return [], []
-        path = c[-1]
+        for pat in ("leads_cache_[0-9]*.json", "window_cache_[0-9]*.json"):
+            c = sorted(glob.glob(os.path.join(OUT, pat)))
+            if c:
+                path = c[-1]
+                break
+        if not path:
+            return [], [{"source": "cache", "count": 0, "ok": False,
+                         "note": "找不到任何缓存 —— 先跑一次不带 --from-cache 的采集"}]
     with open(path, encoding="utf-8") as f:
         blob = json.load(f)
+    # leads_cache：leads.py 自己存的**过滤后 leads**（首选）
+    # —— 存 leads 而不是 raw，因为 raw 里没有 record_type，
+    #    回读时会按 record_type 过滤成空（这是我第一版写错的地方）。
+    if "leads" in blob:
+        return list(blob["leads"]), [
+            {"source": f"cache:{os.path.basename(path)}",
+             "count": len(blob["leads"]), "ok": bool(blob["leads"]),
+             "note": "离线：复用上一轮的过滤结果"}]
+    # window_cache：run_windows.py 的产出，已经过 rule_filter
     out = []
     for k, w in (blob.get("windows") or {}).items():
         for r in w.get("kept", []):
             if r.get("record_type") in ("hiring", "bounty"):
                 out.append(r)
     return out, [{"source": f"cache:{os.path.basename(path)}", "count": len(out),
-                  "ok": len(out) > 0, "note": "离线：复用已采集并过滤过的记录"}]
+                  "ok": len(out) > 0,
+                  "note": "离线：复用已采集并过滤过的记录"}]
 
 
 # ---------------------------------------------------------------- 输出
@@ -1299,7 +1323,16 @@ def main():
 
     if a.from_cache is not None:
         raw, health = from_cache(None if a.from_cache == "latest" else a.from_cache)
-        desc = "已有 window_cache（离线复用，含项目已有的供需过滤）"
+        # 没有缓存时**必须报错退出**，不能返回空列表还假装成功。
+        # 踩过的坑：全新用户照 README 敲 --from-cache 会拿到 0 条、退出码 0，
+        # 分不清是工具坏了还是本来就没数据 —— 这种"静默空结果"最难排查。
+        if not raw and any("找不到任何缓存" in (h.get("note") or "") for h in health):
+            print("❌ 找不到任何采集缓存，--from-cache 无法工作。")
+            print("   它复用上一轮的采集结果，所以需要先跑一次真实采集：")
+            print("     python tools/leads.py --top 24        # 生成缓存")
+            print("     python tools/leads.py --from-cache    # 之后就能秒出")
+            return 2
+        desc = "已有采集缓存（离线复用，含项目已有的供需过滤）"
     else:
         want = [s.strip() for s in a.sources.split(",") if s.strip()]
         for s in want:
@@ -1390,7 +1423,17 @@ def main():
         leads.sort(key=lambda x: (bool(x.get("already_marked")), -x["score"]))
         print(f"  深读 {n_deep} 条正文后重打分（另有 {n_skip} 条来源不支持深读）")
 
-    ts = time.strftime("%Y%m%d-%H%M")
+    ts = time.strftime("%Y%m%d-%H%M%S")
+    # 存一份"过滤后的 leads"作为**自己的**缓存 —— 这样 --from-cache 才自洽，
+    # 不必依赖 run_windows.py 先跑过（那是个没写进文档的隐式依赖，实测让新用户困惑）。
+    # 只存 leads 不存 raw：raw 里没有 record_type，回读时会过滤成空。
+    # 从缓存跑出来的结果不再存（避免"缓存套缓存"）。
+    if a.from_cache is None:
+        cp = os.path.join(OUT, f"leads_cache_{ts}.json")
+        with open(cp, "w", encoding="utf-8") as f:
+            json.dump({"generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+                       "leads": leads}, f, ensure_ascii=False, indent=1, default=str)
+        print(f"缓存 -> {cp}")
     mp = os.path.join(OUT, f"leads_{ts}.md")
     with open(mp, "w", encoding="utf-8") as f:
         f.write(render(leads, health, n_supply, desc, kept_junk=n_junk,

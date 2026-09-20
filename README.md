@@ -221,10 +221,15 @@ export HUNTER_PROXY=http://127.0.0.1:7897
 
 ```bash
 python tools/leads.py                       # 全通道采集（需 Chrome + OpenCLI）
-python tools/leads.py --from-cache          # 只从已有 window_cache 抽（离线、秒出）
+python tools/leads.py --from-cache          # 复用上一轮采集，离线秒出（**需先跑过一次**）
 python tools/leads.py --sources zhihu,v2ex,forhire,bounty
 python tools/leads.py --min-score 4         # 只看值得联系的
 ```
+
+> `--from-cache` 复用上一轮的采集结果，所以**第一次必须先跑一次不带该参数的采集**。
+> 没有缓存时它会明确报错退出（而不是返回空列表假装成功 —— 那种"静默空结果"
+> 最难排查）。每次真实采集都会写 `out/leads_cache_*.json`，这是 leads.py
+> **自己的**缓存，不依赖 `run_windows.py`。
 
 产出 `out/leads_*.md`：**谁 / 要做什么 / 预算多少 / 原文 / 怎么联系 / 值不值得联系**。
 
