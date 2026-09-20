@@ -556,6 +556,252 @@ def deep_read_top(leads, n=8, timeout=90):
     return done, n_unsupported
 
 
+# ---------------------------------------------------------------- 应征话术
+# 为什么单独做这一层：线索表解决"有没有活"，但真正让人卡住的是
+# **打开对话框不知道写什么**。对不擅长主动推销的人，这个门槛比"找不到活"更高。
+# 一段不用现想的话术，能把"要不要联系"从一次决策降成一次复制粘贴。
+#
+# 三条写法原则（都是从"对方会怎么读"倒推的）：
+#   ① 先证明你读懂了他的需求 —— 引用他的原话，而不是群发的自我介绍
+#   ② 问具体的技术问题，不问"请问需要吗" —— 问对问题本身就是能力证明
+#   ③ 主动给"先出方案再决定"的台阶 —— 降低对方的决策成本，也降低你的承诺风险
+#
+# 反面清单（这些一写就减分）：群发式自我介绍、一上来问预算、保证"包您满意"、
+# 长篇大论列技术栈、"我什么都能做"。
+
+# 按技术对象定制那句"具体问题" —— 问对问题比问得多重要。
+# **必须双语**：踩过的坑 —— 英文线索用了英文模板，但技术问题还是中文的，
+# 发出去像机翻。语言要跟着线索走，不能只跟着来源走（V2EX 上也有英文帖）。
+TECH_QUESTIONS = [
+    (re.compile(r"(爬虫|scraper|scraping|数据采集|抓取)", re.I),
+     "目标站点有没有反爬（验证码/频率限制/登录态）？大概的数据量级和更新频率是多少？",
+     "Does the target site have anti-scraping measures (captcha / rate limits / login)? "
+     "What's the data volume and refresh frequency?"),
+    (re.compile(r"(小程序|mini ?program|微信开发)", re.I),
+     "是从零开发还是在现有基础上改？主体资质（备案/认证）这块由哪边负责？",
+     "Is this built from scratch or modifying something existing? "
+     "Who handles the platform account and registration?"),
+    (re.compile(r"(插件|extension|userscript)", re.I),
+     "目标平台和版本是什么？需不需要上架商店（涉及审核周期）？",
+     "Which platform and version? Does it need to be published to a store "
+     "(that adds a review cycle)?"),
+    (re.compile(r"(脚本|自动化|automat|script)", re.I),
+     "需要跑在什么环境（Windows / Mac / 服务器）？触发方式是手动还是定时？",
+     "What environment does it need to run in (Windows / Mac / server)? "
+     "Is the trigger manual or scheduled?"),
+    (re.compile(r"(接口|api|对接|集成|integrat)", re.I),
+     "对方接口有文档吗，还是需要自己抓包？有没有测试环境？",
+     "Is there API documentation, or does it need to be reverse-engineered? "
+     "Is there a sandbox environment?"),
+    (re.compile(r"(数据处理|清洗|excel|报表|数据分析)", re.I),
+     "原始数据现在是什么形式（Excel / 数据库 / 接口）？输出要什么格式？",
+     "What form is the source data in (Excel / database / API)? "
+     "What output format do you need?"),
+    (re.compile(r"(修复|bug|报错|error|fix|corrupt|regression)", re.I),
+     "这个问题是稳定复现还是偶发？有没有能复现的最小用例或环境说明？",
+     "Is this consistently reproducible or intermittent? "
+     "Is there a minimal repro case or environment notes?"),
+]
+TECH_QUESTION_DEFAULT = "现在的做法是什么、卡在哪一步？"
+TECH_QUESTION_DEFAULT_EN = "What's the current approach, and where exactly does it break?"
+
+
+def _lang_of(lead):
+    """按**内容**判断该用中文还是英文 —— 不能只看来源。
+
+    踩过的坑：第一版用 `cjk == 0` 判断，只要正文里出现**一个**中文字就翻成中文，
+    于是一条全英文的 GitHub 悬赏被套上了中文话术。
+    改为看占比：拉丁字母数 > 中文数 × 3 才算英文。
+    """
+    t = f"{lead.get('title') or ''} {lead.get('text') or ''}"
+    cjk = len(re.findall(r"[\u4e00-\u9fff]", t))
+    latin = len(re.findall(r"[A-Za-z]", t))
+    return "en" if (latin > 20 and latin > cjk * 3) else "zh"
+
+
+def _specific_question(text, lang="zh"):
+    for pat, zh, en in TECH_QUESTIONS:
+        if pat.search(text or ""):
+            return en if lang == "en" else zh
+    return TECH_QUESTION_DEFAULT_EN if lang == "en" else TECH_QUESTION_DEFAULT
+
+
+def _clean_title(title):
+    """去掉标题开头的标记（[Bounty] / [Hiring] / [苏州] …）。
+
+    踩过的坑：直接嵌进话术会出现「[Bounty] [Bounty $1,500] …」这种重复，
+    读起来像机器拼的。金额信息已由 tips 单独提示，标题里去掉更干净。
+    """
+    t = re.sub(r"^(\[[^\]]{0,24}\]\s*)+", "", (title or "").strip())
+    return t.strip() or (title or "").strip()
+
+
+def _norm_key(s):
+    return re.sub(r"[^a-z0-9\u4e00-\u9fff]+", "", (s or "").lower())
+
+
+def _restate(lead, limit=100):
+    """复述对方的需求 —— 用他自己的话，这是"我认真读了"的最强证明。
+
+    踩过的坑：第一版直接取"含技术对象的第一句"，而 record.text 是 `标题 + 正文`，
+    第一句往往就是标题 → 话术里出现「看到你发的「X」。你提到：X」的重复。
+    所以这里**必须排除与标题几乎相同的那句**，取不到就返回空串让调用方省略。
+    """
+    title_key = _norm_key(lead.get("title"))
+    text = " ".join((lead.get("text") or "").split())
+    pat = re.compile(r"(脚本|爬虫|插件|小程序|工具|系统|网站|app|api|自动化|数据|"
+                     r"script|scraper|plugin|tool|api|automation|bot)", re.I)
+    for s in re.split(r"[。！？!?\n]+", text):
+        s = s.strip()
+        if not (12 <= len(s) <= 200) or not pat.search(s):
+            continue
+        k = _norm_key(s)
+        # 与标题重复度太高就跳过（前 40 字相同，或标题被包含）
+        if title_key and (k[:40] == title_key[:40] or title_key[:20] in k):
+            continue
+        return s[:limit]
+    return ""
+
+
+# 招聘帖问什么 —— 与项目类完全不同。
+# 踩过的坑：第一版对所有类型都问"需要跑在什么环境"，对「量化策略研究员」这种
+# 岗位帖完全是错位的，一眼就能看出是模板群发。
+HIRING_QUESTIONS_ZH = [
+    "这个岗位接受远程或兼职吗？",
+    "团队现在多少人、主要技术栈是什么？",
+    "面试流程大概几轮，有没有笔试或作业环节？",
+]
+HIRING_QUESTIONS_EN = [
+    "Is this role open to remote or part-time?",
+    "How big is the team, and what's the main tech stack?",
+    "What does the interview process look like — how many rounds, any take-home?",
+]
+# 询价帖问什么 —— 目标是进入候选名单，不是拿下这一单
+INQUIRY_DIMENSIONS_ZH = ("数据量/规模", "有没有现成的接口或方案", "要不要长期维护")
+INQUIRY_DIMENSIONS_EN = ("data volume / scope", "whether an API or existing solution already exists",
+                         "whether ongoing maintenance is expected")
+
+
+def lead_kind(lead):
+    """线索类型 —— 决定话术的落点。四种类型的语气和问题完全不同。"""
+    text = f"{lead.get('title') or ''} {lead.get('text') or ''}"
+    if lead.get("source") == "github_bounty" or re.search(r"\bbounty\b|赏金", text, re.I):
+        return "bounty"
+    if re.search(r"(招聘|诚聘|招人|热招|hiring|job|岗位|薪水|月薪|年薪|薪|"
+                 r"任职要求|岗位职责)", text, re.I):
+        return "hiring"
+    if re.search(r"(多少钱|大概多少|报价|预算多少|预算怎么|费用大概|价格|收费|"
+                 r"怎么算钱|how much|pricing)", text, re.I):
+        return "inquiry"
+    return "outsourcing"
+
+
+def apply_script(lead):
+    """给一条线索生成可直接复制的应征话术 + 针对性提醒。
+
+    返回 {"kind", "kind_label", "message", "tips": [...]}。
+
+    **四种类型用四套模板**（踩过的坑）：第一版只有"项目式"一套，结果对一条
+    「量化策略研究员」招聘帖写"这个我可以做"、还问它"跑在什么环境" ——
+    错位得非常明显，一眼能看出是模板群发。类型判断错了，话术还不如不写。
+    """
+    kind = lead_kind(lead)
+    lang = _lang_of(lead)          # 按内容判语言，不按来源
+    title = _clean_title(lead.get("title"))
+    restate = _restate(lead)       # 可能与标题重复时返回空串
+    q = _specific_question(lead.get("text"), lang)
+    has_amount = lead.get("money", 0) >= 3
+    en = (lang == "en")
+
+    if kind == "bounty":
+        body = (f'Hi — I saw your bounty "{title}".\n\n'
+                "I can take this on. Two quick questions before I start:\n\n"
+                f"1. {q}\n"
+                "2. What counts as done here — a merged PR, or passing a specific test?\n\n"
+                "I'll send a short plan and an estimate first, "
+                "so you can decide before I write any code.") if en else (
+                f"你好，看到你发的悬赏「{title}」。\n\n"
+                "这个我可以做。动手前想先确认两点：\n\n"
+                f"1. {q}\n"
+                "2. 什么算完成 —— 合并 PR，还是通过某个具体测试？\n\n"
+                "我可以先给一个实现思路和报价，你看合适再往下走；不合适也没关系。")
+
+    elif kind == "hiring":
+        qs = HIRING_QUESTIONS_EN if en else HIRING_QUESTIONS_ZH
+        if en:
+            body = (f"Hi — I saw your posting \"{title}\".\n\n"
+                    "Three quick questions before I apply:\n\n"
+                    + "".join(f"{i}. {x}\n" for i, x in enumerate(qs, 1))
+                    + "\nHappy to send a CV and talk through what I've built "
+                      "if the fit looks right.")
+        else:
+            body = (f"你好，看到你的招聘帖「{title}」。\n\n"
+                    "投递前想先确认三点：\n\n"
+                    + "".join(f"{i}. {x}\n" for i, x in enumerate(qs, 1))
+                    + "\n合适的话我可以发一份简历，也想了解一下你们目前在做的方向。")
+
+    elif kind == "inquiry":
+        dims = INQUIRY_DIMENSIONS_EN if en else INQUIRY_DIMENSIONS_ZH
+        dim_txt = " / ".join(dims)
+        body = (f"Hi — saw you asking about \"{title}\".\n\n"
+                f"Price for this kind of work mainly comes down to three things: {dim_txt}.\n\n"
+                "If you can tell me roughly where you land on those, I can give you a "
+                "concrete number — or a smaller fixed-scope version first, "
+                "so you can check the direction before committing.") if en else (
+                f"你好，看到你在问「{title}」。\n\n"
+                f"这类需求的价格主要看三件事：{dim_txt}。\n\n"
+                "如果你能说一下大致情况，我可以给一个具体报价；"
+                "也可以先按最小可用的范围报一个小版本，你觉得方向对再往上加。")
+
+    else:  # outsourcing
+        if en:
+            body = (f'Hi — I saw your post "{title}".\n\n'
+                    + (f"You mentioned: {restate}\n\n" if restate else "")
+                    + "I can take this on. Two quick questions before I start:\n\n"
+                    + f"1. {q}\n"
+                      "2. What's the deliverable and the acceptance criteria "
+                      "(source / deployment / docs, and what counts as done)?\n\n"
+                      "I'll send a short plan and an estimate first, "
+                      "so you can decide before I start.")
+        else:
+            body = (f"你好，看到你发的需求「{title}」。\n\n"
+                    + (f"你提到：{restate}\n\n" if restate else "")
+                    + "这个我可以做。动手前想先确认两点：\n\n"
+                    + f"1. {q}\n"
+                      "2. 交付形式和验收标准（源码 / 部署 / 文档，以及怎么算做完）\n\n"
+                      "我可以先给一个实现思路和报价，你看合适再往下走；不合适也没关系。")
+
+    tips = []
+    if has_amount:
+        tips.append("对方已经写了金额 —— **不要主动压价**，先把范围与验收标准问清楚；"
+                    "范围没谈拢时压价等于替自己挖坑。")
+    else:
+        tips.append("这条没有明确预算 —— 先问范围（要做什么、做到什么程度），"
+                    "**别先报价**。范围不清楚时任何报价都会变成你的义务。")
+    if kind == "hiring":
+        tips.append("这是招聘帖：先确认是否接受**远程/兼职**（很多岗位默认坐班），"
+                    "再谈薪 —— 顺序反了会浪费双方时间。")
+    elif kind == "inquiry":
+        tips.append("对方只是在问价、还没决定做 —— 目标不是拿下，"
+                    "是**进入他的候选名单**。给判断框架比给数字更有用。")
+    elif kind == "bounty":
+        tips.append("开源悬赏通常要求提 PR 并被合并才结算 —— "
+                    "先确认结算条件（合并即付 / 审核通过 / 有时间窗），别做完才发现拿不到。")
+    if lead.get("age_days") is not None and lead["age_days"] > 7:
+        tips.append(f"这条已经 {lead['age_days']:.0f} 天了，**可能已被接走** —— "
+                    "第一句先问「这个还开放吗」，别直接报方案。")
+    if not lead.get("deep") and lead.get("source") in DEEP_SUPPORTED:
+        tips.append("这条**没读到正文**（只有标题）—— 发消息前先点开链接看一眼，"
+                    "否则容易问出对方已经写明的问题。")
+    tips.append("**问对问题本身就是能力证明**。这封信的目的不是成交，"
+                "是让对方愿意回你第二句。")
+
+    label = {"bounty": "悬赏/赏金", "hiring": "招聘", "inquiry": "询价",
+             "outsourcing": "外包需求"}[kind]
+    return {"kind": kind, "kind_label": label, "lang": lang,
+            "message": body, "tips": tips}
+
+
 # ---------------------------------------------------------------- 离线模式
 def from_cache(path=None):
     """从已有的 window_cache_*.json 抽线索 —— 不联网、秒出。
@@ -590,7 +836,8 @@ def md_text(s):
     return (s or "").replace("[", "\\[").replace("]", "\\]").replace("|", "/")
 
 
-def render(leads, health, kept_supply, src_desc, kept_junk=0, n_deep=0, n_skip=0):
+def render(leads, health, kept_supply, src_desc, kept_junk=0, n_deep=0, n_skip=0,
+           n_scripts=3):
     L = ["# 客户线索清单（正在出钱找人做事的人）", "",
          f"生成时间：{time.strftime('%Y-%m-%d %H:%M')}　·　来源：{src_desc}", "",
          "**这是什么**：不是「值得做的方向」，是**现在能去联系的活**。",
@@ -634,6 +881,27 @@ def render(leads, health, kept_supply, src_desc, kept_junk=0, n_deep=0, n_skip=0
                   f"- 链接：{x['url']}",
                   f"- 作者：{x['author'] or '—'}　发布：{age}",
                   f"- 原文：{x['text'][:400]}", ""]
+    # 应征话术：线索表解决"有没有活"，但真正让人卡住的是"打开对话框不知道写什么"。
+    # 对不擅长主动推销的人，这个门槛比找不到活更高。
+    scripts = [x for x in leads if x["verdict"] == "值得联系"][:n_scripts]
+    if scripts:
+        L += ["", "---", "", "## 应征话术（可直接复制）", "",
+              f"针对「值得联系」的前 {len(scripts)} 条生成，按线索类型分四套模板"
+              "（悬赏 / 招聘 / 询价 / 外包）—— 语气和问题都不一样，用错类型一眼能看出是群发。", "",
+              "> ⚠ **发之前请自己读一遍，改掉不符合实际的地方。** "
+              "模板能省掉「不知道写什么」的门槛，但不能替你知道自己会什么。", ""]
+        for i, x in enumerate(scripts, 1):
+            s = apply_script(x)
+            # 标题在这里是**纯文本标题**，不需要 md_text 的方括号转义
+            # （转义只在链接文本里有必要，否则源文件里会多出一堆 \ 看着像出错）
+            L += [f"### {i}. {(x['title'] or '')[:70]}　<span>{s['kind_label']}</span>", "",
+                  f"线索链接：{x['url']}", "",
+                  "```text", s["message"], "```", "",
+                  "**发之前注意**：", ""]
+            for t in s["tips"]:
+                L.append(f"- {t}")
+            L.append("")
+
     L += ["## 通道健康", "", "| 通道 | 条数 | 状态 | 备注 |", "|---|---:|---|---|"]
     for h in health:
         L.append(f"| {h['source']} | {h.get('count', 0)} | "
@@ -673,6 +941,8 @@ def main():
                     help="对头部 N 条深读正文后重打分（每次一次浏览器调用，默认 8；"
                          "国内通道的搜索结果不含正文，只有深读才看得到预算与具体要求）")
     ap.add_argument("--no-deep", action="store_true", help="跳过深读")
+    ap.add_argument("--scripts", type=int, default=3,
+                    help="为前 N 条「值得联系」生成应征话术（默认 3，0 关闭）")
     a = ap.parse_args()
 
     os.makedirs(OUT, exist_ok=True)
@@ -743,13 +1013,18 @@ def main():
     mp = os.path.join(OUT, f"leads_{ts}.md")
     with open(mp, "w", encoding="utf-8") as f:
         f.write(render(leads, health, n_supply, desc, kept_junk=n_junk,
-                       n_deep=n_deep, n_skip=n_skip))
+                       n_deep=n_deep, n_skip=n_skip,
+                       n_scripts=a.scripts))
     jp = os.path.join(OUT, f"leads_{ts}.json")
+    # 话术也落盘：方便被别的脚本消费（如批量导入到某个外联工具）
+    worth = [y for y in leads if y["verdict"] == "值得联系"][:max(a.scripts, 0)]
+    scripts = {x["url"]: apply_script(x) for x in worth}
     with open(jp, "w", encoding="utf-8") as f:
         json.dump({"generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
                    "sources": desc, "supply_filtered": n_supply,
                    "junk_filtered": n_junk,
                    "deep_read": n_deep, "deep_skipped": n_skip,
+                   "scripts": scripts,
                    "leads": leads, "health": health},
                   f, ensure_ascii=False, indent=1, default=str)
 

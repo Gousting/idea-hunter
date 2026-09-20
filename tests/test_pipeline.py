@@ -767,5 +767,118 @@ class TestDeepRead(unittest.TestCase):
         self.assertEqual(set(leads.DEEP_SUPPORTED), {"v2ex", "zhihu"})
 
 
+class TestApplyScript(unittest.TestCase):
+    """应征话术：线索表解决"有没有活"，但真正让人卡住的是"打开对话框不知道写什么"。
+
+    对不擅长主动推销的人，这个门槛比找不到活更高。
+    """
+
+    def _mk(self, **kw):
+        # 字段与 to_lead() 的产出一致，否则 render() 会 KeyError
+        base = {"title": "t", "text": "t", "url": "u", "source": "v2ex",
+                "money": 0, "spec": 1, "fresh": 1, "score": 5.0,
+                "verdict": "值得联系", "age_days": 1.0, "author": "a"}
+        base.update(kw)
+        return base
+
+    def test_four_kinds_are_distinguished(self):
+        """四类线索语气与问题完全不同 —— 类型判错的话术还不如不写。
+
+        实测踩过：第一版只有一套"项目式"模板，对一条「量化策略研究员」招聘帖
+        写「这个我可以做」、还问它「跑在什么环境」—— 错位得非常明显。
+        """
+        import leads
+        cases = [
+            ("github_bounty", "[Bounty $500] Fix the parser crash", "bounty"),
+            ("v2ex", "某公司诚聘 后端工程师 月薪 30K", "hiring"),
+            ("zhihu", "找人写个爬虫大概多少钱？", "inquiry"),
+            ("v2ex", "需要人做一个数据采集脚本，预算 5000", "outsourcing"),
+        ]
+        for src, title, want in cases:
+            got = leads.lead_kind(self._mk(source=src, title=title, text=title))
+            self.assertEqual(got, want, f"{title[:30]!r} 应判为 {want}")
+
+    def test_hiring_does_not_use_project_template(self):
+        """招聘帖绝不能出现「这个我可以做」「跑在什么环境」。"""
+        import leads
+        L = self._mk(source="v2ex", title="Crypto CEX 诚聘 量化策略研究员 薪水 30K-50K RMB",
+                     text="Crypto CEX 诚聘 量化策略研究员 薪水 30K-50K RMB 纯远程办公")
+        s = leads.apply_script(L)
+        self.assertEqual(s["kind"], "hiring")
+        self.assertNotIn("这个我可以做", s["message"])
+        self.assertNotIn("跑在什么环境", s["message"])
+        self.assertIn("远程", s["message"])
+
+    def test_language_follows_content_not_source(self):
+        """踩过的坑：第一版用 `cjk == 0` 判断，正文里有一个中文字就翻成中文，
+        于是一条全英文的 GitHub 悬赏被套上了中文话术。"""
+        import leads
+        en = self._mk(source="github_bounty",
+                      title="[Bounty $500] Fix the parser crash on large inputs",
+                      text="[Bounty $500] Fix the parser crash on large inputs. "
+                           "The parser throws on inputs larger than 2GB.")
+        self.assertEqual(leads._lang_of(en), "en")
+        s = leads.apply_script(en)
+        self.assertIn("Hi — I saw your bounty", s["message"])
+        self.assertNotIn("你好", s["message"])
+        # 中文帖即便来自同一来源也应是中文
+        zh = self._mk(source="v2ex", title="找人做个小程序，预算 3 万",
+                      text="找人做个小程序，预算 3 万，功能不复杂")
+        self.assertEqual(leads._lang_of(zh), "zh")
+
+    def test_tech_question_is_bilingual(self):
+        """技术问题必须跟着语言走 —— 否则英文信里夹一句中文，像机翻。"""
+        import leads
+        self.assertIn("anti-scraping", leads._specific_question("写个爬虫", "en"))
+        self.assertIn("反爬", leads._specific_question("写个爬虫", "zh"))
+        self.assertIn("reproducible", leads._specific_question("fix this bug", "en"))
+
+    def test_restate_skips_title_duplicate(self):
+        """踩过的坑：record.text 是「标题 + 正文」，第一句往往就是标题，
+        于是话术出现「看到你发的「X」。你提到：X」的重复。"""
+        import leads
+        L = self._mk(source="v2ex", title="需要人做一个数据采集脚本",
+                     text="需要人做一个数据采集脚本 目标站点有反爬，数据量大概每天一万条，"
+                          "希望导出成 csv")
+        s = leads.apply_script(L)
+        self.assertNotIn("你提到：需要人做一个数据采集脚本", s["message"])
+        self.assertIn("反爬", s["message"])       # 复述的应是正文那句
+
+    def test_title_markers_are_stripped(self):
+        """[Bounty] [Bounty $1,500] … 这种重复嵌进话术像机器拼的。"""
+        import leads
+        self.assertEqual(leads._clean_title("[Bounty] [Bounty $1,500] fix it"), "fix it")
+        self.assertEqual(leads._clean_title("[Hiring] Hiring Marketers"), "Hiring Marketers")
+        self.assertEqual(leads._clean_title("无标记标题"), "无标记标题")
+        # 全是标记时不能返回空
+        self.assertTrue(leads._clean_title("[Bounty]"))
+
+    def test_amount_and_age_produce_targeted_tips(self):
+        import leads
+        rich = leads.apply_script(self._mk(money=3, age_days=1.0))
+        self.assertTrue(any("不要主动压价" in t for t in rich["tips"]))
+        poor = leads.apply_script(self._mk(money=0, age_days=1.0))
+        self.assertTrue(any("别先报价" in t for t in poor["tips"]))
+        old = leads.apply_script(self._mk(money=0, age_days=30.0))
+        self.assertTrue(any("已被接走" in t for t in old["tips"]))
+
+    def test_undeepped_supported_source_warns_to_open_link(self):
+        """没读到正文的线索要提醒先点开看 —— 否则容易问出对方已写明的问题。"""
+        import leads
+        L = self._mk(source="zhihu", deep=False, title="找人做个小程序，预算 3 万",
+                     text="找人做个小程序，预算 3 万")
+        s = leads.apply_script(L)
+        self.assertTrue(any("没读到正文" in t for t in s["tips"]))
+
+    def test_render_includes_scripts_section(self):
+        import leads
+        L = self._mk(source="v2ex", title="找人做一个数据采集脚本，预算 5000",
+                     text="找人做一个数据采集脚本，目标站点有反爬，预算 5000")
+        md = leads.render([L], [], 0, "t", n_scripts=1)
+        self.assertIn("应征话术", md)
+        self.assertIn("发之前请自己读一遍", md)
+        self.assertIn("这个我可以做", md)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
