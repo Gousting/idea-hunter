@@ -506,5 +506,210 @@ class TestDualCaliberIsLabelled(unittest.TestCase):
         self.assertIn("不是矛盾", src, "要说明两列基数不同属口径差异")
 
 
+class TestLeadExtraction(unittest.TestCase):
+    """tools/leads.py：把线索保留为「个体」，回答"现在能接哪个活"。
+
+    样本用的是**实测抓到的真实原文**（知乎搜索"有偿找人做脚本"），不是构造的。
+    这批真实数据里第 2 条就是供给方 —— 正好验证过滤器有没有用。
+    """
+
+    # (source, title, text, 期望 verdict, 期望 supply_side)
+    CASES = [
+        ("zhihu", "有偿寻找一个代写游戏脚本的程序员",
+         "有偿寻找一个代写游戏脚本的程序员 预算 3000 元左右，需要能写按键精灵或者 python 脚本，有意者私信",
+         "值得联系", False),
+        ("zhihu", "个人纯手工接单，脚本定制，不成功不收费！！",
+         "个人纯手工接单，脚本定制，不成功不收费！！本人多年经验，专业代做各类脚本，价格优惠，欢迎咨询",
+         "跳过（供给方）", True),
+        ("reddit", "[Hiring] Need a Python automation script for invoice sync",
+         "[Hiring] Need a Python automation script for invoice sync. Budget $800. Looking to hire someone.",
+         "值得联系", False),
+        ("reddit", "[For Hire] The Last Google Ads Guy You'll Ever Hire",
+         "[For Hire] For over 8 years I have worked with brands managing Ad Budgets. "
+         "My rates are $20/h, dm me",
+         "跳过（供给方）", True),
+        ("zhihu", "什么时候你突然发现挣钱是件很容易的事情？",
+         "什么时候你突然发现挣钱是件很容易的事情？聊聊你的经历吧",
+         "跳过", False),
+    ]
+
+    def _lead(self, i):
+        import leads
+        src, title, text, _, _ = self.CASES[i]
+        return leads.to_lead({"title": title, "text": text, "url": "u", "author": "a"}, src)
+
+    def test_verdicts_match_expectation(self):
+        for i, (_, title, _, exp_v, exp_s) in enumerate(self.CASES):
+            L = self._lead(i)
+            self.assertEqual(L["verdict"], exp_v, f"{title[:30]!r} 的判定不符")
+            self.assertEqual(L["supply_side"], exp_s, f"{title[:30]!r} 的供给方判定不符")
+
+    def test_supply_side_is_never_marked_worth_contacting(self):
+        """供给方可能同时命中金额词（"我的报价 $20/h"），打分不低但方向是反的。
+        必须在这一层就压成"跳过"，否则调用方一旦忘记过滤就会把它当客户。"""
+        import leads
+        L = leads.to_lead({"title": "[For Hire] dev available",
+                           "text": "For Hire. My rates are $50/h, 8 years of experience, dm me",
+                           "url": "u"}, "reddit")
+        self.assertTrue(L["supply_side"])
+        self.assertIn("跳过", L["verdict"])
+        self.assertNotEqual(L["verdict"], "值得联系")
+
+    def test_money_score_prefers_explicit_amount(self):
+        import leads
+        self.assertEqual(leads._money_score("预算 3000 元"), 3)
+        self.assertEqual(leads._money_score("Budget $800"), 3)
+        self.assertEqual(leads._money_score("$20/h"), 3)
+        self.assertEqual(leads._money_score("有偿 付费 报酬"), 2)   # 多个裸词
+        self.assertEqual(leads._money_score("有偿"), 1)             # 单个裸词
+        self.assertEqual(leads._money_score("今天天气不错"), 0)
+
+    def test_plausible_amount_rejects_ids_and_dates(self):
+        """实测踩过：GitHub bounty 的 issue 里出现 `$239398281948585883`（18 位，是 id 不是钱），
+        原实现判 money=3，结果 26 条垃圾把 top30 挤满、国内通道一条都进不来。"""
+        import leads
+        bad = ["$239398281948585883* bounty", "第 20260920123456 号", "编号 12345678",
+               "需要 3 天时间", "版本 2 已发布"]
+        for t in bad:
+            self.assertFalse(leads.has_plausible_amount(t), f"{t!r} 不该被当成金额")
+        good = ["Budget $800", "预算 3000 元左右", "$20/h", "价格 500",
+                "报酬 5000 元", "rate: $60/hour"]
+        for t in good:
+            self.assertTrue(leads.has_plausible_amount(t), f"{t!r} 应被当成金额")
+
+    def test_quota_select_prevents_noise_source_taking_over(self):
+        """配额是项目在 P0-3 学到的教训：「只要采集层允许噪音源海量进入，
+        再好的下游过滤也救不回来。信源配额是防止『劣币驱逐良币』的必要机制。」
+        实测：不加配额时 GitHub bounty 靠 40 条量把 top30 全占了。"""
+        import leads
+        import collections
+        pool = [{"source": "github_bounty", "score": 9.5 - i * 0.1, "verdict": "待看"}
+                for i in range(26)]
+        pool += [{"source": "zhihu", "score": 6.0 - i * 0.1, "verdict": "待看"}
+                 for i in range(4)]
+        pool += [{"source": "v2ex", "score": 5.5 - i * 0.1, "verdict": "待看"}
+                 for i in range(3)]
+        naive = collections.Counter(
+            x["source"] for x in sorted(pool, key=lambda x: -x["score"])[:12])
+        self.assertEqual(len(naive), 1, "不配额时应当只有一个信源霸榜（前提校验）")
+        sel = leads.quota_select(pool, 12)
+        self.assertEqual(len(set(x["source"] for x in sel)), 3,
+                         "配额后所有信源都应出现在榜单里")
+        self.assertLessEqual(len(sel), 12)
+
+    def test_title_quality_rejects_placeholder_issues(self):
+        """GitHub bounty 里混着占位/刷量 issue —— 实测抓到「[Bounty] Bounty」
+        「[Bounty] EKEODKDE9DKE9DO BOUNTY」，标题没有信息但正文凑得出金额，会拿满分。"""
+        import leads
+        bad = ["[Bounty] Bounty", "[Bounty] EKEODKDE9DKE9DO BOUNTY", "bounty",
+               "$$$", "12345678", "[BOUNTY] IMPLEMENT FOO"]
+        for t in bad:
+            self.assertFalse(leads.title_quality(t), f"{t!r} 应被判为无信息标题")
+        good = ["[Bounty] [Bounty $1,500] SFPLOADMACRO produces wrong output",
+                "[Hiring] Hiring Marketers | $50 Weekly",
+                "有偿寻找一个代写游戏脚本的程序员",
+                "[Hiring] Full Stack Engineer (Python): In Person, Austin TX"]
+        for t in good:
+            self.assertTrue(leads.title_quality(t), f"{t!r} 不该被判为无信息标题")
+
+    def test_cap_per_repo_stops_single_repo_flooding(self):
+        """实测：github_bounty 里 `zhangjiayang6835-cyber/bounty-plaza` 一个仓库贡献 6+ 条。
+        信源配额防跨源霸榜，这一层防同源内刷量 —— 两道缺一不可。"""
+        import leads
+        import collections
+        pool = [{"group": "gh:spam/repo", "score": 9.0, "verdict": "待看"} for _ in range(6)]
+        pool += [{"group": "gh:real/proj", "score": 8.0, "verdict": "待看"} for _ in range(3)]
+        capped = leads.cap_per_repo(pool, max_per_repo=2)
+        c = collections.Counter(x["group"] for x in capped)
+        self.assertLessEqual(max(c.values()), 2)
+        self.assertEqual(len(c), 2, "不同主体都应保留")
+        self.assertEqual(len(capped), 4)
+
+    def test_repo_of_groups_by_owner_repo(self):
+        import leads
+        self.assertEqual(leads.repo_of("https://github.com/a/b/issues/3"), "gh:a/b")
+        self.assertEqual(leads.repo_of("https://github.com/a/b/issues/9"), "gh:a/b")
+        self.assertNotEqual(leads.repo_of("https://github.com/a/b/issues/1"),
+                            leads.repo_of("https://github.com/a/c/issues/1"))
+        self.assertTrue(leads.repo_of("https://www.reddit.com/r/forhire/comments/x/y/"))
+
+    def test_md_text_escapes_brackets_in_link_text(self):
+        """标题常以 [Bounty]/[Hiring] 开头，直接塞进 [标题](url) 会变成
+        [[Bounty] [Bounty $1,500] …](url) —— 嵌套方括号让 Markdown 解析失败、链接点不动。"""
+        import leads
+        out = leads.md_text("[Bounty] [Bounty $1,500] fix it | now")
+        self.assertNotIn("[Bounty]", out)
+        self.assertIn("\\[Bounty\\]", out)
+        self.assertNotIn("|", out)          # 竖线会撑破表格
+        # 端到端：渲染出的表格里不应出现嵌套方括号
+        import re
+        md = leads.render([self._lead(0)], [], 0, "t")
+        self.assertEqual(len(re.findall(r"\[\[[^\]]*\]\s*\[", md)), 0)
+
+    def test_verdicts_are_discriminating(self):
+        """实测原阈值下 30/30 全判「值得联系」，等于没有筛选能力。"""
+        import leads
+        L = [self._lead(i) for i in range(len(self.CASES))]
+        verdicts = {x["verdict"] for x in L}
+        self.assertGreater(len(verdicts), 1, "判定结果必须有区分度，不能全是同一档")
+
+    def test_spec_score_requires_concrete_object(self):
+        import leads
+        vague = leads._spec_score("求推荐工具")
+        concrete = leads._spec_score(
+            "需要人做一个 python 爬虫脚本，定时抓取某网站数据并导出 csv，"
+            "已经试过 selenium 但被反爬拦了，希望能绕过")
+        self.assertLess(vague, concrete)
+        self.assertEqual(leads._spec_score(""), 0)
+
+    def test_age_parsing_chinese_relative(self):
+        import leads
+        self.assertAlmostEqual(leads._age_days({"text": "3 天前发布"}), 3.0)
+        self.assertAlmostEqual(leads._age_days({"text": "2 小时前"}), 2 / 24)
+        self.assertAlmostEqual(leads._age_days({"text": "1 周前"}), 7.0)
+        self.assertIsNone(leads._age_days({"text": "没有时间信息"}))
+        # 时间戳
+        import time
+        ts = time.time() - 5 * 86400
+        self.assertAlmostEqual(leads._age_days({"created_at": int(ts)}), 5.0, places=1)
+
+    def test_render_discloses_supply_filter_count(self):
+        import leads
+        md = leads.render([self._lead(0)], [], 7, "测试")
+        self.assertIn("供给方已过滤 7 条", md)
+        self.assertIn("值得联系", md)
+        self.assertIn("合规提醒", md)
+
+    def test_render_handles_empty(self):
+        import leads
+        md = leads.render([], [], 0, "测试")
+        self.assertIn("本轮没有抽到线索", md)
+
+    def test_from_cache_only_takes_hiring_and_bounty(self):
+        """离线模式必须只取 record_type in (hiring, bounty) ——
+        这两类已由 hunter/filter.py 做过供需过滤，是现成的高质量线索池。"""
+        import leads
+        blob = {"windows": {"day": {"kept": [
+            {"record_type": "hiring", "title": "a", "text": "有偿 找人做脚本 预算 3000"},
+            {"record_type": "demand", "title": "b", "text": "随便一条需求证据"},
+            {"record_type": "supply", "title": "c", "text": "一个仓库"},
+        ]}}}
+        import io
+        import json as _json
+        import os as _os
+        import tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False,
+                                         encoding="utf-8") as f:
+            _json.dump(blob, f)
+            p = f.name
+        try:
+            recs, health = leads.from_cache(p)
+            self.assertEqual(len(recs), 1)
+            self.assertEqual(recs[0]["record_type"], "hiring")
+            self.assertTrue(health[0]["ok"])
+        finally:
+            _os.remove(p)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
