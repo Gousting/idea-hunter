@@ -559,10 +559,37 @@ class TestLeadExtraction(unittest.TestCase):
         import leads
         self.assertEqual(leads._money_score("预算 3000 元"), 3)
         self.assertEqual(leads._money_score("Budget $800"), 3)
-        self.assertEqual(leads._money_score("$20/h"), 3)
         self.assertEqual(leads._money_score("有偿 付费 报酬"), 2)   # 多个裸词
         self.assertEqual(leads._money_score("有偿"), 1)             # 单个裸词
         self.assertEqual(leads._money_score("今天天气不错"), 0)
+
+    def test_money_score_uses_magnitude_not_just_presence(self):
+        """踩过的坑：原实现只看"有没有金额"，于是 $50/week 的营销零工和 $3000 的悬赏
+        拿同样的 money=3、并排在最前面 —— 实测榜单前 12 条里 4 条是低价值零工。
+
+        三种计价方式用三把尺子：一次性 / 时薪 / 周期价。
+        """
+        import leads
+        # 一次性：≥500 → 3
+        self.assertEqual(leads._money_score("Budget $3000 bounty"), 3)
+        self.assertEqual(leads._money_score("Bounty $1,500 for the fix"), 3)
+        self.assertEqual(leads._money_score("预算 5000 元"), 3)
+        self.assertEqual(leads._money_score("报酬 200 元"), 2)
+        self.assertEqual(leads._money_score("报酬 50 元"), 1)
+        # 时薪：≥50 → 3
+        self.assertEqual(leads._money_score("$60/hour"), 3)
+        self.assertEqual(leads._money_score("$20/h"), 2)
+        self.assertEqual(leads._money_score("$18/h"), 1)
+        # 周期价：$50/week ≈ 200/月 → 1
+        self.assertEqual(leads._money_score("$50 Weekly"), 1)
+        self.assertEqual(leads._money_score("月薪 30K"), 3)
+
+    def test_amount_info_reports_period(self):
+        import leads
+        self.assertEqual(leads.amount_info("$60/hour"), (60.0, "hour"))
+        self.assertEqual(leads.amount_info("$50 Weekly"), (50.0, "month"))
+        self.assertEqual(leads.amount_info("Budget $800"), (800.0, "total"))
+        self.assertEqual(leads.amount_info("没有金额"), (None, ""))
 
     def test_plausible_amount_rejects_ids_and_dates(self):
         """实测踩过：GitHub bounty 的 issue 里出现 `$239398281948585883`（18 位，是 id 不是钱），
@@ -645,6 +672,52 @@ class TestLeadExtraction(unittest.TestCase):
         import re
         md = leads.render([self._lead(0)], [], 0, "t")
         self.assertEqual(len(re.findall(r"\[\[[^\]]*\]\s*\[", md)), 0)
+
+    def test_inquiry_lead_money_is_capped(self):
+        """询价帖**不是委托**：对方还在问"大概多少钱"，没有决定要做。
+
+        实测踩过：一条「请人做小程序大概多少钱？」因为深读后的正文里有人报了价
+        （2 万到 20 万），money 拿到 3 分、排进前三 —— 但那条帖子里没有人要雇人。
+        """
+        import leads
+        inq = leads.to_lead({"title": "请人做一个微信小程序一般费用大概需要多少钱？",
+                             "text": "请人做一个微信小程序一般费用大概需要多少钱？"
+                                     "有人报价 2 万到 20 万，看功能复杂度",
+                             "url": "u"}, "zhihu")
+        self.assertEqual(leads.lead_kind(inq), "inquiry")
+        self.assertLessEqual(inq["money"], 2)
+        self.assertNotEqual(inq["verdict"], "值得联系")
+        self.assertIn("封顶", inq.get("kind_note", ""))
+        # 真委托不受影响
+        real = leads.to_lead({"title": "需要人做一个小程序，预算 3 万，功能不复杂",
+                              "text": "需要人做一个小程序，预算 3 万，功能不复杂，"
+                                      "希望两周内交付",
+                              "url": "u2"}, "zhihu")
+        self.assertEqual(real["money"], 3)
+        self.assertEqual(real["verdict"], "值得联系")
+
+    def test_kind_prefers_title_over_body(self):
+        """踩过的坑：深读后的正文是一整段讨论，里面什么词都有 ——
+        一条「请人做小程序大概多少钱？」因为正文里有人提到「月薪」，
+        被误判成招聘帖，于是询价的钱分封顶失效、又排回了前三。
+
+        与 tech_tags 同一个教训：**类型判断必须优先看标题**。
+        """
+        import leads
+        L = {"title": "请人做一个微信小程序一般费用大概需要多少钱？",
+             "text": "请人做一个微信小程序一般费用大概需要多少钱？ 有人报价 2 万到 20 万，"
+                     "如果找人做，月薪大概是多少，薪资怎么算",
+             "url": "u", "source": "zhihu"}
+        self.assertEqual(leads.lead_kind(L), "inquiry")
+        # 标题判不出类型时才退回全文
+        L2 = {"title": "帮个忙", "text": "某公司诚聘后端工程师，月薪 30K", "url": "u"}
+        self.assertEqual(leads.lead_kind(L2), "hiring")
+
+    def test_single_char_xin_is_not_a_hiring_marker(self):
+        """单字「薪」会被"薪资/薪酬/加薪"等各种语境命中 —— 必须用完整的词。"""
+        import leads
+        L = {"title": "讨论一下薪资水平", "text": "讨论一下薪资水平", "url": "u"}
+        self.assertNotEqual(leads.lead_kind(L), "hiring")
 
     def test_verdicts_are_discriminating(self):
         """实测原阈值下 30/30 全判「值得联系」，等于没有筛选能力。"""
@@ -987,6 +1060,24 @@ class TestAbilityProfile(unittest.TestCase):
         md = "\n".join(leads.profile_md())
         self.assertIn("台账是空的", md)
         self.assertEqual(leads.profile_weights(), {})
+
+
+    def test_render_marks_already_marked_leads(self):
+        """推荐的工作流是「每周跑一次、标 20 条」。如果每次重跑都把标过的
+        重新摆在最前面，就得反复重读同样的东西 —— 那不是省时间的工具，
+        是每周浪费半小时的仪式。"""
+        import leads
+        fresh = self._mk("写个爬虫抓数据", url="u/new")
+        old = self._mk("修个 Bug", url="u/old", prev_mark="no", already_marked=True)
+        md = leads.render([fresh, old], [], 0, "t", n_scripts=0, n_prev=1)
+        self.assertIn("其中 1 条你已标注过", md)
+        self.assertIn("--new-only", md)
+        self.assertIn("| 上次 |", md)              # 表头有这一列
+        # 已标过的显示上次标记的短标签
+        line = [l for l in md.splitlines() if "u/old" in l][0]
+        self.assertIn("| 不能 |", line)
+        line_new = [l for l in md.splitlines() if "u/new" in l][0]
+        self.assertIn("| — |", line_new)
 
 
 if __name__ == "__main__":

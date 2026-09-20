@@ -130,19 +130,31 @@ def _age_days(rec):
 # 实测踩过：GitHub bounty 的 issue 里出现 `$239398281948585883`（18 位，是 id 不是钱），
 # 原实现直接判 money=3，结果 26 条垃圾把 top30 挤满、国内通道一条都进不来。
 _AMT_RE = re.compile(r"([¥￥$])?\s?(\d[\d,.]*)\s*(k|K|万|千|元|块|美元|usd|rmb|cny)?")
+# 金额后面的计价方式 —— 决定它是"总额"还是"单价/周期价"，两者不能同一把尺子量
+_PERIOD_RE = re.compile(
+    r"(\s*/\s*(?:小时|时|天|次|单|篇|h|hr|hour|day|week|month)"
+    r"|\s*(?:per|a)\s*(?:hour|day|week|month)"
+    r"|\s*(?:hourly|weekly|monthly|daily)"
+    r"|\s*(?:时薪|日薪|周薪|月薪))", re.I)
 # 金额附近出现这些词，即使没写货币符/单位也认定是钱（"价格 500"、"预算 3000"）
 _MONEY_WORD_NEAR = re.compile(
     r"(预算|价格|报价|报酬|酬劳|酬金|费用|薪酬|日结|周结|时薪|工资|"
     r"\bbudget\b|\brate\b|\bprice\b|\bpay\b|\bhourly\b|\bper hour\b|\bfee\b)", re.I)
 
 
-def has_plausible_amount(text):
-    """文本里有没有「像价格」的金额。排除两类噪音：
-    ① 超长数字串（issue id / 哈希 / 日期，如 $239398281948585883）
-    ② 量级离谱的值。
-    认定条件：有货币符、有单位、或附近有"预算/价格/rate"这类词三者之一。
-    下界取 10 是为了放过 $20/h 这类时薪；上界 500 万覆盖真实外包预算。
+def amount_info(text):
+    """抽出金额，并判断它的**量级**与**计价方式**。
+
+    为什么要看量级（踩过的坑）：原实现只看"有没有金额"，于是
+    $50/week 的营销零工和 $3000 的悬赏拿同样的 money=3、并排在最前面 ——
+    实测榜单前 12 条里有 4 条是 $18/h、$50/week 这类低价值零工，
+    把真正值得看的挤了下去。
+
+    返回 (归一化金额, 计价方式)，计价方式 ∈ {"total", "hour", "month"}；
+    取不到返回 (None, "")。
     """
+    best = None
+    kind = ""
     for m in _AMT_RE.finditer(text or ""):
         cur, num, unit = m.group(1), m.group(2), (m.group(3) or "")
         digits = re.sub(r"[^\d]", "", num or "")
@@ -158,18 +170,65 @@ def has_plausible_amount(text):
             v *= 10000
         if not (10 <= v <= 5_000_000):
             continue
-        if cur or unit:
-            return True
         ctx = (text or "")[max(0, m.start() - 12): m.end() + 12]
-        if _MONEY_WORD_NEAR.search(ctx):
-            return True
-    return False
+        if not (cur or unit or _MONEY_WORD_NEAR.search(ctx)):
+            continue
+        # 计价方式：金额紧跟着 /小时 或 时薪 之类 → 单价；/周 /月 → 周期价
+        tail = (text or "")[m.end(): m.end() + 14]
+        p = _PERIOD_RE.match(tail)
+        k = "total"
+        if p:
+            t = p.group(0).lower()
+            if re.search(r"小时|时|h\b|hr|hour|时薪", t):
+                k = "hour"
+            elif re.search(r"week|月|month|周|weekly|monthly", t):
+                k = "month"
+        if best is None or v > best:
+            best, kind = v, k
+    return best, kind
+
+
+def money_level(text):
+    """0-3：金额的**量级**分级。三种计价方式用三把尺子（不能混着比）。
+
+    阈值是按"这算不算一个正经的付费委托"定的，不是按绝对值：
+      · 一次性 ≥500 → 3（$800 的自动化脚本 ≈ 5700 元，是真活）
+      · 时薪   ≥50  → 3（$20/h 偏低但不至于当零工）
+      · 月均   ≥1500 → 3（$50/week ≈ 200/月，明显是零工 → 1）
+    这样 $50/week 和 $3000 不会再同分。
+
+    已知局限：不区分币种，500 元与 $500 同等对待 —— 会低估人民币小额单、
+    高估美元小额单。要精确得引入汇率，对"排序"这个用途不值当。
+    """
+    v, kind = amount_info(text)
+    if v is None:
+        return 0
+    if kind == "hour":
+        return 3 if v >= 50 else (2 if v >= 20 else 1)
+    if kind == "month":
+        monthly = v * 4 if re.search(r"week|周|weekly", text or "", re.I) else v
+        return 3 if monthly >= 1500 else (2 if monthly >= 500 else 1)
+    return 3 if v >= 500 else (2 if v >= 150 else 1)
+
+
+def has_plausible_amount(text):
+    """文本里有没有「像价格」的金额。
+
+    保留这个薄封装是为了向后兼容（单测与调用方都在用）；
+    真正的解析在 amount_info()，它还会给出量级与计价方式。
+    """
+    return amount_info(text)[0] is not None
 
 
 def _money_score(text):
-    """0-3：3=有合理量级的具体金额，2=多个付费词，1=单个付费词，0=没有"""
-    if has_plausible_amount(text):
-        return 3
+    """0-3：有金额时按**量级**给分；没金额时才退回数付费词。
+
+    量级比"有没有"重要得多 —— 原实现只看有没有，导致 $50/week 和 $3000
+    同样拿 3 分、并排在最前面。
+    """
+    lvl = money_level(text)
+    if lvl:
+        return lvl
     n_zh = len(set(MONEY_ZH.findall(text)))
     n_en = len(set(m.group(0).lower() for m in MONEY_EN.finditer(text)))
     if n_zh + n_en >= 2:
@@ -254,6 +313,13 @@ def repo_of(url):
 def score_lead(lead):
     """综合分。钱权重最高 —— 因为它最接近"这单能成"。"""
     money = _money_score(lead["text"])
+    # 询价帖**不是委托**：对方还在问"大概多少钱"，没有决定要做。
+    # 实测踩过：一条「请人做小程序大概多少钱？」因为深读后的正文里有人报了价
+    # （2 万到 20 万），money 拿到 3 分、排进前三 —— 但那条帖子里没有人要雇人。
+    # 所以询价类的钱分**封顶 2**：它值得联系（进候选名单），但不该和真委托同权。
+    if lead_kind(lead) == "inquiry":
+        money = min(money, 2)
+        lead["kind_note"] = "询价帖（非委托，钱分封顶 2）"
     spec = _spec_score(lead["text"])
     age = lead.get("age_days")
     fresh = 2 if age is not None and age <= 3 else (1 if age is not None and age <= 14 else 0)
@@ -683,18 +749,35 @@ INQUIRY_DIMENSIONS_EN = ("data volume / scope", "whether an API or existing solu
                          "whether ongoing maintenance is expected")
 
 
-def lead_kind(lead):
-    """线索类型 —— 决定话术的落点。四种类型的语气和问题完全不同。"""
-    text = f"{lead.get('title') or ''} {lead.get('text') or ''}"
+def _kind_of_text(text, lead):
+    """从一段文本判类型。返回类型名或 ""（判不出来）。"""
     if lead.get("source") == "github_bounty" or re.search(r"\bbounty\b|赏金", text, re.I):
         return "bounty"
-    if re.search(r"(招聘|诚聘|招人|热招|hiring|job|岗位|薪水|月薪|年薪|薪|"
+    # 注意：**不要用单字「薪」** —— 它会被"薪资/薪酬/加薪"等各种语境命中，
+    # 实测因此把一条询价帖误判成招聘帖。要用完整的词。
+    if re.search(r"(招聘|诚聘|招人|热招|hiring|job|岗位|薪水|月薪|年薪|"
                  r"任职要求|岗位职责)", text, re.I):
         return "hiring"
-    if re.search(r"(多少钱|大概多少|报价|预算多少|预算怎么|费用大概|价格|收费|"
+    # 「价格」单用太宽（"价格可谈"会出现在任何外包帖里），要带上下文
+    if re.search(r"(多少钱|大概多少|报价|预算多少|预算怎么|费用大概|收费|"
                  r"怎么算钱|how much|pricing)", text, re.I):
         return "inquiry"
-    return "outsourcing"
+    return ""
+
+
+def lead_kind(lead):
+    """线索类型 —— 决定话术的落点。四种类型的语气和问题完全不同。
+
+    **优先只看标题**（与 tech_tags 同一个教训）：深读后的正文是一整段讨论，
+    里面什么词都有。实测踩过 —— 一条「请人做小程序大概多少钱？」因为正文里
+    有人提到「月薪」，被误判成招聘帖，于是询价的钱分封顶失效、又排回了前三。
+    标题才说明这条线索「是什么」；标题判不出类型时才退回全文。
+    """
+    head = lead.get("title") or ""
+    k = _kind_of_text(head, lead)
+    if k:
+        return k
+    return _kind_of_text(f"{head} {lead.get('text') or ''}", lead) or "outsourcing"
 
 
 def apply_script(lead):
@@ -1033,7 +1116,7 @@ def md_text(s):
 
 
 def render(leads, health, kept_supply, src_desc, kept_junk=0, n_deep=0, n_skip=0,
-           n_scripts=3):
+           n_scripts=3, n_prev=0, n_prev_pool=0):
     L = ["# 客户线索清单（正在出钱找人做事的人）", "",
          f"生成时间：{time.strftime('%Y-%m-%d %H:%M')}　·　来源：{src_desc}", "",
          "**这是什么**：不是「值得做的方向」，是**现在能去联系的活**。",
@@ -1070,15 +1153,20 @@ def render(leads, health, kept_supply, src_desc, kept_junk=0, n_deep=0, n_skip=0
         L += [f"**值得联系 {len(worth)} 条　待看 {len(pend)} 条　共 {len(leads)} 条**", "",
               "来源分布（已按信源配额选样，每源保底 3 条）："
               + "、".join(f"{k} {v}" for k, v in dist.most_common()), ""]
-        L += ["| # | 判断 | 分 | 来源 | 类目 | 深读 | 标题 | 钱 | 具体 | 新鲜 | 多久前 |",
-              "|---:|---|---:|---|---|---|---|---:|---:|---:|---|"]
+        if n_prev:
+            L += [f"**其中 {n_prev} 条你已标注过，已沉到榜尾**（「上次」列是上次的标记）——"
+                  " 用 `--new-only` 只看没标过的。", ""]
+        L += ["| # | 判断 | 上次 | 分 | 来源 | 类目 | 深读 | 标题 | 钱 | 具体 | 新鲜 | 多久前 |",
+              "|---:|---|---|---:|---|---|---|---|---:|---:|---:|---|"]
         for i, x in enumerate(leads, 1):
             age = "—" if x["age_days"] is None else f"{x['age_days']:.1f} 天"
             t = md_text(x["title"])[:56]
             tech = "、".join(x.get("tech") or []) or "—"
             bonus = x.get("profile_bonus")
             bs = f"（画像 {bonus:+.1f}）" if bonus else ""
-            L.append(f"| {i} | {x['verdict']} | {x['score']}{bs} | {x['source']} | "
+            pm = x.get("prev_mark")
+            pms = {"yes": "能", "no": "不能", "maybe": "想"}.get(pm, "—") if pm else "—"
+            L.append(f"| {i} | {x['verdict']} | {pms} | {x['score']}{bs} | {x['source']} | "
                      f"{tech} | {'✅' if x.get('deep') else '—'} | [{t}]({x['url']}) | "
                      f"{x['money']} | {x['spec']} | {x['fresh']} | {age} |")
         L += ["", "---", "", "## 逐条原文（判断前请自己读一遍）", ""]
@@ -1159,6 +1247,8 @@ def main():
                     help="只看能力画像（读台账，不采集）")
     ap.add_argument("--use-profile", action="store_true",
                     help="按台账里的标注调整排序（只加减分，不硬过滤）")
+    ap.add_argument("--new-only", action="store_true",
+                    help="只显示没标注过的线索（已标的沉底但仍保留，除非加这个开关）")
     a = ap.parse_args()
 
     os.makedirs(OUT, exist_ok=True)
@@ -1244,6 +1334,20 @@ def main():
             continue
         leads.append(lead)
 
+    # 已标注过的线索：默认**仍然保留但排到最后**，并标出上次的标记；--new-only 则完全隐藏。
+    # 为什么需要（这是我推荐的"每周跑一次、标 20 条"工作流的前提）：
+    # 如果每次重跑都把标过的重新摆在最前面，就得反复重读同样的东西 ——
+    # 那不是"省时间的工具"，是"每周浪费半小时的仪式"。
+    ledger = load_ledger()
+    for x in leads:
+        prev = ledger.get(x["url"])
+        if prev:
+            x["prev_mark"] = prev.get("mark")
+            x["already_marked"] = True
+    n_prev_pool = sum(1 for x in leads if x.get("already_marked"))
+    if a.new_only:
+        leads = [x for x in leads if not x.get("already_marked")]
+
     # 能力画像调整：**只加减分，不做硬过滤**。
     # 硬过滤会形成信息茧房 —— 你今天标"不能做"的类目，可能正是三个月后该做的那一类。
     # 而且标错一条的代价只是排序偏一点，不会让整类线索消失。
@@ -1259,7 +1363,8 @@ def main():
             print("  台账为空，--use-profile 无效果（先用 --mark 标几条）")
 
     leads = [x for x in leads if x["score"] >= a.min_score]
-    leads.sort(key=lambda x: -x["score"])
+    # 未标过的排前面（同一批里先看新的），已标过的沉底但仍在榜上
+    leads.sort(key=lambda x: (bool(x.get("already_marked")), -x["score"]))
     # 两道选样，缺一不可：
     #   cap_per_repo   —— 防同一个仓库连发刷量（实测 bounty-plaza 一个仓库 6+ 条）
     #   quota_select   —— 防条数多的信源霸榜（项目在 P0-3 学到的教训）
@@ -1269,10 +1374,13 @@ def main():
     # 二段式：粗排定名单（便宜），深读定内容（贵）。
     # 顺序很重要 —— 配额先决定"谁有资格被看见"，深读再补上标题里没有的信息。
     # 国内线索尤其需要：搜索结果不含正文，不深读就永远是低分。
+    # 最终榜单里的已标条数（与候选池里的分开统计：池里有 9 条不等于榜上有 9 条）
+    n_prev = sum(1 for x in leads if x.get("already_marked"))
     n_deep = n_skip = 0
     if not a.no_deep and a.deep_n > 0:
         n_deep, n_skip = deep_read_top(leads, a.deep_n)
-        leads.sort(key=lambda x: -x["score"])
+        # 重排时必须保留"已标沉底"这一层，否则前面的排序被覆盖
+        leads.sort(key=lambda x: (bool(x.get("already_marked")), -x["score"]))
         print(f"  深读 {n_deep} 条正文后重打分（另有 {n_skip} 条来源不支持深读）")
 
     ts = time.strftime("%Y%m%d-%H%M")
@@ -1280,7 +1388,8 @@ def main():
     with open(mp, "w", encoding="utf-8") as f:
         f.write(render(leads, health, n_supply, desc, kept_junk=n_junk,
                        n_deep=n_deep, n_skip=n_skip,
-                       n_scripts=a.scripts))
+                       n_scripts=a.scripts, n_prev=n_prev,
+                       n_prev_pool=n_prev_pool))
     jp = os.path.join(OUT, f"leads_{ts}.json")
     # 话术也落盘：方便被别的脚本消费（如批量导入到某个外联工具）
     worth = [y for y in leads if y["verdict"] == "值得联系"][:max(a.scripts, 0)]
@@ -1290,6 +1399,7 @@ def main():
                    "sources": desc, "supply_filtered": n_supply,
                    "junk_filtered": n_junk,
                    "deep_read": n_deep, "deep_skipped": n_skip,
+                   "already_marked": n_prev, "already_marked_pool": n_prev_pool,
                    "scripts": scripts,
                    "leads": leads, "health": health},
                   f, ensure_ascii=False, indent=1, default=str)
