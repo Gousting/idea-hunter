@@ -711,5 +711,61 @@ class TestLeadExtraction(unittest.TestCase):
             _os.remove(p)
 
 
+class TestDeepRead(unittest.TestCase):
+    """二段式深读：标题粗排（便宜）→ 头部深读正文后重打分（贵）。
+
+    为什么需要：知乎/小红书的**搜索结果不含正文**，只有标题 ——
+    于是「钱」和「具体」两列对国内线索系统性偏低，而国内线索恰恰最需要。
+    深读的真实价值（实测）：一条标题看着像需求的知乎回答，正文是
+    「简单点，淘宝直接搜脚本编辑」—— 不是需求，是建议。只有读了正文才知道。
+    """
+
+    def test_flatten_text_collects_nested_strings(self):
+        import leads
+        obj = [{"id": "1", "content": "这是一个足够长的正文片段用于测试",
+                "nested": {"deep": "嵌套里的字符串也要被收集到"}},
+               {"short": "x"}]
+        t = leads._flatten_text(obj)
+        self.assertIn("足够长的正文片段", t)
+        self.assertIn("嵌套里的字符串", t)
+        self.assertNotIn("x", t.split())        # 过短的丢弃
+
+    def test_find_time_picks_created_at(self):
+        import leads
+        self.assertEqual(
+            leads._find_time([{"created_at": "2025-10-17T09:45:12.000Z"}]),
+            "2025-10-17T09:45:12.000Z")
+        self.assertEqual(
+            leads._find_time({"a": {"b": [{"published_at": "2026-01-01"}]}}),
+            "2026-01-01")
+        self.assertIsNone(leads._find_time({"no": "time"}))
+
+    def test_unsupported_source_returns_empty_with_reason(self):
+        """不支持深读的来源必须返回空串 + 说明，不能假装读到了。"""
+        import leads
+        for src, url in [("xiaohongshu", "https://www.xiaohongshu.com/explore/abc?xsec_token=x"),
+                         ("zhihu", "https://zhuanlan.zhihu.com/p/123456"),
+                         ("github_bounty", "https://github.com/a/b/issues/1")]:
+            txt, ts, note = leads.deep_read({"source": src, "url": url})
+            self.assertEqual(txt, "")
+            self.assertIsNone(ts)
+            self.assertTrue(note, f"{src} 应给出不支持的原因")
+
+    def test_deep_read_top_skips_unsupported(self):
+        """只读支持的来源；不支持的计为 skipped，不报错。"""
+        import leads
+        pool = [{"source": "github_bounty", "url": "https://github.com/a/b/issues/1",
+                 "title": "t", "text": "x", "score": 5.0, "verdict": "待看"},
+                {"source": "xiaohongshu", "url": "https://x.com/e/1", "title": "t",
+                 "text": "x", "score": 4.0, "verdict": "待看"}]
+        done, skipped = leads.deep_read_top(pool, n=2, timeout=1)
+        self.assertEqual(done, 0)
+        self.assertEqual(skipped, 2, "两种来源都不支持深读时都应计为 skipped")
+
+    def test_deep_supported_list_is_explicit(self):
+        import leads
+        self.assertEqual(set(leads.DEEP_SUPPORTED), {"v2ex", "zhihu"})
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

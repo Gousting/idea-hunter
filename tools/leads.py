@@ -440,6 +440,122 @@ def collect_project_channels():
     return out, health
 
 
+# ---------------------------------------------------------------- 深读正文
+# 为什么需要（实测局限）：知乎/小红书的**搜索结果不含正文**，只有标题。
+# 于是「钱」和「具体」两列对国内线索系统性偏低 —— 而国内线索恰恰是最需要的。
+# 二段式解决：先用标题零成本粗排，再对头部 N 条深读正文后重打分。
+#
+# 各命令实测（2026-09-20）：
+#   v2ex  /t/<id>                       → `v2ex topic <id>`             ✅
+#                                          （沙箱里 502 是代理挡了 v2ex，本机应可用）
+#   zhihu /question/<qid>/answer/<aid>  → `zhihu answer-detail <url>`   ✅ 附带 created_at
+#   zhihu /question/<qid>               → `zhihu question <qid>`        ✅
+#   zhihu /p/<id>（专栏文章）             → 无对应命令                     ❌
+#   xiaohongshu search_result/explore   → Navigation rejected（需登录）  ❌
+#
+# 深读的额外收益：返回体里带 created_at，顺手补上原本缺失的新鲜度。
+# 深读的真实价值（实测）：一条标题看着像需求的知乎回答，正文是「简单点，
+# 淘宝直接搜脚本编辑」—— 不是需求，是建议。**只有读了正文才知道。**
+DEEP_SUPPORTED = ("v2ex", "zhihu")
+
+
+def _flatten_text(obj, limit=2500):
+    """递归收集 JSON 里的字符串 —— 各适配器字段名不统一，硬编码字段会漏。"""
+    out = []
+
+    def walk(o):
+        if sum(len(s) for s in out) > limit:
+            return
+        if isinstance(o, str):
+            s = " ".join(o.split())
+            if len(s) >= 8:
+                out.append(s)
+        elif isinstance(o, dict):
+            for v in o.values():
+                walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+
+    walk(obj)
+    return " ".join(out)[:limit]
+
+
+def _find_time(obj):
+    """从深读返回体里找发布时间。返回原始字符串或 None。"""
+    keys = ("created_at", "created", "published_at", "time", "timestamp")
+    found = []
+
+    def walk(o):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if k in keys and isinstance(v, (str, int, float)):
+                    found.append(v)
+                else:
+                    walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+
+    walk(obj)
+    return found[0] if found else None
+
+
+def deep_read(lead, timeout=90):
+    """按来源深读正文。返回 (补充正文, 发布时间或 None, 说明)。"""
+    src, url = lead.get("source"), lead.get("url") or ""
+    argv = None
+    if src == "v2ex":
+        m = re.search(r"/t/(\d+)", url)
+        if m:
+            argv = ["v2ex", "topic", m.group(1)]
+    elif src == "zhihu":
+        if re.search(r"/answer/(\d+)", url):
+            argv = ["zhihu", "answer-detail", url]
+        else:
+            m = re.search(r"/question/(\d+)", url)
+            if m:
+                argv = ["zhihu", "question", m.group(1), "--limit", "3"]
+    if not argv:
+        return "", None, "该来源/URL 形式不支持深读"
+    try:
+        d, meta = _oc().run(argv, timeout=timeout)
+    except Exception as e:
+        return "", None, f"{type(e).__name__}: {str(e)[:50]}"
+    if not meta.get("ok"):
+        return "", None, (meta.get("note") or "深读失败")[:60]
+    return _flatten_text(d), _find_time(d), ""
+
+
+def deep_read_top(leads, n=8, timeout=90):
+    """深读正文并重打分。返回 (成功条数, 不支持的条数)。
+
+    **选谁读**（这里踩过一次坑）：第一版取 `leads[:n]`（按分数排的前 N 条），
+    结果实测"深读 0 条" —— 因为头部全是分数高的 github_bounty（正文本来就有），
+    而真正缺正文的国内线索分数低、排在后面，一条都没被读到。
+    正确做法是**按"是否支持深读"筛，再按分数取前 N**：让贵的算力花在
+    "读了才有信息"的条目上，而不是花在本来就完整的条目上。
+    """
+    cand = [x for x in leads if x.get("source") in DEEP_SUPPORTED][:n]
+    n_unsupported = sum(1 for x in leads if x.get("source") not in DEEP_SUPPORTED)
+    done = 0
+    for x in cand:
+        extra, ts, note = deep_read(x, timeout=timeout)
+        x["deep"] = bool(extra)
+        x["deep_note"] = note
+        if not extra:
+            continue
+        done += 1
+        # 正文并入 text 后重打分：预算和具体要求往往只在正文里
+        x["text"] = (x["text"] + " " + extra)[:2400]
+        if x.get("age_days") is None and ts is not None:
+            x["age_days"] = _age_days({"created_at": ts})
+        # 供给方可能只在正文里露出来（标题看不出来），重打分时一并复核
+        x["supply_side"] = x.get("supply_side") or is_supply_side(x["text"], x["title"])
+        score_lead(x)
+    return done, n_unsupported
+
+
 # ---------------------------------------------------------------- 离线模式
 def from_cache(path=None):
     """从已有的 window_cache_*.json 抽线索 —— 不联网、秒出。
@@ -474,7 +590,7 @@ def md_text(s):
     return (s or "").replace("[", "\\[").replace("]", "\\]").replace("|", "/")
 
 
-def render(leads, health, kept_supply, src_desc, kept_junk=0):
+def render(leads, health, kept_supply, src_desc, kept_junk=0, n_deep=0, n_skip=0):
     L = ["# 客户线索清单（正在出钱找人做事的人）", "",
          f"生成时间：{time.strftime('%Y-%m-%d %H:%M')}　·　来源：{src_desc}", "",
          "**这是什么**：不是「值得做的方向」，是**现在能去联系的活**。",
@@ -487,6 +603,8 @@ def render(leads, health, kept_supply, src_desc, kept_junk=0):
          "正文凑得出金额但标题没有信息）。", "",
          "**两道选样**：同源主体上限 2 条（防单仓库刷量）＋ 信源配额每源保底 3 条"
          "（防条数多的信源霸榜）。", "",
+         f"**深读正文 {n_deep} 条**（标题粗排后对头部深读，正文里往往才写着预算与具体要求；"
+         f"另有 {n_skip} 条来源不支持深读 —— 见文末局限）。", "",
          "---", ""]
     if not leads:
         L += ["_本轮没有抽到线索。可能原因：通道需要登录、查询词太窄、或该窗口没人在找人做事。_", ""]
@@ -500,13 +618,14 @@ def render(leads, health, kept_supply, src_desc, kept_junk=0):
         L += [f"**值得联系 {len(worth)} 条　待看 {len(pend)} 条　共 {len(leads)} 条**", "",
               "来源分布（已按信源配额选样，每源保底 3 条）："
               + "、".join(f"{k} {v}" for k, v in dist.most_common()), ""]
-        L += ["| # | 判断 | 分 | 来源 | 标题 | 钱 | 具体 | 新鲜 | 多久前 |",
-              "|---:|---|---:|---|---|---:|---:|---:|---|"]
+        L += ["| # | 判断 | 分 | 来源 | 深读 | 标题 | 钱 | 具体 | 新鲜 | 多久前 |",
+              "|---:|---|---:|---|---|---|---:|---:|---:|---|"]
         for i, x in enumerate(leads, 1):
             age = "—" if x["age_days"] is None else f"{x['age_days']:.1f} 天"
             t = md_text(x["title"])[:60]
             L.append(f"| {i} | {x['verdict']} | {x['score']} | {x['source']} | "
-                     f"[{t}]({x['url']}) | {x['money']} | {x['spec']} | {x['fresh']} | {age} |")
+                     f"{'✅' if x.get('deep') else '—'} | [{t}]({x['url']}) | "
+                     f"{x['money']} | {x['spec']} | {x['fresh']} | {age} |")
         L += ["", "---", "", "## 逐条原文（判断前请自己读一遍）", ""]
         for i, x in enumerate(leads[:30], 1):
             age = "—" if x["age_days"] is None else f"{x['age_days']:.1f} 天前"
@@ -524,14 +643,20 @@ def render(leads, health, kept_supply, src_desc, kept_junk=0):
               "可能违反站点自动化条款，有账号风险 —— 见 out/resilience.json 的合规登记。", ""]
     # 局限必须写在产出里，不能只留在文档 —— 否则读者会把"打分低"读成"线索差"。
     L += ["## 已知局限（读榜单前必看）", "",
-          "1. **国内通道只有标题，没有正文**。知乎/小红书的搜索结果不含笔记/回答正文，"
-          "所以「钱」和「具体」两列对它们系统性偏低 —— 这不等于线索差，"
-          "**建议直接点开链接看原文再判断**。要提升需要逐条深读（每条一次浏览器调用）。", "",
-          "2. **时间信息不一定拿得到**。「多久前」为空表示该通道没给发布时间，"
-          "不是「很久以前」。", "",
-          "3. **金额识别只看文本**。写在图片里、或需要点进详情页才看到的预算抓不到。", "",
-          "4. **供给方过滤是启发式的**。中文表述千变万化（「承接」「可接」「长期合作」…），"
-          "会有漏网。看到明显是「我在接单」的条目，说明词表该补了。", ""]
+          "1. **国内通道的搜索结果只有标题，没有正文**。已用「深读」部分缓解："
+          "**先按来源是否支持深读筛选，再取分数最高的若干条深读正文重打分**"
+          "（表格「深读」列为 ✅ 的就是读过的）。"
+          "**深读列是 — 的条目，建议点开链接自己看一眼。**", "",
+          "2. **深读只支持两种来源**：V2EX（`/t/<id>`）与知乎（问题/回答）。"
+          "**知乎专栏文章（`/p/<id>`）没有对应命令，小红书笔记需登录（实测 Navigation rejected）** ——"
+          "这两类只能靠标题判断。", "",
+          "3. **时间信息不一定拿得到**。「多久前」为空表示该通道没给发布时间，"
+          "不是「很久以前」。深读返回体里带 `created_at` 时会自动补上。", "",
+          "4. **金额识别只看文本**。写在图片里、或需要点进详情页才看到的预算抓不到。", "",
+          "5. **供给方过滤是启发式的**。中文表述千变万化（「承接」「可接」「长期合作」…），"
+          "会有漏网。看到明显是「我在接单」的条目，说明词表该补了。", "",
+          "> **深读的真实价值**（实测）：一条标题看着像需求的知乎回答，正文是"
+          "「简单点，淘宝直接搜脚本编辑」—— 不是需求，是建议。**只有读了正文才知道。**", ""]
     return "\n".join(L)
 
 
@@ -544,6 +669,10 @@ def main():
     ap.add_argument("--limit", type=int, default=20)
     ap.add_argument("--min-score", type=float, default=0.0)
     ap.add_argument("--top", type=int, default=30)
+    ap.add_argument("--deep-n", type=int, default=8,
+                    help="对头部 N 条深读正文后重打分（每次一次浏览器调用，默认 8；"
+                         "国内通道的搜索结果不含正文，只有深读才看得到预算与具体要求）")
+    ap.add_argument("--no-deep", action="store_true", help="跳过深读")
     a = ap.parse_args()
 
     os.makedirs(OUT, exist_ok=True)
@@ -601,15 +730,26 @@ def main():
     leads = cap_per_repo(leads)
     leads = quota_select(leads, a.top)
 
+    # 二段式：粗排定名单（便宜），深读定内容（贵）。
+    # 顺序很重要 —— 配额先决定"谁有资格被看见"，深读再补上标题里没有的信息。
+    # 国内线索尤其需要：搜索结果不含正文，不深读就永远是低分。
+    n_deep = n_skip = 0
+    if not a.no_deep and a.deep_n > 0:
+        n_deep, n_skip = deep_read_top(leads, a.deep_n)
+        leads.sort(key=lambda x: -x["score"])
+        print(f"  深读 {n_deep} 条正文后重打分（另有 {n_skip} 条来源不支持深读）")
+
     ts = time.strftime("%Y%m%d-%H%M")
     mp = os.path.join(OUT, f"leads_{ts}.md")
     with open(mp, "w", encoding="utf-8") as f:
-        f.write(render(leads, health, n_supply, desc, kept_junk=n_junk))
+        f.write(render(leads, health, n_supply, desc, kept_junk=n_junk,
+                       n_deep=n_deep, n_skip=n_skip))
     jp = os.path.join(OUT, f"leads_{ts}.json")
     with open(jp, "w", encoding="utf-8") as f:
         json.dump({"generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
                    "sources": desc, "supply_filtered": n_supply,
                    "junk_filtered": n_junk,
+                   "deep_read": n_deep, "deep_skipped": n_skip,
                    "leads": leads, "health": health},
                   f, ensure_ascii=False, indent=1, default=str)
 
