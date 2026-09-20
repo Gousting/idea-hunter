@@ -1,0 +1,161 @@
+{
+ "rows": [
+  {
+   "capability": "开源供给（在做什么）",
+   "state": "covered",
+   "primary_ok": [
+    "github_trending",
+    "github_search"
+   ],
+   "primary_failed": [],
+   "skipped": [],
+   "equivalent_ok": [],
+   "note": "官方 API + 公开页面，无登录依赖"
+  },
+  {
+   "capability": "技术讨论与痛点原话",
+   "state": "covered",
+   "primary_ok": [
+    "hn",
+    "lobsters",
+    "lesswrong"
+   ],
+   "primary_failed": [],
+   "skipped": [],
+   "equivalent_ok": [],
+   "note": "全部免登录（HN Algolia 公开搜索 / Lobsters / DEV.to / LessWrong）"
+  },
+  {
+   "capability": "付费需求（有人出钱做事）",
+   "state": "covered",
+   "primary_ok": [
+    "indeed"
+   ],
+   "primary_failed": [],
+   "skipped": [
+    "upwork"
+   ],
+   "equivalent_ok": [
+    "github_bounty",
+    "reddit:forhire"
+   ],
+   "note": "主源都要登录态且 upwork 100% 失败；等效源免登录且金额可核（赏金写在 issue 里）"
+  },
+  {
+   "capability": "创始人原话与发声",
+   "state": "covered",
+   "primary_ok": [
+    "reddit"
+   ],
+   "primary_failed": [],
+   "skipped": [
+    "twitter"
+   ],
+   "equivalent_ok": [
+    "bluesky:trending(弱)"
+   ],
+   "note": "reddit 有官方 RSS；twitter 需登录。bluesky 仅弱等效且实测内容是新闻榜（不能替代创始人原话），本条能力实际仍降级"
+  },
+  {
+   "capability": "中文需求信号",
+   "state": "degraded",
+   "primary_ok": [],
+   "primary_failed": [],
+   "skipped": [],
+   "equivalent_ok": [
+    "juejin:hot"
+   ],
+   "note": "xhs 需登录且常超时；juejin 免登录但偏技术（弱等效）；zhihu 主动排除（新闻榜零价值，见 EXCLUDED_BY_DESIGN）"
+  },
+  {
+   "capability": "新发布产品（竞品情报）",
+   "state": "covered",
+   "primary_ok": [
+    "producthunt"
+   ],
+   "primary_failed": [],
+   "skipped": [],
+   "equivalent_ok": [],
+   "note": "仅有公开页面通道；无等效源（潜在单点）"
+  }
+ ],
+ "gap_rate": 0.0,
+ "fail_rate": 0.10638297872340426,
+ "skipped": {
+  "upwork": 4,
+  "twitter": 2
+ },
+ "degraded": 1,
+ "lost": 0,
+ "n_capabilities": 6,
+ "compliance": {
+  "github_trending": [
+   "官方公开页面",
+   "低"
+  ],
+  "github_search": [
+   "官方 API（未认证，有速率限制）",
+   "低"
+  ],
+  "github_bounty": [
+   "官方 API 搜索（label:bounty，付费证据/非独立发现）",
+   "低"
+  ],
+  "hn": [
+   "Algolia 公开搜索 API / 官方页面",
+   "低"
+  ],
+  "lobsters": [
+   "公开页面 / 公开 API",
+   "低"
+  ],
+  "devto": [
+   "公开 API",
+   "低"
+  ],
+  "lesswrong": [
+   "公开 API",
+   "低"
+  ],
+  "stackoverflow": [
+   "公开页面",
+   "低"
+  ],
+  "juejin:hot": [
+   "公开页面",
+   "低-中"
+  ],
+  "bluesky:trending": [
+   "公开 API（AT Protocol）",
+   "低"
+  ],
+  "reddit": [
+   "官方 RSS（/r/x/.rss，个人研究用）+ 登录态读帖",
+   "中"
+  ],
+  "producthunt": [
+   "公开页面（登录态交互）",
+   "中"
+  ],
+  "indeed": [
+   "浏览器登录态 + 页面渲染",
+   "中-高"
+  ],
+  "upwork": [
+   "浏览器登录态",
+   "中-高"
+  ],
+  "twitter": [
+   "浏览器登录态",
+   "中-高"
+  ],
+  "xiaohongshu": [
+   "浏览器登录态",
+   "中-高"
+  ],
+  "zhihu": [
+   "浏览器登录态",
+   "中-高"
+  ]
+ }
+}

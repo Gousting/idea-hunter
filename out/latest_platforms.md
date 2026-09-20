@@ -1,0 +1,289 @@
+# 各平台热点汇总 · 各平台热榜
+
+（本窗口采集 284 条；**不做需求门槛、不做方向归类**，直接按平台原生热度排序——这一节回答的是"各平台在热什么"，不是"哪些方向有需求"）
+
+> 热度口径按平台定制：HN/Lobsters=点数×2+评论×3；DEV.to/LessWrong=评论×3；知乎=回答数；SO=浏览数+回答×10；Product Hunt=投票×5；GitHub=日均涨星。各站量纲不同，**跨平台只比排名不比数值**。
+
+## zhihu（15 条）
+
+平台高频词：还有（2）、的有（2）、真的有（2）、信息（2）、强制（2）、情况（2）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | 退休副省长家丢了 243 万元茅台等名酒，管家因盗窃罪获刑10年半，哪些细节值得关注？ | 9260000 | [打开](https://www.zhihu.com/question/2083586923906295347) |
+| 2 | 如何看待「快递小哥救助摔倒老人反被索赔超 92 万」一案，终审驳回全部诉求 ？法律怎样降低救人的风险？ | 6670000 | [打开](https://www.zhihu.com/question/2083927414493681147) |
+| 3 | 义乌开始卖载人飞碟飞行器了，单笔订单卖出 1.2 亿元，离普通人还有多远？商业化还要解决哪些问题？ | 4200000 | [打开](https://www.zhihu.com/question/2083949287025788571) |
+| 4 | 为什么生意再小，赚钱的速度都远超打工？ | 2340000 | [打开](https://www.zhihu.com/question/1973749451853169735) |
+| 5 | 名古屋亚运会用「邮轮+集装箱房」替代亚运村，巴黎奥运村极度简陋无空调，为啥如今的体育大赛越办越寒酸？ | 1780000 | [打开](https://www.zhihu.com/question/2081790151865406534) |
+| 6 | 很多老师称现在批改作业不能用×，要换成◯、△，是为了保护学生吗？真的有用吗？打×本身有问题吗？ | 1670000 | [打开](https://www.zhihu.com/question/2083585452137608098) |
+| 7 | 全球陷入「抢钨大战」，两年时间价格上涨了约 9 倍，为啥会疯涨？钨这种稀有金属的战略价值体现在哪里？ | 1620000 | [打开](https://www.zhihu.com/question/2082873227517359039) |
+| 8 | 网传浙江师范大学强制新生填写父母工作单位、月收入等12项隐私信息，为啥要填这么详细？真的有必要吗？ | 1610000 | [打开](https://www.zhihu.com/question/2083934201863202786) |
+| 9 | 曝甲醛白菜的博主渔猎齐哥再曝广东清远「硫磺竹笋」，当地发布通报称情况属实，哪些信息值得关注？ | 1580000 | [打开](https://www.zhihu.com/question/2084183379600204463) |
+| 10 | 为什么麦当劳在中国不如肯德基？ | 1470000 | [打开](https://www.zhihu.com/question/644485856) |
+| 11 | 印度央行强制塔塔控股公司上市，或成印度史上最大 IPO，为什么还有强制上市的情况？ | 1450000 | [打开](https://www.zhihu.com/question/2083879086175117961) |
+| 12 | 母鸡孵蛋的时候不会感到无聊吗？ | 1440000 | [打开](https://www.zhihu.com/question/312601657) |
+| 13 | 如何看待华为突破冯诺依曼「单机」架构？ | 1430000 | [打开](https://www.zhihu.com/question/2084200588892451205) |
+| 14 | 都说雄性激素会让毛囊萎缩导致脱发，那为什么同样激素水平，有的人秃顶，有的人却发量浓密？ | 1190000 | [打开](https://www.zhihu.com/question/2083906822814094755) |
+| 15 | TES 拿下 LPL 三号种子席位挺进 S16，如何评价他们本次季后赛表现？ | 1180000 | [打开](https://www.zhihu.com/question/2084039837368193223) |
+
+## juejin（15 条）
+
+平台高频词：validx（1）、iso（1）、jwt（1）、schema（1）、token（1）、chatgpt（1）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | ValidX时间段验证详解：ISO 8601标准与简化格式 | 11290 | [打开](https://juejin.cn/post/7684649314159312930) |
+| 2 | 被吹上天的 JWT，为什么主流网站一个都不用 | 4044 | [打开](https://juejin.cn/post/7684261460002701338) |
+| 3 | 只备份一个 schema，别把整库都搬走 | 3856 | [打开](https://juejin.cn/post/7685224902321848358) |
+| 4 | ChatGPT 开启无限 token | 1976 | [打开](https://juejin.cn/post/7685770509585629190) |
+| 5 | 一份 KDMS 评估报告，怎样排出迁移先后顺序 | 1042 | [打开](https://juejin.cn/post/7686361321610035246) |
+| 6 | JDK27正式发布，人麻了! | 1006 | [打开](https://juejin.cn/post/7686174631263404073) |
+| 7 | Kafka已正式接入AI | 836 | [打开](https://juejin.cn/post/7684573646439317514) |
+| 8 | AI会让程序员失业吗？200年前的手工织工已经给出了答案 | 802 | [打开](https://juejin.cn/post/7685276242113019938) |
+| 9 | 为什么越来越多人用OpenWiki？ | 639 | [打开](https://juejin.cn/post/7685591822258585626) |
+| 10 | “这需求用 AI 也就十分钟吧？”——周五深夜十一点，我在工位给 Cursor 擦屁股 | 474 | [打开](https://juejin.cn/post/7684460980934164495) |
+| 11 | GPT-6 Astra 的提示词泄露了，里面居然藏着个保安？ | 434 | [打开](https://juejin.cn/post/7685215742590517299) |
+| 12 | 给若依加审批流，不用 Flowable | 404 | [打开](https://juejin.cn/post/7685577977079185423) |
+| 13 | 🎥 手搓一套直播高并发环境！一个后端小白从 0 到 1 的搭建笔记 | 321 | [打开](https://juejin.cn/post/7684154085232001059) |
+| 14 | 2026 爆火的「本体」：给大模型装上业务世界观 | 303 | [打开](https://juejin.cn/post/7684080641566834703) |
+| 15 | 还在用 Electron？6 种跨平台桌面方案横评：Rust + Vue 把安装包从 224MB 干到 4.7MB | 264 | [打开](https://juejin.cn/post/7685261384724463658) |
+
+## github_trending（15 条）
+
+平台高频词：tencent（2）、cloudflare（1）、security-audit-skill（1）、alibaba（1）、open-code-review（1）、browserskill（1）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | cloudflare/security-audit-skill | 3607 | [打开](https://github.com/cloudflare/security-audit-skill) |
+| 2 | alibaba/open-code-review | 3286 | [打开](https://github.com/alibaba/open-code-review) |
+| 3 | Tencent/BrowserSkill | 1302 | [打开](https://github.com/Tencent/BrowserSkill) |
+| 4 | affaan-m/ECC | 1171 | [打开](https://github.com/affaan-m/ECC) |
+| 5 | Tencent/WeKnora | 1125 | [打开](https://github.com/Tencent/WeKnora) |
+| 6 | alphaXiv/OpenResearch | 939 | [打开](https://github.com/alphaXiv/OpenResearch) |
+| 7 | NationalSecurityAgency/ghidra | 912 | [打开](https://github.com/NationalSecurityAgency/ghidra) |
+| 8 | JustVugg/colibri | 873 | [打开](https://github.com/JustVugg/colibri) |
+| 9 | abue-ammar/tinycast | 739 | [打开](https://github.com/abue-ammar/tinycast) |
+| 10 | addyosmani/agent-skills | 680 | [打开](https://github.com/addyosmani/agent-skills) |
+| 11 | jamiepine/voicebox | 667 | [打开](https://github.com/jamiepine/voicebox) |
+| 12 | anthropics/claude-code | 538 | [打开](https://github.com/anthropics/claude-code) |
+| 13 | ever-co/ever-gauzy | 470 | [打开](https://github.com/ever-co/ever-gauzy) |
+| 14 | cline/cline | 380 | [打开](https://github.com/cline/cline) |
+| 15 | TencentCloud/Octop | 367 | [打开](https://github.com/TencentCloud/Octop) |
+
+## hn（15 条）
+
+平台高频词：setup（2）、share（2）、agent（2）、draws（1）、e-ink（1）、hears（1）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | Show HN: An e-ink frame that hears birds and draws them as 1800s illustratio | 5331 | [打开](https://github.com/arnegiacomo/fugleramme) |
+| 2 | Ask HN: What are you working on? (September 2026) | 4315 | [打开]() |
+| 3 | Show HN: I made a flight simulator, except you're just a passenger | 1491 | [打开](https://inflightsimulator.com) |
+| 4 | Neovim have a ~$800k Bitcoin donation sitting untouched since 2023 | 1329 | [打开]() |
+| 5 | Show HN: Share your AI Setup, Learn from others | 775 | [打开](https://mysetup.ai/) |
+| 6 | Show HN: Hacking a $20 4G wireless hotspot into a texting device | 516 | [打开](https://bkovac.github.io/modem-thing/) |
+| 7 | Ask HN: How to recover Google auth after phone stolen? | 514 | [打开]() |
+| 8 | Show HN: I built a new version of my fun spatial 3D online meeting app | 344 | [打开](https://flat.social) |
+| 9 | Show HN: How Stale Is Your AI? Release age and training cutoff for 20 models | 294 | [打开](https://stale.jock.pl/) |
+| 10 | Show HN: Snapdrop: Instantly share files between devices. No setup, no signu | 227 | [打开](https://snapdrop.me) |
+| 11 | Ask HN: Are 80s high school hobby programmers overwhelmingly pro-AI? | 149 | [打开]() |
+| 12 | Show HN: Aclif – Agent CLI framework: one grammar, canonical names across Sa | 110 | [打开](https://www.aclif.ai/) |
+| 13 | Show HN: AttaLambda: a language where types and data are made of untyped lam | 107 | [打开](https://attalambda.com) |
+| 14 | Open-sourced jev architecture last year with model,paper and dataset | 103 | [打开]() |
+| 15 | Show HN: Craigslist for agent skills, curated by a human | 94 | [打开](https://skillbay.sh/) |
+
+## github_search（15 条）
+
+平台高频词：jev-ultrafast（1）、browser-use（1）、tamaratran（1）、fast-jev-compaction（1）、openjev（1）、theoleecj（1）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | browser-use/jev-ultrafast | 3032 | [打开](https://github.com/browser-use/jev-ultrafast) |
+| 2 | tamaratran/fast-jev-compaction | 1351 | [打开](https://github.com/tamaratran/fast-jev-compaction) |
+| 3 | TheoLeeCJ/openjev | 1008 | [打开](https://github.com/TheoLeeCJ/openjev) |
+| 4 | vinnylarouge/jevlike | 739 | [打开](https://github.com/vinnylarouge/jevlike) |
+| 5 | jarrodwatts/jev-trader | 611 | [打开](https://github.com/jarrodwatts/jev-trader) |
+| 6 | ctdal/cve-2026-41940-PoC | 479 | [打开](https://github.com/ctdal/cve-2026-41940-PoC) |
+| 7 | korcarc/text-humanizer | 465 | [打开](https://github.com/korcarc/text-humanizer) |
+| 8 | yynxxxxx/gpt_sub_analysis | 386 | [打开](https://github.com/yynxxxxx/gpt_sub_analysis) |
+| 9 | Mak5er/AirCard | 302 | [打开](https://github.com/Mak5er/AirCard) |
+| 10 | Marcos66236/github-stars-history | 276 | [打开](https://github.com/Marcos66236/github-stars-history) |
+| 11 | fhshaik/typesafe-mario | 237 | [打开](https://github.com/fhshaik/typesafe-mario) |
+| 12 | thruwire/foreman | 231 | [打开](https://github.com/thruwire/foreman) |
+| 13 | nMaas8388/github-ranking-audit | 193 | [打开](https://github.com/nMaas8388/github-ranking-audit) |
+| 14 | devagrawal09/jev-review | 191 | [打开](https://github.com/devagrawal09/jev-review) |
+| 15 | awlevin/typesafe-computer-use | 177 | [打开](https://github.com/awlevin/typesafe-computer-use) |
+
+## lobsters（15 条）
+
+平台高频词：shuts（1）、down（1）、lost（1）、minds（1）、gnome（1）、introducing（1）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | A/I Shuts Down | 648 | [打开](https://lobste.rs/s/wxnibb/i_shuts_down) |
+| 2 | Everybody's Lost Their Minds | 384 | [打开](https://lobste.rs/s/rok1za/everybody_s_lost_their_minds) |
+| 3 | Introducing GNOME 51 | 260 | [打开](https://lobste.rs/s/gs10ad/introducing_gnome_51) |
+| 4 | The end of verygoodsoftwarenotvirus.ru | 258 | [打开](https://lobste.rs/s/ihw0hq/end_verygoodsoftwarenotvirus_ru) |
+| 5 | I expected better from Google | 227 | [打开](https://lobste.rs/s/11uiiv/i_expected_better_from_google) |
+| 6 | I Don't Like LLMs | 209 | [打开](https://lobste.rs/s/pkj7mf/i_don_t_like_llms) |
+| 7 | How to get a DOI for your blog posts | 197 | [打开](https://lobste.rs/s/lvld5b/how_get_doi_for_your_blog_posts) |
+| 8 | Forgery of C2PA on a Pixel 10 | 165 | [打开](https://lobste.rs/s/tgrvxh/forgery_c2pa_on_pixel_10) |
+| 9 | Why i'm still bearish on LLMs after Navier-Stokes | 137 | [打开](https://lobste.rs/s/cianny/why_i_m_still_bearish_on_llms_after_navier) |
+| 10 | Why .tar.gz files can't be combined with cat | 124 | [打开](https://lobste.rs/s/lox1su/why_tar_gz_files_can_t_be_combined_with_cat) |
+| 11 | The Golden Spike, and Resurrecting the Vale(n) Programming Language | 120 | [打开](https://lobste.rs/s/fjnkn4/golden_spike_resurrecting_vale_n) |
+| 12 | Be alert: targeted attacks on prominent Rustaceans | 115 | [打开](https://lobste.rs/s/uz30ed/be_alert_targeted_attacks_on_prominent) |
+| 13 | Unicode 18.0.0 | 115 | [打开](https://lobste.rs/s/sh6yeo/unicode_18_0_0) |
+| 14 | Flock cameras are riddled with security vulnerabilities and hard-coded crede | 93 | [打开](https://lobste.rs/s/eyg3oe/flock_cameras_are_riddled_with_security) |
+| 15 | Your Donations at Work: One Year of Sponsored Servo Development | 83 | [打开](https://lobste.rs/s/oigetg/your_donations_at_work_one_year_sponsored) |
+
+## reddit（15 条）
+
+平台高频词：saas（3）、product（2）、hard（2）、daily（2）、paid（2）、category（1）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | New rule banning a SaaS product category: No Promotional or Advertising SaaS | 873 | [打开](https://www.reddit.com/r/SaaS/comments/1u0z4vz/new_rule_banning_a_saas_product_category_no/) |
+| 2 | First Monthly Subscription | 690 | [打开](https://www.reddit.com/r/SaaS/comments/1wi88io/first_monthly_subscription/) |
+| 3 | Anyone is interested in becoming a Mod  in r/SaaS? | 165 | [打开](https://www.reddit.com/r/SaaS/comments/1v8d8d2/anyone_is_interested_in_becoming_a_mod_in_rsaas/) |
+| 4 | Keep hustling hard everybody 💪 | 153 | [打开](https://www.reddit.com/r/SaaS/comments/1wivwbg/keep_hustling_hard_everybody/) |
+| 5 | What have you guys actually done to market your apps? The “dark side” of bei | 111 | [打开](https://www.reddit.com/r/SaaS/comments/1wiwqpl/what_have_you_guys_actually_done_to_market_your/) |
+| 6 | Tally is doing $5M+ ARR with 11 people. I decoded their AEO strategy. | 96 | [打开](https://www.reddit.com/r/SaaS/comments/1wime93/tally_is_doing_5m_arr_with_11_people_i_decoded/) |
+| 7 | Burned hundreds on Reddit Ads | 72 | [打开](https://www.reddit.com/r/SaaS/comments/1wj8yif/burned_hundreds_on_reddit_ads/) |
+| 8 | 300+ daily active users, but consistent paid conversions are still hard. Wha | 36 | [打开](https://www.reddit.com/r/SaaS/comments/1wjg4ez/300_daily_active_users_but_consistent_paid/) |
+| 9 | 120K+ Daily views on TikTok with a Phone Farm | 30 | [打开](https://www.reddit.com/r/SaaS/comments/1wja0h7/120k_daily_views_on_tiktok_with_a_phone_farm/) |
+| 10 | We built the product. Then we realized we might be solving the wrong problem | 27 | [打开](https://www.reddit.com/r/SaaS/comments/1wji7oo/we_built_the_product_then_we_realized_we_might_be/) |
+| 11 | 1 paying user 1 month later still 1!! | 24 | [打开](https://www.reddit.com/r/SaaS/comments/1wjeidv/1_paying_user_1_month_later_still_1/) |
+| 12 | Check out my SaaS and tell me what needs to improve | 24 | [打开](https://www.reddit.com/r/SaaS/comments/1wjhrrn/check_out_my_saas_and_tell_me_what_needs_to/) |
+| 13 | Google cut my site from 4,539 impressions a day to 328 in three days. Every  | 21 | [打开](https://www.reddit.com/r/SaaS/comments/1wjdw96/google_cut_my_site_from_4539_impressions_a_day_to/) |
+| 14 | This can't be real! | 21 | [打开](https://www.reddit.com/r/SaaS/comments/1wjbdy6/this_cant_be_real/) |
+| 15 | Agency owners: a paid AI pilot hit messy client data, then a 41-minute test. | 18 | [打开](https://www.reddit.com/r/SaaS/comments/1wj9f6v/agency_owners_a_paid_ai_pilot_hit_messy_client/) |
+
+## producthunt（12 条）
+
+平台高频词：typedash（1）、stile（1）、smartcheck（1）、m9r（1）、receipt（1）、scanner（1）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | TypeDash | 125 | [打开](https://www.producthunt.com/products/typedash-2) |
+| 2 | Stile.iD | 120 | [打开](https://www.producthunt.com/products/stile-id) |
+| 3 | SmartCheck | 115 | [打开](https://www.producthunt.com/products/smartcheck) |
+| 4 | M9R | 110 | [打开](https://www.producthunt.com/products/m9r) |
+| 5 | Galactic Receipt Scanner | 105 | [打开](https://www.producthunt.com/products/galactic-receipt-scanner) |
+| 6 | Slurp | 100 | [打开](https://www.producthunt.com/products/slurp-2) |
+| 7 | Unvendor | 95 | [打开](https://www.producthunt.com/products/unvendor) |
+| 8 | AEXGrid | 90 | [打开](https://www.producthunt.com/products/aexgrid) |
+| 9 | MeshEdit | 85 | [打开](https://www.producthunt.com/products/meshedit) |
+| 10 | Wombo | 80 | [打开](https://www.producthunt.com/products/wombo-the-ai-game-studio) |
+| 11 | Mantle | 75 | [打开](https://www.producthunt.com/products/mantle-f52466f6-7b01-4f3c-b7de-a2e445d1f2e3) |
+| 12 | ProductBridge | 70 | [打开](https://www.producthunt.com/products/productbridge) |
+
+## lesswrong（15 条）
+
+平台高频词：ais（2）、current（2）、seems（2）、talker（1）、doer（1）、control（1）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | The Talker Does Not Control The Doer (in Current AIs) | 201 | [打开](https://www.lesswrong.com/posts/cJX2ssssGoYqnijwi/the-talker-does-not-control-the-doer-in-current-ais) |
+| 2 | Some ways AI could kill us all | 138 | [打开](https://www.lesswrong.com/posts/LAPa2jxoq3n63GzTr/some-ways-ai-could-kill-us-all) |
+| 3 | Is METR A Meaningful Check On Anthropic? | 132 | [打开](https://www.lesswrong.com/posts/eeJB8x2pK8injCuBN/is-metr-a-meaningful-check-on-anthropic) |
+| 4 | For Love of the Lightcone, Don't Partisanize AI Safety | 120 | [打开](https://www.lesswrong.com/posts/Rx38cuCpL9hguLCDq/for-love-of-the-lightcone-don-t-partisanize-ai-safety) |
+| 5 | Teleoperated Humans | 90 | [打开](https://www.lesswrong.com/posts/mWQSiHG3Qz9qYx3D7/teleoperated-humans) |
+| 6 | There is a channel to 900M weekly users. What goes in it? | 84 | [打开](https://www.lesswrong.com/posts/gJJ9YHzuBvwAXrthW/there-is-a-channel-to-900m-weekly-users-what-goes-in-it) |
+| 7 | Cooperation with AIs seems to be a low-hanging fruit for better eval practic | 81 | [打开](https://www.lesswrong.com/posts/fztW73KCCs3MZXFJh/cooperation-with-ais-seems-to-be-a-low-hanging-fruit-for) |
+| 8 | Model Weight Exfiltration Seems Overrated | 63 | [打开](https://www.lesswrong.com/posts/AuYh8WueNGwkQg4ei/model-weight-exfiltration-seems-overrated) |
+| 9 | If Anyone Builds It, Everyone Dies: One Year Closer | 54 | [打开](https://www.lesswrong.com/posts/BFrRJYgpBvziuuJLs/if-anyone-builds-it-everyone-dies-one-year-closer) |
+| 10 | Consider how your global governance proposal is different from the EU Code o | 39 | [打开](https://www.lesswrong.com/posts/2vHsTtQF23TBNhvKX/consider-how-your-global-governance-proposal-is-different) |
+| 11 | Current alignment techniques might be ineffective (and actively bad) in the  | 24 | [打开](https://www.lesswrong.com/posts/nLaQmJf4KgXimQpoM/current-alignment-techniques-might-be-ineffective-and) |
+| 12 | I am refusing to work on Cloud TPUs | 21 | [打开](https://www.lesswrong.com/posts/wM5vbT9evBhM3fP3x/i-am-refusing-to-work-on-cloud-tpus) |
+| 13 | Quick notes from teaching technical profiles how to talk in public | 21 | [打开](https://www.lesswrong.com/posts/nKsyMfNsAuTrxmjmi/quick-notes-from-teaching-technical-profiles-how-to-talk-in) |
+| 14 | Op-Ed: I Worked at Google DeepMind. You Should Listen to the Warnings About  | 12 | [打开](https://www.lesswrong.com/posts/YGTWfyZb9oE5EQPu6/op-ed-i-worked-at-google-deepmind-you-should-listen-to-the) |
+| 15 | AI as orderly evacuation vs stampede | 12 | [打开](https://www.lesswrong.com/posts/FCMG4qnxks3yEqBbh/ai-as-orderly-evacuation-vs-stampede) |
+
+## bluesky（10 条）
+
+平台高频词：trump（2）、orb（1）、pope（1）、gifted（1）、xiv（1）、leo（1）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | Pope Leo XIV gifted green orb | 125 | [打开](https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/db2ec5600a03) |
+| 2 | Trump threatens EU over Canada | 120 | [打开](https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/113616dc081e) |
+| 3 | Sheeran openers quit in solidarity | 115 | [打开](https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/fd3df2e6ca68) |
+| 4 | RFK Jr. addresses anti-vaccine conference | 110 | [打开](https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/c8672ae66b0e) |
+| 5 | Microsoft exec AI remarks in NYT suit | 105 | [打开](https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/97dafc70ca6e) |
+| 6 | Kennedy Center demolition case | 100 | [打开](https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/21f579e58f3f) |
+| 7 | Iran ties Hormuz reopening to Trump exit | 95 | [打开](https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/218cbc278fef) |
+| 8 | BBC opens Doctor Who tender | 90 | [打开](https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/92eea4315020) |
+| 9 | Russia's hybrid war on Europe | 85 | [打开](https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/9b03def205dd) |
+| 10 | BirdOfTheDay theme: owl, duck, goose | 80 | [打开](https://bsky.app/profile/did:plc:qrz3lhbyuxbeilrc6nekdqme/feed/c23831e69961) |
+
+## stackoverflow（2 条）
+
+平台高频词：generate（1）、laravel（1）、identifiers（1）、numbers（1）、auto（1）、form（1）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | Laravel 5 Auto Generate Form Numbers / Identifiers | 636 | [打开](https://stackoverflow.com/questions/33547735/laravel-5-auto-generate-form-numbers-identifiers) |
+| 2 | Getting forbidden error on selenium chrome | 60 | [打开](https://stackoverflow.com/questions/80003603/getting-forbidden-error-on-selenium-chrome) |
+
+## devto（15 条）
+
+平台高频词：coding（2）、memory（2）、dog（1）、challenge（1）、weekend（1）、edition（1）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | Congrats to the DEV Weekend Challenge: Dog Days Edition Winners! | 30 | [打开](https://dev.to/devteam/congrats-to-the-dev-weekend-challenge-dog-days-edition-winners-300g) |
+| 2 | Deno 2.6's minimum dependency age flag ignores year and month durations | 18 | [打开](https://dev.to/alexgeorgiev17/deno-26s-minimum-dependency-age-flag-ignores-year-and-month-durations-1ac5) |
+| 3 | What If Your Coding Agent Could Remember What It Learned Yesterday? | 12 | [打开](https://dev.to/nishikantaray/what-if-your-coding-agent-could-remember-what-it-learned-yesterday-2okj) |
+| 4 | Git Bisect for Your Data | 6 | [打开](https://dev.to/devopsdaily/git-bisect-for-your-data-12dd) |
+| 5 | The Code I Couldn't Leave Alone | 6 | [打开](https://dev.to/shubhradev/the-code-i-couldnt-leave-alone-33hf) |
+| 6 | The Bottleneck Moved From Writing Code to Proving It | 6 | [打开](https://dev.to/debashish_ghosal/the-bottleneck-moved-from-writing-code-to-proving-it-5bpm) |
+| 7 | Serving Gemma 4 on an AMD MI300X: What $1.99 an Hour Buys | 3 | [打开](https://dev.to/gde/serving-gemma-4-on-an-amd-mi300x-what-199-an-hour-buys-52h9) |
+| 8 | Debug Log #3: I Had Claude Code Backtest a Trading Strategy for a Week, and  | 3 | [打开](https://dev.to/just_a_side_project/debug-log-3-i-had-claude-code-backtest-a-trading-strategy-for-a-week-and-it-found-three-bugs-in-5g50) |
+| 9 | Stop Debouncing Resize. The Browser Already Watches It. | 3 | [打开](https://dev.to/parsajiravand/stop-debouncing-resize-the-browser-already-watches-it-1eh6) |
+| 10 | Frameworks Are Institutional Memory | 0 | [打开](https://dev.to/kenwalger/frameworks-are-institutional-memory-b3l) |
+| 11 | The clipboard bridge that had to wait for the device | 0 | [打开](https://dev.to/joduchan/the-clipboard-bridge-that-had-to-wait-for-the-device-31jb) |
+| 12 | Architecting Battery-Efficient Geofencing for Automated Sound Profiles | 0 | [打开](https://dev.to/haseebthedev0/architecting-battery-efficient-geofencing-for-automated-sound-profiles-4f33) |
+| 13 | How I built an AI Coding Mentor (KODA) entirely on a $150 Android phone 📱🐯 | 0 | [打开](https://dev.to/koda2026/how-i-built-an-ai-coding-mentor-koda-entirely-on-a-150-android-phone-2c89) |
+| 14 | A failed compaction wiped my AI session, so I built it infinite memory | 0 | [打开](https://dev.to/geco_50/a-failed-compaction-wiped-my-ai-session-so-i-built-it-infinite-memory-18ie) |
+| 15 | My Benchmark Judged Five Models Against a Threshold Built for Three | 0 | [打开](https://dev.to/ofri-peretz/my-benchmark-judged-five-models-against-a-threshold-built-for-three-a0l) |
+
+## indeed（15 条）
+
+平台高频词：automation（15）、招聘（15）、inc（5）、hybrid（4）、technologies（3）、san（3）
+
+| # | 标题 | 平台热度 | 链接 |
+|---:|---|---:|---|
+| 1 | Live Nation 招聘：automation（Remote） | 0 | [打开](https://www.indeed.com/viewjob?jk=5d7289ce78c6ab65) |
+| 2 | BAE Systems Inc. 招聘：automation（Remote in Charlotte, NC） | 0 | [打开](https://www.indeed.com/viewjob?jk=058eb67ab8018673) |
+| 3 | Johns Hopkins University 招聘：automation（Hybrid work in Baltimore, MD 21218） | 0 | [打开](https://www.indeed.com/viewjob?jk=fcb56cc3453612c1) |
+| 4 | Applied Materials 招聘：automation（Santa Clara, CA 95054） | 0 | [打开](https://www.indeed.com/viewjob?jk=a55d326dab47efc9) |
+| 5 | Honeywell Aerospace 招聘：automation（United States） | 0 | [打开](https://www.indeed.com/viewjob?jk=e0b07dcee6705b52) |
+| 6 | INGRAM PROFESSIONAL SERVICES INC 招聘：automation（Midland, TX 79706） | 0 | [打开](https://www.indeed.com/viewjob?jk=8ef2ab0eeb9cc79e) |
+| 7 | State of Ohio - Auditor Of State 招聘：automation（Hybrid work in Ohio） | 0 | [打开](https://www.indeed.com/viewjob?jk=b557f97940833b20) |
+| 8 | American Airlines 招聘：automation（Fort Worth, TX） | 0 | [打开](https://www.indeed.com/viewjob?jk=dec970b7093a48e2) |
+| 9 | Aperia Technologies, Inc 招聘：automation（San Mateo, CA） | 0 | [打开](https://www.indeed.com/viewjob?jk=e9da704742d2ca4a) |
+| 10 | Aperia Technologies, Inc 招聘：automation（San Mateo, CA） | 0 | [打开](https://www.indeed.com/viewjob?jk=789abcdef0123456) |
+| 11 | Altarum 招聘：automation（Hybrid work in Novi, MI） | 0 | [打开](https://www.indeed.com/viewjob?jk=a77187016a52dbc2) |
+| 12 | Agilent Technologies, Inc. 招聘：automation（North Kingstown, RI 02852） | 0 | [打开](https://www.indeed.com/viewjob?jk=f02d89dcca6ec972) |
+| 13 | BCD Travel 招聘：automation（United States） | 0 | [打开](https://www.indeed.com/viewjob?jk=b635c628574774ec) |
+| 14 | Cardless 招聘：automation（San Francisco, CA） | 0 | [打开](https://www.indeed.com/viewjob?jk=74a802fe8c56a9f6) |
+| 15 | Siemens 招聘：automation（Hybrid work in Jacksonville, FL） | 0 | [打开](https://www.indeed.com/viewjob?jk=f25a9e85b6eeae8c) |
+
+## 跨平台主题（出现在 ≥2 个平台的关键词）
+
+关键词法，粗粒度：同义不同词不会合并，中文用 n-gram 会有碎词。它的价值是提示"哪里在共振"，不是下结论。
+
+| 主题 | 平台数 | 出现平台 | 热度合计 |
+|---|---:|---|---:|
+| **phone** | 3 | devto、hn、reddit | 545 |
+| **age** | 3 | devto、hn、lesswrong | 336 |
+| **saas** | 2 | hn、reddit | 1172 |
+| **device** | 2 | devto、hn | 517 |
+| **files** | 2 | hn、lobsters | 351 |
+| **language** | 2 | hn、lobsters | 227 |
+| **agent** | 2 | devto、hn | 216 |
+| **check** | 2 | lesswrong、reddit | 156 |
+| **users** | 2 | lesswrong、reddit | 120 |
+| **strategy** | 2 | devto、reddit | 99 |
+| **hybrid** | 2 | bluesky、indeed | 89 |
+| **days** | 2 | devto、reddit | 51 |

@@ -1,0 +1,2379 @@
+{
+  "generated_at": "2026-09-17 10:34:50",
+  "funnel": {
+    "raw": 385,
+    "dedup_removed": 2,
+    "fresh": 383,
+    "seeds": 56,
+    "demand_after_rules": 60,
+    "dropped_L1_L2": 267,
+    "issue_records": 9,
+    "demand_total": 60,
+    "sent_to_llm": 12
+  },
+  "health": [
+    {
+      "source": "github_trending",
+      "count": 21,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "github_trending",
+      "count": 22,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "github_search",
+      "count": 50,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "hn",
+      "count": 206,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "reddit",
+      "count": 75,
+      "ok": true,
+      "note": "3 个子版块"
+    },
+    {
+      "source": "browser:indiehackers",
+      "count": 6,
+      "ok": true,
+      "note": "列表页 60 链接 / 深读 6"
+    },
+    {
+      "source": "browser:hn_ask",
+      "count": 5,
+      "ok": true,
+      "note": "列表页 24 链接 / 深读 6"
+    },
+    {
+      "source": "github_issues",
+      "count": 9,
+      "ok": true,
+      "note": "深挖 4 个仓库"
+    }
+  ],
+  "llm_mode": "heuristic(未配置APIKey)",
+  "browser_probe": [
+    {
+      "site": "indiehackers",
+      "ok": true,
+      "note": "列表页 60 链接 / 深读 6"
+    },
+    {
+      "site": "hn_ask",
+      "ok": true,
+      "note": "列表页 24 链接 / 深读 6"
+    }
+  ],
+  "scored": [
+    {
+      "source": "hn",
+      "source_id": "hn:49587898",
+      "repo": "",
+      "url": "https://news.ycombinator.com/item?id=49587898",
+      "title": "Actively exploited sandbox RCE in all Chromium versions",
+      "text": "That 40 percent is definitely not true in the general audience. Also they will load ads, just not all of them. Surveys ask that. Especially on mobile, and apps. Also, when we measured on our car rental site, with near perfect precision (it&#x27;s absolutely not difficult), then the number was around 20%. Also, according to download statistics, there are less than half a billion people who use ad blocking browsers or other solutions on Android. And that&#x27;s downloads, which is obviously inflated, even obvious from browser statistics (no not 100% of Firefox users are on Android, it&#x27;s almost the opposite). It&#x27;s not nothing, but it&#x27;s probably around 20%. Also as others stated. I pay for everything, if they give me the opportunity to pay them for ad free versions. I don&#x27;t see ads on my Android, and I don&#x27;t use a general ad blocker on it (except my browser, but I rarely visit sites which would contain ads, and basically all of them from Hacker News). I don&#x27;t use free search, email, newspapers, I pay for YouTube, and I would pay for Facebook if I would use it. I don&#x27;t even use Hacker News freely, because I paid for the app which I use to not see ads, and have more features. Heck, I pay even for my torrent, because I support them. You&#x27;re in the wrong neighborhood with this sentiment. But yes, the general populace is not like this.",
+      "author": "ruszki",
+      "points": null,
+      "created_at": "2026-09-06T16:09:33Z",
+      "query": "I would pay for",
+      "collected_at": 1789612219,
+      "pain_hits": [
+        "would pay"
+      ],
+      "wtp_hits": [
+        "would pay"
+      ],
+      "strong_wtp_hits": [
+        "i pay for youtube, and i would pay",
+        "paid for the app"
+      ],
+      "record_type": "demand",
+      "prefilter_score": 6.8,
+      "judge": {
+        "is_real_pain": true,
+        "pain_summary": "That 40 percent is definitely not true in the general audience. Also they will load ads, just not all of them. Surveys ask that. Especially ",
+        "evidence_quotes": [
+          "i pay for youtube, and i would pay",
+          "paid for the app"
+        ],
+        "buyer_intent": 1,
+        "wtp_signal": 4,
+        "mvp_feasibility": 3,
+        "competition": 0,
+        "reusable_core": false,
+        "kill_reason": "",
+        "total": 3.0
+      }
+    },
+    {
+      "source": "hn",
+      "source_id": "hn:49118709",
+      "repo": "",
+      "url": "https://news.ycombinator.com/item?id=49118709",
+      "title": "The AI Aesthetic",
+      "text": "I think that&#x27;s fair, but if you add a lot of value on top, a higher price is justified. Would I pay $5 for a great looking homepage, even if I only have to generate 12 images at $0.13 ($1.56 total) to get there? Yes. Sometimes models are vastly underpriced. Fable is an example. I can easily spend hundreds of dollars using it to code. On the other hand, if I&#x27;m looking for AI to review a contract for any obvious mistakes, I don&#x27;t really care if I spend $0.01 vs $1.00, even if the difference is only marginal. I&#x27;ll pay quite a bit more for something that&#x27;s just a little bit better. Same thing with design, in many cases. When the absolute dollar amounts are small, I&#x27;m happy to pay more for even marginally better quality.",
+      "author": "chadash",
+      "points": null,
+      "created_at": "2026-07-31T03:34:12Z",
+      "query": "I would pay for",
+      "collected_at": 1789612219,
+      "pain_hits": [
+        "happy to pay"
+      ],
+      "wtp_hits": [
+        "happy to pay"
+      ],
+      "strong_wtp_hits": [
+        "i&#x27;ll pay",
+        "i&#x27;m happy to pay"
+      ],
+      "record_type": "demand",
+      "prefilter_score": 6.8,
+      "judge": {
+        "is_real_pain": true,
+        "pain_summary": "I think that&#x27;s fair, but if you add a lot of value on top, a higher price is justified. Would I pay $5 for a great looking homepage, ev",
+        "evidence_quotes": [
+          "i&#x27;ll pay",
+          "i&#x27;m happy to pay"
+        ],
+        "buyer_intent": 1,
+        "wtp_signal": 4,
+        "mvp_feasibility": 3,
+        "competition": 0,
+        "reusable_core": false,
+        "kill_reason": "",
+        "total": 3.0
+      }
+    },
+    {
+      "source": "browser",
+      "source_id": "browser:indiehackers:https://www.indiehackers.com/post/i-built-a-small-tool-for-getting-code-into-ai-i-abandoned-it-after-3-sales-now-it-has-12-1c2638030f",
+      "repo": "",
+      "url": "https://www.indiehackers.com/post/i-built-a-small-tool-for-getting-code-into-ai-i-abandoned-it-after-3-sales-now-it-has-12-1c2638030f",
+      "title": "I built a small tool for getting code into AI. I abandoned it after 3 sales, now it has 12. - Indie Hackers",
+      "text": "Sign in Join 18 Likes 34 I built a small tool for getting code into AI. I abandoned it after 3 sales, now it has 12. by Rajiv Naskar Hey IH, I'm Rajiv, an indie developer. I started using AI for coding and kept running into a very basic problem: getting the right code into the AI. My workflow was literally copying files into Notepad, cleaning them up, saving the file, and uploading it. Then I'd realize I'd forgotten a file, included something unnecessary, or made the context too large. It was annoying enough that I decided to build something for myself. I called it RepoPrep: https://www.repoprep.com/ It lets you select the files and folders you actually want, generate a single structured context file, see the approximate size and token count, filter common project noise like node_modules, and skip sensitive files such as .env. It works with local folders, ZIPs, and GitHub/GitLab repositories. The important part for me was keeping it local-first. I didn't want to upload someone's source code to a server just to prepare a context file. The funny part is that I built the first version around 5 or 6 months ago. I added a Gumroad purchase link, put it out there, and got 2 or 3 sales. Then I basically abandoned it. 😄 At the beginning of August, I came back to it and decided to put a little more effort into it. I started writing about the problem, posting in a few places, and improving the product. Two more sales came in. Then a few more. I'm now at 12 sales. It's not a huge number, obviously. But I'm having fun with it. There's something satisfying about getting paid for a tool that originally started as: “This annoys me. I'll make something for myself.” Since coming back to it, I've also built a Chrome extension and an MCP server around the same idea. The web app is still the original product, though. The product seems to solve a real problem for at least some people. The harder part is figuring out how to consistently reach those people. I'm curious how other developers",
+      "site": "indiehackers",
+      "collected_at": 1789612426,
+      "pain_hits": [
+        "annoying"
+      ],
+      "wtp_hits": [],
+      "strong_wtp_hits": [
+        "paid for a tool"
+      ],
+      "record_type": "demand",
+      "prefilter_score": 5.7,
+      "judge": {
+        "is_real_pain": true,
+        "pain_summary": "Sign in Join 18 Likes 34 I built a small tool for getting code into AI. I abandoned it after 3 sales, now it has 12. by Rajiv Naskar Hey IH,",
+        "evidence_quotes": [
+          "paid for a tool"
+        ],
+        "buyer_intent": 1,
+        "wtp_signal": 2,
+        "mvp_feasibility": 3,
+        "competition": 0,
+        "reusable_core": false,
+        "kill_reason": "",
+        "total": 2.4
+      }
+    },
+    {
+      "source": "hn",
+      "source_id": "hn:49647380",
+      "repo": "",
+      "url": "https://news.ycombinator.com/item?id=49647380",
+      "title": "One resignation turned the embers of AI fear into a wildfire",
+      "text": "&quot;They&quot; don&#x27;t care about &quot;fixing&quot; the DMV. It&#x27;s nice to think that &quot;they would if they could&quot; but in fact, the anti-government party actively cripples and dismantles government services so that people lose faith in government&#x27;s ability to improve lives. And what would &quot;fixing&quot; it look like, anyway? Lower cost to operate or lower time-in-queue? Those are in conflict and as much as I would appreciate a better experience there when I have to go (once every 5 years), I think few people would be willing to pay $X&#x2F;year for that. On the other hand, my personal computer setup is better than it&#x27;s been in a long time. Other peoples&#x27; software that I run has not improved much, but I&#x27;ve managed to fix several long-standing issues by just giving Fable access to my configuration and telling it my intent. I&#x27;ve also vibe-coded several applications which are lighter-weight versions of things like Pinboard, Descript, and Weechat. I&#x27;m not releasing them because I&#x27;ve been doing OSS for 10 years and I&#x27;ve felt first-hand how the economics of open-source is skewed. And in this day and age where anyone can vibe up their own custom app, it doesn&#x27;t feel worth it anymore. What this tells me is that there&#x27;s not proper incentive for the software you use to get &quot;better&quot; according to your values. You have implicit metrics of &quot;cleanliness&quot;, &quot;minimalism&quot;, &quot;anticipatory design&quot;, and I share those values, but having worked as a SWE for 30 years, I have never worked fo",
+      "author": "saulpw",
+      "points": null,
+      "created_at": "2026-09-10T17:28:23Z",
+      "query": "willing to pay tool",
+      "collected_at": 1789612218,
+      "pain_hits": [
+        "willing to pay"
+      ],
+      "wtp_hits": [
+        "willing to pay"
+      ],
+      "strong_wtp_hits": [
+        "i think few people would be willing to pay"
+      ],
+      "record_type": "demand",
+      "prefilter_score": 4.3,
+      "judge": {
+        "is_real_pain": true,
+        "pain_summary": "&quot;They&quot; don&#x27;t care about &quot;fixing&quot; the DMV. It&#x27;s nice to think that &quot;they would if they could&quot; but in ",
+        "evidence_quotes": [
+          "i think few people would be willing to pay"
+        ],
+        "buyer_intent": 1,
+        "wtp_signal": 2,
+        "mvp_feasibility": 3,
+        "competition": 0,
+        "reusable_core": false,
+        "kill_reason": "",
+        "total": 2.4
+      }
+    },
+    {
+      "source": "hn",
+      "source_id": "hn:49020451",
+      "repo": "",
+      "url": "https://news.ycombinator.com/item?id=49020451",
+      "title": "Escape IntelliJ: Scala and Kotlin LSPs on Emacs Eglot",
+      "text": "Given how much outside support they have received they could also make a paid lsp available like they had Resharper, I would be willing to pay for a paid lsp if I use the language enough. 10$ a month for an LSP with all the bells and whistles, should be easier to maintain than an entire IDE tbh. And they can sell me on advanced features in their IDEs through it. I just don&#x27;t want to have to open a bulky IDE anymore, IDEs just suck for me as a development tool.",
+      "author": "minraws",
+      "points": null,
+      "created_at": "2026-07-23T12:22:26Z",
+      "query": "willing to pay tool",
+      "collected_at": 1789612218,
+      "pain_hits": [
+        "willing to pay"
+      ],
+      "wtp_hits": [
+        "willing to pay"
+      ],
+      "strong_wtp_hits": [
+        "i would be willing to pay"
+      ],
+      "record_type": "demand",
+      "prefilter_score": 4.3,
+      "judge": {
+        "is_real_pain": true,
+        "pain_summary": "Given how much outside support they have received they could also make a paid lsp available like they had Resharper, I would be willing to p",
+        "evidence_quotes": [
+          "i would be willing to pay"
+        ],
+        "buyer_intent": 1,
+        "wtp_signal": 2,
+        "mvp_feasibility": 3,
+        "competition": 0,
+        "reusable_core": false,
+        "kill_reason": "",
+        "total": 2.4
+      }
+    },
+    {
+      "source": "hn",
+      "source_id": "hn:49567869",
+      "repo": "",
+      "url": "https://news.ycombinator.com/item?id=49567869",
+      "title": "Corporate America is getting hooked on open-source AI",
+      "text": "Some of the most insidious parts of AI infrastructure includes the embedding model. Corporations have already spent an outstanding amount of time and money creating embedding vectors that are closed source and not reproducible. This means that all their data is locked into whatever embedding model they chose initially. I highly recommend utilizing an open sourced embedding model instead of paying for a closed source one. It&#x27;s vastly more reasonable to run an open sourced embedding model as a first step. They&#x27;re much, much smaller and, due to the overhead of network latency, and running it locally has almost the same speed as through an API even on slow computers. I would even go so far as to say that closed source embedding models have a high risk of data hostage. If a team doesn&#x27;t have access to the embedding model, the embeddings become useless. A corporation like OpenAI could, say, hike the prices to that model by 1000x and everyone would have to pay up or forfeit any utility of the data. I envision a future where open source embedding models are shipped with relevant technologies and implemented by currently under-utilized chips like NPU&#x27;s. A startup developing cheap microprocessors that can run them is an idea I would pay cash for. Or perhaps they will be bundled with security tokens. While it might be impractical for all corporate teams to run language models, it is very realistic for everyone to operate an open sourced embedding model, at least in their private cloud. Better yet, utilize transfer learning on an open sourced one to train your own, ",
+      "author": "kittikitti",
+      "points": null,
+      "created_at": "2026-09-04T17:49:02Z",
+      "query": "I would pay for",
+      "collected_at": 1789612219,
+      "pain_hits": [
+        "would pay"
+      ],
+      "wtp_hits": [
+        "would pay"
+      ],
+      "strong_wtp_hits": [
+        "i would pay"
+      ],
+      "record_type": "demand",
+      "prefilter_score": 4.3,
+      "judge": {
+        "is_real_pain": true,
+        "pain_summary": "Some of the most insidious parts of AI infrastructure includes the embedding model. Corporations have already spent an outstanding amount of",
+        "evidence_quotes": [
+          "i would pay"
+        ],
+        "buyer_intent": 1,
+        "wtp_signal": 2,
+        "mvp_feasibility": 3,
+        "competition": 0,
+        "reusable_core": false,
+        "kill_reason": "",
+        "total": 2.4
+      }
+    },
+    {
+      "source": "hn",
+      "source_id": "hn:49567751",
+      "repo": "",
+      "url": "https://news.ycombinator.com/item?id=49567751",
+      "title": "The asteroid currently hitting front end web development",
+      "text": "I would pay for such content. Do you have course notes? Have you written a book? I&#x27;d pay to get expert knowledge from... an expert! LLMs are fine, but still not replacing actual human experts IME.",
+      "author": "belmarca",
+      "points": null,
+      "created_at": "2026-09-04T17:40:37Z",
+      "query": "I would pay for",
+      "collected_at": 1789612219,
+      "pain_hits": [
+        "would pay"
+      ],
+      "wtp_hits": [
+        "would pay"
+      ],
+      "strong_wtp_hits": [
+        "i would pay"
+      ],
+      "record_type": "demand",
+      "prefilter_score": 4.3,
+      "judge": {
+        "is_real_pain": true,
+        "pain_summary": "I would pay for such content. Do you have course notes? Have you written a book? I&#x27;d pay to get expert knowledge from... an expert! LLM",
+        "evidence_quotes": [
+          "i would pay"
+        ],
+        "buyer_intent": 1,
+        "wtp_signal": 2,
+        "mvp_feasibility": 3,
+        "competition": 0,
+        "reusable_core": false,
+        "kill_reason": "",
+        "total": 2.4
+      }
+    },
+    {
+      "source": "hn",
+      "source_id": "hn:49514188",
+      "repo": "",
+      "url": "https://news.ycombinator.com/item?id=49514188",
+      "title": "Apple caught off guard by AI demand for Mac Mini and Mac Studio",
+      "text": "Likewise. I have a huge demand personally to run AI noise-filtering models on many TB per month of raw video files. It takes about 3 days per file. Apples ProRes codec is only licensed to run in high quality mode on a Mac, and so my Nvidia PC can’t do what I need. Thus, I own the beefiest Mac Studio you can currently buy. I would pay more for more TFlops. I have done local LLM on there but it wasn’t interesting. Far worse performance and intelligence per dollar than the cloud boys. There is no cloud offering for my video needs though.",
+      "author": "kridsdale1",
+      "points": null,
+      "created_at": "2026-08-31T19:54:54Z",
+      "query": "I would pay for",
+      "collected_at": 1789612219,
+      "pain_hits": [
+        "would pay"
+      ],
+      "wtp_hits": [
+        "would pay"
+      ],
+      "strong_wtp_hits": [
+        "i would pay"
+      ],
+      "record_type": "demand",
+      "prefilter_score": 4.3,
+      "judge": {
+        "is_real_pain": true,
+        "pain_summary": "Likewise. I have a huge demand personally to run AI noise-filtering models on many TB per month of raw video files. It takes about 3 days pe",
+        "evidence_quotes": [
+          "i would pay"
+        ],
+        "buyer_intent": 1,
+        "wtp_signal": 2,
+        "mvp_feasibility": 3,
+        "competition": 0,
+        "reusable_core": false,
+        "kill_reason": "",
+        "total": 2.4
+      }
+    },
+    {
+      "source": "hn",
+      "source_id": "hn:49391042",
+      "repo": "",
+      "url": "https://news.ycombinator.com/item?id=49391042",
+      "title": "AI companies destroy physical books – let's scan rare books before it's too late",
+      "text": "Realistically the vast majority of those books haven&#x27;t been touched for half a century and won&#x27;t ever be read by a human again. It is a price to destroy these, but it&#x27;s a price I would pay for progressing models towards AGI and the billions of lives it will save.",
+      "author": "ceasesurthinko",
+      "points": null,
+      "created_at": "2026-08-21T17:09:42Z",
+      "query": "I would pay for",
+      "collected_at": 1789612219,
+      "pain_hits": [
+        "would pay"
+      ],
+      "wtp_hits": [
+        "would pay"
+      ],
+      "strong_wtp_hits": [
+        "i would pay"
+      ],
+      "record_type": "demand",
+      "prefilter_score": 4.3,
+      "judge": {
+        "is_real_pain": true,
+        "pain_summary": "Realistically the vast majority of those books haven&#x27;t been touched for half a century and won&#x27;t ever be read by a human again. It",
+        "evidence_quotes": [
+          "i would pay"
+        ],
+        "buyer_intent": 1,
+        "wtp_signal": 2,
+        "mvp_feasibility": 3,
+        "competition": 0,
+        "reusable_core": false,
+        "kill_reason": "",
+        "total": 2.4
+      }
+    },
+    {
+      "source": "reddit",
+      "source_id": "reddit:t3_1wid8tq",
+      "repo": "",
+      "url": "https://www.reddit.com/r/SaaS/comments/1wid8tq/i_got_engaged_and_ended_up_building_a_micro_saas/",
+      "title": "I got engaged and ended up building a micro SaaS for event photos and videos",
+      "text": "I got engaged and ended up building a micro SaaS for event photos and videos. I got engaged recently and while thinking about our wedding I realized something pretty simple. Almost everyone there is going to have a good camera in their pocket and will probably take a bunch of photos and videos. The problem is getting all of those afterward. Some get texted, some end up on Instagram, some in Google Photos, and a lot just stay on people's phones. So I started building a small SaaS around that problem. The idea is: Create an album for an event Get a QR code Put the QR code on tables, signs, invitations, screens, etc. Guests scan it and upload their photos directly into the shared album No app download required It started as something for our wedding, but I quickly realized the same problem happens with birthdays, graduations, reunions, company events, trips, sports events and pretty much any group event. I also added paid video support. Current pricing idea: Free: 1 event album Up to 25 photos No video uploads Party: $19.99 one time Unlimited photos Videos up to 1 minute Unlimited guests Album stays available for a year Pro: $29.99 one time Everything in Party Videos up to 5 minutes Table-specific QR codes Photos can be organized by where the QR was scanned I'm still early and mostly trying to figure out whether the pricing and feature split make sense. A few things I'd really like feedback on: Would you pay for this for a wedding or other event? Does $19.99 / $29.99 feel reasonable? Would video make you more likely to pay? Are table-specific QR codes actually useful or overkill? Anything obvious I'm missing?",
+      "author": "/u/Insomnium_111",
+      "subreddit": "SaaS",
+      "created_at": "2026-09-16T23:24:02+00:00",
+      "collected_at": 1789612290,
+      "pain_hits": [],
+      "wtp_hits": [],
+      "strong_wtp_hits": [
+        "i'd really like feedback on: would you pay"
+      ],
+      "record_type": "demand",
+      "prefilter_score": 5.1,
+      "judge": {
+        "is_real_pain": true,
+        "pain_summary": "I got engaged and ended up building a micro SaaS for event photos and videos. I got engaged recently and while thinking about our wedding I ",
+        "evidence_quotes": [
+          "i'd really like feedback on: would you pay"
+        ],
+        "buyer_intent": 0,
+        "wtp_signal": 2,
+        "mvp_feasibility": 3,
+        "competition": 0,
+        "reusable_core": false,
+        "kill_reason": "",
+        "total": 2.1
+      }
+    },
+    {
+      "source": "reddit",
+      "source_id": "reddit:t3_1wi4nwv",
+      "repo": "",
+      "url": "https://www.reddit.com/r/SaaS/comments/1wi4nwv/google_isnt_ranking_our_website_despite_following/",
+      "title": "Google isn't ranking our website despite following basic SEO best practices - what could be wrong?",
+      "text": "Google isn't ranking our website despite following basic SEO best practices - what could be wrong?. Hey everyone, I'm looking for some advice from experienced SEOs and website owners. We run discovermacapps.com , and we're struggling to get organic traffic from Google despite following the basic SEO best practices. Here's what we're seeing in Google Search Console over the last 28 days: Total clicks: 1 Total impressions: 159 Average CTR: 0.6% Average position: 48 We've worked on the fundamentals, including on-page SEO, meta titles and descriptions, proper indexing, and other basic optimizations. We've also checked Google Search Console, and there are no manual actions or obvious penalties showing up. However, Google still isn't ranking our pages well or sending meaningful organic traffic. What could be causing this? Could it be a lack of backlinks or domain authority? Is Google still evaluating the website because it's relatively new? Could the content quality, search intent, or topical authority be an issue? Are there technical SEO problems that might not show up as manual actions? What would you recommend checking or improving first? I'd really appreciate any insights, especially from people who have experienced similar indexing and ranking issues. Thanks in advance!",
+      "author": "/u/Dheeraj_PG",
+      "subreddit": "SaaS",
+      "created_at": "2026-09-16T17:59:09+00:00",
+      "collected_at": 1789612290,
+      "pain_hits": [
+        "manual"
+      ],
+      "wtp_hits": [],
+      "strong_wtp_hits": [],
+      "record_type": "demand",
+      "prefilter_score": 3.4,
+      "judge": {
+        "is_real_pain": true,
+        "pain_summary": "Google isn't ranking our website despite following basic SEO best practices - what could be wrong?. Hey everyone, I'm looking for some advic",
+        "evidence_quotes": [
+          "manual"
+        ],
+        "buyer_intent": 1,
+        "wtp_signal": 0,
+        "mvp_feasibility": 3,
+        "competition": 0,
+        "reusable_core": false,
+        "kill_reason": "",
+        "total": 1.8
+      }
+    },
+    {
+      "source": "browser",
+      "source_id": "browser:indiehackers:https://www.indiehackers.com/post/you-launched-so-why-is-nobody-finding-your-product-51634c4846",
+      "repo": "",
+      "url": "https://www.indiehackers.com/post/you-launched-so-why-is-nobody-finding-your-product-51634c4846",
+      "title": "You Launched. So Why Is Nobody Finding Your Product? - Indie Hackers",
+      "text": "Sign in Join 18 Likes 9 You Launched. So Why Is Nobody Finding Your Product? by M.asif You can build a great product, launch it, share it everywhere — and still get almost no real users. The problem isn't always the product. Sometimes people simply don't have a good place to discover what you've built after launch day. Instead of letting your launch disappear after a few posts, put your product where people can actually discover new SaaS, AI tools, and indie products. Launch Nest: https://launch-nest-ai.base44.app M.asif on September 16, 2026 18 Say something nice to bux05665… POST COMMENT 1 The post-launch gap is real. A useful test is to write the “where people discover this” sentence before launch, then make the first outreach repeat the same problem and outcome. If the message only says what the product does, discovery turns into a feature tour instead of a reason to try it. proposalfast · 30 minutes ago · REPLY 3 link does not work tecnologiasstellar · 3 hours ago · REPLY 1 https://launch-nest-ai.base44.app M.asif · an hour ago · REPLY 1 Exactly. Launch day gets all the attention, but discovery needs to continue long after the launch. A great product that nobody can find is basically a hidden product. Ongoing distribution and discoverability should be treated as part of the launch, not an afterthought. raSunGod · an hour ago · REPLY 2 Ran into almost the exact same thing, the hard way. We'd shipped 9 SEO guide pages, all live, all in the sitemap, all individually indexable by URL. An external audit still came back with \"no guides exist,\" because the homepage had literally zero links pointing at any of them. Google/Bing don't reward a page for existing, they reward it for being reachable by following links from somewhere they already trust. Sitemap submission got them crawled once, it didn't make them part of the site. Fixed it with a Guides nav link and a homepage section, and that's when it actually started working as a discovery surface. Worth checking: can s",
+      "site": "indiehackers",
+      "collected_at": 1789612426,
+      "pain_hits": [
+        "no gui"
+      ],
+      "wtp_hits": [],
+      "strong_wtp_hits": [],
+      "record_type": "demand",
+      "prefilter_score": 3.2,
+      "judge": {
+        "is_real_pain": true,
+        "pain_summary": "Sign in Join 18 Likes 9 You Launched. So Why Is Nobody Finding Your Product? by M.asif You can build a great product, launch it, share it ev",
+        "evidence_quotes": [
+          "no gui"
+        ],
+        "buyer_intent": 1,
+        "wtp_signal": 0,
+        "mvp_feasibility": 3,
+        "competition": 0,
+        "reusable_core": false,
+        "kill_reason": "",
+        "total": 1.8
+      }
+    }
+  ],
+  "seed_repos": [
+    {
+      "source": "github_search",
+      "source_id": "search:vinzdg/codenotch",
+      "repo": "vinzdg/codenotch",
+      "url": "https://github.com/vinzdg/codenotch",
+      "title": "vinzdg/codenotch",
+      "text": "A macOS app that pins usage limits from Claude Code, Cursor, Codex, and Antigravity to a screen edge.",
+      "language": "Swift",
+      "stars_total": 1788,
+      "forks": 276,
+      "watchers": 0,
+      "open_issues": 47,
+      "created_at": "2026-09-05T14:55:35Z",
+      "pushed_at": "2026-09-16T13:24:58Z",
+      "license": "MIT",
+      "topics": [],
+      "stars_window": 1788,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 143.7,
+      "supply_risk": "low",
+      "risk_flags": [],
+      "record_type": "supply",
+      "prefilter_score": 7.5,
+      "_enrich_score": 5.26
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:achimala/dream-loop",
+      "repo": "achimala/dream-loop",
+      "url": "https://github.com/achimala/dream-loop",
+      "title": "achimala/dream-loop",
+      "text": "Agent skill for impressive 3D visuals using Blender + image gen + subagent critic",
+      "language": "JavaScript",
+      "stars_total": 1363,
+      "forks": 153,
+      "watchers": 0,
+      "open_issues": 6,
+      "created_at": "2026-09-07T14:19:20Z",
+      "pushed_at": "2026-09-09T22:43:38Z",
+      "license": "MIT",
+      "topics": [],
+      "stars_window": 1363,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 130.6,
+      "supply_risk": "low",
+      "risk_flags": [],
+      "record_type": "supply",
+      "prefilter_score": 7.5
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:2akouwu/reverify",
+      "repo": "2akouwu/reverify",
+      "url": "https://github.com/2akouwu/reverify",
+      "title": "2akouwu/reverify",
+      "text": "Stop your AI from making things up — it proposes, deterministic tools decide, every claim checked against ground truth with evidence. Grounded facts and context survive resets. Reverse engineering is the proving ground. MCP server + CLI.",
+      "language": "Python",
+      "stars_total": 1219,
+      "forks": 238,
+      "watchers": 0,
+      "open_issues": 7,
+      "created_at": "2026-08-31T01:02:18Z",
+      "pushed_at": "2026-09-07T10:12:07Z",
+      "license": "MIT",
+      "topics": [
+        "ai",
+        "ai-agents",
+        "ai-coding",
+        "anti-hallucination",
+        "binary-analysis",
+        "context-engineering",
+        "ctf",
+        "developer-tools",
+        "disassembler",
+        "grounding",
+        "hallucination",
+        "hallucination-detection",
+        "llm",
+        "malware-analysis",
+        "mcp",
+        "mcp-server",
+        "python",
+        "reverse-engineering",
+        "security-tools",
+        "verification"
+      ],
+      "stars_window": 1219,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 69.9,
+      "supply_risk": "low",
+      "risk_flags": [],
+      "record_type": "supply",
+      "prefilter_score": 7.5
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:ZJU-REAL/Easel",
+      "repo": "ZJU-REAL/Easel",
+      "url": "https://github.com/ZJU-REAL/Easel",
+      "title": "ZJU-REAL/Easel",
+      "text": "An open-source AI agent for social media — discover trends, create content, publish everywhere, and learn what works across Xiaohongshu, Douyin, Zhihu, Bilibili, and more.🎨一个开源的 AI 社交媒体智能体——发现热点趋势、创作内容、一键发布至各大平台，并学习分析哪些内容真正有效，覆盖小红书、抖音、知乎、哔哩哔哩等平台。",
+      "language": "Python",
+      "stars_total": 1169,
+      "forks": 171,
+      "watchers": 0,
+      "open_issues": 6,
+      "created_at": "2026-08-28T02:22:27Z",
+      "pushed_at": "2026-09-16T05:34:40Z",
+      "license": "Apache-2.0",
+      "topics": [
+        "agent",
+        "agent-skill",
+        "content-automation",
+        "content-creation",
+        "content-generation",
+        "mcp",
+        "openclaw",
+        "social-media",
+        "social-media-management"
+      ],
+      "stars_window": 1169,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 57.2,
+      "supply_risk": "low",
+      "risk_flags": [],
+      "record_type": "supply",
+      "prefilter_score": 7.5
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:siknet/FreePEP",
+      "repo": "siknet/FreePEP",
+      "url": "https://github.com/siknet/FreePEP",
+      "title": "siknet/FreePEP",
+      "text": "人教社电子教材下载器 v1.2",
+      "language": "Python",
+      "stars_total": 1013,
+      "forks": 165,
+      "watchers": 0,
+      "open_issues": 6,
+      "created_at": "2026-08-31T02:21:10Z",
+      "pushed_at": "2026-09-11T06:58:55Z",
+      "license": "MIT",
+      "topics": [],
+      "stars_window": 1013,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 58.1,
+      "supply_risk": "low",
+      "risk_flags": [],
+      "record_type": "supply",
+      "prefilter_score": 7.5
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:lnkiai/m3e-canvas",
+      "repo": "lnkiai/m3e-canvas",
+      "url": "https://github.com/lnkiai/m3e-canvas",
+      "title": "lnkiai/m3e-canvas",
+      "text": "Sketch Material 3 Expressive screens in the browser and turn them into vibe-coding prompts.",
+      "language": "TypeScript",
+      "stars_total": 7152,
+      "forks": 739,
+      "watchers": 0,
+      "open_issues": 6,
+      "created_at": "2026-09-02T04:36:34Z",
+      "pushed_at": "2026-09-16T10:57:11Z",
+      "license": "MIT",
+      "topics": [
+        "design-tool",
+        "material-3-expressive",
+        "material-design",
+        "material3",
+        "nextjs",
+        "prompt",
+        "react",
+        "vibe-coding"
+      ],
+      "stars_window": 7152,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 463.2,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "日均涨星 463，远高于自然增长速度（重点核查是否刷星）"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:XiaoDuoYa/codex-with-chatgpt",
+      "repo": "XiaoDuoYa/codex-with-chatgpt",
+      "url": "https://github.com/XiaoDuoYa/codex-with-chatgpt",
+      "title": "XiaoDuoYa/codex-with-chatgpt",
+      "text": "ChatGPT thinks. Codex works. Use ChatGPT as the planning brain while keeping the Codex harness.",
+      "language": "TypeScript",
+      "stars_total": 4870,
+      "forks": 489,
+      "watchers": 0,
+      "open_issues": 25,
+      "created_at": "2026-08-28T12:57:24Z",
+      "pushed_at": "2026-09-13T03:22:46Z",
+      "license": "MIT",
+      "topics": [
+        "ai-agents",
+        "chatgpt",
+        "codex",
+        "mcp",
+        "model-context-protocol",
+        "oauth"
+      ],
+      "stars_window": 4870,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 238.3,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "日均涨星 238，增速偏高"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0,
+      "_enrich_score": 5.83
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:ashemag/human-atlas",
+      "repo": "ashemag/human-atlas",
+      "url": "https://github.com/ashemag/human-atlas",
+      "title": "ashemag/human-atlas",
+      "text": "Open-source 3D anatomy explorer: 2,234 selectable BodyParts3D meshes, system layers, search, and exploded views.",
+      "language": "TypeScript",
+      "stars_total": 3569,
+      "forks": 861,
+      "watchers": 0,
+      "open_issues": 35,
+      "created_at": "2026-09-05T00:24:43Z",
+      "pushed_at": "2026-09-06T23:35:06Z",
+      "license": "MIT",
+      "topics": [],
+      "stars_window": 3569,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 286.9,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "日均涨星 287，增速偏高"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0,
+      "_enrich_score": 5.9
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:anthropics/commerce-agents",
+      "repo": "anthropics/commerce-agents",
+      "url": "https://github.com/anthropics/commerce-agents",
+      "title": "anthropics/commerce-agents",
+      "text": "Reference blueprint for building shopping and merchant agents with Claude. Examples in retail, commerce, telecom, and entertainment included.",
+      "language": "Python",
+      "stars_total": 2929,
+      "forks": 567,
+      "watchers": 0,
+      "open_issues": 35,
+      "created_at": "2026-09-01T12:30:12Z",
+      "pushed_at": "2026-09-11T07:03:32Z",
+      "license": "Apache-2.0",
+      "topics": [],
+      "stars_window": 2929,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 178.2,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "日均涨星 178，增速偏高"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0,
+      "_enrich_score": 5.58
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:Nanako0129/sepia",
+      "repo": "Nanako0129/sepia",
+      "url": "https://github.com/Nanako0129/sepia",
+      "title": "Nanako0129/sepia",
+      "text": "De-AI writing skill for any Agent Skills-compatible agent (77+ via the Skills CLI), with native plugins for Claude Code, Codex, Grok Build, and Antigravity. Narrative-architecture repair for fiction, venue-matched rules for professional prose. Based on StoryScope (arXiv:2604.03136).",
+      "language": "Python",
+      "stars_total": 2647,
+      "forks": 169,
+      "watchers": 0,
+      "open_issues": 10,
+      "created_at": "2026-08-28T05:56:49Z",
+      "pushed_at": "2026-09-16T22:13:01Z",
+      "license": "MIT",
+      "topics": [
+        "agent-skills",
+        "ai-writing",
+        "antigravity",
+        "claude-code",
+        "codex",
+        "developer-tools",
+        "fiction",
+        "grok",
+        "humanizer",
+        "llm",
+        "prompt-engineering",
+        "writing-tools"
+      ],
+      "stars_window": 2647,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 129.5,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "fork/star=0.064 偏低，需人工确认"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0,
+      "_enrich_score": 4.41
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:Human-Agent-Society/reef",
+      "repo": "Human-Agent-Society/reef",
+      "url": "https://github.com/Human-Agent-Society/reef",
+      "title": "Human-Agent-Society/reef",
+      "text": "Continual learning infra for self-improving agents",
+      "language": "Python",
+      "stars_total": 2588,
+      "forks": 190,
+      "watchers": 0,
+      "open_issues": 54,
+      "created_at": "2026-08-31T01:39:18Z",
+      "pushed_at": "2026-09-17T02:25:24Z",
+      "license": "Apache-2.0",
+      "topics": [
+        "agent-infrastructure",
+        "ai-agents",
+        "continual-learning",
+        "inference",
+        "llm",
+        "llm-training",
+        "reinforcement-learning",
+        "self-improving-agents"
+      ],
+      "stars_window": 2588,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 148.4,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "fork/star=0.073 偏低，需人工确认"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0,
+      "_enrich_score": 5.77
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:NVlabs/SoL-Pi",
+      "repo": "NVlabs/SoL-Pi",
+      "url": "https://github.com/NVlabs/SoL-Pi",
+      "title": "NVlabs/SoL-Pi",
+      "text": "SoL-Pi: Scaling Auto-Research Loops for Efficient Agent Harnesses",
+      "language": "TypeScript",
+      "stars_total": 2124,
+      "forks": 163,
+      "watchers": 0,
+      "open_issues": 56,
+      "created_at": "2026-09-02T14:48:47Z",
+      "pushed_at": "2026-09-17T01:36:51Z",
+      "license": "MIT",
+      "topics": [],
+      "stars_window": 2124,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 137.6,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "fork/star=0.077 偏低，需人工确认"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0,
+      "_enrich_score": 5.57
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:shadcn-ui/lint",
+      "repo": "shadcn-ui/lint",
+      "url": "https://github.com/shadcn-ui/lint",
+      "title": "shadcn-ui/lint",
+      "text": "An agent-first linter for Tailwind design systems. Write design system rules that agents can verify.",
+      "language": "TypeScript",
+      "stars_total": 1941,
+      "forks": 32,
+      "watchers": 0,
+      "open_issues": 22,
+      "created_at": "2026-09-02T11:51:38Z",
+      "pushed_at": "2026-09-14T12:09:38Z",
+      "license": "MIT",
+      "topics": [
+        "agents",
+        "ai",
+        "design",
+        "design-system",
+        "design-tools",
+        "shadcn",
+        "shadcn-ui",
+        "tailwindcss"
+      ],
+      "stars_window": 1941,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 125.7,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "fork/star=0.016 低于 0.05（真实项目通常 0.15–0.25）"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0,
+      "_enrich_score": 4.69
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:cbrock84/headcount",
+      "repo": "cbrock84/headcount",
+      "url": "https://github.com/cbrock84/headcount",
+      "title": "cbrock84/headcount",
+      "text": "An agent organization structured as a company — 15+ departments, 125+ skills, each independently installable, citing the standards and regulators that settle the question. Runs in Claude Code and ChatGPT.",
+      "language": "Markdown",
+      "stars_total": 1567,
+      "forks": 233,
+      "watchers": 0,
+      "open_issues": 1,
+      "created_at": "2026-08-28T18:03:04Z",
+      "pushed_at": "2026-09-16T23:24:31Z",
+      "license": "MIT",
+      "topics": [
+        "agent-marketplace",
+        "chatgpt-plugin",
+        "chatgpt-skills",
+        "claude-code",
+        "claude-code-plugin",
+        "claude-plugin",
+        "claude-skills",
+        "mcp",
+        "organization"
+      ],
+      "stars_window": 1567,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 76.7,
+      "supply_risk": "low",
+      "risk_flags": [],
+      "record_type": "supply",
+      "prefilter_score": 6.0
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:shadcn-ui/cn",
+      "repo": "shadcn-ui/cn",
+      "url": "https://github.com/shadcn-ui/cn",
+      "title": "shadcn-ui/cn",
+      "text": "cn is a new engine for Tailwind class merging and conflict resolution. It replaces tailwind-merge and clsx. Same APIs. Full parity. And it is 30× faster.",
+      "language": "TypeScript",
+      "stars_total": 1516,
+      "forks": 15,
+      "watchers": 0,
+      "open_issues": 9,
+      "created_at": "2026-08-31T07:04:03Z",
+      "pushed_at": "2026-09-12T11:09:59Z",
+      "license": "MIT",
+      "topics": [
+        "clsx",
+        "cn",
+        "shadcn",
+        "tailwind-merge",
+        "tailwindcss"
+      ],
+      "stars_window": 1516,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 86.9,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "fork/star=0.010 低于 0.05（真实项目通常 0.15–0.25）"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:sebbbi/NoGraphicsAPI",
+      "repo": "sebbbi/NoGraphicsAPI",
+      "url": "https://github.com/sebbbi/NoGraphicsAPI",
+      "title": "sebbbi/NoGraphicsAPI",
+      "text": "Minimal graphics API. Built on top of latest Vulkan extensions. As close as possibly to my \"No Graphics API\" blog post and the SIGGRAPH talk.",
+      "language": "C++",
+      "stars_total": 1415,
+      "forks": 43,
+      "watchers": 0,
+      "open_issues": 6,
+      "created_at": "2026-08-31T14:14:12Z",
+      "pushed_at": "2026-09-16T17:10:44Z",
+      "license": "MIT",
+      "topics": [],
+      "stars_window": 1415,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 81.1,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "fork/star=0.030 低于 0.05（真实项目通常 0.15–0.25）"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:Chuloo/mural",
+      "repo": "Chuloo/mural",
+      "url": "https://github.com/Chuloo/mural",
+      "title": "Chuloo/mural",
+      "text": "The language app you eventually delete. A native iPhone companion for learning through conversation.",
+      "language": "Kotlin",
+      "stars_total": 1261,
+      "forks": 245,
+      "watchers": 0,
+      "open_issues": 24,
+      "created_at": "2026-09-12T11:51:08Z",
+      "pushed_at": "2026-09-16T14:17:51Z",
+      "license": "MIT",
+      "topics": [
+        "ios",
+        "language-learning",
+        "open-source",
+        "swiftui"
+      ],
+      "stars_window": 1261,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 231.8,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "日均涨星 232，增速偏高"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0,
+      "_enrich_score": 4.43
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:anthropics/fermats-last-theorem",
+      "repo": "anthropics/fermats-last-theorem",
+      "url": "https://github.com/anthropics/fermats-last-theorem",
+      "title": "anthropics/fermats-last-theorem",
+      "text": "",
+      "language": "Lean",
+      "stars_total": 1185,
+      "forks": 102,
+      "watchers": 0,
+      "open_issues": 9,
+      "created_at": "2026-09-04T14:21:04Z",
+      "pushed_at": "2026-09-15T18:51:35Z",
+      "license": "Apache-2.0",
+      "topics": [],
+      "stars_window": 1185,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 88.2,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "fork/star=0.086 偏低，需人工确认"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:crwdla/tokentab",
+      "repo": "crwdla/tokentab",
+      "url": "https://github.com/crwdla/tokentab",
+      "title": "crwdla/tokentab",
+      "text": "A CLI that reads Claude Code, Codex, and Gemini CLI session logs and works out how much they cost, by model, project, and day.",
+      "language": "Python",
+      "stars_total": 1140,
+      "forks": 215,
+      "watchers": 0,
+      "open_issues": 3,
+      "created_at": "2026-09-07T17:18:31Z",
+      "pushed_at": "2026-09-07T17:20:54Z",
+      "license": "MIT",
+      "topics": [
+        "ai",
+        "ai-token-monitor",
+        "claude-code",
+        "token-optimization",
+        "token-usage"
+      ],
+      "stars_window": 1140,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 109.2,
+      "supply_risk": "low",
+      "risk_flags": [],
+      "record_type": "supply",
+      "prefilter_score": 6.0
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:dashdogy/RTX40MFG-Unlock",
+      "repo": "dashdogy/RTX40MFG-Unlock",
+      "url": "https://github.com/dashdogy/RTX40MFG-Unlock",
+      "title": "dashdogy/RTX40MFG-Unlock",
+      "text": "Experimental DLSS Multi Frame Generation controls for any supported MFG title on RTX 40 series GPUs",
+      "language": "C++",
+      "stars_total": 962,
+      "forks": 34,
+      "watchers": 0,
+      "open_issues": 17,
+      "created_at": "2026-08-29T17:00:46Z",
+      "pushed_at": "2026-09-13T03:24:33Z",
+      "license": "MIT",
+      "topics": [],
+      "stars_window": 962,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 49.5,
+      "supply_risk": "medium",
+      "risk_flags": [
+        "fork/star=0.035 低于 0.05（真实项目通常 0.15–0.25）"
+      ],
+      "record_type": "supply",
+      "prefilter_score": 6.0,
+      "_enrich_score": 3.99
+    }
+  ],
+  "enriched": [
+    {
+      "repo": "ashemag/human-atlas",
+      "url": "https://github.com/ashemag/human-atlas",
+      "issues_found": 2,
+      "license": "MIT",
+      "stars": 3569,
+      "risk": [
+        "日均涨星 287，增速偏高"
+      ]
+    },
+    {
+      "repo": "XiaoDuoYa/codex-with-chatgpt",
+      "url": "https://github.com/XiaoDuoYa/codex-with-chatgpt",
+      "issues_found": 6,
+      "license": "MIT",
+      "stars": 4870,
+      "risk": [
+        "日均涨星 238，增速偏高"
+      ]
+    },
+    {
+      "repo": "Human-Agent-Society/reef",
+      "url": "https://github.com/Human-Agent-Society/reef",
+      "issues_found": 1,
+      "license": "Apache-2.0",
+      "stars": 2588,
+      "risk": [
+        "fork/star=0.073 偏低，需人工确认"
+      ]
+    },
+    {
+      "repo": "anthropics/commerce-agents",
+      "url": "https://github.com/anthropics/commerce-agents",
+      "issues_found": 0,
+      "license": "Apache-2.0",
+      "stars": 2929,
+      "risk": [
+        "日均涨星 178，增速偏高"
+      ]
+    }
+  ],
+  "cross_validation": [
+    {
+      "term": "codenotch",
+      "count": 8,
+      "sample": [
+        {
+          "date": "2026-01-27",
+          "text": "Codenotary's Free SBoM Service Tackles the AI Software Supply Chain",
+          "url": "https://news.ycombinator.com/item?id=46784964"
+        },
+        {
+          "date": "2026-04-30",
+          "text": "Show HN: Code on the Go, an IDE for Android with On-Device Debugging (GPLv3)",
+          "url": "https://news.ycombinator.com/item?id=47968964"
+        },
+        {
+          "date": "2026-04-07",
+          "text": "Show HN: Hazmat – I made unrestricted Claude Code safe on macOS",
+          "url": "https://news.ycombinator.com/item?id=47677488"
+        },
+        {
+          "date": "2026-08-26",
+          "text": "You can chat with it offline, it serves a dashboard and a chat interface. Carwatch is all open source and free. Groupmind.one is a free service where you can have a private room or many to work with y",
+          "url": "https://news.ycombinator.com/item?id=49456188"
+        },
+        {
+          "date": "2026-05-27",
+          "text": "I don&#x27;t agree with this argument. In the 1990s (and earlier) and 2000s startups were &quot;rebels&quot;, almost countercultural (to Corporate America at least). Think about the famous 1984 Macint",
+          "url": "https://news.ycombinator.com/item?id=48290144"
+        }
+      ],
+      "repo": "vinzdg/codenotch"
+    },
+    {
+      "term": "dream-loop",
+      "count": 5,
+      "sample": [
+        {
+          "date": "2026-03-10",
+          "text": "I&#x27;ve been building ANIMA, a locally-hosted persistent AI agent that maintains beliefs and memory across sessions. Qwen3-32B Q3_K_M instruct via llama.cpp, Vulkan on consumer AMD hardware (RX 7900",
+          "url": "https://news.ycombinator.com/item?id=47321870"
+        },
+        {
+          "date": "2025-10-28",
+          "text": "What If a Machine Could Truly Think? Not just respond — but see its own thoughts, detect contradictions, and reflect on meaning, like a human mind. This blueprint outlines the first publicly disclosed",
+          "url": "https://news.ycombinator.com/item?id=45738763"
+        },
+        {
+          "date": "2026-07-16",
+          "text": "The Amish have tons of kids and are one of the fastest growing groups you could think of. It&#x27;s because of this high birth rate that they&#x27;re easily able to care for their elders, even though ",
+          "url": "https://news.ycombinator.com/item?id=48929846"
+        },
+        {
+          "date": "2026-06-17",
+          "text": "It would make no difference. I&#x27;ve had dreams since puberty about how I&#x27;ll die. The only thing I don&#x27;t know is when. But the face in the mirror in the dreams looks more and more like the",
+          "url": "https://news.ycombinator.com/item?id=48572510"
+        },
+        {
+          "date": "2026-02-07",
+          "text": "In the 1950s, and perhaps to some degree in the 1990s, it seemed possible to believe technology was limitless and miraculous and conducive to human thriving. As a result, breathlessly hopeful and exci",
+          "url": "https://news.ycombinator.com/item?id=46924125"
+        }
+      ],
+      "repo": "achimala/dream-loop"
+    },
+    {
+      "term": "reverify",
+      "count": 288,
+      "sample": [
+        {
+          "date": "2026-07-07",
+          "text": "Show HN: Halo – open-source, tamper-evident runtime evidence for AI agents",
+          "url": "https://news.ycombinator.com/item?id=48818098"
+        },
+        {
+          "date": "2026-08-16",
+          "text": "Show HN: A punch clock to help with hourly household workers",
+          "url": "https://news.ycombinator.com/item?id=49321046"
+        },
+        {
+          "date": "2026-05-22",
+          "text": "Tell HN: The Threat to US Citizen's ID / Voting Is Private Services",
+          "url": "https://news.ycombinator.com/item?id=48238426"
+        },
+        {
+          "date": "2026-03-18",
+          "text": "Show HN: unTamper – cryptographically verifiable audit logs for app events",
+          "url": "https://news.ycombinator.com/item?id=47427580"
+        },
+        {
+          "date": "2026-07-08",
+          "text": "Show HN: Cruxible – Open-source governed truth layer for AI agents",
+          "url": "https://news.ycombinator.com/item?id=48833404"
+        }
+      ],
+      "repo": "2akouwu/reverify"
+    },
+    {
+      "term": "Easel",
+      "count": 45277,
+      "sample": [
+        {
+          "date": "2025-12-27",
+          "text": "Easel Turns One One year of building my own IDE in Clojure",
+          "url": "https://news.ycombinator.com/item?id=46402202"
+        },
+        {
+          "date": "2025-12-09",
+          "text": "Easel Now Has Stencils",
+          "url": "https://news.ycombinator.com/item?id=46200157"
+        },
+        {
+          "date": "2026-08-03",
+          "text": "Hotspots and Nine Slices (what's new in Easel)",
+          "url": "https://news.ycombinator.com/item?id=49149835"
+        },
+        {
+          "date": "2025-11-11",
+          "text": "Easel's State-of-the-Art Rollback Netcode Implementation",
+          "url": "https://news.ycombinator.com/item?id=45884602"
+        },
+        {
+          "date": "2026-01-03",
+          "text": "Show HN: Easel - learn to code by making games you can play together",
+          "url": "https://news.ycombinator.com/item?id=46475164"
+        }
+      ],
+      "repo": "ZJU-REAL/Easel"
+    },
+    {
+      "term": "FreePEP",
+      "count": 43,
+      "sample": [
+        {
+          "date": "2026-02-23",
+          "text": "FreezePage – Webpage Archive Service",
+          "url": "https://news.ycombinator.com/item?id=47123317"
+        },
+        {
+          "date": "2026-08-25",
+          "text": "For more of the same (though I wish source was available) which actually does something useful, see the various small utilities at https:&#x2F;&#x2F;www.grc.com&#x2F;freepopular.htm",
+          "url": "https://news.ycombinator.com/item?id=49432848"
+        },
+        {
+          "date": "2026-04-14",
+          "text": "Newpipe and freepipe!",
+          "url": "https://news.ycombinator.com/item?id=47770920"
+        },
+        {
+          "date": "2026-03-22",
+          "text": "Steve Gibson, Gibson Research. https:&#x2F;&#x2F;www.grc.com&#x2F;freepopular.htm Just scroll down the page and look at the size of the completely self-contained executable programs. THIS is what Win3",
+          "url": "https://news.ycombinator.com/item?id=47481904"
+        },
+        {
+          "date": "2026-02-23",
+          "text": "&quot;FreezePage is a free service for taking online snapshots of web pages.&quot;",
+          "url": "https://news.ycombinator.com/item?id=47123318"
+        }
+      ],
+      "repo": "siknet/FreePEP"
+    }
+  ],
+  "dropped_sample": [
+    {
+      "source": "github_trending",
+      "source_id": "trending:daily:alibaba/open-code-review",
+      "repo": "alibaba/open-code-review",
+      "url": "https://github.com/alibaba/open-code-review",
+      "title": "alibaba/open-code-review",
+      "text": "",
+      "language": "Go",
+      "stars_total": 32145,
+      "forks": 2273,
+      "stars_window": 3231,
+      "window": "daily",
+      "collected_at": 1789612202,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.071 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.071 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:daily:cloudflare/security-audit-skill",
+      "repo": "cloudflare/security-audit-skill",
+      "url": "https://github.com/cloudflare/security-audit-skill",
+      "title": "cloudflare/security-audit-skill",
+      "text": "",
+      "language": "JavaScript",
+      "stars_total": 7442,
+      "forks": 430,
+      "stars_window": 927,
+      "window": "daily",
+      "collected_at": 1789612202,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.058 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.058 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:daily:abue-ammar/tinycast",
+      "repo": "abue-ammar/tinycast",
+      "url": "https://github.com/abue-ammar/tinycast",
+      "title": "abue-ammar/tinycast",
+      "text": "",
+      "language": "Swift",
+      "stars_total": 5649,
+      "forks": 273,
+      "stars_window": 1179,
+      "window": "daily",
+      "collected_at": 1789612202,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.048 低于 0.05（真实项目通常 0.15–0.25）",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.048 低于 0.05（真实项目通常 0.15–0.25）；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:daily:roboflow/supervision",
+      "repo": "roboflow/supervision",
+      "url": "https://github.com/roboflow/supervision",
+      "title": "roboflow/supervision",
+      "text": "",
+      "language": "Python",
+      "stars_total": 50624,
+      "forks": 4814,
+      "stars_window": 260,
+      "window": "daily",
+      "collected_at": 1789612202,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.095 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.095 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:daily:alphaXiv/OpenResearch",
+      "repo": "alphaXiv/OpenResearch",
+      "url": "https://github.com/alphaXiv/OpenResearch",
+      "title": "alphaXiv/OpenResearch",
+      "text": "",
+      "language": "Rust",
+      "stars_total": 4463,
+      "forks": 276,
+      "stars_window": 1017,
+      "window": "daily",
+      "collected_at": 1789612202,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.062 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.062 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:daily:rlaope/oh-my-hermes",
+      "repo": "rlaope/oh-my-hermes",
+      "url": "https://github.com/rlaope/oh-my-hermes",
+      "title": "rlaope/oh-my-hermes",
+      "text": "",
+      "language": "Python",
+      "stars_total": 2576,
+      "forks": 184,
+      "stars_window": 80,
+      "window": "daily",
+      "collected_at": 1789612202,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.071 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.071 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:ayghri/i-have-adhd",
+      "repo": "ayghri/i-have-adhd",
+      "url": "https://github.com/ayghri/i-have-adhd",
+      "title": "ayghri/i-have-adhd",
+      "text": "",
+      "language": "Python",
+      "stars_total": 46945,
+      "forks": 2731,
+      "stars_window": 13737,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.058 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.058 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:alibaba/open-code-review",
+      "repo": "alibaba/open-code-review",
+      "url": "https://github.com/alibaba/open-code-review",
+      "title": "alibaba/open-code-review",
+      "text": "",
+      "language": "Go",
+      "stars_total": 32146,
+      "forks": 2273,
+      "stars_window": 8594,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "drop_stage": "L1",
+      "drop_reason": "与已有内容标题重复（github_trending）"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:mksglu/context-mode",
+      "repo": "mksglu/context-mode",
+      "url": "https://github.com/mksglu/context-mode",
+      "title": "mksglu/context-mode",
+      "text": "",
+      "language": "TypeScript",
+      "stars_total": 23239,
+      "forks": 1678,
+      "stars_window": 1612,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.072 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.072 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:obra/superpowers",
+      "repo": "obra/superpowers",
+      "url": "https://github.com/obra/superpowers",
+      "title": "obra/superpowers",
+      "text": "",
+      "language": "Shell",
+      "stars_total": 287656,
+      "forks": 25731,
+      "stars_window": 4023,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.089 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.089 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:DietrichGebert/ponytail",
+      "repo": "DietrichGebert/ponytail",
+      "url": "https://github.com/DietrichGebert/ponytail",
+      "title": "DietrichGebert/ponytail",
+      "text": "",
+      "language": "JavaScript",
+      "stars_total": 140443,
+      "forks": 7545,
+      "stars_window": 7218,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.054 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.054 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:max-sixty/worktrunk",
+      "repo": "max-sixty/worktrunk",
+      "url": "https://github.com/max-sixty/worktrunk",
+      "title": "max-sixty/worktrunk",
+      "text": "",
+      "language": "Rust",
+      "stars_total": 7928,
+      "forks": 272,
+      "stars_window": 998,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.034 低于 0.05（真实项目通常 0.15–0.25）",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.034 低于 0.05（真实项目通常 0.15–0.25）；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:blader/humanizer",
+      "repo": "blader/humanizer",
+      "url": "https://github.com/blader/humanizer",
+      "title": "blader/humanizer",
+      "text": "",
+      "language": "Python",
+      "stars_total": 49222,
+      "forks": 3993,
+      "stars_window": 3266,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.081 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.081 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:petergyang/no-ai-slop",
+      "repo": "petergyang/no-ai-slop",
+      "url": "https://github.com/petergyang/no-ai-slop",
+      "title": "petergyang/no-ai-slop",
+      "text": "",
+      "language": "Python",
+      "stars_total": 10157,
+      "forks": 709,
+      "stars_window": 2320,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.070 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.070 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:microsoft/markitdown",
+      "repo": "microsoft/markitdown",
+      "url": "https://github.com/microsoft/markitdown",
+      "title": "microsoft/markitdown",
+      "text": "",
+      "language": "Python",
+      "stars_total": 184857,
+      "forks": 13620,
+      "stars_window": 2733,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.074 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.074 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:addyosmani/agent-skills",
+      "repo": "addyosmani/agent-skills",
+      "url": "https://github.com/addyosmani/agent-skills",
+      "title": "addyosmani/agent-skills",
+      "text": "",
+      "language": "JavaScript",
+      "stars_total": 95497,
+      "forks": 10113,
+      "stars_window": 2119,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "drop_stage": "L1",
+      "drop_reason": "与已有内容标题重复（github_trending）"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:openai/skills",
+      "repo": "openai/skills",
+      "url": "https://github.com/openai/skills",
+      "title": "openai/skills",
+      "text": "",
+      "language": "Python",
+      "stars_total": 27381,
+      "forks": 1834,
+      "stars_window": 632,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.067 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.067 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:github/spec-kit",
+      "repo": "github/spec-kit",
+      "url": "https://github.com/github/spec-kit",
+      "title": "github/spec-kit",
+      "text": "",
+      "language": "Python",
+      "stars_total": 137398,
+      "forks": 12305,
+      "stars_window": 3019,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.090 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.090 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_trending",
+      "source_id": "trending:weekly:heygen-com/hyperframes",
+      "repo": "heygen-com/hyperframes",
+      "url": "https://github.com/heygen-com/hyperframes",
+      "title": "heygen-com/hyperframes",
+      "text": "",
+      "language": "TypeScript",
+      "stars_total": 50751,
+      "forks": 4627,
+      "stars_window": 2413,
+      "window": "weekly",
+      "collected_at": 1789612204,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.091 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.091 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:rakanki911/DLSS5-Swapper",
+      "repo": "rakanki911/DLSS5-Swapper",
+      "url": "https://github.com/rakanki911/DLSS5-Swapper",
+      "title": "rakanki911/DLSS5-Swapper",
+      "text": "Install, tune and restore DLSS 5 in your games with one click. Native RenoDX, DLSS5-Feeder for games without DLSS, OptiScaler and multipass routes; DirectX 8/9/11/12, Vulkan, OpenGL, DirectDraw and emulators. In-game F8 overlay, automatic backups, and a community page showing what works on your games and your graphics card.",
+      "language": "JavaScript",
+      "stars_total": 5332,
+      "forks": 285,
+      "watchers": 0,
+      "open_issues": 42,
+      "created_at": "2026-08-29T23:51:32Z",
+      "pushed_at": "2026-09-13T02:02:21Z",
+      "license": "MIT",
+      "topics": [],
+      "stars_window": 5332,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 274.3,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.053 偏低，需人工确认",
+        "日均涨星 274，增速偏高"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.053 偏低，需人工确认；日均涨星 274，增速偏高"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:sdli1995/dlssg_for_sm86",
+      "repo": "sdli1995/dlssg_for_sm86",
+      "url": "https://github.com/sdli1995/dlssg_for_sm86",
+      "title": "sdli1995/dlssg_for_sm86",
+      "text": "Here is a dlssg for RTX30 Series GPU ",
+      "language": "",
+      "stars_total": 3180,
+      "forks": 195,
+      "watchers": 0,
+      "open_issues": 125,
+      "created_at": "2026-09-07T16:16:48Z",
+      "pushed_at": "2026-09-15T14:18:40Z",
+      "license": null,
+      "topics": [],
+      "stars_window": 3180,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 304.6,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.061 偏低，需人工确认",
+        "日均涨星 305，增速偏高",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.061 偏低，需人工确认；日均涨星 305，增速偏高；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:Player-YN/PawWork_ZhuaZhua",
+      "repo": "Player-YN/PawWork_ZhuaZhua",
+      "url": "https://github.com/Player-YN/PawWork_ZhuaZhua",
+      "title": "Player-YN/PawWork_ZhuaZhua",
+      "text": "Paw Work - selection-first web agent for Chrome: select on the live page, describe the outcome, take away an editable office file. BYOK, sandboxed, no server.",
+      "language": "JavaScript",
+      "stars_total": 2766,
+      "forks": 10,
+      "watchers": 0,
+      "open_issues": 0,
+      "created_at": "2026-08-28T10:56:56Z",
+      "pushed_at": "2026-09-16T09:55:10Z",
+      "license": "MIT",
+      "topics": [
+        "ai-agent",
+        "browser-agent",
+        "byok",
+        "chrome-extension",
+        "llm",
+        "pptx",
+        "tldraw",
+        "univer"
+      ],
+      "stars_window": 2766,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 135.3,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.004 低于 0.05（真实项目通常 0.15–0.25）",
+        "千星但零 issue：无真实使用反馈"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.004 低于 0.05（真实项目通常 0.15–0.25）；千星但零 issue：无真实使用反馈"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:Albert-Weasker/niubigeo",
+      "repo": "Albert-Weasker/niubigeo",
+      "url": "https://github.com/Albert-Weasker/niubigeo",
+      "title": "Albert-Weasker/niubigeo",
+      "text": "Open-source AI brand visibility and competitor reports. Official website: https://niubigeo.ai/ | Paid services: AI testing by real people and GEO optimization. Pricing: https://niubigeo.ai/pricing",
+      "language": "TypeScript",
+      "stars_total": 2498,
+      "forks": 99,
+      "watchers": 0,
+      "open_issues": 12,
+      "created_at": "2026-09-03T15:55:54Z",
+      "pushed_at": "2026-09-16T19:11:03Z",
+      "license": "Apache-2.0",
+      "topics": [],
+      "stars_window": 2498,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 173.0,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.040 低于 0.05（真实项目通常 0.15–0.25）",
+        "日均涨星 173，增速偏高"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.040 低于 0.05（真实项目通常 0.15–0.25）；日均涨星 173，增速偏高"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:Rion-Wu-tech/wechat-intelligence-hub",
+      "repo": "Rion-Wu-tech/wechat-intelligence-hub",
+      "url": "https://github.com/Rion-Wu-tech/wechat-intelligence-hub",
+      "title": "Rion-Wu-tech/wechat-intelligence-hub",
+      "text": "Local-first WeChat intelligence system with a read-only CLI, Codex skills, searchable chat history, daily briefings, follow-ups and opportunity tracking.",
+      "language": "Python",
+      "stars_total": 2374,
+      "forks": 2677,
+      "watchers": 0,
+      "open_issues": 8,
+      "created_at": "2026-09-04T15:00:53Z",
+      "pushed_at": "2026-09-11T18:44:51Z",
+      "license": "AGPL-3.0",
+      "topics": [],
+      "stars_window": 2374,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 176.6,
+      "supply_risk": "high",
+      "risk_flags": [
+        "日均涨星 177，增速偏高",
+        "协议 AGPL-3.0 强传染，禁止直接闭源封装商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：日均涨星 177，增速偏高；协议 AGPL-3.0 强传染，禁止直接闭源封装商用"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:eternity4719/HowToLiveBetter",
+      "repo": "eternity4719/HowToLiveBetter",
+      "url": "https://github.com/eternity4719/HowToLiveBetter",
+      "title": "eternity4719/HowToLiveBetter",
+      "text": "按性价比排序的循证生活指南：长寿防病、急救、省钱理财、法律红线、失业与工伤、医保社保、恋爱婚育、怀孕育儿、创业与做平台合规、出国与技能。每条写明成本、收益、证据等级和原始出处，只引期刊论文与官方文件。",
+      "language": "HTML",
+      "stars_total": 2277,
+      "forks": 188,
+      "watchers": 0,
+      "open_issues": 2,
+      "created_at": "2026-09-07T01:53:36Z",
+      "pushed_at": "2026-09-11T05:26:13Z",
+      "license": "Unlicense",
+      "topics": [],
+      "stars_window": 2277,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 218.1,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.083 偏低，需人工确认",
+        "日均涨星 218，增速偏高"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.083 偏低，需人工确认；日均涨星 218，增速偏高"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:openai/NavierStokesAndEuler",
+      "repo": "openai/NavierStokesAndEuler",
+      "url": "https://github.com/openai/NavierStokesAndEuler",
+      "title": "openai/NavierStokesAndEuler",
+      "text": "Lean certificates accompanying Navier-Stokes and Euler results",
+      "language": "Lean",
+      "stars_total": 1928,
+      "forks": 199,
+      "watchers": 0,
+      "open_issues": 0,
+      "created_at": "2026-09-08T10:53:38Z",
+      "pushed_at": "2026-09-10T15:14:13Z",
+      "license": "Apache-2.0",
+      "topics": [],
+      "stars_window": 1928,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 204.2,
+      "supply_risk": "high",
+      "risk_flags": [
+        "日均涨星 204，增速偏高",
+        "千星但零 issue：无真实使用反馈"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：日均涨星 204，增速偏高；千星但零 issue：无真实使用反馈"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:ai-sucks-butt/ai-sucks-butt",
+      "repo": "ai-sucks-butt/ai-sucks-butt",
+      "url": "https://github.com/ai-sucks-butt/ai-sucks-butt",
+      "title": "ai-sucks-butt/ai-sucks-butt",
+      "text": "If you think AI sucks, star the repo.",
+      "language": "Python",
+      "stars_total": 1875,
+      "forks": 0,
+      "watchers": 0,
+      "open_issues": 0,
+      "created_at": "2026-09-14T04:02:58Z",
+      "pushed_at": "2026-09-16T03:53:04Z",
+      "license": null,
+      "topics": [],
+      "stars_window": 1875,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 545.0,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.000 低于 0.05（真实项目通常 0.15–0.25）",
+        "日均涨星 545，远高于自然增长速度（重点核查是否刷星）",
+        "无明确开源协议：默认保留全部权利，不得商用",
+        "千星但零 issue：无真实使用反馈"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.000 低于 0.05（真实项目通常 0.15–0.25）；日均涨星 545，远高于自然增长速度（重点核查是否刷星）；无明确开源协议：默认保留全部权利，不得商用；千星但零 issue：无真实使用反馈"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:Edge0-AI/Edge0",
+      "repo": "Edge0-AI/Edge0",
+      "url": "https://github.com/Edge0-AI/Edge0",
+      "title": "Edge0-AI/Edge0",
+      "text": "",
+      "language": "Python",
+      "stars_total": 1824,
+      "forks": 152,
+      "watchers": 0,
+      "open_issues": 18,
+      "created_at": "2026-09-08T13:41:47Z",
+      "pushed_at": "2026-09-16T11:42:14Z",
+      "license": "Apache-2.0",
+      "topics": [],
+      "stars_window": 1824,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 193.2,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.083 偏低，需人工确认",
+        "日均涨星 193，增速偏高"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.083 偏低，需人工确认；日均涨星 193，增速偏高"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:Mantitup-Org/vista",
+      "repo": "Mantitup-Org/vista",
+      "url": "https://github.com/Mantitup-Org/vista",
+      "title": "Mantitup-Org/vista",
+      "text": "",
+      "language": "TypeScript",
+      "stars_total": 1805,
+      "forks": 17,
+      "watchers": 0,
+      "open_issues": 20,
+      "created_at": "2026-09-04T06:20:19Z",
+      "pushed_at": "2026-09-06T19:34:53Z",
+      "license": "NOASSERTION",
+      "topics": [],
+      "stars_window": 1805,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 134.3,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.009 低于 0.05（真实项目通常 0.15–0.25）",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.009 低于 0.05（真实项目通常 0.15–0.25）；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:SonicloudTech/sonicloud_opensdk",
+      "repo": "SonicloudTech/sonicloud_opensdk",
+      "url": "https://github.com/SonicloudTech/sonicloud_opensdk",
+      "title": "SonicloudTech/sonicloud_opensdk",
+      "text": "声云录音卡 Recorder 是一套面向开发者和行业客户的智能录音硬件接入方案。 项目以录音卡片硬件为核心，开放 BLE 协议 SDK 及 Android、iOS、鸿蒙、Flutter 接入示例，同时提供 Windows/macOS 桌面端 Demo，支持设备连接、录音控制、实时音频、文件传输、OTA 升级和语音转写等能力，帮助开发者快速将录音硬件接入自己的 App、桌面软件或行业系统。 如需获取硬件规格、样机、完整协议、SDK 资料或定制服务，请联系安徽声云",
+      "language": "HTML",
+      "stars_total": 1639,
+      "forks": 57,
+      "watchers": 0,
+      "open_issues": 0,
+      "created_at": "2026-09-02T03:32:02Z",
+      "pushed_at": "2026-09-10T01:47:18Z",
+      "license": "MIT",
+      "topics": [],
+      "stars_window": 1639,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 106.1,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.035 低于 0.05（真实项目通常 0.15–0.25）",
+        "千星但零 issue：无真实使用反馈"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.035 低于 0.05（真实项目通常 0.15–0.25）；千星但零 issue：无真实使用反馈"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:Vincentwei1021/anything2explainer",
+      "repo": "Vincentwei1021/anything2explainer",
+      "url": "https://github.com/Vincentwei1021/anything2explainer",
+      "title": "Vincentwei1021/anything2explainer",
+      "text": "Topic in, narrated explainer video out. A Claude Code / Codex skill that turns any topic into a black-canvas motion-graphics explainer video with TTS voiceover, subtitles and a chapter progress bar. Chinese or English; every frame drawn in code with Remotion.",
+      "language": "TypeScript",
+      "stars_total": 1498,
+      "forks": 245,
+      "watchers": 0,
+      "open_issues": 1,
+      "created_at": "2026-09-08T17:19:54Z",
+      "pushed_at": "2026-09-13T03:23:06Z",
+      "license": "NOASSERTION",
+      "topics": [
+        "agent-skills",
+        "ai-agents",
+        "ai-video",
+        "claude-code",
+        "claude-code-skill",
+        "codex",
+        "edge-tts",
+        "educational-video",
+        "explainer-video",
+        "kokoro",
+        "motion-graphics",
+        "multi-agent",
+        "react",
+        "remotion",
+        "text-to-video",
+        "tts",
+        "typescript",
+        "video-generation"
+      ],
+      "stars_window": 1498,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 158.7,
+      "supply_risk": "high",
+      "risk_flags": [
+        "日均涨星 159，增速偏高",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：日均涨星 159，增速偏高；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:danielblnc/DLSS-NR-on-AMD",
+      "repo": "danielblnc/DLSS-NR-on-AMD",
+      "url": "https://github.com/danielblnc/DLSS-NR-on-AMD",
+      "title": "danielblnc/DLSS-NR-on-AMD",
+      "text": "Run DLSS 5 Neural Rendering on your AMD GPU. Magic!",
+      "language": "",
+      "stars_total": 1400,
+      "forks": 57,
+      "watchers": 0,
+      "open_issues": 138,
+      "created_at": "2026-09-03T00:42:03Z",
+      "pushed_at": "2026-09-15T21:31:25Z",
+      "license": "NOASSERTION",
+      "topics": [],
+      "stars_window": 1400,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 97.0,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.041 低于 0.05（真实项目通常 0.15–0.25）",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.041 低于 0.05（真实项目通常 0.15–0.25）；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:adtexterry-lgtm/unigit-ecosystem",
+      "repo": "adtexterry-lgtm/unigit-ecosystem",
+      "url": "https://github.com/adtexterry-lgtm/unigit-ecosystem",
+      "title": "adtexterry-lgtm/unigit-ecosystem",
+      "text": "UNIGIT public brand and ecosystem hub — AI should work for everyone.",
+      "language": "JavaScript",
+      "stars_total": 1319,
+      "forks": 45,
+      "watchers": 0,
+      "open_issues": 0,
+      "created_at": "2026-09-02T10:08:01Z",
+      "pushed_at": "2026-09-02T12:51:17Z",
+      "license": "MIT",
+      "topics": [
+        "agentic-ai",
+        "ai-tools",
+        "ai-workbench",
+        "ecosystem",
+        "mcp",
+        "productivity",
+        "unigit"
+      ],
+      "stars_window": 1319,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 85.4,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.034 低于 0.05（真实项目通常 0.15–0.25）",
+        "千星但零 issue：无真实使用反馈"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.034 低于 0.05（真实项目通常 0.15–0.25）；千星但零 issue：无真实使用反馈"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:MetaMask-AI/metamask-desktop",
+      "repo": "MetaMask-AI/metamask-desktop",
+      "url": "https://github.com/MetaMask-AI/metamask-desktop",
+      "title": "MetaMask-AI/metamask-desktop",
+      "text": "🌐 🔌 The MetaMask desktop app enables browsing Ethereum blockchain enabled websites",
+      "language": "CSS",
+      "stars_total": 1232,
+      "forks": 91,
+      "watchers": 0,
+      "open_issues": 0,
+      "created_at": "2026-08-28T08:07:10Z",
+      "pushed_at": "2026-09-06T18:45:47Z",
+      "license": "MIT",
+      "topics": [
+        "bitcoin",
+        "bitcoin-wallet",
+        "crypto",
+        "cryptocoins",
+        "cryptocompare-api",
+        "cryptocurrency",
+        "dapp",
+        "ethereum",
+        "ethereum-blockchain",
+        "ethereum-wallet",
+        "evm",
+        "evm-wallet",
+        "macos",
+        "metamask",
+        "metamask-dapp",
+        "metamask-desktop",
+        "metamask-io",
+        "solana",
+        "web3",
+        "windows"
+      ],
+      "stars_window": 1232,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 60.3,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.074 偏低，需人工确认",
+        "千星但零 issue：无真实使用反馈"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.074 偏低，需人工确认；千星但零 issue：无真实使用反馈"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:qingjian-team/qingjian",
+      "repo": "qingjian-team/qingjian",
+      "url": "https://github.com/qingjian-team/qingjian",
+      "title": "qingjian-team/qingjian",
+      "text": "青简 Qingjian：用 Rust 写的拼音输入法，候选词旁多一条正在学的语言的译词",
+      "language": "Rust",
+      "stars_total": 1227,
+      "forks": 108,
+      "watchers": 0,
+      "open_issues": 53,
+      "created_at": "2026-09-07T08:25:30Z",
+      "pushed_at": "2026-09-16T11:07:28Z",
+      "license": "GPL-3.0",
+      "topics": [
+        "chinese",
+        "chinese-input-method",
+        "english-learning",
+        "ime",
+        "input-method",
+        "japanese-learning",
+        "language-learning",
+        "language-model",
+        "macos",
+        "offline",
+        "pinyin",
+        "rust",
+        "shuangpin",
+        "windows"
+      ],
+      "stars_window": 1227,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 117.5,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.088 偏低，需人工确认",
+        "协议 GPL-3.0 强传染，禁止直接闭源封装商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.088 偏低，需人工确认；协议 GPL-3.0 强传染，禁止直接闭源封装商用"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:jlrouzies-fr/DLSS5-Feeder",
+      "repo": "jlrouzies-fr/DLSS5-Feeder",
+      "url": "https://github.com/jlrouzies-fr/DLSS5-Feeder",
+      "title": "jlrouzies-fr/DLSS5-Feeder",
+      "text": "DLSS 5 neural rendering in D3D11/D12/Vulkan games that ship without any DLSS — feeds a synthetic DLAA contract (ReShade depth + motion vectors) to the DLSS 5 add-on via a private D3D12 device.",
+      "language": "C++",
+      "stars_total": 957,
+      "forks": 53,
+      "watchers": 0,
+      "open_issues": 24,
+      "created_at": "2026-08-29T19:52:37Z",
+      "pushed_at": "2026-09-16T16:38:38Z",
+      "license": "NOASSERTION",
+      "topics": [],
+      "stars_window": 957,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "star_velocity": 49.2,
+      "supply_risk": "high",
+      "risk_flags": [
+        "fork/star=0.055 偏低，需人工确认",
+        "无明确开源协议：默认保留全部权利，不得商用"
+      ],
+      "drop_stage": "L2",
+      "drop_reason": "供给侧高危：fork/star=0.055 偏低，需人工确认；无明确开源协议：默认保留全部权利，不得商用"
+    },
+    {
+      "source": "github_search",
+      "source_id": "search:AI-FanGe/Microduck-build-tutorial",
+      "repo": "AI-FanGe/Microduck-build-tutorial",
+      "url": "https://github.com/AI-FanGe/Microduck-build-tutorial",
+      "title": "AI-FanGe/Microduck-build-tutorial",
+      "text": "A practical hardware and software setup for a compact RL-powered biped robot.",
+      "language": "Python",
+      "stars_total": 928,
+      "forks": 238,
+      "watchers": 0,
+      "open_issues": 9,
+      "created_at": "2026-09-04T17:18:43Z",
+      "pushed_at": "2026-09-11T07:51:37Z",
+      "license": "MIT",
+      "topics": [],
+      "stars_window": 928,
+      "window": "created<=21d",
+      "collected_at": 1789612206,
+      "drop_stage": "L1",
+      "drop_reason": "资源合集/教程仓库，无变现主体"
+    },
+    {
+      "source": "hn",
+      "source_id": "hn:48569748",
+      "repo": "",
+      "url": "https://news.ycombinator.com/item?id=48569748",
+      "title": "Stop Killing Games fails to secure EU law despite 1.3M signatures",
+      "text": "&gt; Most match-based FPS don&#x27;t do that anymore, as it&#x27;s susceptible to DDOS. Whether a LAN-like mode is otherwise still feasible&#x2F;acceptable by todays game quality standards is debatable. How is LAN susceptible to DDoS? I think you&#x27;re thinking of P2P, unless you&#x27;re worried about your LAN buddies trolling you I guess. Regardless, whether the quality of LAN games is good or not is wholly irrelevant to the SKG initiative. If players want to play an apparently inferior version of the game, they should be allowed to, and LAN is hardly going to be an inferior version of the game anyways. &gt; This is only feasible if the multiplayer backend is a simple server binary, which in many cases it&#x27;s not anymore, but a full cloud architecture you would find for any SaaS app. There additionally is the issue of licensed libraries, which may prohibit redistribution of the server binaries (and may e.g. be bound to a per-host pricing). Comparing your game to a SaaS app is an interesting approach, because SaaS apps are generally sold as subscriptions, not one-time purchases that would otherwise immply ownership. If the game is genuinely SaaS-like, maybe price it like one and stop selling it like a regular product. Also this would only really be the case for AAA games, and they have more than enough cash to figure out a proper sunsetting strategy. Again, it doesn&#x27;t have to be a perfect experience or anything near it, as long as people can somehow keep playing the games they paid for, even if they&#x27;re the ones to bear the costs of hosting (which isn&#x27;t e",
+      "author": "sensanaty",
+      "points": null,
+      "created_at": "2026-06-17T12:50:07Z",
+      "query": "self-hosted too complex",
+      "collected_at": 1789612214,
+      "pain_hits": [],
+      "wtp_hits": [],
+      "strong_wtp_hits": [],
+      "drop_stage": "L1",
+      "drop_reason": "未命中痛点/第一人称付费构式（词面碰撞噪音）"
+    },
+    {
+      "source": "hn",
+      "source_id": "hn:49692397",
+      "repo": "",
+      "url": "https://news.ycombinator.com/item?id=49692397",
+      "title": "Ask HN: What are you working on? (September 2026)",
+      "text": "Projektor - an ai native jira &#x2F; wiki tool self hosted on cloudflare. Currently considering how to extend it to cover more activities involved in software development https:&#x2F;&#x2F;github.com&#x2F;TAJD&#x2F;projektor Iron volume, recently added a kettlebell complex generator which isn’t too bad if I say myself https:&#x2F;&#x2F;www.ironvolume.com&#x2F;",
+      "author": "tajd",
+      "points": null,
+      "created_at": "2026-09-14T05:35:22Z",
+      "query": "self-hosted too complex",
+      "collected_at": 1789612214,
+      "pain_hits": [],
+      "wtp_hits": [],
+      "strong_wtp_hits": [],
+      "drop_stage": "L1",
+      "drop_reason": "未命中痛点/第一人称付费构式（词面碰撞噪音）"
+    },
+    {
+      "source": "hn",
+      "source_id": "hn:49734618",
+      "repo": "",
+      "url": "https://news.ycombinator.com/item?id=49734618",
+      "title": "Small programming tricks",
+      "text": "Self hosted Atuin would do this for you too. Unless you don&#x27;t want the added tooling&#x2F;complexity",
+      "author": "RSHEPP",
+      "points": null,
+      "created_at": "2026-09-16T23:48:05Z",
+      "query": "self-hosted too complex",
+      "collected_at": 1789612214,
+      "drop_stage": "L1",
+      "drop_reason": "噪音/过短"
+    }
+  ]
+}

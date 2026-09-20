@@ -1,0 +1,5431 @@
+{
+  "generated_at": "2026-09-18 15:55:02",
+  "windows": {
+    "day": {
+      "label": "今日",
+      "raw": 476,
+      "kept": 188,
+      "path_stats": [
+        139,
+        49,
+        0.7393617021276596
+      ],
+      "directions": [
+        {
+          "name": "AI 代理与自动化",
+          "evidence": 25,
+          "sources": [
+            "github_bounty",
+            "github_search",
+            "github_trending",
+            "hn",
+            "indeed",
+            "juejin",
+            "producthunt",
+            "reddit"
+          ],
+          "wtp": 0,
+          "pain": 12,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:kuhnhomeuk-cell/procedural-film",
+              "repo": "kuhnhomeuk-cell/procedural-film",
+              "url": "https://github.com/kuhnhomeuk-cell/procedural-film",
+              "title": "kuhnhomeuk-cell/procedural-film",
+              "text": "Agent skill: turn a topic into a 30s vertical film drawn and scored entirely in JavaScript. Reference film: the life of a monarch butterfly.",
+              "language": "JavaScript",
+              "stars_total": 94,
+              "forks": 12,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-17T17:15:34Z",
+              "pushed_at": "2026-09-17T19:44:16Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 94,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 57.1,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:vlad-terin/jev-browser",
+              "repo": "vlad-terin/jev-browser",
+              "url": "https://github.com/vlad-terin/jev-browser",
+              "title": "vlad-terin/jev-browser",
+              "text": "Jev-powered element selection for your agent’s existing computer-use tools",
+              "language": "JavaScript",
+              "stars_total": 67,
+              "forks": 7,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-17T03:45:16Z",
+              "pushed_at": "2026-09-18T05:31:32Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 67,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 40.7,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:jarrodwatts/jev-trader",
+              "repo": "jarrodwatts/jev-trader",
+              "url": "https://github.com/jarrodwatts/jev-trader",
+              "title": "jarrodwatts/jev-trader",
+              "text": "One AI trade decision every Monad block. Jev on Kuru MON-USDC.",
+              "language": "TypeScript",
+              "stars_total": 611,
+              "forks": 123,
+              "watchers": 0,
+              "open_issues": 2,
+              "created_at": "2026-09-16T21:36:20Z",
+              "pushed_at": "2026-09-17T02:48:22Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 611,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 230.8,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "日均涨星 231，增速偏高"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:awlevin/typesafe-computer-use",
+              "repo": "awlevin/typesafe-computer-use",
+              "url": "https://github.com/awlevin/typesafe-computer-use",
+              "title": "awlevin/typesafe-computer-use",
+              "text": "Computer use for about $0.0002 a step: OCR the screen, classify the next action with TypeSafe, click. macOS.",
+              "language": "Python",
+              "stars_total": 177,
+              "forks": 13,
+              "watchers": 0,
+              "open_issues": 4,
+              "created_at": "2026-09-16T17:48:45Z",
+              "pushed_at": "2026-09-17T06:58:31Z",
+              "license": "MIT",
+              "topics": [
+                "ai-agents",
+                "automation",
+                "computer-use",
+                "macos",
+                "ocr",
+                "typesafe"
+              ],
+              "stars_window": 177,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 66.9,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.073 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:kitze/skillbox",
+              "repo": "kitze/skillbox",
+              "url": "https://github.com/kitze/skillbox",
+              "title": "kitze/skillbox",
+              "text": "Self-hosted, versioned skills library for AI agents. MCP, scoped clients, and optional Jev recommendations.",
+              "language": "TypeScript",
+              "stars_total": 119,
+              "forks": 11,
+              "watchers": 0,
+              "open_issues": 2,
+              "created_at": "2026-09-17T17:23:37Z",
+              "pushed_at": "2026-09-18T05:24:23Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 119,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 72.3,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.092 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:NiazMorshed2007/jev-review",
+              "repo": "NiazMorshed2007/jev-review",
+              "url": "https://github.com/NiazMorshed2007/jev-review",
+              "title": "NiazMorshed2007/jev-review",
+              "text": "Local-first MCP plugin for continuous software-quality review by AI coding agents, powered by Jev.",
+              "language": "TypeScript",
+              "stars_total": 92,
+              "forks": 7,
+              "watchers": 0,
+              "open_issues": 2,
+              "created_at": "2026-09-17T05:24:51Z",
+              "pushed_at": "2026-09-17T17:15:20Z",
+              "license": "MIT",
+              "topics": [
+                "agent-plugin",
+                "ai-agents",
+                "claude-code",
+                "code-review",
+                "codex",
+                "coding-agents",
+                "cursor",
+                "developer-tools",
+                "jev",
+                "local-first",
+                "mcp",
+                "model-context-protocol",
+                "opencode",
+                "software-quality",
+                "typescript"
+              ],
+              "stars_window": 92,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 55.9,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.076 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:Worldbuilder013/HEXIS",
+              "repo": "Worldbuilder013/HEXIS",
+              "url": "https://github.com/Worldbuilder013/HEXIS",
+              "title": "Worldbuilder013/HEXIS",
+              "text": "HEXIS. Compile SKILL.md into state machines: deterministic execution order via transition guards, LLM reasoning scoped inside states.",
+              "language": "Python",
+              "stars_total": 71,
+              "forks": 1,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-17T06:23:51Z",
+              "pushed_at": "2026-09-17T06:38:06Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 71,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 43.1,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.014 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:daily:addyosmani/agent-skills",
+              "repo": "addyosmani/agent-skills",
+              "url": "https://github.com/addyosmani/agent-skills",
+              "title": "addyosmani/agent-skills",
+              "text": "",
+              "language": "JavaScript",
+              "stars_total": 95996,
+              "forks": 10157,
+              "stars_window": 680,
+              "window": "daily",
+              "collected_at": 1789716301,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:daily:anthropics/claude-code",
+              "repo": "anthropics/claude-code",
+              "url": "https://github.com/anthropics/claude-code",
+              "title": "anthropics/claude-code",
+              "text": "",
+              "language": "TypeScript",
+              "stars_total": 145954,
+              "forks": 23657,
+              "stars_window": 538,
+              "window": "daily",
+              "collected_at": 1789716301,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:daily:anthropics/knowledge-work-plugins",
+              "repo": "anthropics/knowledge-work-plugins",
+              "url": "https://github.com/anthropics/knowledge-work-plugins",
+              "title": "anthropics/knowledge-work-plugins",
+              "text": "",
+              "language": "Python",
+              "stars_total": 24637,
+              "forks": 2955,
+              "stars_window": 287,
+              "window": "daily",
+              "collected_at": 1789716301,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:daily:Tencent/WeKnora",
+              "repo": "Tencent/WeKnora",
+              "url": "https://github.com/Tencent/WeKnora",
+              "title": "Tencent/WeKnora",
+              "text": "",
+              "language": "Go",
+              "stars_total": 26550,
+              "forks": 3576,
+              "stars_window": 1125,
+              "window": "daily",
+              "collected_at": 1789716301,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:daily:cline/cline",
+              "repo": "cline/cline",
+              "url": "https://github.com/cline/cline",
+              "title": "cline/cline",
+              "text": "",
+              "language": "TypeScript",
+              "stars_total": 68620,
+              "forks": 7418,
+              "stars_window": 380,
+              "window": "daily",
+              "collected_at": 1789716301,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:fhshaik/typesafe-mario",
+              "repo": "fhshaik/typesafe-mario",
+              "url": "https://github.com/fhshaik/typesafe-mario",
+              "title": "fhshaik/typesafe-mario",
+              "text": "A TypeSafe/Jev agent that plays Super Mario Bros. from structured emulator state.",
+              "language": "Python",
+              "stars_total": 237,
+              "forks": 24,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T04:57:42Z",
+              "pushed_at": "2026-09-16T04:59:33Z",
+              "license": null,
+              "topics": [],
+              "stars_window": 237,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 89.5,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0
+            }
+          ],
+          "velocity": 656.3000000000001,
+          "wtp_llm": 0,
+          "hiring": 9,
+          "heat_score": 277,
+          "heat_comments": 33,
+          "hot": 4,
+          "native_sources": [
+            "github_search",
+            "github_trending",
+            "hn",
+            "juejin",
+            "producthunt",
+            "reddit"
+          ],
+          "keyword_sources": [
+            "github_bounty",
+            "hn",
+            "indeed"
+          ],
+          "diversity": 8,
+          "resonance": 6,
+          "heat": 376,
+          "wtp_total": 0,
+          "score": 36.03,
+          "market_repos": 3303,
+          "crowd": "红海",
+          "opp_tag": "已拥挤：需差异化切入",
+          "opp_score": 10.24,
+          "mature_products": 621,
+          "mature": [
+            {
+              "repo": "affaan-m/ECC",
+              "url": "https://github.com/affaan-m/ECC",
+              "stars": 261358,
+              "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "NousResearch/hermes-agent",
+              "url": "https://github.com/NousResearch/hermes-agent",
+              "stars": 246639,
+              "desc": "The agent that grows with you",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156226,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-18"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "kuhnhomeuk-cell/procedural-film",
+              "url": "https://github.com/kuhnhomeuk-cell/procedural-film",
+              "source": "github_search"
+            },
+            {
+              "title": "vlad-terin/jev-browser",
+              "url": "https://github.com/vlad-terin/jev-browser",
+              "source": "github_search"
+            },
+            {
+              "title": "jarrodwatts/jev-trader",
+              "url": "https://github.com/jarrodwatts/jev-trader",
+              "source": "github_search"
+            },
+            {
+              "title": "awlevin/typesafe-computer-use",
+              "url": "https://github.com/awlevin/typesafe-computer-use",
+              "source": "github_search"
+            }
+          ],
+          "advice": "已拥挤，不建议正面进入",
+          "advice_level": 1,
+          "advice_reasons": [
+            "25 条证据显示需求真实",
+            "但 GitHub 存量 3303 个（红海）"
+          ],
+          "advice_action": "除非有明确差异化切口（细分人群 / 现有产品的具体差评），否则跳过",
+          "trend_level": "高",
+          "trend_score": 8,
+          "trend_reasons": [
+            "头部仓库日均涨星 231（极快）",
+            "6 个平台原生榜独立出现（真共振）",
+            "今日 25 条 ≥ 本周 22 条（当下密集）"
+          ]
+        },
+        {
+          "name": "报表与可视化",
+          "evidence": 4,
+          "sources": [
+            "github_search",
+            "hn",
+            "reddit"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:Marcos66236/github-stars-history",
+              "repo": "Marcos66236/github-stars-history",
+              "url": "https://github.com/Marcos66236/github-stars-history",
+              "title": "Marcos66236/github-stars-history",
+              "text": "Track and visualize the stars history of any GitHub repository. Open-source growth analytics and velocity tracking.",
+              "language": "Python",
+              "stars_total": 276,
+              "forks": 30,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T16:39:45Z",
+              "pushed_at": "2026-09-17T19:18:52Z",
+              "license": "MIT",
+              "topics": [
+                "developer-tools",
+                "github-analytics",
+                "github-api",
+                "github-stars",
+                "github-trending",
+                "open-source",
+                "repository-analytics",
+                "star-history"
+              ],
+              "stars_window": 276,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 104.3,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "报表与可视化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:devagrawal09/jev-review",
+              "repo": "devagrawal09/jev-review",
+              "url": "https://github.com/devagrawal09/jev-review",
+              "title": "devagrawal09/jev-review",
+              "text": "A staged code-review workflow and local dashboard built with TypeSafe Jev.",
+              "language": "TypeScript",
+              "stars_total": 191,
+              "forks": 11,
+              "watchers": 0,
+              "open_issues": 1,
+              "created_at": "2026-09-16T21:45:36Z",
+              "pushed_at": "2026-09-17T00:29:25Z",
+              "license": "MIT",
+              "topics": [
+                "ai",
+                "code-review",
+                "jev",
+                "typesafe-ai",
+                "typescript"
+              ],
+              "stars_window": 191,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 72.2,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.058 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:mirkovicdev/HFTENGINE",
+              "repo": "mirkovicdev/HFTENGINE",
+              "url": "https://github.com/mirkovicdev/HFTENGINE",
+              "title": "mirkovicdev/HFTENGINE",
+              "text": "Replay console for hftbacktest market-making backtests: order book, queue position of every resting order, feed and order latency, fills and the raw feed from the collector, on real recorded Binance Futures data. Rust runner on the hftbacktest crate, text-mode dashboard. A backtester, not a trading bot.",
+              "language": "TypeScript",
+              "stars_total": 127,
+              "forks": 17,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T17:49:06Z",
+              "pushed_at": "2026-09-17T12:47:25Z",
+              "license": "NOASSERTION",
+              "topics": [
+                "backtesting",
+                "binance",
+                "hft",
+                "hftbacktest",
+                "latency",
+                "market-making",
+                "order-book",
+                "quantitative-finance",
+                "queue-position",
+                "rust"
+              ],
+              "stars_window": 127,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 48.0,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0
+            }
+          ],
+          "velocity": 224.5,
+          "wtp_llm": 0,
+          "hiring": 1,
+          "heat_score": 31,
+          "heat_comments": 2,
+          "hot": 1,
+          "native_sources": [
+            "github_search",
+            "hn",
+            "reddit"
+          ],
+          "keyword_sources": [],
+          "diversity": 3,
+          "resonance": 3,
+          "heat": 37,
+          "wtp_total": 0,
+          "score": 11.13,
+          "market_repos": 89,
+          "crowd": "中等",
+          "opp_tag": "★ 值得看",
+          "opp_score": 5.58,
+          "mature_products": 13,
+          "mature": [
+            {
+              "repo": "metabase/metabase",
+              "url": "https://github.com/metabase/metabase",
+              "stars": 49324,
+              "desc": "The easy-to-use open source Business Intelligence and Embedded Analytics tool that lets everyone work with dat",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "briefercloud/briefer",
+              "url": "https://github.com/briefercloud/briefer",
+              "stars": 4325,
+              "desc": "Dashboards and notebooks in a single place. Create powerful and flexible dashboards using code, or build beaut",
+              "updated": "2025-08-07"
+            },
+            {
+              "repo": "StructuredLabs/preswald",
+              "url": "https://github.com/StructuredLabs/preswald",
+              "stars": 4270,
+              "desc": "Preswald is a WASM packager for Python-based interactive data apps: bundle full complex data workflows, partic",
+              "updated": "2026-06-11"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Marcos66236/github-stars-history",
+              "url": "https://github.com/Marcos66236/github-stars-history",
+              "source": "github_search"
+            },
+            {
+              "title": "devagrawal09/jev-review",
+              "url": "https://github.com/devagrawal09/jev-review",
+              "source": "github_search"
+            },
+            {
+              "title": "[FOR HIRE] The Last Google Ads Guy You'll Ever Hire",
+              "url": "https://www.reddit.com/r/forhire/comments/1wj8p84/for_hire_the_last_google_ads_guy_youll_ever_hire/",
+              "source": "reddit"
+            },
+            {
+              "title": "mirkovicdev/HFTENGINE",
+              "url": "https://github.com/mirkovicdev/HFTENGINE",
+              "source": "github_search"
+            }
+          ],
+          "advice": "★ 建议优先验证",
+          "advice_level": 4,
+          "advice_reasons": [
+            "4 条证据 · 3 个平台",
+            "存量仅 89 个（稀疏）",
+            "1 条出钱证据（招聘/赏金：有人已在为这类活付费）"
+          ],
+          "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品",
+          "trend_level": "高",
+          "trend_score": 8,
+          "trend_reasons": [
+            "头部仓库日均涨星 104（较快）",
+            "3 个平台原生榜独立出现（真共振）",
+            "今日 4 条 ≥ 本周 3 条（当下密集）",
+            "仅近期窗口出现（新近冒头）"
+          ]
+        },
+        {
+          "name": "视频与音频处理",
+          "evidence": 8,
+          "sources": [
+            "devto",
+            "github_bounty",
+            "github_trending",
+            "reddit"
+          ],
+          "wtp": 0,
+          "pain": 7,
+          "repos": [
+            {
+              "source": "github_trending",
+              "source_id": "trending:daily:jamiepine/voicebox",
+              "repo": "jamiepine/voicebox",
+              "url": "https://github.com/jamiepine/voicebox",
+              "title": "jamiepine/voicebox",
+              "text": "",
+              "language": "TypeScript",
+              "stars_total": 54952,
+              "forks": 6832,
+              "stars_window": 667,
+              "window": "daily",
+              "collected_at": 1789716301,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "视频与音频处理",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 7,
+          "heat_score": 30,
+          "heat_comments": 14,
+          "hot": 1,
+          "native_sources": [
+            "devto",
+            "github_trending",
+            "reddit"
+          ],
+          "keyword_sources": [
+            "github_bounty"
+          ],
+          "diversity": 4,
+          "resonance": 3,
+          "heat": 72,
+          "wtp_total": 0,
+          "score": 10.8,
+          "market_repos": 763,
+          "crowd": "拥挤",
+          "opp_tag": "已拥挤：需差异化切入",
+          "opp_score": 3.74,
+          "mature_products": 101,
+          "mature": [
+            {
+              "repo": "harry0703/MoneyPrinterTurbo",
+              "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+              "stars": 124487,
+              "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workf",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "FFmpeg/FFmpeg",
+              "url": "https://github.com/FFmpeg/FFmpeg",
+              "stars": 64317,
+              "desc": "Mirror of https://git.ffmpeg.org/ffmpeg.git",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "calesthio/OpenMontage",
+              "url": "https://github.com/calesthio/OpenMontage",
+              "stars": 59813,
+              "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent sk",
+              "updated": "2026-09-06"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "​[Hiring] Visual Director & Short-Form Video Editor for Emo-Trap/Underground Pro",
+              "url": "https://www.reddit.com/r/forhire/comments/1wjhyjt/hiring_visual_director_shortform_video_editor_for/",
+              "source": "reddit"
+            },
+            {
+              "title": "[FOR HIRE] Graphic Design, Motion Graphics, Branding, Social Content & Video Edi",
+              "url": "https://www.reddit.com/r/forhire/comments/1wjiif2/for_hire_graphic_design_motion_graphics_branding/",
+              "source": "reddit"
+            },
+            {
+              "title": "[For Hire] Affordable Photo & Video Editing - High Quality Results !",
+              "url": "https://www.reddit.com/r/forhire/comments/1wjg795/for_hire_affordable_photo_video_editing_high/",
+              "source": "reddit"
+            },
+            {
+              "title": "[FOR HIRE] Card Artist | Capcom & ATLUS Aesthetic (Projects start at 50 USD)",
+              "url": "https://www.reddit.com/r/forhire/comments/1wizny8/for_hire_card_artist_capcom_atlus_aesthetic/",
+              "source": "reddit"
+            }
+          ],
+          "advice": "需求真实但供给密集，需差异化",
+          "advice_level": 2,
+          "advice_reasons": [
+            "8 条证据 · 4 个平台",
+            "存量 763 个，已有多家在解"
+          ],
+          "advice_action": "先扒 3-5 个现有产品的差评与退款理由，找未被满足的细分场景",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "3 个平台原生榜独立出现（真共振）",
+            "今日 8 条 / 本周 10 条（正在加速）"
+          ]
+        },
+        {
+          "name": "数据采集与解析",
+          "evidence": 5,
+          "sources": [
+            "github_bounty",
+            "github_search",
+            "indeed",
+            "lobsters"
+          ],
+          "wtp": 0,
+          "pain": 4,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:justoneapi-labs/xiaohongshu-api",
+              "repo": "justoneapi-labs/xiaohongshu-api",
+              "url": "https://github.com/justoneapi-labs/xiaohongshu-api",
+              "title": "justoneapi-labs/xiaohongshu-api",
+              "text": "小红书API、小红书接口：笔记搜索、笔记详情、评论查询的 Python 调用示例。Just One API。",
+              "language": "Python",
+              "stars_total": 72,
+              "forks": 0,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T15:39:38Z",
+              "pushed_at": "2026-09-16T15:42:52Z",
+              "license": "MIT",
+              "topics": [
+                "python",
+                "rednote",
+                "rednote-api",
+                "xhs",
+                "xhs-api",
+                "xiaohongshu",
+                "xiaohongshu-api"
+              ],
+              "stars_window": 72,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 27.2,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.000 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "数据采集与解析",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 27.2,
+          "wtp_llm": 0,
+          "hiring": 4,
+          "heat_score": 165,
+          "heat_comments": 65,
+          "hot": 1,
+          "native_sources": [
+            "github_search",
+            "lobsters"
+          ],
+          "keyword_sources": [
+            "github_bounty",
+            "indeed"
+          ],
+          "diversity": 4,
+          "resonance": 2,
+          "heat": 360,
+          "wtp_total": 0,
+          "score": 9.18,
+          "market_repos": 49,
+          "crowd": "稀疏",
+          "opp_tag": "★ 值得看",
+          "opp_score": 5.18,
+          "mature_products": 6,
+          "mature": [
+            {
+              "repo": "cheeriojs/cheerio",
+              "url": "https://github.com/cheeriojs/cheerio",
+              "stars": 30491,
+              "desc": "The fast, flexible, and elegant library for parsing and manipulating HTML and XML.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "rust-scraper/scraper",
+              "url": "https://github.com/rust-scraper/scraper",
+              "stars": 2420,
+              "desc": "HTML parsing and querying with CSS selectors",
+              "updated": "2026-09-14"
+            },
+            {
+              "repo": "oxylabs/how-to-scrape-google-images",
+              "url": "https://github.com/oxylabs/how-to-scrape-google-images",
+              "stars": 2117,
+              "desc": "Real time google image scraper. The process is automated by sending HTTP requests to retrieve image data which",
+              "updated": "2026-06-19"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "justoneapi-labs/xiaohongshu-api",
+              "url": "https://github.com/justoneapi-labs/xiaohongshu-api",
+              "source": "github_search"
+            },
+            {
+              "title": "Bartlett Distribution Services LLC 招聘：data scraping（Newark, NJ 07108 (Upper Clin",
+              "url": "https://www.indeed.com/viewjob?jk=c6dd8c024ade7f41",
+              "source": "indeed"
+            },
+            {
+              "title": "INTERNATIONAL HIGHLIGHT LLC 招聘：data scraping（Boston, MA 02125 (North Dorchester ",
+              "url": "https://www.indeed.com/viewjob?jk=6417d71cb37e683c",
+              "source": "indeed"
+            },
+            {
+              "title": "Farmland Fresh Dairies LLC 招聘：data scraping（Newark, NJ 07108 (Lower Clinton Hill",
+              "url": "https://www.indeed.com/viewjob?jk=11dd9bad265fd625",
+              "source": "indeed"
+            }
+          ],
+          "advice": "★ 建议优先验证",
+          "advice_level": 4,
+          "advice_reasons": [
+            "5 条证据 · 4 个平台",
+            "存量仅 49 个（稀疏）",
+            "4 条出钱证据（招聘/赏金：有人已在为这类活付费）"
+          ],
+          "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品",
+          "trend_level": "中",
+          "trend_score": 4,
+          "trend_reasons": [
+            "2 个平台原生榜独立出现（真共振）",
+            "仅近期窗口出现（新近冒头）"
+          ]
+        },
+        {
+          "name": "文档与知识库",
+          "evidence": 2,
+          "sources": [
+            "github_search",
+            "juejin",
+            "reddit"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:nMaas8388/github-ranking-audit",
+              "repo": "nMaas8388/github-ranking-audit",
+              "url": "https://github.com/nMaas8388/github-ranking-audit",
+              "title": "nMaas8388/github-ranking-audit",
+              "text": "Audit your GitHub repository search ranking signals. Checks name, description, topics, README, stars, forks, and activity.",
+              "language": "Python",
+              "stars_total": 193,
+              "forks": 8,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-17T06:24:34Z",
+              "pushed_at": "2026-09-17T06:44:03Z",
+              "license": "MIT",
+              "topics": [
+                "developer-tools",
+                "github-api",
+                "github-growth",
+                "github-ranking",
+                "github-search",
+                "github-seo",
+                "github-stars",
+                "github-topics",
+                "open-source",
+                "python",
+                "readme-optimization",
+                "repository-analytics",
+                "repository-optimization",
+                "seo-audit"
+              ],
+              "stars_window": 193,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 117.2,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.041 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5
+            }
+          ],
+          "velocity": 117.2,
+          "wtp_llm": 0,
+          "hiring": 1,
+          "heat_score": 637,
+          "heat_comments": 3,
+          "hot": 1,
+          "native_sources": [
+            "github_search",
+            "juejin",
+            "reddit"
+          ],
+          "keyword_sources": [],
+          "diversity": 3,
+          "resonance": 3,
+          "heat": 646,
+          "wtp_total": 0,
+          "score": 7.91,
+          "market_repos": 1327,
+          "crowd": "红海",
+          "opp_tag": "红海",
+          "opp_score": 2.53,
+          "mature_products": 107,
+          "mature": [
+            {
+              "repo": "freeCodeCamp/devdocs",
+              "url": "https://github.com/freeCodeCamp/devdocs",
+              "stars": 39463,
+              "desc": "API Documentation Browser",
+              "updated": "2026-09-15"
+            },
+            {
+              "repo": "inkonchain/docs",
+              "url": "https://github.com/inkonchain/docs",
+              "stars": 36505,
+              "desc": "Ink Documentation",
+              "updated": "2026-09-15"
+            },
+            {
+              "repo": "docsifyjs/docsify",
+              "url": "https://github.com/docsifyjs/docsify",
+              "stars": 31513,
+              "desc": "🃏 A magical documentation site generator.",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "nMaas8388/github-ranking-audit",
+              "url": "https://github.com/nMaas8388/github-ranking-audit",
+              "source": "github_search"
+            },
+            {
+              "title": "[FOR HIRE] CAD Draftsman / Architectural Drafter — AutoCAD, 3D Visualization, Co",
+              "url": "https://www.reddit.com/r/forhire/comments/1wjh261/for_hire_cad_draftsman_architectural_drafter/",
+              "source": "reddit"
+            },
+            {
+              "title": "为什么越来越多人用OpenWiki？",
+              "url": "https://juejin.cn/post/7685591822258585626",
+              "source": "juejin"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "3 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "高",
+          "trend_score": 8,
+          "trend_reasons": [
+            "头部仓库日均涨星 117（较快）",
+            "3 个平台原生榜独立出现（真共振）",
+            "今日 2 条 ≥ 本周 2 条（当下密集）",
+            "仅近期窗口出现（新近冒头）"
+          ]
+        },
+        {
+          "name": "内容创作与分发",
+          "evidence": 2,
+          "sources": [
+            "github_bounty",
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:korcarc/text-humanizer",
+              "repo": "korcarc/text-humanizer",
+              "url": "https://github.com/korcarc/text-humanizer",
+              "title": "korcarc/text-humanizer",
+              "text": "text-humanizer is an open-source project designed to convert text generated by AI to its \"humanized\" version. Bypasses the most of AI detectors such as Turnitin or GPTZero",
+              "language": "Python",
+              "stars_total": 465,
+              "forks": 82,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T13:21:56Z",
+              "pushed_at": "2026-09-16T13:36:23Z",
+              "license": "MIT",
+              "topics": [
+                "ai-humanization",
+                "gptzero",
+                "gptzero-bypass",
+                "text-humanizer",
+                "turnitin",
+                "turnitin-bypass"
+              ],
+              "stars_window": 465,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 175.7,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "日均涨星 176，增速偏高"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "内容创作与分发",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 175.7,
+          "wtp_llm": 0,
+          "hiring": 1,
+          "heat_score": 180,
+          "heat_comments": 36,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [
+            "github_bounty"
+          ],
+          "diversity": 2,
+          "resonance": 1,
+          "heat": 288,
+          "wtp_total": 0,
+          "score": 6.57,
+          "market_repos": 35,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 3.97,
+          "mature_products": 4,
+          "mature": [
+            {
+              "repo": "TryGhost/Ghost",
+              "url": "https://github.com/TryGhost/Ghost",
+              "stars": 55347,
+              "desc": "Independent technology for modern publishing, memberships, subscriptions and newsletters.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "yaojingang/GEOFlow",
+              "url": "https://github.com/yaojingang/GEOFlow",
+              "stars": 3652,
+              "desc": "Open-source GEO content engineering and multi-site distribution platform with AI quality inspection, illustrat",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "blogifierdotnet/Blogifier",
+              "url": "https://github.com/blogifierdotnet/Blogifier",
+              "stars": 1295,
+              "desc": "Blogifier is an open-source publishing platform Written in ASP.NET and Blazor WebAssembly. With Blogifier make",
+              "updated": "2026-03-16"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "korcarc/text-humanizer",
+              "url": "https://github.com/korcarc/text-humanizer",
+              "source": "github_search"
+            },
+            {
+              "title": "Reverse bounty",
+              "url": "https://github.com/OmniBlocks/monorepo/issues/795",
+              "source": "github_bounty"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "2 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "高",
+          "trend_score": 6,
+          "trend_reasons": [
+            "头部仓库日均涨星 176（较快）",
+            "1 个平台原生榜出现",
+            "今日 2 条 ≥ 本周 2 条（当下密集）"
+          ]
+        },
+        {
+          "name": "终端与开发者效率",
+          "evidence": 2,
+          "sources": [
+            "github_search",
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:kdbhalala/avdslim",
+              "repo": "kdbhalala/avdslim",
+              "url": "https://github.com/kdbhalala/avdslim",
+              "title": "kdbhalala/avdslim",
+              "text": "⚡ Drop Android Virtual Device (AVD) emulator RAM from ~8GB to ~1.5GB on Apple Silicon & Linux. Inspired by simslim.",
+              "language": "Go",
+              "stars_total": 109,
+              "forks": 7,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T06:52:40Z",
+              "pushed_at": "2026-09-18T01:27:44Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 109,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 41.2,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.064 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "终端与开发者效率",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 41.2,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [
+            "hn"
+          ],
+          "diversity": 2,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 5.64,
+          "market_repos": 62,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 3.04,
+          "mature_products": 12,
+          "mature": [
+            {
+              "repo": "apollographql/apollo-client",
+              "url": "https://github.com/apollographql/apollo-client",
+              "stars": 19801,
+              "desc": "The industry-leading GraphQL client for TypeScript, JavaScript, React, Vue, Angular, and more. Apollo Client d",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "guarinogabriel/Mac-CLI",
+              "url": "https://github.com/guarinogabriel/Mac-CLI",
+              "stars": 9121,
+              "desc": " macOS command line tool for developers – The ultimate tool to manage your Mac. It provides a huge set of com",
+              "updated": "2026-02-28"
+            },
+            {
+              "repo": "donnemartin/dev-setup",
+              "url": "https://github.com/donnemartin/dev-setup",
+              "stars": 6267,
+              "desc": "macOS development environment setup:  Easy-to-understand instructions with automated setup scripts for develop",
+              "updated": "2023-02-27"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "kdbhalala/avdslim",
+              "url": "https://github.com/kdbhalala/avdslim",
+              "source": "github_search"
+            },
+            {
+              "title": "Cpak – OCI application package format for Linux desktops, servers and devices",
+              "url": "https://news.ycombinator.com/item?id=49709877",
+              "source": "hn"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "2 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "中",
+          "trend_score": 4,
+          "trend_reasons": [
+            "头部仓库日均涨星 41",
+            "1 个平台原生榜出现",
+            "今日 2 条 / 本周 3 条（正在加速）"
+          ]
+        },
+        {
+          "name": "支付与账单",
+          "evidence": 3,
+          "sources": [
+            "hn",
+            "reddit"
+          ],
+          "wtp": 1,
+          "pain": 2,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 1,
+          "heat_score": 579,
+          "heat_comments": 38,
+          "hot": 0,
+          "native_sources": [
+            "reddit"
+          ],
+          "keyword_sources": [
+            "hn"
+          ],
+          "diversity": 2,
+          "resonance": 1,
+          "heat": 693,
+          "wtp_total": 1,
+          "score": 5.0,
+          "market_repos": 37,
+          "crowd": "稀疏",
+          "opp_tag": "★ 值得看",
+          "opp_score": 2.99,
+          "mature_products": 6,
+          "mature": [
+            {
+              "repo": "OpenByteInc/QuantDinger",
+              "url": "https://github.com/OpenByteInc/QuantDinger",
+              "stars": 11712,
+              "desc": "Open-source AI Trading OS and commercial-ready multi-tenant SaaS platform — research markets, build Python str",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "getlago/lago",
+              "url": "https://github.com/getlago/lago",
+              "stars": 10572,
+              "desc": "Open Source Metering and Usage Based Billing API ⭐️ Consumption tracking, Subscription management, Pricing ite",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "killbill/killbill",
+              "url": "https://github.com/killbill/killbill",
+              "stars": 5737,
+              "desc": "Open-Source Subscription Billing & Payments Platform",
+              "updated": "2026-09-14"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Show HN: The bottom 50% of U.S. households are short after essentials (BLS data)",
+              "url": "https://news.ycombinator.com/item?id=49743608",
+              "source": "hn"
+            },
+            {
+              "title": "First Monthly Subscription I am legit shaking. What would be your first moves (i",
+              "url": "https://www.reddit.com/comments/1wi88io",
+              "source": "reddit"
+            },
+            {
+              "title": "[FOR HIRE] Designer and illustrator - mascots, logos, tshirt art and branding",
+              "url": "https://www.reddit.com/r/forhire/comments/1wj22qz/for_hire_designer_and_illustrator_mascots_logos/",
+              "source": "reddit"
+            }
+          ],
+          "advice": "★ 建议优先验证",
+          "advice_level": 4,
+          "advice_reasons": [
+            "3 条证据 · 2 个平台",
+            "存量仅 37 个（稀疏）",
+            "已出现付费信号"
+          ],
+          "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品",
+          "trend_level": "中",
+          "trend_score": 4,
+          "trend_reasons": [
+            "1 个平台原生榜出现",
+            "出现付费信号",
+            "仅近期窗口出现（新近冒头）"
+          ]
+        },
+        {
+          "name": "集成与 API 网关",
+          "evidence": 1,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:dofastted/vm2api",
+              "repo": "dofastted/vm2api",
+              "url": "https://github.com/dofastted/vm2api",
+              "title": "dofastted/vm2api",
+              "text": "vm2api 使用虚拟机完全拟真方案的订阅转api",
+              "language": "JavaScript",
+              "stars_total": 154,
+              "forks": 34,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T08:38:18Z",
+              "pushed_at": "2026-09-18T05:46:33Z",
+              "license": "NOASSERTION",
+              "topics": [],
+              "stars_window": 154,
+              "window": "created<=3d",
+              "collected_at": 1789716301,
+              "star_velocity": 58.2,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "集成与 API 网关",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 58.2,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [],
+          "diversity": 1,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 4.86,
+          "market_repos": 710,
+          "crowd": "拥挤",
+          "opp_tag": "红海",
+          "opp_score": 1.7,
+          "mature_products": 56,
+          "mature": [
+            {
+              "repo": "appsmithorg/appsmith",
+              "url": "https://github.com/appsmithorg/appsmith",
+              "stars": 40898,
+              "desc": "Platform to build admin panels, internal tools, and dashboards. Integrates with 25+ databases and any API.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "The-Vibe-Company/quivr",
+              "url": "https://github.com/The-Vibe-Company/quivr",
+              "stars": 39532,
+              "desc": "Opiniated RAG for integrating GenAI in your apps 🧠   Focus on your product rather than the RAG. Easy integrati",
+              "updated": "2026-08-31"
+            },
+            {
+              "repo": "deepseek-ai/awesome-deepseek-integration",
+              "url": "https://github.com/deepseek-ai/awesome-deepseek-integration",
+              "stars": 39165,
+              "desc": "Integrate the DeepSeek API into popular software",
+              "updated": "2026-02-23"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "dofastted/vm2api",
+              "url": "https://github.com/dofastted/vm2api",
+              "source": "github_search"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "中",
+          "trend_score": 3,
+          "trend_reasons": [
+            "头部仓库日均涨星 58",
+            "1 个平台原生榜出现",
+            "仅近期窗口出现（新近冒头）"
+          ]
+        },
+        {
+          "name": "获客与 SEO",
+          "evidence": 3,
+          "sources": [
+            "reddit"
+          ],
+          "wtp": 0,
+          "pain": 3,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 3,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "reddit"
+          ],
+          "keyword_sources": [],
+          "diversity": 1,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 3.8,
+          "market_repos": 22,
+          "crowd": "稀疏",
+          "opp_tag": "★ 值得看",
+          "opp_score": 2.52,
+          "mature_products": 3,
+          "mature": [
+            {
+              "repo": "coreyhaines31/marketingskills",
+              "url": "https://github.com/coreyhaines31/marketingskills",
+              "stars": 50754,
+              "desc": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
+              "updated": "2026-09-05"
+            },
+            {
+              "repo": "nextacular/nextacular",
+              "url": "https://github.com/nextacular/nextacular",
+              "stars": 1388,
+              "desc": "An open-source starter kit that will help you build full-stack multi-tenant SaaS platforms efficiently and hel",
+              "updated": "2026-05-30"
+            },
+            {
+              "repo": "ALwrity/ALwrity",
+              "url": "https://github.com/ALwrity/ALwrity",
+              "stars": 1164,
+              "desc": "ALwrity - AI-first Digital Marketing Platform. AI Content Strategy and Planning, Multimodal content generation",
+              "updated": "2026-09-15"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "[Hiring] Mid/Senior Ad Campaign Manager (User Acquisition) - Remote (Brazil Mark",
+              "url": "https://www.reddit.com/r/forhire/comments/1wjdnj7/hiring_midsenior_ad_campaign_manager_user/",
+              "source": "reddit"
+            },
+            {
+              "title": "[FOR HIRE] Digital Marketing Support | Virtual Assistant | SEO, WordPress, Googl",
+              "url": "https://www.reddit.com/r/forhire/comments/1wj5ohv/for_hire_digital_marketing_support_virtual/",
+              "source": "reddit"
+            },
+            {
+              "title": "[For Hire] Reliable Copywriter That Won't Break the Bank",
+              "url": "https://www.reddit.com/r/forhire/comments/1wj3135/for_hire_reliable_copywriter_that_wont_break_the/",
+              "source": "reddit"
+            }
+          ],
+          "advice": "★ 建议优先验证",
+          "advice_level": 4,
+          "advice_reasons": [
+            "3 条证据 · 1 个平台",
+            "存量仅 22 个（稀疏）",
+            "3 条出钱证据（招聘/赏金：有人已在为这类活付费）"
+          ],
+          "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品",
+          "trend_level": "中",
+          "trend_score": 3,
+          "trend_reasons": [
+            "1 个平台原生榜出现",
+            "仅近期窗口出现（新近冒头）"
+          ]
+        }
+      ]
+    },
+    "week": {
+      "label": "本周",
+      "raw": 322,
+      "kept": 122,
+      "path_stats": [
+        69,
+        53,
+        0.5655737704918032
+      ],
+      "directions": [
+        {
+          "name": "AI 代理与自动化",
+          "evidence": 22,
+          "sources": [
+            "github_bounty",
+            "github_search",
+            "github_trending",
+            "hn",
+            "indeed",
+            "reddit"
+          ],
+          "wtp": 1,
+          "pain": 14,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:AetherLabsAI/RSIAgent",
+              "repo": "AetherLabsAI/RSIAgent",
+              "url": "https://github.com/AetherLabsAI/RSIAgent",
+              "title": "AetherLabsAI/RSIAgent",
+              "text": "A training-free multi-agent framework for recursive self-improvement in new environments through broad-then-deep autonomous exploration and reusable memory.",
+              "language": "Python",
+              "stars_total": 318,
+              "forks": 35,
+              "watchers": 0,
+              "open_issues": 2,
+              "created_at": "2026-09-13T01:48:25Z",
+              "pushed_at": "2026-09-16T04:05:23Z",
+              "license": "Apache-2.0",
+              "topics": [],
+              "stars_window": 318,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 56.3,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:jarrodwatts/jev-trader",
+              "repo": "jarrodwatts/jev-trader",
+              "url": "https://github.com/jarrodwatts/jev-trader",
+              "title": "jarrodwatts/jev-trader",
+              "text": "One AI trade decision every Monad block. Jev on Kuru MON-USDC.",
+              "language": "TypeScript",
+              "stars_total": 614,
+              "forks": 123,
+              "watchers": 0,
+              "open_issues": 2,
+              "created_at": "2026-09-16T21:36:20Z",
+              "pushed_at": "2026-09-17T02:48:22Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 614,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 231.5,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "日均涨星 232，增速偏高"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:mpociot/claude-siri-ai",
+              "repo": "mpociot/claude-siri-ai",
+              "url": "https://github.com/mpociot/claude-siri-ai",
+              "title": "mpociot/claude-siri-ai",
+              "text": "Experimental macOS 27 App Intents model delegation provider backed by Claude Code",
+              "language": "Swift",
+              "stars_total": 205,
+              "forks": 15,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-14T15:20:19Z",
+              "pushed_at": "2026-09-15T05:11:18Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 205,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 44.1,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.073 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:weekly:openai/plugins",
+              "repo": "openai/plugins",
+              "url": "https://github.com/openai/plugins",
+              "title": "openai/plugins",
+              "text": "",
+              "language": "JavaScript",
+              "stars_total": 6930,
+              "forks": 901,
+              "stars_window": 564,
+              "window": "weekly",
+              "collected_at": 1789716893,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:weekly:addyosmani/agent-skills",
+              "repo": "addyosmani/agent-skills",
+              "url": "https://github.com/addyosmani/agent-skills",
+              "title": "addyosmani/agent-skills",
+              "text": "",
+              "language": "JavaScript",
+              "stars_total": 96002,
+              "forks": 10157,
+              "stars_window": 2560,
+              "window": "weekly",
+              "collected_at": 1789716893,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:weekly:danny-avila/LibreChat",
+              "repo": "danny-avila/LibreChat",
+              "url": "https://github.com/danny-avila/LibreChat",
+              "title": "danny-avila/LibreChat",
+              "text": "",
+              "language": "TypeScript",
+              "stars_total": 44259,
+              "forks": 9097,
+              "stars_window": 1421,
+              "window": "weekly",
+              "collected_at": 1789716893,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:mcncarl/jianying-headless",
+              "repo": "mcncarl/jianying-headless",
+              "url": "https://github.com/mcncarl/jianying-headless",
+              "title": "mcncarl/jianying-headless",
+              "text": "Private source preview: native Jianying drafts, isolated editing/export, and standalone Agent Skill.",
+              "language": "Python",
+              "stars_total": 301,
+              "forks": 161,
+              "watchers": 0,
+              "open_issues": 1,
+              "created_at": "2026-09-15T11:51:15Z",
+              "pushed_at": "2026-09-15T12:15:57Z",
+              "license": "NOASSERTION",
+              "topics": [],
+              "stars_window": 301,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 82.4,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:fhshaik/typesafe-mario",
+              "repo": "fhshaik/typesafe-mario",
+              "url": "https://github.com/fhshaik/typesafe-mario",
+              "title": "fhshaik/typesafe-mario",
+              "text": "A TypeSafe/Jev agent that plays Super Mario Bros. from structured emulator state.",
+              "language": "Python",
+              "stars_total": 238,
+              "forks": 24,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T04:57:42Z",
+              "pushed_at": "2026-09-16T04:59:33Z",
+              "license": null,
+              "topics": [],
+              "stars_window": 238,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 89.8,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0
+            }
+          ],
+          "velocity": 504.1000000000001,
+          "wtp_llm": 1,
+          "hiring": 9,
+          "heat_score": 1567,
+          "heat_comments": 59,
+          "hot": 0,
+          "native_sources": [
+            "github_search",
+            "github_trending",
+            "reddit"
+          ],
+          "keyword_sources": [
+            "github_bounty",
+            "hn",
+            "indeed"
+          ],
+          "diversity": 6,
+          "resonance": 3,
+          "heat": 1744,
+          "wtp_total": 1,
+          "score": 31.66,
+          "market_repos": 3303,
+          "crowd": "红海",
+          "opp_tag": "已拥挤：需差异化切入",
+          "opp_score": 8.99,
+          "mature_products": 621,
+          "mature": [
+            {
+              "repo": "affaan-m/ECC",
+              "url": "https://github.com/affaan-m/ECC",
+              "stars": 261358,
+              "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "NousResearch/hermes-agent",
+              "url": "https://github.com/NousResearch/hermes-agent",
+              "stars": 246639,
+              "desc": "The agent that grows with you",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156226,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-18"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "AetherLabsAI/RSIAgent",
+              "url": "https://github.com/AetherLabsAI/RSIAgent",
+              "source": "github_search"
+            },
+            {
+              "title": "Rant: Stop building useless apps and products This sub and few adjacent are full",
+              "url": "https://www.reddit.com/comments/1wgxzx9",
+              "source": "reddit"
+            },
+            {
+              "title": "jarrodwatts/jev-trader",
+              "url": "https://github.com/jarrodwatts/jev-trader",
+              "source": "github_search"
+            },
+            {
+              "title": "mpociot/claude-siri-ai",
+              "url": "https://github.com/mpociot/claude-siri-ai",
+              "source": "github_search"
+            }
+          ],
+          "advice": "已拥挤，不建议正面进入",
+          "advice_level": 1,
+          "advice_reasons": [
+            "25 条证据显示需求真实",
+            "但 GitHub 存量 3303 个（红海）"
+          ],
+          "advice_action": "除非有明确差异化切口（细分人群 / 现有产品的具体差评），否则跳过",
+          "trend_level": "高",
+          "trend_score": 8,
+          "trend_reasons": [
+            "头部仓库日均涨星 231（极快）",
+            "6 个平台原生榜独立出现（真共振）",
+            "今日 25 条 ≥ 本周 22 条（当下密集）"
+          ]
+        },
+        {
+          "name": "视频与音频处理",
+          "evidence": 10,
+          "sources": [
+            "github_bounty",
+            "github_search",
+            "hn",
+            "reddit"
+          ],
+          "wtp": 0,
+          "pain": 8,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:letorig/video-generator-client",
+              "repo": "letorig/video-generator-client",
+              "url": "https://github.com/letorig/video-generator-client",
+              "title": "letorig/video-generator-client",
+              "text": "Async Python wrapper for Seedance, Kling, MiniMax and Wan video generation. Supports CLI and a local web UI",
+              "language": "Python",
+              "stars_total": 533,
+              "forks": 84,
+              "watchers": 0,
+              "open_issues": 1,
+              "created_at": "2026-09-14T17:46:01Z",
+              "pushed_at": "2026-09-14T18:31:47Z",
+              "license": "MIT",
+              "topics": [
+                "kling",
+                "kling-ai",
+                "minimax-h3",
+                "seedance",
+                "seedance-2-5",
+                "video-generation",
+                "video-generation-api",
+                "video-generation-tool"
+              ],
+              "stars_window": 533,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 114.6,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "视频与音频处理",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:groundboxerrespect/Dlls5-auto",
+              "repo": "groundboxerrespect/Dlls5-auto",
+              "url": "https://github.com/groundboxerrespect/Dlls5-auto",
+              "title": "groundboxerrespect/Dlls5-auto",
+              "text": "🎮 Self-hosted neural rendering & AI image enhancement service inspired by DLSS 5. Turn any photo, screenshot or game capture into a photoreal cinematic render — bloom, filmic tone mapping, 6 style presets, REST API, batch mode. Python + FastAPI + Docker. Free & open-source.",
+              "language": "Python",
+              "stars_total": 274,
+              "forks": 1,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-12T14:33:24Z",
+              "pushed_at": "2026-09-12T15:04:01Z",
+              "license": "MIT",
+              "topics": [
+                "dlls",
+                "dlls-5",
+                "dlls-enabler",
+                "dlls-neural-rendering",
+                "dlls-swapper",
+                "dlls5",
+                "dlls5-menu",
+                "dllsideloading",
+                "nvidia-dlss-5",
+                "optiscaler"
+              ],
+              "stars_window": 274,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 41.2,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.004 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "视频与音频处理",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 155.8,
+          "wtp_llm": 0,
+          "hiring": 7,
+          "heat_score": 30,
+          "heat_comments": 6,
+          "hot": 0,
+          "native_sources": [
+            "github_search",
+            "reddit"
+          ],
+          "keyword_sources": [
+            "github_bounty",
+            "hn"
+          ],
+          "diversity": 4,
+          "resonance": 2,
+          "heat": 48,
+          "wtp_total": 0,
+          "score": 15.69,
+          "market_repos": 763,
+          "crowd": "拥挤",
+          "opp_tag": "已拥挤：需差异化切入",
+          "opp_score": 5.43,
+          "mature_products": 101,
+          "mature": [
+            {
+              "repo": "harry0703/MoneyPrinterTurbo",
+              "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+              "stars": 124487,
+              "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workf",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "FFmpeg/FFmpeg",
+              "url": "https://github.com/FFmpeg/FFmpeg",
+              "stars": 64317,
+              "desc": "Mirror of https://git.ffmpeg.org/ffmpeg.git",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "calesthio/OpenMontage",
+              "url": "https://github.com/calesthio/OpenMontage",
+              "stars": 59813,
+              "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent sk",
+              "updated": "2026-09-06"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "letorig/video-generator-client",
+              "url": "https://github.com/letorig/video-generator-client",
+              "source": "github_search"
+            },
+            {
+              "title": "groundboxerrespect/Dlls5-auto",
+              "url": "https://github.com/groundboxerrespect/Dlls5-auto",
+              "source": "github_search"
+            },
+            {
+              "title": "​[Hiring] Visual Director & Short-Form Video Editor for Emo-Trap/Underground Pro",
+              "url": "https://www.reddit.com/r/forhire/comments/1wjhyjt/hiring_visual_director_shortform_video_editor_for/",
+              "source": "reddit"
+            },
+            {
+              "title": "[FOR HIRE] Graphic Design, Motion Graphics, Branding, Social Content & Video Edi",
+              "url": "https://www.reddit.com/r/forhire/comments/1wjiif2/for_hire_graphic_design_motion_graphics_branding/",
+              "source": "reddit"
+            }
+          ],
+          "advice": "需求真实但供给密集，需差异化",
+          "advice_level": 2,
+          "advice_reasons": [
+            "8 条证据 · 4 个平台",
+            "存量 763 个，已有多家在解"
+          ],
+          "advice_action": "先扒 3-5 个现有产品的差评与退款理由，找未被满足的细分场景",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "3 个平台原生榜独立出现（真共振）",
+            "今日 8 条 / 本周 10 条（正在加速）"
+          ]
+        },
+        {
+          "name": "自托管与部署",
+          "evidence": 4,
+          "sources": [
+            "github_search",
+            "github_trending"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:danieldeer/seriousdb",
+              "repo": "danieldeer/seriousdb",
+              "url": "https://github.com/danieldeer/seriousdb",
+              "title": "danieldeer/seriousdb",
+              "text": "A simple, yet effective persistent key-value database.",
+              "language": "Python",
+              "stars_total": 208,
+              "forks": 88,
+              "watchers": 0,
+              "open_issues": 30,
+              "created_at": "2026-09-12T09:42:41Z",
+              "pushed_at": "2026-09-17T17:23:25Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 208,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 31.3,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 7.5,
+              "direction": "自托管与部署",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:agentverse-os/AgentVerse-OS",
+              "repo": "agentverse-os/AgentVerse-OS",
+              "url": "https://github.com/agentverse-os/AgentVerse-OS",
+              "title": "agentverse-os/AgentVerse-OS",
+              "text": "Personal cloud OS for a developer and their AI agents on a single server. One-command install on Ubuntu, then everything in the browser: a windowed desktop, isolated workspaces with VS Code, Claude Code and Codex, a store of 944 self-hosted apps, backups and updates. Access only via Tailscale, nothing exposed to the internet. Rust core, Svelte UI.",
+              "language": "Rust",
+              "stars_total": 757,
+              "forks": 23,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-12T18:20:00Z",
+              "pushed_at": "2026-09-12T19:17:57Z",
+              "license": "Apache-2.0",
+              "topics": [],
+              "stars_window": 757,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 113.8,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.030 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "自托管与部署",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:MiaAI-Lab/DeepSeek-v4.1-Flash-EXL3-2x-DGX-Sparks",
+              "repo": "MiaAI-Lab/DeepSeek-v4.1-Flash-EXL3-2x-DGX-Sparks",
+              "url": "https://github.com/MiaAI-Lab/DeepSeek-v4.1-Flash-EXL3-2x-DGX-Sparks",
+              "title": "MiaAI-Lab/DeepSeek-v4.1-Flash-EXL3-2x-DGX-Sparks",
+              "text": "DeepSeek v4.1 Flash EXL3 2.9 bpw for 2x DGX Sparks",
+              "language": "Python",
+              "stars_total": 213,
+              "forks": 24,
+              "watchers": 0,
+              "open_issues": 15,
+              "created_at": "2026-09-13T09:10:00Z",
+              "pushed_at": "2026-09-16T15:55:38Z",
+              "license": "AGPL-3.0",
+              "topics": [],
+              "stars_window": 213,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 37.7,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "协议 AGPL-3.0 强传染，禁止直接闭源封装商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 3.5,
+              "direction": "自托管与部署",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:weekly:home-assistant/core",
+              "repo": "home-assistant/core",
+              "url": "https://github.com/home-assistant/core",
+              "title": "home-assistant/core",
+              "text": "",
+              "language": "Python",
+              "stars_total": 90684,
+              "forks": 38688,
+              "stars_window": 285,
+              "window": "weekly",
+              "collected_at": 1789716893,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "自托管与部署",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 182.8,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search",
+            "github_trending"
+          ],
+          "keyword_sources": [],
+          "diversity": 2,
+          "resonance": 2,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 10.6,
+          "market_repos": 182,
+          "crowd": "中等",
+          "opp_tag": "★ 值得看",
+          "opp_score": 4.64,
+          "mature_products": 39,
+          "mature": [
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156226,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "coollabsio/coolify",
+              "url": "https://github.com/coollabsio/coolify",
+              "stars": 61968,
+              "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "agentscope-ai/QwenPaw",
+              "url": "https://github.com/agentscope-ai/QwenPaw",
+              "stars": 35070,
+              "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha",
+              "updated": "2026-09-18"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "danieldeer/seriousdb",
+              "url": "https://github.com/danieldeer/seriousdb",
+              "source": "github_search"
+            },
+            {
+              "title": "agentverse-os/AgentVerse-OS",
+              "url": "https://github.com/agentverse-os/AgentVerse-OS",
+              "source": "github_search"
+            },
+            {
+              "title": "MiaAI-Lab/DeepSeek-v4.1-Flash-EXL3-2x-DGX-Sparks",
+              "url": "https://github.com/MiaAI-Lab/DeepSeek-v4.1-Flash-EXL3-2x-DGX-Sparks",
+              "source": "github_search"
+            },
+            {
+              "title": "home-assistant/core",
+              "url": "https://github.com/home-assistant/core",
+              "source": "github_trending"
+            }
+          ],
+          "advice": "★ 值得看，但需补付费证据",
+          "advice_level": 3,
+          "advice_reasons": [
+            "4 条证据 · 2 个平台",
+            "存量仅 182 个，供给少"
+          ],
+          "advice_action": "先验证有没有人愿意为此掏钱（找原帖作者 / 招聘帖 / 付费竞品）",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "头部仓库日均涨星 114（较快）",
+            "2 个平台原生榜独立出现（真共振）",
+            "本周 4 / 本月 3（升温）"
+          ]
+        },
+        {
+          "name": "报表与可视化",
+          "evidence": 3,
+          "sources": [
+            "github_search",
+            "reddit"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:Marcos66236/github-stars-history",
+              "repo": "Marcos66236/github-stars-history",
+              "url": "https://github.com/Marcos66236/github-stars-history",
+              "title": "Marcos66236/github-stars-history",
+              "text": "Track and visualize the stars history of any GitHub repository. Open-source growth analytics and velocity tracking.",
+              "language": "Python",
+              "stars_total": 276,
+              "forks": 30,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T16:39:45Z",
+              "pushed_at": "2026-09-17T19:18:52Z",
+              "license": "MIT",
+              "topics": [
+                "developer-tools",
+                "github-analytics",
+                "github-api",
+                "github-stars",
+                "github-trending",
+                "open-source",
+                "repository-analytics",
+                "star-history"
+              ],
+              "stars_window": 276,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 104.1,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "报表与可视化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:devagrawal09/jev-review",
+              "repo": "devagrawal09/jev-review",
+              "url": "https://github.com/devagrawal09/jev-review",
+              "title": "devagrawal09/jev-review",
+              "text": "A staged code-review workflow and local dashboard built with TypeSafe Jev.",
+              "language": "TypeScript",
+              "stars_total": 191,
+              "forks": 11,
+              "watchers": 0,
+              "open_issues": 1,
+              "created_at": "2026-09-16T21:45:36Z",
+              "pushed_at": "2026-09-17T00:29:25Z",
+              "license": "MIT",
+              "topics": [
+                "ai",
+                "code-review",
+                "jev",
+                "typesafe-ai",
+                "typescript"
+              ],
+              "stars_window": 191,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 72.0,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.058 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5
+            }
+          ],
+          "velocity": 176.1,
+          "wtp_llm": 0,
+          "hiring": 1,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search",
+            "reddit"
+          ],
+          "keyword_sources": [],
+          "diversity": 2,
+          "resonance": 2,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 8.77,
+          "market_repos": 89,
+          "crowd": "中等",
+          "opp_tag": "★ 值得看",
+          "opp_score": 4.39,
+          "mature_products": 13,
+          "mature": [
+            {
+              "repo": "metabase/metabase",
+              "url": "https://github.com/metabase/metabase",
+              "stars": 49324,
+              "desc": "The easy-to-use open source Business Intelligence and Embedded Analytics tool that lets everyone work with dat",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "briefercloud/briefer",
+              "url": "https://github.com/briefercloud/briefer",
+              "stars": 4325,
+              "desc": "Dashboards and notebooks in a single place. Create powerful and flexible dashboards using code, or build beaut",
+              "updated": "2025-08-07"
+            },
+            {
+              "repo": "StructuredLabs/preswald",
+              "url": "https://github.com/StructuredLabs/preswald",
+              "stars": 4270,
+              "desc": "Preswald is a WASM packager for Python-based interactive data apps: bundle full complex data workflows, partic",
+              "updated": "2026-06-11"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Marcos66236/github-stars-history",
+              "url": "https://github.com/Marcos66236/github-stars-history",
+              "source": "github_search"
+            },
+            {
+              "title": "devagrawal09/jev-review",
+              "url": "https://github.com/devagrawal09/jev-review",
+              "source": "github_search"
+            },
+            {
+              "title": "[FOR HIRE] The Last Google Ads Guy You'll Ever Hire",
+              "url": "https://www.reddit.com/r/forhire/comments/1wj8p84/for_hire_the_last_google_ads_guy_youll_ever_hire/",
+              "source": "reddit"
+            }
+          ],
+          "advice": "★ 建议优先验证",
+          "advice_level": 4,
+          "advice_reasons": [
+            "4 条证据 · 3 个平台",
+            "存量仅 89 个（稀疏）",
+            "1 条出钱证据（招聘/赏金：有人已在为这类活付费）"
+          ],
+          "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品",
+          "trend_level": "高",
+          "trend_score": 8,
+          "trend_reasons": [
+            "头部仓库日均涨星 104（较快）",
+            "3 个平台原生榜独立出现（真共振）",
+            "今日 4 条 ≥ 本周 3 条（当下密集）",
+            "仅近期窗口出现（新近冒头）"
+          ]
+        },
+        {
+          "name": "安全与合规",
+          "evidence": 3,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:KazamaDono/taoxd",
+              "repo": "KazamaDono/taoxd",
+              "url": "https://github.com/KazamaDono/taoxd",
+              "title": "KazamaDono/taoxd",
+              "text": "The Art of Exploit Development companion code.",
+              "language": "Makefile",
+              "stars_total": 263,
+              "forks": 60,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-13T13:02:57Z",
+              "pushed_at": "2026-09-16T03:41:20Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 263,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 46.5,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "安全与合规",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:KillaBoi/BrokenPipe",
+              "repo": "KillaBoi/BrokenPipe",
+              "url": "https://github.com/KillaBoi/BrokenPipe",
+              "title": "KillaBoi/BrokenPipe",
+              "text": "Steam Client Service Local Privilege Escalation Vulnerability",
+              "language": "PowerShell",
+              "stars_total": 201,
+              "forks": 49,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-14T20:10:03Z",
+              "pushed_at": "2026-09-18T00:52:59Z",
+              "license": "Apache-2.0",
+              "topics": [],
+              "stars_window": 201,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 43.2,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "安全与合规",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:shinthink/blitzstrike",
+              "repo": "shinthink/blitzstrike",
+              "url": "https://github.com/shinthink/blitzstrike",
+              "title": "shinthink/blitzstrike",
+              "text": "⚡ Blitz Strike — a universal MCP penetration-testing toolbelt. Structured methodology: reconnaissance & attack-surface mapping, source-to-sink analysis, and live validation. 57 escalation chains, 130-tool catalog, intelligence data layer. One server, every agent.",
+              "language": "TypeScript",
+              "stars_total": 634,
+              "forks": 1,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-12T12:13:09Z",
+              "pushed_at": "2026-09-17T12:53:33Z",
+              "license": "MIT",
+              "topics": [
+                "active-directory",
+                "blue-team",
+                "bug-bounty",
+                "cve",
+                "defensive-security",
+                "exploit",
+                "mcp",
+                "mcp-server",
+                "nuclei",
+                "offensive-security",
+                "payloads",
+                "pentest",
+                "reconnaissance",
+                "red-team",
+                "reverse-engineering",
+                "security",
+                "security-tools",
+                "vulnerability-scanning",
+                "wordpress"
+              ],
+              "stars_window": 634,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 95.3,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.002 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5
+            }
+          ],
+          "velocity": 185.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [],
+          "diversity": 1,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 8.4,
+          "market_repos": 198,
+          "crowd": "中等",
+          "opp_tag": "★ 值得看",
+          "opp_score": 3.62,
+          "mature_products": 38,
+          "mature": [
+            {
+              "repo": "wazuh/wazuh",
+              "url": "https://github.com/wazuh/wazuh",
+              "stars": 16924,
+              "desc": "Wazuh - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "CISOfy/lynis",
+              "url": "https://github.com/CISOfy/lynis",
+              "stars": 16356,
+              "desc": "Lynis - Security auditing tool for Linux, macOS, and UNIX-based systems. Assists with compliance testing (HIPA",
+              "updated": "2026-09-16"
+            },
+            {
+              "repo": "prowler-cloud/prowler",
+              "url": "https://github.com/prowler-cloud/prowler",
+              "stars": 14831,
+              "desc": "Prowler is the world’s most widely used open-source cloud security platform that automates security and compli",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "KazamaDono/taoxd",
+              "url": "https://github.com/KazamaDono/taoxd",
+              "source": "github_search"
+            },
+            {
+              "title": "KillaBoi/BrokenPipe",
+              "url": "https://github.com/KillaBoi/BrokenPipe",
+              "source": "github_search"
+            },
+            {
+              "title": "shinthink/blitzstrike",
+              "url": "https://github.com/shinthink/blitzstrike",
+              "source": "github_search"
+            }
+          ],
+          "advice": "★ 值得看，但需补付费证据",
+          "advice_level": 3,
+          "advice_reasons": [
+            "3 条证据 · 1 个平台",
+            "存量仅 198 个，供给少"
+          ],
+          "advice_action": "先验证有没有人愿意为此掏钱（找原帖作者 / 招聘帖 / 付费竞品）",
+          "trend_level": "中",
+          "trend_score": 4,
+          "trend_reasons": [
+            "头部仓库日均涨星 95（较快）",
+            "1 个平台原生榜出现",
+            "本周 3 / 本月 2（升温）"
+          ]
+        },
+        {
+          "name": "代码质量与 CI",
+          "evidence": 3,
+          "sources": [
+            "github_bounty",
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:apple/xcode-project-format",
+              "repo": "apple/xcode-project-format",
+              "url": "https://github.com/apple/xcode-project-format",
+              "title": "apple/xcode-project-format",
+              "text": "A Swift library for reading, writing, and manipulating Xcode's JSON-based project.xcproj format. ",
+              "language": "Swift",
+              "stars_total": 319,
+              "forks": 8,
+              "watchers": 0,
+              "open_issues": 10,
+              "created_at": "2026-09-15T18:09:34Z",
+              "pushed_at": "2026-09-16T22:09:32Z",
+              "license": "Apache-2.0",
+              "topics": [],
+              "stars_window": 319,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 87.4,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.025 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "代码质量与 CI",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:Qiuner/birdview",
+              "repo": "Qiuner/birdview",
+              "url": "https://github.com/Qiuner/birdview",
+              "title": "Qiuner/birdview",
+              "text": "Stop letting AI code blind. Map the architecture before every change with Birdview.",
+              "language": "JavaScript",
+              "stars_total": 386,
+              "forks": 33,
+              "watchers": 0,
+              "open_issues": 1,
+              "created_at": "2026-09-12T06:59:27Z",
+              "pushed_at": "2026-09-18T04:17:47Z",
+              "license": "MIT",
+              "topics": [
+                "agent-tools",
+                "ai-workflow",
+                "architecture-as-code",
+                "code-visualization",
+                "coding-agents",
+                "developer-tools",
+                "diagram-as-code",
+                "software-architecture"
+              ],
+              "stars_window": 386,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 58.0,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.085 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "代码质量与 CI",
+              "llm_wtp": 0,
+              "llm_pain": 2
+            }
+          ],
+          "velocity": 145.4,
+          "wtp_llm": 0,
+          "hiring": 1,
+          "heat_score": 140,
+          "heat_comments": 28,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [
+            "github_bounty"
+          ],
+          "diversity": 2,
+          "resonance": 1,
+          "heat": 224,
+          "wtp_total": 0,
+          "score": 7.85,
+          "market_repos": 17,
+          "crowd": "稀疏",
+          "opp_tag": "★ 值得看",
+          "opp_score": 5.48,
+          "mature_products": 3,
+          "mature": [
+            {
+              "repo": "cinder/Cinder",
+              "url": "https://github.com/cinder/Cinder",
+              "stars": 5539,
+              "desc": "Cinder is a community-developed, free and open source library for professional-quality creative coding in C++.",
+              "updated": "2026-03-20"
+            },
+            {
+              "repo": "cirosantilli/china-dictatorship",
+              "url": "https://github.com/cirosantilli/china-dictatorship",
+              "stars": 3211,
+              "desc": "反中共政治宣传库。Anti Chinese government propaganda. 住在中国真名用户的网友请别给星星，不然你要被警察请喝茶。常见问答集，新闻集和饭店和音乐建议。卐习万岁卐。冠状病毒审查郝海东新疆改造",
+              "updated": "2026-02-05"
+            },
+            {
+              "repo": "gege-circle/.github",
+              "url": "https://github.com/gege-circle/.github",
+              "stars": 2009,
+              "desc": "这里是GitHub的草场，也是戈戈圈爱好者的交流地，主要讨论动漫、游戏、科技、人文、生活等所有话题，欢迎各位小伙伴们在此讨论趣事。This is GitHub grassland, and the community p",
+              "updated": "2025-10-04"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "apple/xcode-project-format",
+              "url": "https://github.com/apple/xcode-project-format",
+              "source": "github_search"
+            },
+            {
+              "title": "Qiuner/birdview",
+              "url": "https://github.com/Qiuner/birdview",
+              "source": "github_search"
+            },
+            {
+              "title": "Bounty",
+              "url": "https://github.com/OmniBlocks/Boxy-gh/issues/143",
+              "source": "github_bounty"
+            }
+          ],
+          "advice": "★ 建议优先验证",
+          "advice_level": 4,
+          "advice_reasons": [
+            "3 条证据 · 2 个平台",
+            "存量仅 17 个（稀疏）",
+            "1 条出钱证据（招聘/赏金：有人已在为这类活付费）"
+          ],
+          "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "头部仓库日均涨星 87（较快）",
+            "1 个平台原生榜出现",
+            "本周 3 / 本月 3（升温）"
+          ]
+        },
+        {
+          "name": "文档与知识库",
+          "evidence": 2,
+          "sources": [
+            "github_search",
+            "reddit"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:nMaas8388/github-ranking-audit",
+              "repo": "nMaas8388/github-ranking-audit",
+              "url": "https://github.com/nMaas8388/github-ranking-audit",
+              "title": "nMaas8388/github-ranking-audit",
+              "text": "Audit your GitHub repository search ranking signals. Checks name, description, topics, README, stars, forks, and activity.",
+              "language": "Python",
+              "stars_total": 193,
+              "forks": 8,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-17T06:24:34Z",
+              "pushed_at": "2026-09-17T06:44:03Z",
+              "license": "MIT",
+              "topics": [
+                "developer-tools",
+                "github-api",
+                "github-growth",
+                "github-ranking",
+                "github-search",
+                "github-seo",
+                "github-stars",
+                "github-topics",
+                "open-source",
+                "python",
+                "readme-optimization",
+                "repository-analytics",
+                "repository-optimization",
+                "seo-audit"
+              ],
+              "stars_window": 193,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 116.8,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.041 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5
+            }
+          ],
+          "velocity": 116.8,
+          "wtp_llm": 0,
+          "hiring": 1,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search",
+            "reddit"
+          ],
+          "keyword_sources": [],
+          "diversity": 2,
+          "resonance": 2,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 7.11,
+          "market_repos": 1327,
+          "crowd": "红海",
+          "opp_tag": "红海",
+          "opp_score": 2.27,
+          "mature_products": 107,
+          "mature": [
+            {
+              "repo": "freeCodeCamp/devdocs",
+              "url": "https://github.com/freeCodeCamp/devdocs",
+              "stars": 39463,
+              "desc": "API Documentation Browser",
+              "updated": "2026-09-15"
+            },
+            {
+              "repo": "inkonchain/docs",
+              "url": "https://github.com/inkonchain/docs",
+              "stars": 36505,
+              "desc": "Ink Documentation",
+              "updated": "2026-09-15"
+            },
+            {
+              "repo": "docsifyjs/docsify",
+              "url": "https://github.com/docsifyjs/docsify",
+              "stars": 31513,
+              "desc": "🃏 A magical documentation site generator.",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "nMaas8388/github-ranking-audit",
+              "url": "https://github.com/nMaas8388/github-ranking-audit",
+              "source": "github_search"
+            },
+            {
+              "title": "[FOR HIRE] CAD Draftsman / Architectural Drafter — AutoCAD, 3D Visualization, Co",
+              "url": "https://www.reddit.com/r/forhire/comments/1wjh261/for_hire_cad_draftsman_architectural_drafter/",
+              "source": "reddit"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "3 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "高",
+          "trend_score": 8,
+          "trend_reasons": [
+            "头部仓库日均涨星 117（较快）",
+            "3 个平台原生榜独立出现（真共振）",
+            "今日 2 条 ≥ 本周 2 条（当下密集）",
+            "仅近期窗口出现（新近冒头）"
+          ]
+        },
+        {
+          "name": "终端与开发者效率",
+          "evidence": 3,
+          "sources": [
+            "github_search",
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 2,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:lingyired/status-trio",
+              "repo": "lingyired/status-trio",
+              "url": "https://github.com/lingyired/status-trio",
+              "title": "lingyired/status-trio",
+              "text": "Status Trio — a native macOS app that combines Wi-Fi, battery, and volume into one compact, configurable status icon for the menu bar, the Dock, or both, inspired by the iPhone Duo combined status bar.",
+              "language": "Swift",
+              "stars_total": 325,
+              "forks": 19,
+              "watchers": 0,
+              "open_issues": 3,
+              "created_at": "2026-09-12T12:52:21Z",
+              "pushed_at": "2026-09-18T06:11:45Z",
+              "license": "Apache-2.0",
+              "topics": [
+                "appkit",
+                "battery",
+                "dock",
+                "iphone-duo",
+                "macos",
+                "macos-app",
+                "menu-bar",
+                "menubar",
+                "menubar-app",
+                "status-bar",
+                "statusbar",
+                "swift",
+                "swiftui",
+                "three-in-one",
+                "utility",
+                "volume",
+                "wifi"
+              ],
+              "stars_window": 325,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 48.9,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.058 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "终端与开发者效率",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 48.9,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [
+            "hn"
+          ],
+          "diversity": 2,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 6.75,
+          "market_repos": 62,
+          "crowd": "稀疏",
+          "opp_tag": "★ 值得看",
+          "opp_score": 3.63,
+          "mature_products": 12,
+          "mature": [
+            {
+              "repo": "apollographql/apollo-client",
+              "url": "https://github.com/apollographql/apollo-client",
+              "stars": 19801,
+              "desc": "The industry-leading GraphQL client for TypeScript, JavaScript, React, Vue, Angular, and more. Apollo Client d",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "guarinogabriel/Mac-CLI",
+              "url": "https://github.com/guarinogabriel/Mac-CLI",
+              "stars": 9121,
+              "desc": " macOS command line tool for developers – The ultimate tool to manage your Mac. It provides a huge set of com",
+              "updated": "2026-02-28"
+            },
+            {
+              "repo": "donnemartin/dev-setup",
+              "url": "https://github.com/donnemartin/dev-setup",
+              "stars": 6267,
+              "desc": "macOS development environment setup:  Easy-to-understand instructions with automated setup scripts for develop",
+              "updated": "2023-02-27"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "lingyired/status-trio",
+              "url": "https://github.com/lingyired/status-trio",
+              "source": "github_search"
+            },
+            {
+              "title": "Working with Git Worktrees in Magit",
+              "url": "https://news.ycombinator.com/item?id=49655548",
+              "source": "hn"
+            },
+            {
+              "title": "Cpak – OCI application package format for Linux desktops, servers and devices",
+              "url": "https://news.ycombinator.com/item?id=49709877",
+              "source": "hn"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "2 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "中",
+          "trend_score": 4,
+          "trend_reasons": [
+            "头部仓库日均涨星 41",
+            "1 个平台原生榜出现",
+            "今日 2 条 / 本周 3 条（正在加速）"
+          ]
+        },
+        {
+          "name": "内容创作与分发",
+          "evidence": 2,
+          "sources": [
+            "github_bounty",
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:korcarc/text-humanizer",
+              "repo": "korcarc/text-humanizer",
+              "url": "https://github.com/korcarc/text-humanizer",
+              "title": "korcarc/text-humanizer",
+              "text": "text-humanizer is an open-source project designed to convert text generated by AI to its \"humanized\" version. Bypasses the most of AI detectors such as Turnitin or GPTZero",
+              "language": "Python",
+              "stars_total": 468,
+              "forks": 82,
+              "watchers": 0,
+              "open_issues": 0,
+              "created_at": "2026-09-16T13:21:56Z",
+              "pushed_at": "2026-09-16T13:36:23Z",
+              "license": "MIT",
+              "topics": [
+                "ai-humanization",
+                "gptzero",
+                "gptzero-bypass",
+                "text-humanizer",
+                "turnitin",
+                "turnitin-bypass"
+              ],
+              "stars_window": 468,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 176.5,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "日均涨星 176，增速偏高"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "内容创作与分发",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 176.5,
+          "wtp_llm": 0,
+          "hiring": 1,
+          "heat_score": 180,
+          "heat_comments": 36,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [
+            "github_bounty"
+          ],
+          "diversity": 2,
+          "resonance": 1,
+          "heat": 288,
+          "wtp_total": 0,
+          "score": 6.57,
+          "market_repos": 35,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 3.97,
+          "mature_products": 4,
+          "mature": [
+            {
+              "repo": "TryGhost/Ghost",
+              "url": "https://github.com/TryGhost/Ghost",
+              "stars": 55347,
+              "desc": "Independent technology for modern publishing, memberships, subscriptions and newsletters.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "yaojingang/GEOFlow",
+              "url": "https://github.com/yaojingang/GEOFlow",
+              "stars": 3652,
+              "desc": "Open-source GEO content engineering and multi-site distribution platform with AI quality inspection, illustrat",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "blogifierdotnet/Blogifier",
+              "url": "https://github.com/blogifierdotnet/Blogifier",
+              "stars": 1295,
+              "desc": "Blogifier is an open-source publishing platform Written in ASP.NET and Blazor WebAssembly. With Blogifier make",
+              "updated": "2026-03-16"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "korcarc/text-humanizer",
+              "url": "https://github.com/korcarc/text-humanizer",
+              "source": "github_search"
+            },
+            {
+              "title": "Reverse bounty",
+              "url": "https://github.com/OmniBlocks/monorepo/issues/795",
+              "source": "github_bounty"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "2 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "高",
+          "trend_score": 6,
+          "trend_reasons": [
+            "头部仓库日均涨星 176（较快）",
+            "1 个平台原生榜出现",
+            "今日 2 条 ≥ 本周 2 条（当下密集）"
+          ]
+        },
+        {
+          "name": "育儿与生活服务",
+          "evidence": 1,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:Chuloo/mural",
+              "repo": "Chuloo/mural",
+              "url": "https://github.com/Chuloo/mural",
+              "title": "Chuloo/mural",
+              "text": "The language app you eventually delete. A native iPhone companion for learning through conversation.",
+              "language": "Kotlin",
+              "stars_total": 1325,
+              "forks": 257,
+              "watchers": 0,
+              "open_issues": 26,
+              "created_at": "2026-09-12T11:51:08Z",
+              "pushed_at": "2026-09-17T14:52:37Z",
+              "license": "MIT",
+              "topics": [
+                "ios",
+                "language-learning",
+                "open-source",
+                "swiftui"
+              ],
+              "stars_window": 1325,
+              "window": "created<=7d",
+              "collected_at": 1789716893,
+              "star_velocity": 199.2,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "日均涨星 199，增速偏高"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "育儿与生活服务",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 199.2,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [],
+          "diversity": 1,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 5.65,
+          "market_repos": 0,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 5.65,
+          "mature_products": 0,
+          "evidence_links": [
+            {
+              "title": "Chuloo/mural",
+              "url": "https://github.com/Chuloo/mural",
+              "source": "github_search"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "中",
+          "trend_score": 3,
+          "trend_reasons": [
+            "头部仓库日均涨星 199（较快）",
+            "1 个平台原生榜出现"
+          ]
+        }
+      ]
+    },
+    "month": {
+      "label": "本月",
+      "raw": 252,
+      "kept": 65,
+      "path_stats": [
+        36,
+        29,
+        0.5538461538461539
+      ],
+      "directions": [
+        {
+          "name": "AI 代理与自动化",
+          "evidence": 25,
+          "sources": [
+            "github_search",
+            "github_trending",
+            "hn",
+            "reddit"
+          ],
+          "wtp": 1,
+          "pain": 12,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:totec448-spec/chat-on-steroids",
+              "repo": "totec448-spec/chat-on-steroids",
+              "url": "https://github.com/totec448-spec/chat-on-steroids",
+              "title": "totec448-spec/chat-on-steroids",
+              "text": "Cross-platform local MCP capabilities for ChatGPT with Chrome integration, Goal, Compact & Resume, and durable multi-agent workflows.",
+              "language": "TypeScript",
+              "stars_total": 3165,
+              "forks": 426,
+              "watchers": 0,
+              "open_issues": 96,
+              "created_at": "2026-08-22T14:16:24Z",
+              "pushed_at": "2026-09-17T17:31:05Z",
+              "license": "MIT",
+              "topics": [
+                "automation",
+                "chatgpt",
+                "chrome-extension",
+                "electron",
+                "linux",
+                "local-first",
+                "macos",
+                "mcp",
+                "multi-agent",
+                "windows"
+              ],
+              "stars_window": 3165,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 114.5,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 7.5,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:nateherkai/scroll-craft",
+              "repo": "nateherkai/scroll-craft",
+              "url": "https://github.com/nateherkai/scroll-craft",
+              "title": "nateherkai/scroll-craft",
+              "text": "An agent skill for building premium, immersive, scroll-driven websites. Works with Codex, Claude Code, and other coding agents. Also available as a Claude Code plugin.",
+              "language": "JavaScript",
+              "stars_total": 2561,
+              "forks": 376,
+              "watchers": 0,
+              "open_issues": 6,
+              "created_at": "2026-08-22T15:25:08Z",
+              "pushed_at": "2026-09-04T23:33:30Z",
+              "license": "MIT",
+              "topics": [
+                "accessibility",
+                "agent-skills",
+                "ai-web-design",
+                "anthropic",
+                "claude-code",
+                "claude-code-plugin",
+                "creative-coding",
+                "design-system",
+                "frontend",
+                "interaction-design",
+                "landing-page",
+                "scroll-animation",
+                "scrollytelling",
+                "typography",
+                "web-design"
+              ],
+              "stars_window": 2561,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 92.6,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 7.5,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:achimala/dream-loop",
+              "repo": "achimala/dream-loop",
+              "url": "https://github.com/achimala/dream-loop",
+              "title": "achimala/dream-loop",
+              "text": "Agent skill for impressive 3D visuals using Blender + image gen + subagent critic",
+              "language": "JavaScript",
+              "stars_total": 1404,
+              "forks": 153,
+              "watchers": 0,
+              "open_issues": 6,
+              "created_at": "2026-09-07T14:19:20Z",
+              "pushed_at": "2026-09-09T22:43:38Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 1404,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 120.5,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 7.5
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:lnkiai/m3e-canvas",
+              "repo": "lnkiai/m3e-canvas",
+              "url": "https://github.com/lnkiai/m3e-canvas",
+              "title": "lnkiai/m3e-canvas",
+              "text": "Sketch Material 3 Expressive screens in the browser and turn them into vibe-coding prompts.",
+              "language": "TypeScript",
+              "stars_total": 7351,
+              "forks": 765,
+              "watchers": 0,
+              "open_issues": 8,
+              "created_at": "2026-09-02T04:36:34Z",
+              "pushed_at": "2026-09-16T10:57:11Z",
+              "license": "MIT",
+              "topics": [
+                "design-tool",
+                "material-3-expressive",
+                "material-design",
+                "material3",
+                "nextjs",
+                "prompt",
+                "react",
+                "vibe-coding"
+              ],
+              "stars_window": 7351,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 441.4,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "日均涨星 441，远高于自然增长速度（重点核查是否刷星）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:ApodexAI/FrontierAgent",
+              "repo": "ApodexAI/FrontierAgent",
+              "url": "https://github.com/ApodexAI/FrontierAgent",
+              "title": "ApodexAI/FrontierAgent",
+              "text": "🧩 FrontierAgent, our agent framework, open-sourced alongside it — native command-line TUI, ReAct and Agent Team modes, one command on macOS and Linux, no preinstall, no hard Docker dependency.",
+              "language": "Python",
+              "stars_total": 3564,
+              "forks": 201,
+              "watchers": 0,
+              "open_issues": 15,
+              "created_at": "2026-08-22T05:07:35Z",
+              "pushed_at": "2026-09-18T04:44:52Z",
+              "license": "Apache-2.0",
+              "topics": [
+                "agent-orchestration",
+                "agentic-ai",
+                "agentic-framework",
+                "ai-agents",
+                "harness",
+                "multi-agent",
+                "terminal-agent",
+                "tui"
+              ],
+              "stars_window": 3564,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 128.9,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.056 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:NVlabs/SoL-Pi",
+              "repo": "NVlabs/SoL-Pi",
+              "url": "https://github.com/NVlabs/SoL-Pi",
+              "title": "NVlabs/SoL-Pi",
+              "text": "SoL-Pi: Scaling Auto-Research Loops for Efficient Agent Harnesses",
+              "language": "TypeScript",
+              "stars_total": 2208,
+              "forks": 174,
+              "watchers": 0,
+              "open_issues": 61,
+              "created_at": "2026-09-02T14:48:47Z",
+              "pushed_at": "2026-09-18T05:26:53Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 2208,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 132.6,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.079 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:cbrock84/headcount",
+              "repo": "cbrock84/headcount",
+              "url": "https://github.com/cbrock84/headcount",
+              "title": "cbrock84/headcount",
+              "text": "An agent organization structured as a company — 15+ departments, 125+ skills, each independently installable, citing the standards and regulators that settle the question. Runs in Claude Code and ChatGPT.",
+              "language": "Markdown",
+              "stars_total": 1610,
+              "forks": 238,
+              "watchers": 0,
+              "open_issues": 2,
+              "created_at": "2026-08-28T18:03:04Z",
+              "pushed_at": "2026-09-17T19:13:19Z",
+              "license": "MIT",
+              "topics": [
+                "agent-marketplace",
+                "chatgpt-plugin",
+                "chatgpt-skills",
+                "claude-code",
+                "claude-code-plugin",
+                "claude-plugin",
+                "claude-skills",
+                "mcp",
+                "organization"
+              ],
+              "stars_window": 1610,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 74.4,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:donvito/codex-astra-luna-orchestrator",
+              "repo": "donvito/codex-astra-luna-orchestrator",
+              "url": "https://github.com/donvito/codex-astra-luna-orchestrator",
+              "title": "donvito/codex-astra-luna-orchestrator",
+              "text": "Use Astra as orchestrator and Luna for subagents in Codex",
+              "language": "Python",
+              "stars_total": 1477,
+              "forks": 118,
+              "watchers": 0,
+              "open_issues": 4,
+              "created_at": "2026-09-05T16:03:06Z",
+              "pushed_at": "2026-09-17T14:43:26Z",
+              "license": "Apache-2.0",
+              "topics": [],
+              "stars_window": 1477,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 108.2,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.080 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:b-nnett/grok-bot-0.18-reconstructed",
+              "repo": "b-nnett/grok-bot-0.18-reconstructed",
+              "url": "https://github.com/b-nnett/grok-bot-0.18-reconstructed",
+              "title": "b-nnett/grok-bot-0.18-reconstructed",
+              "text": "Unofficial source-oriented reconstruction and extension of Grok Bot 0.18.0 for macOS",
+              "language": "TypeScript",
+              "stars_total": 3508,
+              "forks": 3643,
+              "watchers": 0,
+              "open_issues": 14,
+              "created_at": "2026-08-23T20:53:01Z",
+              "pushed_at": "2026-08-23T20:53:35Z",
+              "license": null,
+              "topics": [],
+              "stars_window": 3508,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 131.6,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 3.5,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:monthly:jingyaogong/minimind",
+              "repo": "jingyaogong/minimind",
+              "url": "https://github.com/jingyaogong/minimind",
+              "title": "jingyaogong/minimind",
+              "text": "",
+              "language": "Python",
+              "stars_total": 61513,
+              "forks": 8008,
+              "stars_window": 6867,
+              "window": "monthly",
+              "collected_at": 1789717173,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:monthly:modular/modular",
+              "repo": "modular/modular",
+              "url": "https://github.com/modular/modular",
+              "title": "modular/modular",
+              "text": "",
+              "language": "Mojo",
+              "stars_total": 29809,
+              "forks": 3177,
+              "stars_window": 3082,
+              "window": "monthly",
+              "collected_at": 1789717173,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:monthly:tashfeenahmed/freellmapi",
+              "repo": "tashfeenahmed/freellmapi",
+              "url": "https://github.com/tashfeenahmed/freellmapi",
+              "title": "tashfeenahmed/freellmapi",
+              "text": "",
+              "language": "TypeScript",
+              "stars_total": 26988,
+              "forks": 3689,
+              "stars_window": 8304,
+              "window": "monthly",
+              "collected_at": 1789717173,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "AI 代理与自动化",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:wide-trace/open-higgsfield",
+              "repo": "wide-trace/open-higgsfield",
+              "url": "https://github.com/wide-trace/open-higgsfield",
+              "title": "wide-trace/open-higgsfield",
+              "text": "A studio for image and video generation — one prompt bar, each model’s own settings, and every finished run in one gallery.",
+              "language": "TypeScript",
+              "stars_total": 2524,
+              "forks": 399,
+              "watchers": 0,
+              "open_issues": 2,
+              "created_at": "2026-08-26T06:09:58Z",
+              "pushed_at": "2026-09-17T01:53:26Z",
+              "license": null,
+              "topics": [],
+              "stars_window": 2524,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 106.7,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0
+            }
+          ],
+          "velocity": 1451.4,
+          "wtp_llm": 1,
+          "hiring": 0,
+          "heat_score": 1493,
+          "heat_comments": 44,
+          "hot": 0,
+          "native_sources": [
+            "github_search",
+            "github_trending",
+            "reddit"
+          ],
+          "keyword_sources": [
+            "hn"
+          ],
+          "diversity": 4,
+          "resonance": 3,
+          "heat": 1625,
+          "wtp_total": 1,
+          "score": 35.34,
+          "market_repos": 3303,
+          "crowd": "红海",
+          "opp_tag": "已拥挤：需差异化切入",
+          "opp_score": 10.04,
+          "mature_products": 621,
+          "mature": [
+            {
+              "repo": "affaan-m/ECC",
+              "url": "https://github.com/affaan-m/ECC",
+              "stars": 261358,
+              "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first dev",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "NousResearch/hermes-agent",
+              "url": "https://github.com/NousResearch/hermes-agent",
+              "stars": 246639,
+              "desc": "The agent that grows with you",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156226,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-18"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "totec448-spec/chat-on-steroids",
+              "url": "https://github.com/totec448-spec/chat-on-steroids",
+              "source": "github_search"
+            },
+            {
+              "title": "nateherkai/scroll-craft",
+              "url": "https://github.com/nateherkai/scroll-craft",
+              "source": "github_search"
+            },
+            {
+              "title": "achimala/dream-loop",
+              "url": "https://github.com/achimala/dream-loop",
+              "source": "github_search"
+            },
+            {
+              "title": "lnkiai/m3e-canvas",
+              "url": "https://github.com/lnkiai/m3e-canvas",
+              "source": "github_search"
+            }
+          ],
+          "advice": "已拥挤，不建议正面进入",
+          "advice_level": 1,
+          "advice_reasons": [
+            "25 条证据显示需求真实",
+            "但 GitHub 存量 3303 个（红海）"
+          ],
+          "advice_action": "除非有明确差异化切口（细分人群 / 现有产品的具体差评），否则跳过",
+          "trend_level": "高",
+          "trend_score": 8,
+          "trend_reasons": [
+            "头部仓库日均涨星 231（极快）",
+            "6 个平台原生榜独立出现（真共振）",
+            "今日 25 条 ≥ 本周 22 条（当下密集）"
+          ]
+        },
+        {
+          "name": "内容创作与分发",
+          "evidence": 5,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:Nanako0129/sepia",
+              "repo": "Nanako0129/sepia",
+              "url": "https://github.com/Nanako0129/sepia",
+              "title": "Nanako0129/sepia",
+              "text": "De-AI writing skill for any Agent Skills-compatible agent (77+ via the Skills CLI), with native plugins for Claude Code, Codex, Grok Build, and Antigravity. Narrative-architecture repair for fiction, venue-matched rules for professional prose. Based on StoryScope (arXiv:2604.03136).",
+              "language": "Python",
+              "stars_total": 2674,
+              "forks": 175,
+              "watchers": 0,
+              "open_issues": 8,
+              "created_at": "2026-08-28T05:56:49Z",
+              "pushed_at": "2026-09-17T18:26:36Z",
+              "license": "MIT",
+              "topics": [
+                "agent-skills",
+                "ai-writing",
+                "antigravity",
+                "claude-code",
+                "codex",
+                "developer-tools",
+                "fiction",
+                "grok",
+                "humanizer",
+                "llm",
+                "prompt-engineering",
+                "writing-tools"
+              ],
+              "stars_window": 2674,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 123.5,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.065 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "内容创作与分发",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:sebbbi/NoGraphicsAPI",
+              "repo": "sebbbi/NoGraphicsAPI",
+              "url": "https://github.com/sebbbi/NoGraphicsAPI",
+              "title": "sebbbi/NoGraphicsAPI",
+              "text": "Minimal graphics API. Built on top of latest Vulkan extensions. As close as possibly to my \"No Graphics API\" blog post and the SIGGRAPH talk.",
+              "language": "C++",
+              "stars_total": 1425,
+              "forks": 45,
+              "watchers": 0,
+              "open_issues": 6,
+              "created_at": "2026-08-31T14:14:12Z",
+              "pushed_at": "2026-09-16T17:10:44Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 1425,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 76.4,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.032 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": null,
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:yang0/handraw-style",
+              "repo": "yang0/handraw-style",
+              "url": "https://github.com/yang0/handraw-style",
+              "title": "yang0/handraw-style",
+              "text": "手绘风格编号画廊与双语提示词 Skill",
+              "language": "HTML",
+              "stars_total": 2246,
+              "forks": 294,
+              "watchers": 0,
+              "open_issues": 4,
+              "created_at": "2026-09-05T21:57:22Z",
+              "pushed_at": "2026-09-18T05:08:59Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 2246,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 164.5,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "日均涨星 165，增速偏高"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "内容创作与分发",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:larashero3-dotcom/lieflat-less-ai-tone",
+              "repo": "larashero3-dotcom/lieflat-less-ai-tone",
+              "url": "https://github.com/larashero3-dotcom/lieflat-less-ai-tone",
+              "title": "larashero3-dotcom/lieflat-less-ai-tone",
+              "text": "一个基于 283 万字语料统计的去 AI 味 skill · An AI-tone removal skill grounded in a 2.83-million-character corpus study",
+              "language": "Python",
+              "stars_total": 1762,
+              "forks": 117,
+              "watchers": 0,
+              "open_issues": 3,
+              "created_at": "2026-08-20T09:07:59Z",
+              "pushed_at": "2026-08-24T06:57:13Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 1762,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 59.4,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.066 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "内容创作与分发",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:EverettFish/holo-card-studio",
+              "repo": "EverettFish/holo-card-studio",
+              "url": "https://github.com/EverettFish/holo-card-studio",
+              "title": "EverettFish/holo-card-studio",
+              "text": "Turn the user's description or uploaded reference into a finished, editable Blender card and an interactive Three.js page. Preserve the requested subject, style, typography and destination. This skill contains code and text only; generated artwork belongs in the user's output project.",
+              "language": "Python",
+              "stars_total": 1633,
+              "forks": 227,
+              "watchers": 0,
+              "open_issues": 4,
+              "created_at": "2026-09-07T00:41:18Z",
+              "pushed_at": "2026-09-12T04:56:38Z",
+              "license": "NOASSERTION",
+              "topics": [],
+              "stars_window": 1633,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 140.1,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "内容创作与分发",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 563.9,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [],
+          "diversity": 1,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 11.93,
+          "market_repos": 35,
+          "crowd": "稀疏",
+          "opp_tag": "★ 值得看",
+          "opp_score": 7.22,
+          "mature_products": 4,
+          "mature": [
+            {
+              "repo": "TryGhost/Ghost",
+              "url": "https://github.com/TryGhost/Ghost",
+              "stars": 55347,
+              "desc": "Independent technology for modern publishing, memberships, subscriptions and newsletters.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "yaojingang/GEOFlow",
+              "url": "https://github.com/yaojingang/GEOFlow",
+              "stars": 3652,
+              "desc": "Open-source GEO content engineering and multi-site distribution platform with AI quality inspection, illustrat",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "blogifierdotnet/Blogifier",
+              "url": "https://github.com/blogifierdotnet/Blogifier",
+              "stars": 1295,
+              "desc": "Blogifier is an open-source publishing platform Written in ASP.NET and Blazor WebAssembly. With Blogifier make",
+              "updated": "2026-03-16"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Nanako0129/sepia",
+              "url": "https://github.com/Nanako0129/sepia",
+              "source": "github_search"
+            },
+            {
+              "title": "sebbbi/NoGraphicsAPI",
+              "url": "https://github.com/sebbbi/NoGraphicsAPI",
+              "source": "github_search"
+            },
+            {
+              "title": "yang0/handraw-style",
+              "url": "https://github.com/yang0/handraw-style",
+              "source": "github_search"
+            },
+            {
+              "title": "larashero3-dotcom/lieflat-less-ai-tone",
+              "url": "https://github.com/larashero3-dotcom/lieflat-less-ai-tone",
+              "source": "github_search"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "2 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "高",
+          "trend_score": 6,
+          "trend_reasons": [
+            "头部仓库日均涨星 176（较快）",
+            "1 个平台原生榜出现",
+            "今日 2 条 ≥ 本周 2 条（当下密集）"
+          ]
+        },
+        {
+          "name": "终端与开发者效率",
+          "evidence": 5,
+          "sources": [
+            "github_search",
+            "github_trending",
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 2,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:omacom/try-omarchy",
+              "repo": "omacom/try-omarchy",
+              "url": "https://github.com/omacom/try-omarchy",
+              "title": "omacom/try-omarchy",
+              "text": "Run Omarchy on MacOS without any setup.",
+              "language": "Swift",
+              "stars_total": 2134,
+              "forks": 109,
+              "watchers": 0,
+              "open_issues": 56,
+              "created_at": "2026-08-23T21:55:30Z",
+              "pushed_at": "2026-09-15T21:12:30Z",
+              "license": "MIT",
+              "topics": [
+                "aarch64",
+                "apple-silicon",
+                "archlinux",
+                "arm",
+                "arm64",
+                "community",
+                "linux",
+                "macos",
+                "omarchy",
+                "qemu",
+                "virtualization"
+              ],
+              "stars_window": 2134,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 80.1,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.051 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "终端与开发者效率",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:monthly:omacom/omarchy",
+              "repo": "omacom/omarchy",
+              "url": "https://github.com/omacom/omarchy",
+              "title": "omacom/omarchy",
+              "text": "",
+              "language": "Shell",
+              "stars_total": 41773,
+              "forks": 4761,
+              "stars_window": 16196,
+              "window": "monthly",
+              "collected_at": 1789717173,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0,
+              "direction": "终端与开发者效率",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_trending",
+              "source_id": "trending:monthly:Lakr233/vphone-cli",
+              "repo": "Lakr233/vphone-cli",
+              "url": "https://github.com/Lakr233/vphone-cli",
+              "title": "Lakr233/vphone-cli",
+              "text": "",
+              "language": "Swift",
+              "stars_total": 13820,
+              "forks": 1632,
+              "stars_window": 5998,
+              "window": "monthly",
+              "collected_at": 1789717173,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0
+            }
+          ],
+          "velocity": 80.1,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search",
+            "github_trending"
+          ],
+          "keyword_sources": [
+            "hn"
+          ],
+          "diversity": 3,
+          "resonance": 2,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 10.66,
+          "market_repos": 62,
+          "crowd": "稀疏",
+          "opp_tag": "★ 值得看",
+          "opp_score": 5.74,
+          "mature_products": 12,
+          "mature": [
+            {
+              "repo": "apollographql/apollo-client",
+              "url": "https://github.com/apollographql/apollo-client",
+              "stars": 19801,
+              "desc": "The industry-leading GraphQL client for TypeScript, JavaScript, React, Vue, Angular, and more. Apollo Client d",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "guarinogabriel/Mac-CLI",
+              "url": "https://github.com/guarinogabriel/Mac-CLI",
+              "stars": 9121,
+              "desc": " macOS command line tool for developers – The ultimate tool to manage your Mac. It provides a huge set of com",
+              "updated": "2026-02-28"
+            },
+            {
+              "repo": "donnemartin/dev-setup",
+              "url": "https://github.com/donnemartin/dev-setup",
+              "stars": 6267,
+              "desc": "macOS development environment setup:  Easy-to-understand instructions with automated setup scripts for develop",
+              "updated": "2023-02-27"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "omacom/try-omarchy",
+              "url": "https://github.com/omacom/try-omarchy",
+              "source": "github_search"
+            },
+            {
+              "title": "omacom/omarchy",
+              "url": "https://github.com/omacom/omarchy",
+              "source": "github_trending"
+            },
+            {
+              "title": "Lakr233/vphone-cli",
+              "url": "https://github.com/Lakr233/vphone-cli",
+              "source": "github_trending"
+            },
+            {
+              "title": "Working with Git Worktrees in Magit",
+              "url": "https://news.ycombinator.com/item?id=49655548",
+              "source": "hn"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "2 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "中",
+          "trend_score": 4,
+          "trend_reasons": [
+            "头部仓库日均涨星 41",
+            "1 个平台原生榜出现",
+            "今日 2 条 / 本周 3 条（正在加速）"
+          ]
+        },
+        {
+          "name": "监控与可观测",
+          "evidence": 3,
+          "sources": [
+            "github_search",
+            "hn"
+          ],
+          "wtp": 1,
+          "pain": 2,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:vinzdg/codenotch",
+              "repo": "vinzdg/codenotch",
+              "url": "https://github.com/vinzdg/codenotch",
+              "title": "vinzdg/codenotch",
+              "text": "A macOS app that pins usage limits from Claude Code, Cursor, Codex, and Antigravity to a screen edge.",
+              "language": "Swift",
+              "stars_total": 1938,
+              "forks": 295,
+              "watchers": 0,
+              "open_issues": 18,
+              "created_at": "2026-09-05T14:55:35Z",
+              "pushed_at": "2026-09-18T05:51:36Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 1938,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 141.9,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 7.5,
+              "direction": "监控与可观测",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 141.9,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [
+            "hn"
+          ],
+          "diversity": 2,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 1,
+          "score": 8.63,
+          "market_repos": 277,
+          "crowd": "中等",
+          "opp_tag": "★ 值得看",
+          "opp_score": 3.51,
+          "mature_products": 62,
+          "mature": [
+            {
+              "repo": "netdata/netdata",
+              "url": "https://github.com/netdata/netdata",
+              "stars": 80566,
+              "desc": "The fastest path to AI-powered full stack observability, even for lean teams.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "grafana/grafana",
+              "url": "https://github.com/grafana/grafana",
+              "stars": 76795,
+              "desc": "The open and composable observability and data visualization platform. Visualize metrics, logs, and traces fro",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "langfuse/langfuse",
+              "url": "https://github.com/langfuse/langfuse",
+              "stars": 34755,
+              "desc": "🪢 Open source agent evals & observability: Trace, evaluate, and improve LLM applications with one open platfor",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "vinzdg/codenotch",
+              "url": "https://github.com/vinzdg/codenotch",
+              "source": "github_search"
+            },
+            {
+              "title": "One resignation turned the embers of AI fear into a wildfire",
+              "url": "https://news.ycombinator.com/item?id=49647380",
+              "source": "hn"
+            },
+            {
+              "title": "Show HN: Watches user sessions, finds bugs that matter, and fixes them",
+              "url": "https://news.ycombinator.com/item?id=49479539",
+              "source": "hn"
+            }
+          ],
+          "advice": "★ 建议优先验证",
+          "advice_level": 4,
+          "advice_reasons": [
+            "3 条证据 · 2 个平台",
+            "存量仅 277 个（稀疏）",
+            "已出现付费信号"
+          ],
+          "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品",
+          "trend_level": "中",
+          "trend_score": 4,
+          "trend_reasons": [
+            "头部仓库日均涨星 142（较快）",
+            "1 个平台原生榜出现",
+            "出现付费信号"
+          ]
+        },
+        {
+          "name": "代码质量与 CI",
+          "evidence": 3,
+          "sources": [
+            "github_search",
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:shadcn-ui/lint",
+              "repo": "shadcn-ui/lint",
+              "url": "https://github.com/shadcn-ui/lint",
+              "title": "shadcn-ui/lint",
+              "text": "An agent-first linter for Tailwind design systems. Write design system rules that agents can verify.",
+              "language": "TypeScript",
+              "stars_total": 2082,
+              "forks": 35,
+              "watchers": 0,
+              "open_issues": 13,
+              "created_at": "2026-09-02T11:51:38Z",
+              "pushed_at": "2026-09-17T17:06:14Z",
+              "license": "MIT",
+              "topics": [
+                "agents",
+                "ai",
+                "design",
+                "design-system",
+                "design-tools",
+                "shadcn",
+                "shadcn-ui",
+                "tailwindcss"
+              ],
+              "stars_window": 2082,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 125.0,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.017 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "代码质量与 CI",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:shadcn-ui/cn",
+              "repo": "shadcn-ui/cn",
+              "url": "https://github.com/shadcn-ui/cn",
+              "title": "shadcn-ui/cn",
+              "text": "cn is a new engine for Tailwind class merging and conflict resolution. It replaces tailwind-merge and clsx. Same APIs. Full parity. And it is 30× faster.",
+              "language": "TypeScript",
+              "stars_total": 1529,
+              "forks": 16,
+              "watchers": 0,
+              "open_issues": 9,
+              "created_at": "2026-08-31T07:04:03Z",
+              "pushed_at": "2026-09-12T11:09:59Z",
+              "license": "MIT",
+              "topics": [
+                "clsx",
+                "cn",
+                "shadcn",
+                "tailwind-merge",
+                "tailwindcss"
+              ],
+              "stars_window": 1529,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 82.0,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.010 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "代码质量与 CI",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 207.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [
+            "hn"
+          ],
+          "diversity": 2,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 8.08,
+          "market_repos": 17,
+          "crowd": "稀疏",
+          "opp_tag": "★ 值得看",
+          "opp_score": 5.64,
+          "mature_products": 3,
+          "mature": [
+            {
+              "repo": "cinder/Cinder",
+              "url": "https://github.com/cinder/Cinder",
+              "stars": 5539,
+              "desc": "Cinder is a community-developed, free and open source library for professional-quality creative coding in C++.",
+              "updated": "2026-03-20"
+            },
+            {
+              "repo": "cirosantilli/china-dictatorship",
+              "url": "https://github.com/cirosantilli/china-dictatorship",
+              "stars": 3211,
+              "desc": "反中共政治宣传库。Anti Chinese government propaganda. 住在中国真名用户的网友请别给星星，不然你要被警察请喝茶。常见问答集，新闻集和饭店和音乐建议。卐习万岁卐。冠状病毒审查郝海东新疆改造",
+              "updated": "2026-02-05"
+            },
+            {
+              "repo": "gege-circle/.github",
+              "url": "https://github.com/gege-circle/.github",
+              "stars": 2009,
+              "desc": "这里是GitHub的草场，也是戈戈圈爱好者的交流地，主要讨论动漫、游戏、科技、人文、生活等所有话题，欢迎各位小伙伴们在此讨论趣事。This is GitHub grassland, and the community p",
+              "updated": "2025-10-04"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "shadcn-ui/lint",
+              "url": "https://github.com/shadcn-ui/lint",
+              "source": "github_search"
+            },
+            {
+              "title": "shadcn-ui/cn",
+              "url": "https://github.com/shadcn-ui/cn",
+              "source": "github_search"
+            },
+            {
+              "title": "How well do agents use test/verification techniques?",
+              "url": "https://news.ycombinator.com/item?id=49640663",
+              "source": "hn"
+            }
+          ],
+          "advice": "★ 建议优先验证",
+          "advice_level": 4,
+          "advice_reasons": [
+            "3 条证据 · 2 个平台",
+            "存量仅 17 个（稀疏）",
+            "1 条出钱证据（招聘/赏金：有人已在为这类活付费）"
+          ],
+          "advice_action": "本周人工核验 2-3 条原帖 + 抓 5 个同类招聘帖看具体要求，判断能否做成产品",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "头部仓库日均涨星 87（较快）",
+            "1 个平台原生榜出现",
+            "本周 3 / 本月 3（升温）"
+          ]
+        },
+        {
+          "name": "视频与音频处理",
+          "evidence": 2,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:FireRedTeam/FireRedAudio",
+              "repo": "FireRedTeam/FireRedAudio",
+              "url": "https://github.com/FireRedTeam/FireRedAudio",
+              "title": "FireRedTeam/FireRedAudio",
+              "text": "",
+              "language": "Python",
+              "stars_total": 1679,
+              "forks": 17,
+              "watchers": 0,
+              "open_issues": 7,
+              "created_at": "2026-08-22T11:18:12Z",
+              "pushed_at": "2026-09-08T03:50:39Z",
+              "license": "Apache-2.0",
+              "topics": [],
+              "stars_window": 1679,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 60.7,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.010 低于 0.05（真实项目通常 0.15–0.25）"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "视频与音频处理",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            },
+            {
+              "source": "github_search",
+              "source_id": "search:Vincentwei1021/anything2explainer",
+              "repo": "Vincentwei1021/anything2explainer",
+              "url": "https://github.com/Vincentwei1021/anything2explainer",
+              "title": "Vincentwei1021/anything2explainer",
+              "text": "Topic in, narrated explainer video out. A Claude Code / Codex skill that turns any topic into a black-canvas motion-graphics explainer video with TTS voiceover, subtitles and a chapter progress bar. Chinese or English; every frame drawn in code with Remotion.",
+              "language": "TypeScript",
+              "stars_total": 1596,
+              "forks": 256,
+              "watchers": 0,
+              "open_issues": 2,
+              "created_at": "2026-09-08T17:19:54Z",
+              "pushed_at": "2026-09-17T13:46:14Z",
+              "license": "NOASSERTION",
+              "topics": [
+                "agent-skills",
+                "ai-agents",
+                "ai-video",
+                "claude-code",
+                "claude-code-skill",
+                "codex",
+                "edge-tts",
+                "educational-video",
+                "explainer-video",
+                "kokoro",
+                "motion-graphics",
+                "multi-agent",
+                "react",
+                "remotion",
+                "text-to-video",
+                "tts",
+                "typescript",
+                "video-generation"
+              ],
+              "stars_window": 1596,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 149.8,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "无明确开源协议：默认保留全部权利，不得商用"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 2.0
+            }
+          ],
+          "velocity": 210.5,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [],
+          "diversity": 1,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 7.09,
+          "market_repos": 763,
+          "crowd": "拥挤",
+          "opp_tag": "红海",
+          "opp_score": 2.45,
+          "mature_products": 101,
+          "mature": [
+            {
+              "repo": "harry0703/MoneyPrinterTurbo",
+              "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+              "stars": 124487,
+              "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workf",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "FFmpeg/FFmpeg",
+              "url": "https://github.com/FFmpeg/FFmpeg",
+              "stars": 64317,
+              "desc": "Mirror of https://git.ffmpeg.org/ffmpeg.git",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "calesthio/OpenMontage",
+              "url": "https://github.com/calesthio/OpenMontage",
+              "stars": 59813,
+              "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent sk",
+              "updated": "2026-09-06"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "FireRedTeam/FireRedAudio",
+              "url": "https://github.com/FireRedTeam/FireRedAudio",
+              "source": "github_search"
+            },
+            {
+              "title": "Vincentwei1021/anything2explainer",
+              "url": "https://github.com/Vincentwei1021/anything2explainer",
+              "source": "github_search"
+            }
+          ],
+          "advice": "需求真实但供给密集，需差异化",
+          "advice_level": 2,
+          "advice_reasons": [
+            "8 条证据 · 4 个平台",
+            "存量 763 个，已有多家在解"
+          ],
+          "advice_action": "先扒 3-5 个现有产品的差评与退款理由，找未被满足的细分场景",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "3 个平台原生榜独立出现（真共振）",
+            "今日 8 条 / 本周 10 条（正在加速）"
+          ]
+        },
+        {
+          "name": "自托管与部署",
+          "evidence": 3,
+          "sources": [
+            "github_search",
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 2,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:Git-Agni/prod-FARM-IOS-Core",
+              "repo": "Git-Agni/prod-FARM-IOS-Core",
+              "url": "https://github.com/Git-Agni/prod-FARM-IOS-Core",
+              "title": "Git-Agni/prod-FARM-IOS-Core",
+              "text": "A farm of real iPhones, run from your Mac. Open-source iOS device automation with live control, a Postgres-backed scheduler, and TikTok workflows. Self-hosted, Apache-2.0.",
+              "language": "TypeScript",
+              "stars_total": 1508,
+              "forks": 286,
+              "watchers": 0,
+              "open_issues": 3,
+              "created_at": "2026-08-27T04:55:36Z",
+              "pushed_at": "2026-09-07T10:50:41Z",
+              "license": "Apache-2.0",
+              "topics": [
+                "appium",
+                "device-farm",
+                "ios-automation",
+                "marketing-automation",
+                "phone-farm",
+                "tiktok-automation-script",
+                "webdriveragent"
+              ],
+              "stars_window": 1508,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 66.6,
+              "supply_risk": "low",
+              "risk_flags": [],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "自托管与部署",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 66.6,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [
+            "hn"
+          ],
+          "diversity": 2,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 6.94,
+          "market_repos": 182,
+          "crowd": "中等",
+          "opp_tag": "★ 值得看",
+          "opp_score": 3.04,
+          "mature_products": 39,
+          "mature": [
+            {
+              "repo": "langgenius/dify",
+              "url": "https://github.com/langgenius/dify",
+              "stars": 156226,
+              "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. De",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "coollabsio/coolify",
+              "url": "https://github.com/coollabsio/coolify",
+              "stars": 61968,
+              "desc": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static ",
+              "updated": "2026-09-17"
+            },
+            {
+              "repo": "agentscope-ai/QwenPaw",
+              "url": "https://github.com/agentscope-ai/QwenPaw",
+              "stars": 35070,
+              "desc": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple cha",
+              "updated": "2026-09-18"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Git-Agni/prod-FARM-IOS-Core",
+              "url": "https://github.com/Git-Agni/prod-FARM-IOS-Core",
+              "source": "github_search"
+            },
+            {
+              "title": "Keep Our Servers Running",
+              "url": "https://news.ycombinator.com/item?id=49638934",
+              "source": "hn"
+            },
+            {
+              "title": "Why your local LLM feels dumber than it is",
+              "url": "https://news.ycombinator.com/item?id=49407702",
+              "source": "hn"
+            }
+          ],
+          "advice": "★ 值得看，但需补付费证据",
+          "advice_level": 3,
+          "advice_reasons": [
+            "4 条证据 · 2 个平台",
+            "存量仅 182 个，供给少"
+          ],
+          "advice_action": "先验证有没有人愿意为此掏钱（找原帖作者 / 招聘帖 / 付费竞品）",
+          "trend_level": "高",
+          "trend_score": 5,
+          "trend_reasons": [
+            "头部仓库日均涨星 114（较快）",
+            "2 个平台原生榜独立出现（真共振）",
+            "本周 4 / 本月 3（升温）"
+          ]
+        },
+        {
+          "name": "安全与合规",
+          "evidence": 2,
+          "sources": [
+            "github_search",
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 1,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:N4darae/anti-mage",
+              "repo": "N4darae/anti-mage",
+              "url": "https://github.com/N4darae/anti-mage",
+              "title": "N4darae/anti-mage",
+              "text": "For detecting anti-detect browsers and spoofed profiles through runtime coherence analysis.",
+              "language": "Go",
+              "stars_total": 1663,
+              "forks": 89,
+              "watchers": 0,
+              "open_issues": 3,
+              "created_at": "2026-08-22T04:11:00Z",
+              "pushed_at": "2026-09-09T16:24:35Z",
+              "license": "MIT",
+              "topics": [],
+              "stars_window": 1663,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 60.1,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "fork/star=0.054 偏低，需人工确认"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 4.5,
+              "direction": "安全与合规",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 60.1,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [
+            "hn"
+          ],
+          "diversity": 2,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 5.88,
+          "market_repos": 198,
+          "crowd": "中等",
+          "opp_tag": "待验证",
+          "opp_score": 2.54,
+          "mature_products": 38,
+          "mature": [
+            {
+              "repo": "wazuh/wazuh",
+              "url": "https://github.com/wazuh/wazuh",
+              "stars": 16924,
+              "desc": "Wazuh - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.",
+              "updated": "2026-09-18"
+            },
+            {
+              "repo": "CISOfy/lynis",
+              "url": "https://github.com/CISOfy/lynis",
+              "stars": 16356,
+              "desc": "Lynis - Security auditing tool for Linux, macOS, and UNIX-based systems. Assists with compliance testing (HIPA",
+              "updated": "2026-09-16"
+            },
+            {
+              "repo": "prowler-cloud/prowler",
+              "url": "https://github.com/prowler-cloud/prowler",
+              "stars": 14831,
+              "desc": "Prowler is the world’s most widely used open-source cloud security platform that automates security and compli",
+              "updated": "2026-09-17"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "N4darae/anti-mage",
+              "url": "https://github.com/N4darae/anti-mage",
+              "source": "github_search"
+            },
+            {
+              "title": "Actively exploited sandbox RCE in all Chromium versions",
+              "url": "https://news.ycombinator.com/item?id=49575163",
+              "source": "hn"
+            }
+          ],
+          "advice": "★ 值得看，但需补付费证据",
+          "advice_level": 3,
+          "advice_reasons": [
+            "3 条证据 · 1 个平台",
+            "存量仅 198 个，供给少"
+          ],
+          "advice_action": "先验证有没有人愿意为此掏钱（找原帖作者 / 招聘帖 / 付费竞品）",
+          "trend_level": "中",
+          "trend_score": 4,
+          "trend_reasons": [
+            "头部仓库日均涨星 95（较快）",
+            "1 个平台原生榜出现",
+            "本周 3 / 本月 2（升温）"
+          ]
+        },
+        {
+          "name": "电商与跨境",
+          "evidence": 1,
+          "sources": [
+            "github_search"
+          ],
+          "wtp": 0,
+          "pain": 0,
+          "repos": [
+            {
+              "source": "github_search",
+              "source_id": "search:anthropics/commerce-agents",
+              "repo": "anthropics/commerce-agents",
+              "url": "https://github.com/anthropics/commerce-agents",
+              "title": "anthropics/commerce-agents",
+              "text": "Reference blueprint for building shopping and merchant agents with Claude. Examples in retail, commerce, telecom, and entertainment included.",
+              "language": "Python",
+              "stars_total": 2958,
+              "forks": 574,
+              "watchers": 0,
+              "open_issues": 35,
+              "created_at": "2026-09-01T12:30:12Z",
+              "pushed_at": "2026-09-11T07:03:32Z",
+              "license": "Apache-2.0",
+              "topics": [],
+              "stars_window": 2958,
+              "window": "created<=30d",
+              "collected_at": 1789717173,
+              "star_velocity": 167.6,
+              "supply_risk": "medium",
+              "risk_flags": [
+                "日均涨星 168，增速偏高"
+              ],
+              "record_type": "supply",
+              "path": "platform",
+              "prefilter_score": 6.0,
+              "direction": "电商与跨境",
+              "llm_wtp": 0,
+              "llm_pain": 0
+            }
+          ],
+          "velocity": 167.6,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [
+            "github_search"
+          ],
+          "keyword_sources": [],
+          "diversity": 1,
+          "resonance": 1,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 5.54,
+          "market_repos": 16,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 3.92,
+          "mature_products": 1,
+          "mature": [
+            {
+              "repo": "ever-co/ever-demand",
+              "url": "https://github.com/ever-co/ever-demand",
+              "stars": 1858,
+              "desc": "Ever® Demand™ - Open Commerce Platform - https://everdemand.co",
+              "updated": "2026-08-05"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "anthropics/commerce-agents",
+              "url": "https://github.com/anthropics/commerce-agents",
+              "source": "github_search"
+            }
+          ],
+          "advice": "信号不足，暂不判断",
+          "advice_level": 0,
+          "advice_reasons": [
+            "单条证据支撑不了结论"
+          ],
+          "advice_action": "不下结论；若趋势评级高可提前留意",
+          "trend_level": "中",
+          "trend_score": 3,
+          "trend_reasons": [
+            "头部仓库日均涨星 168（较快）",
+            "1 个平台原生榜出现"
+          ]
+        },
+        {
+          "name": "文件与存储同步",
+          "evidence": 2,
+          "sources": [
+            "hn"
+          ],
+          "wtp": 0,
+          "pain": 2,
+          "repos": [],
+          "velocity": 0.0,
+          "wtp_llm": 0,
+          "hiring": 0,
+          "heat_score": 0,
+          "heat_comments": 0,
+          "hot": 0,
+          "native_sources": [],
+          "keyword_sources": [
+            "hn"
+          ],
+          "diversity": 1,
+          "resonance": 0,
+          "heat": 0,
+          "wtp_total": 0,
+          "score": 2.0,
+          "market_repos": 12,
+          "crowd": "稀疏",
+          "opp_tag": "待验证",
+          "opp_score": 1.49,
+          "mature_products": 1,
+          "mature": [
+            {
+              "repo": "sebastianfeldmann/phpbu",
+              "url": "https://github.com/sebastianfeldmann/phpbu",
+              "stars": 1305,
+              "desc": "PHP Backup Utility - Creates and encrypts database and file backups, syncs your backups to other servers or cl",
+              "updated": "2026-07-03"
+            },
+            {
+              "repo": "stefankueng/CryptSync",
+              "url": "https://github.com/stefankueng/CryptSync",
+              "stars": 443,
+              "desc": "CryptSync is a small utility that synchronizes two folders while encrypting the contents in one folder. That m",
+              "updated": "2026-07-28"
+            },
+            {
+              "repo": "VikasSukhija/Downloads",
+              "url": "https://github.com/VikasSukhija/Downloads",
+              "stars": 424,
+              "desc": "AD Health Check, Send HTML Email,  Ping machines, Encrypt Password,Bulk Password,Microsoft Teams,Monitor Certi",
+              "updated": "2025-02-16"
+            }
+          ],
+          "evidence_links": [
+            {
+              "title": "Show HN: Syq – copy files between machines fast (better than rsync)",
+              "url": "https://news.ycombinator.com/item?id=49661996",
+              "source": "hn"
+            },
+            {
+              "title": "Creating Backup Storage Sucks",
+              "url": "https://news.ycombinator.com/item?id=49546160",
+              "source": "hn"
+            }
+          ],
+          "advice": "待观察，证据偏弱",
+          "advice_level": 2,
+          "advice_reasons": [
+            "1 个平台各 1 条，尚未形成共振"
+          ],
+          "advice_action": "记进观察名单，看下个窗口能否复现",
+          "trend_level": "低",
+          "trend_score": 0,
+          "trend_reasons": [
+            "⚠ 另有 1 个平台仅关键词检索命中（非独立发现，不计共振）"
+          ]
+        }
+      ]
+    }
+  },
+  "health": [
+    {
+      "source": "github_trending:daily",
+      "count": 20,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "github_search:3d",
+      "count": 50,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "hn:3d",
+      "count": 133,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:upwork[automation scrip]",
+      "count": 0,
+      "ok": false,
+      "skipped": true,
+      "note": "适配器侧故障（多次 exitCode 1，与站点改版有关）→ 已由 github_bounty + r/forhire 覆盖"
+    },
+    {
+      "source": "opencli:upwork[web scraping too]",
+      "count": 0,
+      "ok": false,
+      "skipped": true,
+      "note": "适配器侧故障（多次 exitCode 1，与站点改版有关）→ 已由 github_bounty + r/forhire 覆盖"
+    },
+    {
+      "source": "opencli:twitter[\"is there a tool\" la]",
+      "count": 0,
+      "ok": false,
+      "skipped": true,
+      "note": "需在 Chrome 登录 X 后可用 → 登录即恢复，当前由 bluesky:trending 弱覆盖"
+    },
+    {
+      "source": "opencli:reddit:deep:r/SaaS",
+      "count": 3,
+      "ok": true,
+      "note": "r/SaaS: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:reddit:deep:r/microsaas",
+      "count": 3,
+      "ok": true,
+      "note": "r/microsaas: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:reddit:deep:r/SideProject",
+      "count": 3,
+      "ok": true,
+      "note": "r/SideProject: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:github_bounties[bounty]",
+      "count": 40,
+      "ok": true,
+      "note": "开放赏金 40 条（免登录，付费证据/非独立发现）"
+    },
+    {
+      "source": "reddit:forhire",
+      "count": 25,
+      "ok": true,
+      "note": "1 个子版块"
+    },
+    {
+      "source": "opencli:juejin:hot",
+      "count": 20,
+      "ok": true,
+      "note": "免登录弱等效（中文技术热榜，非消费社区）"
+    },
+    {
+      "source": "opencli:bluesky:trending",
+      "count": 10,
+      "ok": true,
+      "note": "免登录弱等效（仅热门话题，不可按关键词搜；内容偏新闻，价值低）"
+    },
+    {
+      "source": "opencli:producthunt",
+      "count": 20,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:hn:show",
+      "count": 25,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:hn:ask",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:stackoverflow#api",
+      "count": 0,
+      "ok": false,
+      "note": "返回空结果"
+    },
+    {
+      "source": "opencli:stackoverflow#automation",
+      "count": 2,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:lobsters#ai",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:lobsters#devops",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:devto#webdev",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:devto#ai",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:lesswrong",
+      "count": 10,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:hn:deep:show",
+      "count": 2,
+      "ok": true,
+      "note": "hn/show: 列表 25 条 → 深读 2 帖"
+    },
+    {
+      "source": "opencli:lobsters:deep",
+      "count": 2,
+      "ok": true,
+      "note": "热帖 25 条 → 深读 2 帖"
+    },
+    {
+      "source": "opencli:stackoverflow:deep:#automation",
+      "count": 2,
+      "ok": true,
+      "note": "#automation 2 条 → 深读 2 帖"
+    },
+    {
+      "source": "opencli:indeed[automation]",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:indeed[data scraping]",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:xhs[效率工具]",
+      "count": 0,
+      "ok": false,
+      "note": "  exitCode: 75"
+    },
+    {
+      "source": "opencli:xhs[自动化办公]",
+      "count": 0,
+      "ok": false,
+      "note": "  exitCode: 75"
+    },
+    {
+      "source": "opencli:zhihu",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "github_trending:weekly",
+      "count": 21,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "github_search:7d",
+      "count": 50,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "hn:7d",
+      "count": 142,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:upwork[automation scrip]",
+      "count": 0,
+      "ok": false,
+      "skipped": true,
+      "note": "适配器侧故障（多次 exitCode 1，与站点改版有关）→ 已由 github_bounty + r/forhire 覆盖"
+    },
+    {
+      "source": "opencli:upwork[web scraping too]",
+      "count": 0,
+      "ok": false,
+      "skipped": true,
+      "note": "适配器侧故障（多次 exitCode 1，与站点改版有关）→ 已由 github_bounty + r/forhire 覆盖"
+    },
+    {
+      "source": "opencli:twitter[\"is there a tool\" la]",
+      "count": 0,
+      "ok": false,
+      "skipped": true,
+      "note": "需在 Chrome 登录 X 后可用 → 登录即恢复，当前由 bluesky:trending 弱覆盖"
+    },
+    {
+      "source": "opencli:reddit:deep:r/SaaS",
+      "count": 3,
+      "ok": true,
+      "note": "r/SaaS: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:reddit:deep:r/microsaas",
+      "count": 3,
+      "ok": true,
+      "note": "r/microsaas: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:reddit:deep:r/SideProject",
+      "count": 3,
+      "ok": true,
+      "note": "r/SideProject: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:github_bounties[bounty]",
+      "count": 40,
+      "ok": true,
+      "note": "开放赏金 40 条（免登录，付费证据/非独立发现）"
+    },
+    {
+      "source": "reddit:forhire",
+      "count": 25,
+      "ok": true,
+      "note": "1 个子版块"
+    },
+    {
+      "source": "opencli:indeed[automation]",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:indeed[data scraping]",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:xhs[效率工具]",
+      "count": 0,
+      "ok": false,
+      "note": "  exitCode: 75"
+    },
+    {
+      "source": "opencli:xhs[自动化办公]",
+      "count": 0,
+      "ok": false,
+      "note": "  exitCode: 75"
+    },
+    {
+      "source": "opencli:zhihu",
+      "count": 15,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "github_trending:monthly",
+      "count": 22,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "github_search:30d",
+      "count": 50,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "hn:30d",
+      "count": 172,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "source": "opencli:reddit:deep:r/SaaS",
+      "count": 3,
+      "ok": true,
+      "note": "r/SaaS: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:reddit:deep:r/microsaas",
+      "count": 3,
+      "ok": true,
+      "note": "r/microsaas: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    },
+    {
+      "source": "opencli:reddit:deep:r/SideProject",
+      "count": 3,
+      "ok": true,
+      "note": "r/SideProject: 列表 25 条 → 深读 3 帖（评论门槛 ≥5）"
+    }
+  ]
+}
