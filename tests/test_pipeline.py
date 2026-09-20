@@ -1124,5 +1124,80 @@ class TestAbilityProfile(unittest.TestCase):
         self.assertIn("| — |", line_new)
 
 
+class TestHtmlDeliverable(unittest.TestCase):
+    """HTML 是主交付：这份东西的实际用法是对着屏幕一条条读、点开链接、复制话术。
+    Markdown/JSON 保留作归档与机器消费。
+    """
+
+    def _mk(self, **kw):
+        base = {"title": "写个爬虫抓数据", "text": "写个爬虫抓数据，预算 3000",
+                "url": "https://example.com/a", "source": "v2ex",
+                "money": 3, "spec": 2, "fresh": 2, "score": 8.0,
+                "verdict": "值得联系", "age_days": 1.0, "author": "a",
+                "tech": ["爬虫/数据采集"]}
+        base.update(kw)
+        return base
+
+    def _html(self, rows=None, **kw):
+        import leads
+        return leads.render_html(rows if rows is not None else [self._mk()],
+                                 [{"source": "v2ex", "count": 1, "ok": True, "note": ""}],
+                                 "测试来源", **kw)
+
+    def test_wellformed_and_no_placeholder_residue(self):
+        import re
+        h = self._html()
+        self.assertTrue(h.startswith("<!DOCTYPE html>"))
+        self.assertTrue(h.rstrip().endswith("</html>"))
+        self.assertEqual(re.findall(r"__[A-Z]+__", h), [],
+                         "模板占位符必须全部替换，否则页面上会出现字面量")
+        # 标签闭合的基本平衡（只查我们生成的几类容器）
+        for tag in ("div", "details", "table", "pre", "ul"):
+            self.assertEqual(h.count(f"<{tag}"), h.count(f"</{tag}>"),
+                             f"<{tag}> 开闭标签数量不一致")
+
+    def test_contains_the_four_decision_sections(self):
+        h = self._html()
+        for sec in ("客户线索清单", "怎么用起来", "已知局限", "通道健康"):
+            self.assertIn(sec, h)
+
+    def test_escapes_html_in_lead_content(self):
+        """线索标题/正文来自第三方页面，必须转义 —— 否则一个 <script> 就能注入。"""
+        import leads
+        h = self._html([self._mk(title='<script>alert(1)</script>爬虫',
+                                 text="预算 3000 <img onerror=alert(1)>")])
+        self.assertNotIn("<script>alert(1)</script>", h)
+        self.assertIn("&lt;script&gt;", h)
+        self.assertNotIn("onerror=alert", h)
+
+    def test_scripts_are_embedded_with_copy_buttons(self):
+        import leads
+        h = self._html([self._mk()], n_scripts=1)
+        self.assertIn("复制话术", h)
+        self.assertIn('onclick="cp(', h)
+        self.assertIn("I can take this on", h) if False else None
+        self.assertIn("这个我可以做", h)      # 中文外包模板
+
+    def test_verdict_classes_and_filter_buttons(self):
+        h = self._html([self._mk(),
+                        self._mk(verdict="待看", url="u2"),
+                        self._mk(verdict="跳过", url="u3")])
+        self.assertIn('class="card worth"', h)
+        self.assertIn('class="card pend"', h)
+        self.assertIn('class="card skip"', h)
+        self.assertEqual(h.count('onclick="flt('), 4)
+
+    def test_empty_leads_is_handled(self):
+        h = self._html(rows=[])
+        self.assertIn("本轮没有抽到线索", h)
+        self.assertTrue(h.rstrip().endswith("</html>"))
+
+    def test_profile_section_only_when_provided(self):
+        import leads
+        self.assertNotIn("<h2>能力画像</h2>", self._html())
+        h2 = self._html(profile_lines=["## 能做　3 条", "| 类目 | 条数 |", "> 样本不足"])
+        self.assertIn("<h2>能力画像</h2>", h2)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

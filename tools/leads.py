@@ -1089,6 +1089,267 @@ def profile_weights():
     return out
 
 
+# ---------------------------------------------------------------- HTML 交付
+# 单文件、离线可开、零外部依赖 —— 与项目的看板同一定位。
+# 为什么单独做：Markdown 适合归档与 diff，但这份东西的实际用法是
+# **对着屏幕一条条读、点开链接、复制话术**。卡片式 + 筛选 + 复制按钮更顺手。
+_HTML_CSS = """
+*{box-sizing:border-box}
+body{margin:0;background:#f7f7f5;color:#2c2c2a;
+ font:15px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+ "Hiragino Sans GB","Microsoft YaHei",sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:22px;font-weight:500;margin:0 0 6px}
+h2{font-size:17px;font-weight:500;margin:34px 0 12px;padding-bottom:8px;
+ border-bottom:1px solid #e3e1da}
+h3{font-size:15px;font-weight:500;margin:0 0 8px}
+.sub{color:#5f5e5a;font-size:13px;margin-bottom:20px}
+.hero{background:#eaf3de;border:1px solid #c0dd97;border-radius:12px;
+ padding:16px 20px;margin:0 0 18px;display:flex;gap:26px;flex-wrap:wrap;align-items:baseline}
+.hero .big{font-size:30px;font-weight:500;color:#27500a;line-height:1.1}
+.hero .lbl{font-size:12px;color:#3b6d11}
+.note{background:#fff;border:1px solid #e3e1da;border-radius:10px;
+ padding:14px 18px;margin:0 0 16px;font-size:13.5px;color:#444441}
+.note.warn{background:#faeeda;border-color:#fac775}
+.note.gray{background:#f1efe8;border-color:#d3d1c7}
+code{background:#f1efe8;padding:1px 5px;border-radius:4px;
+ font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
+pre{background:#2c2c2a;color:#f1efe8;padding:12px 14px;border-radius:8px;
+ overflow-x:auto;font:12.5px/1.6 ui-monospace,Menlo,Consolas,monospace;
+ white-space:pre-wrap;word-break:break-word;margin:0}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px;align-items:center}
+.bar button{border:1px solid #d3d1c7;background:#fff;color:#444441;
+ border-radius:20px;padding:5px 14px;font-size:13px;cursor:pointer}
+.bar button.on{background:#2c2c2a;color:#fff;border-color:#2c2c2a}
+.bar .sp{flex:1}
+.card{background:#fff;border:1px solid #e3e1da;border-radius:12px;
+ padding:16px 18px;margin:0 0 12px}
+.card.worth{border-left:3px solid #639922}
+.card.pend{border-left:3px solid #ef9f27}
+.card.skip{border-left:3px solid #b4b2a9;opacity:.72}
+.tag{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:20px;
+ margin-right:6px;vertical-align:2px;white-space:nowrap}
+.t-worth{background:#eaf3de;color:#27500a}
+.t-pend{background:#faeeda;color:#633806}
+.t-skip{background:#f1efe8;color:#5f5e5a}
+.t-src{background:#e6f1fb;color:#0c447c}
+.t-tech{background:#eeedfe;color:#3c3489}
+.meta{color:#5f5e5a;font-size:12.5px;margin:8px 0 0}
+.meta b{font-weight:500;color:#2c2c2a}
+a{color:#185fa5;text-decoration:none;word-break:break-all}
+a:hover{text-decoration:underline}
+details{margin:10px 0 0}
+summary{cursor:pointer;font-size:13px;color:#185fa5;user-select:none}
+.cp{float:right;border:1px solid #d3d1c7;background:#fff;border-radius:6px;
+ padding:3px 11px;font-size:12px;cursor:pointer;color:#444441}
+.tips{margin:10px 0 0;padding-left:18px;font-size:13px;color:#444441}
+.tips li{margin:4px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;
+ border:1px solid #e3e1da;border-radius:10px;overflow:hidden}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid #f1efe8}
+th{background:#f7f7f5;font-weight:500;color:#5f5e5a;font-size:12.5px}
+tr:last-child td{border-bottom:none}
+td.n,th.n{text-align:right}
+.net-pos{color:#3b6d11}.net-neg{color:#a32d2d}.net-flat{color:#888780}
+.foot{color:#888780;font-size:12.5px;margin-top:34px;padding-top:16px;
+ border-top:1px solid #e3e1da}
+"""
+
+_HTML_JS = """
+function cp(id,btn){var t=document.getElementById(id).innerText;
+ var done=function(){btn.textContent='已复制 ✓';setTimeout(function(){btn.textContent='复制话术';},1600);};
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){fallback(t,done);});}
+ else{fallback(t,done);}}
+function fallback(t,cb){var a=document.createElement('textarea');a.value=t;
+ a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();
+ try{document.execCommand('copy');cb();}catch(e){alert('复制失败，请手动选择文本');}
+ document.body.removeChild(a);}
+function flt(v,btn){document.querySelectorAll('.bar button[data-v]').forEach(function(b){b.classList.remove('on');});
+ btn.classList.add('on');
+ document.querySelectorAll('.card').forEach(function(c){
+   c.style.display=(v==='all'||c.dataset.v===v)?'':'none';});}
+"""
+
+
+def _esc(s):
+    return (str(s or "").replace("&", "&amp;").replace("<", "&lt;")
+            .replace(">", "&gt;").replace('"', "&quot;"))
+
+
+def render_html(leads, health, src_desc, kept_supply=0, kept_junk=0,
+                n_deep=0, n_skip=0, n_scripts=3, n_prev=0, n_prev_pool=0,
+                profile_lines=None):
+    """产出单文件 HTML 交付（离线可开、零外部依赖）。"""
+    import collections
+    worth = [x for x in leads if x["verdict"] == "值得联系"]
+    pend = [x for x in leads if x["verdict"] == "待看"]
+    skip = [x for x in leads if x["verdict"] == "跳过"]
+    dist = collections.Counter(x["source"] for x in leads)
+    scripts = {x["url"]: apply_script(x) for x in worth[:n_scripts]}
+
+    H = [_HTML_HEAD_TMPL.replace("__CSS__", _HTML_CSS).replace(
+        "__TITLE__", "客户线索清单")]
+    H.append('<div class="wrap">')
+    H.append("<h1>客户线索清单</h1>")
+    H.append(f'<div class="sub">生成于 {time.strftime("%Y-%m-%d %H:%M")}　·　'
+             f'来源：{_esc(src_desc)}　·　'
+             f'共 {len(leads)} 条线索</div>')
+
+    H.append('<div class="hero">'
+             f'<div><div class="big">{len(worth)}</div>'
+             '<div class="lbl">值得联系</div></div>'
+             f'<div><div class="big">{len(pend)}</div>'
+             '<div class="lbl">待看</div></div>'
+             f'<div><div class="big">{len(skip)}</div>'
+             '<div class="lbl">跳过</div></div>'
+             f'<div><div class="big">{len(dist)}</div>'
+             '<div class="lbl">来源通道</div></div>'
+             "</div>")
+
+    H.append('<div class="note"><b>这是什么</b>：不是「值得做的方向」，'
+             "是<b>现在能去联系的活</b>。每条线索保留个体身份"
+             "（谁 / 要做什么 / 预算 / 原文 / 怎么联系），不做方向聚合。<br>"
+             "判据：<b>钱</b>（按量级，不是看有没有）× 1.5 ＋ "
+             "<b>需求具体度</b> × 1.0 ＋ <b>新鲜度</b> × 1.0。</div>")
+
+    H.append('<div class="note gray"><b>怎么用起来</b>（这一步不做，它只是个清单）：'
+             "读一遍下面的卡片 → 对每条标一个「能做 / 不能做 / 想做」→ 标够 5 条看画像。<br>"
+             "<code>python tools/leads.py --mark 3:yes --mark 7:no</code>　"
+             "<code>python tools/leads.py --profile</code>　"
+             "<code>python tools/leads.py --use-profile</code><br>"
+             "标注台账按 URL 累积、跨轮次保留 —— "
+             "标的是市场上真实存在的活，所以结论直接可用，而不是自我感觉。</div>")
+
+    if n_prev:
+        H.append(f'<div class="note warn">其中 <b>{n_prev}</b> 条你已标注过，'
+                 "已沉到榜尾。</div>")
+    elif n_prev_pool:
+        H.append(f'<div class="note warn">候选池里有 <b>{n_prev_pool}</b> 条你已标注过，'
+                 f"但都没进前 {len(leads)} 名 —— 说明这轮新线索够多。</div>")
+
+    # ---- 筛选栏 ----
+    H.append('<div class="bar">'
+             '<button data-v="all" class="on" onclick="flt(\'all\',this)">'
+             f'全部 {len(leads)}</button>'
+             f'<button data-v="值得联系" onclick="flt(\'值得联系\',this)">'
+             f'值得联系 {len(worth)}</button>'
+             f'<button data-v="待看" onclick="flt(\'待看\',this)">待看 {len(pend)}</button>'
+             f'<button data-v="跳过" onclick="flt(\'跳过\',this)">跳过 {len(skip)}</button>'
+             '<span class="sp"></span>'
+             f'<span class="sub" style="margin:0">来源：'
+             + "、".join(f"{_esc(k)} {v}" for k, v in dist.most_common())
+             + "</span></div>")
+
+    # ---- 线索卡片 ----
+    H.append("<h2>线索</h2>")
+    if not leads:
+        H.append('<div class="note warn">本轮没有抽到线索。可能原因：'
+                 "通道需要登录、查询词太窄、或该窗口没人在找人做事。</div>")
+    for i, x in enumerate(leads, 1):
+        v = x["verdict"]
+        cls = "worth" if v == "值得联系" else ("pend" if v == "待看" else "skip")
+        tcls = "t-worth" if v == "值得联系" else ("t-pend" if v == "待看" else "t-skip")
+        H.append(f'<div class="card {cls}" data-v="{_esc(v)}">')
+        H.append(f'<span class="tag {tcls}">{_esc(v)}</span>'
+                 f'<span class="tag t-src">{_esc(x["source"])}</span>')
+        for t in (x.get("tech") or []):
+            H.append(f'<span class="tag t-tech">{_esc(t)}</span>')
+        H.append(f'<h3 style="margin-top:10px">{i}. '
+                 f'<a href="{_esc(x["url"])}" target="_blank" rel="noopener">'
+                 f'{_esc(x["title"])}</a></h3>')
+        age = "未知" if x["age_days"] is None else f"{x['age_days']:.1f} 天前"
+        bits = [f"分 <b>{x['score']}</b>",
+                f"钱 <b>{x['money']}</b>", f"具体 <b>{x['spec']}</b>",
+                f"新鲜 <b>{x['fresh']}</b>", _esc(age)]
+        if x.get("deep"):
+            bits.append("✅ 已深读正文")
+        if x.get("prev_mark"):
+            bits.append("上次标注：<b>"
+                        + {"yes": "能做", "no": "不能做",
+                           "maybe": "想做"}.get(x["prev_mark"], "—") + "</b>")
+        if x.get("profile_bonus"):
+            bits.append(f"画像加成 {x['profile_bonus']:+.1f}")
+        H.append('<div class="meta">' + "　·　".join(bits) + "</div>")
+        if x.get("kind_note"):
+            H.append(f'<div class="meta">{_esc(x["kind_note"])}</div>')
+        s = scripts.get(x["url"])
+        if s:
+            sid = f"sc{i}"
+            H.append('<details><summary>应征话术（'
+                     + _esc(s["kind_label"]) + "）—— 点开复制</summary>")
+            H.append(f'<button class="cp" onclick="cp(\'{sid}\',this)">复制话术</button>')
+            H.append(f'<pre id="{sid}" style="margin-top:8px">{_esc(s["message"])}</pre>')
+            H.append('<ul class="tips">')
+            for t in s["tips"]:
+                H.append("<li>" + _esc(t).replace("**", "") + "</li>")
+            H.append("</ul></details>")
+        H.append("</div>")
+
+    # ---- 能力画像 ----
+    if profile_lines:
+        H.append("<h2>能力画像</h2>")
+        H.append('<div class="note">这不是心理测试，是<b>市场快照</b> —— '
+                 "标注的对象是市场上真实存在的活，所以结论直接可用。</div>")
+        for ln in profile_lines:
+            ln = ln.strip()
+            if not ln or ln.startswith("#"):
+                continue
+            if ln.startswith("|"):
+                H.append(f'<div style="font-size:13px">{_esc(ln)}</div>')
+            elif ln.startswith(">"):
+                H.append(f'<div class="note gray">{_esc(ln.lstrip("> "))}</div>')
+            else:
+                H.append(f'<div style="font-size:13.5px;margin:6px 0">'
+                         f'{_esc(ln.replace("**", ""))}</div>')
+
+    # ---- 局限 ----
+    H.append("<h2>已知局限（读榜单前必看）</h2>")
+    lim = [f"<b>深读覆盖 {n_deep} 条</b>，另有 {n_skip} 条来源不支持深读。"
+           "未深读的条目只有标题，建议点开链接自己看一眼 —— "
+           "打分偏低不等于线索差。",
+           "深读只支持 <b>V2EX</b>（/t/id）与 <b>知乎</b>（问题/回答）。"
+           "知乎专栏文章（/p/id）没有对应命令，小红书笔记需登录，这两类只能靠标题判断。",
+           "<b>金额不区分币种</b>，500 元与 $500 同等对待 —— 会低估人民币小额单。",
+           "金额识别只看文本，写在图片里的预算抓不到。",
+           f"本轮过滤：供给方 {kept_supply} 条（「我在接单」≠ 客户）、"
+           f"无信息标题 {kept_junk} 条（如「[Bounty] Bounty」这类占位 issue）。",
+           "供给方过滤是启发式的，中文表述千变万化，会有漏网。"]
+    H.append('<ul class="tips">')
+    for t in lim:
+        H.append(f"<li>{t}</li>")
+    H.append("</ul>")
+
+    # ---- 通道健康 ----
+    H.append("<h2>通道健康</h2>")
+    H.append("<table><tr><th>通道</th><th class='n'>条数</th><th>状态</th>"
+             "<th>备注</th></tr>")
+    for h in health:
+        st = "✅" if h.get("ok") else "❌"
+        H.append(f'<tr><td>{_esc(h.get("source"))}</td>'
+                 f'<td class="n">{h.get("count", 0)}</td><td>{st}</td>'
+                 f'<td>{_esc(h.get("note", ""))}</td></tr>')
+    H.append("</table>")
+
+    H.append('<div class="foot">'
+             "合规：抓的是公开页面，用途限定为<b>个人找活</b>；"
+             "不要批量转发或做成对外产品。登录态类通道（小红书 / Upwork）"
+             "可能违反站点自动化条款，有账号风险。<br>"
+             "由 <code>tools/leads.py</code> 生成 · 单文件离线可开 · 零外部依赖"
+             "</div>")
+    H.append("</div>")
+    H.append(f"<script>{_HTML_JS}</script>")
+    H.append("</body></html>")
+    return "\n".join(H)
+
+
+_HTML_HEAD_TMPL = """<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>__TITLE__</title>
+<style>__CSS__</style></head><body>
+"""
+
+
 # ---------------------------------------------------------------- 离线模式
 def from_cache(path=None):
     """从已有的采集缓存抽线索 —— 不联网、秒出。
@@ -1434,6 +1695,14 @@ def main():
             json.dump({"generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
                        "leads": leads}, f, ensure_ascii=False, indent=1, default=str)
         print(f"缓存 -> {cp}")
+    # HTML 是主交付：这份东西的实际用法是对着屏幕一条条读、点开链接、复制话术。
+    # Markdown/JSON 保留作归档与机器消费。
+    hp = os.path.join(OUT, f"leads_{ts}.html")
+    with open(hp, "w", encoding="utf-8") as f:
+        f.write(render_html(leads, health, desc, kept_supply=n_supply, kept_junk=n_junk,
+                            n_deep=n_deep, n_skip=n_skip, n_scripts=a.scripts,
+                            n_prev=n_prev, n_prev_pool=n_prev_pool,
+                            profile_lines=profile_md() if load_ledger() else None))
     mp = os.path.join(OUT, f"leads_{ts}.md")
     with open(mp, "w", encoding="utf-8") as f:
         f.write(render(leads, health, n_supply, desc, kept_junk=n_junk,
@@ -1459,7 +1728,7 @@ def main():
     for h in health:
         print(f"  {'OK ' if h.get('ok') else '!! '}{h['source']:<28} {h.get('count', 0):>4} 条  "
               f"{h.get('note', '')}")
-    print(f"\n清单 -> {mp}\nJSON -> {jp}")
+    print(f"\nHTML -> {hp}\n清单 -> {mp}\nJSON -> {jp}")
     return 0
 
 
