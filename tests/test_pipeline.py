@@ -880,5 +880,114 @@ class TestApplyScript(unittest.TestCase):
         self.assertIn("这个我可以做", md)
 
 
+class TestAbilityProfile(unittest.TestCase):
+    """能力画像：用户的核心困境是「我也不知道我能做什么」——这是自我认知问题，
+    工具无法替他回答。但工具能提供证据：对线索做快速标注，累积起来就是一份
+    **基于真实市场供给**的可服务范围画像，而不是自我感觉。
+    """
+
+    def setUp(self):
+        import leads
+        import tempfile
+        self.leads = leads
+        self._orig = leads.LEDGER
+        fd, self.tmp = tempfile.mkstemp(suffix=".json")
+        os.close(fd)
+        os.remove(self.tmp)              # 让 load_ledger 走"文件不存在"分支
+        leads.LEDGER = self.tmp
+
+    def tearDown(self):
+        self.leads.LEDGER = self._orig
+        if os.path.isfile(self.tmp):
+            os.remove(self.tmp)
+
+    def _mk(self, title, source="v2ex", **kw):
+        d = {"title": title, "text": title, "url": "u/" + title[:20],
+             "source": source, "money": 0, "spec": 1, "fresh": 1,
+             "score": 5.0, "verdict": "值得联系", "age_days": 1.0, "author": "a"}
+        d.update(kw)
+        d["tech"] = self.leads.tech_tags(d)
+        return d
+
+    def test_tech_tags_prefer_title_and_are_capped(self):
+        """踩过的坑：第一版对整个 text 匹配，而 text 是「标题 + 正文」，
+        正文会东拉西扯 —— 一条「量化策略研究员」招聘同时命中 6 个标签，画像失去区分度。"""
+        import leads
+        # 标题只说明是爬虫，正文却提到一堆别的 —— 应以标题为准
+        L = {"title": "写个爬虫抓数据",
+             "text": "写个爬虫抓数据。顺便也要做前端页面、后端接口、部署运维、"
+                     "数据报表、模型训练、Bug 修复、UI 设计"}
+        self.assertEqual(leads.tech_tags(L), ["爬虫/数据采集"])
+        # 标题给不出标签时才退回正文
+        L2 = {"title": "帮个忙", "text": "需要写个爬虫抓数据"}
+        self.assertEqual(leads.tech_tags(L2), ["爬虫/数据采集"])
+        # 限量
+        L3 = {"title": "爬虫 + 小程序 + 插件 + 脚本 + API 都要做"}
+        self.assertLessEqual(len(leads.tech_tags(L3)), 3)
+
+    def test_ledger_name_does_not_collide_with_output_glob(self):
+        """踩过的坑：台账原叫 leads_log.json，也匹配 `leads_*.json` 这个 glob，
+        而它在字符串排序里排在 `leads_20260920-1029.json` **之后** ——
+        于是"取最新一轮产出"会读到台账本身，--mark 的序号全部错位（静默出错）。
+
+        注意用 self._orig（原始常量）断言 —— setUp 会把 LEDGER 换成临时文件。
+        """
+        import glob as _glob
+        name = os.path.basename(self._orig)
+        self.assertFalse(_glob.fnmatch.fnmatch(name, "leads_[0-9]*.json"),
+                         f"台账名 {name} 不能匹配取产出用的 glob")
+        self.assertEqual(name, "lead_marks.json")
+
+    def test_mark_records_and_accumulates(self):
+        import leads
+        ls = [self._mk("写个爬虫抓数据"), self._mk("修个 Bug"), self._mk("做个小程序")]
+        done, bad = leads.mark_leads(ls, [(1, "yes"), (2, "no")])
+        self.assertEqual((done, bad), (2, []))
+        self.assertEqual(len(leads.load_ledger()), 2)
+        # 第二轮再标第三条，应累积而不是覆盖
+        done2, _ = leads.mark_leads(ls, [(3, "maybe")])
+        self.assertEqual(done2, 1)
+        self.assertEqual(len(leads.load_ledger()), 3)
+
+    def test_mark_rejects_bad_input(self):
+        import leads
+        ls = [self._mk("写个爬虫抓数据")]
+        done, bad = leads.mark_leads(ls, [(1, "maybe-ok"), (99, "yes")])
+        self.assertEqual(done, 0)
+        self.assertEqual(len(bad), 2)
+
+    def test_profile_shows_net_signal_and_sample_warning(self):
+        """同一类目常在两边都出现（多标签），所以必须给净差 ——
+        否则读者看到「能做里有脚本、不能做里也有脚本」只会觉得结论糊。"""
+        import leads
+        ls = [self._mk(f"写个爬虫抓数据 {i}") for i in range(3)]
+        ls += [self._mk(f"修个 Bug {i}") for i in range(3)]
+        leads.mark_leads(ls, [(1, "yes"), (2, "yes"), (3, "yes"),
+                              (4, "no"), (5, "no"), (6, "no")])
+        md = "\n".join(leads.profile_md(min_sample=5))
+        self.assertIn("净信号", md)
+        self.assertIn("爬虫/数据采集", md)
+        self.assertIn("明显不能做", md)
+        self.assertIn("样本量偏小", md)          # 各 3 条 < 5
+        self.assertIn("别拿现在的结论去改简历", md)
+
+    def test_profile_weights_sign(self):
+        """权重只做加减分，不做硬过滤 —— 硬过滤会形成信息茧房：
+        今天标「不能做」的类目，可能正是三个月后该做的那一类。"""
+        import leads
+        ls = [self._mk(f"写个爬虫抓数据 {i}") for i in range(2)]
+        ls += [self._mk(f"修个 Bug {i}") for i in range(2)]
+        leads.mark_leads(ls, [(1, "yes"), (2, "yes"), (3, "no"), (4, "no")])
+        w = leads.profile_weights()
+        self.assertGreater(w.get("爬虫/数据采集", 0), 0)
+        self.assertLess(w.get("Bug 修复", 0), 0)
+
+    def test_empty_ledger_is_handled(self):
+        import leads
+        md = "\n".join(leads.profile_md())
+        self.assertIn("台账是空的", md)
+        self.assertEqual(leads.profile_weights(), {})
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

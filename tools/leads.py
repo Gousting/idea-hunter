@@ -348,6 +348,7 @@ def to_lead(rec, source):
         "supply_side": is_supply_side(txt, title),
         "junk_title": not title_quality(title),
     }
+    lead["tech"] = tech_tags(lead)          # 能力画像的词汇表，见 TECH_TAGS
     return score_lead(lead)
 
 
@@ -802,6 +803,201 @@ def apply_script(lead):
             "message": body, "tips": tips}
 
 
+# ---------------------------------------------------------------- 能力画像
+# 为什么做这个：用户的核心困境是「我也不知道我能做什么」——
+# 这是**自我认知**问题，工具无法替他回答。但工具能提供证据：
+# 让他对线索做快速标注（能做 / 不能做 / 想做），累积起来就是一份
+# **基于真实市场供给**的可服务范围画像，而不是自我感觉。
+#
+# 关键点：这不是心理测试，是市场快照 —— 标注的对象是"市场上真实存在的活"，
+# 所以结论直接可用（"这类活我能接，而且每周有 N 条"）。
+TECH_TAGS = [
+    (re.compile(r"(爬虫|scraper|scraping|数据采集|抓取|采集)", re.I), "爬虫/数据采集"),
+    (re.compile(r"(小程序|mini ?program|微信开发)", re.I), "小程序"),
+    (re.compile(r"(插件|extension|userscript|油猴)", re.I), "浏览器插件"),
+    (re.compile(r"(脚本|自动化|automat|script|定时|批量)", re.I), "脚本/自动化"),
+    (re.compile(r"(接口|api|对接|集成|integrat|webhook)", re.I), "API 对接"),
+    (re.compile(r"(数据处理|清洗|excel|报表|数据分析|可视化|dashboard)", re.I), "数据处理/报表"),
+    (re.compile(r"(修复|bug|报错|error|fix|crash|corrupt|regression|调试)", re.I), "Bug 修复"),
+    (re.compile(r"(训练|模型|推理|\bllm\b|agent|深度学习|分布式|\bgpu\b|"
+                r"layernorm|rmsnorm|transformer)", re.I), "AI/模型工程"),
+    (re.compile(r"(前端|react|vue|css|页面|ui ?kit|h5)", re.I), "前端"),
+    (re.compile(r"(后端|服务端|数据库|架构|并发|性能|微服务)", re.I), "后端/架构"),
+    (re.compile(r"(营销|运营|推广|marketing|\bseo\b|内容|文案|增长)", re.I), "营销/运营"),
+    (re.compile(r"(设计|\bui\b|figma|视觉|海报|logo)", re.I), "设计"),
+    (re.compile(r"(部署|运维|服务器|docker|k8s|kubernetes|nginx)", re.I), "部署/运维"),
+    (re.compile(r"(客服|助理|assistant|排班|录入|整理|文员)", re.I), "非技术事务"),
+]
+
+
+def tech_tags(lead, limit=3):
+    """给线索打技术类目标签 —— 这是能力画像的词汇表。
+
+    **优先只看标题**（踩过的坑）：第一版对整个 text 匹配，而 text 是「标题 + 正文」，
+    正文会东拉西扯 —— 实测一条「量化策略研究员」招聘同时命中 6 个标签
+    （脚本/自动化、数据处理、Bug 修复、AI、后端、设计），画像统计因此完全没有区分度。
+    标题才说明这份活「是什么」；标题给不出标签时才退回正文，并且限量。
+
+    一条线索可以命中多个标签（「写个爬虫脚本」既是爬虫也是脚本），
+    这样画像统计才有足够样本；但必须限量，否则每格都会被填满。
+    """
+    title = lead.get("title") or ""
+    tags = [name for pat, name in TECH_TAGS if pat.search(title)]
+    if not tags:
+        body = lead.get("text") or ""
+        tags = [name for pat, name in TECH_TAGS if pat.search(body)]
+    return tags[:limit]
+
+
+# 台账**故意不叫** leads_*.json（踩过的坑）：那个 glob 用来取"最新一轮产出"，
+# 而 "leads_log.json" 在字符串排序里排在 "leads_20260920-1029.json" 之后，
+# 于是"取最新产出"会读到台账本身，--mark 的序号全部错位（静默出错）。
+LEDGER = os.path.join(OUT, "lead_marks.json")
+MARKS = ("yes", "no", "maybe")          # 能做 / 不能做 / 想做
+MARK_LABEL = {"yes": "能做", "no": "不能做", "maybe": "想做"}
+
+
+def load_ledger():
+    if not os.path.isfile(LEDGER):
+        return {}
+    try:
+        with open(LEDGER, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def save_ledger(d):
+    os.makedirs(OUT, exist_ok=True)
+    with open(LEDGER, "w", encoding="utf-8") as f:
+        json.dump(d, f, ensure_ascii=False, indent=1)
+
+
+def mark_leads(leads, pairs):
+    """按序号标注线索。pairs: [(1-based index, "yes"|"no"|"maybe")]。
+
+    台账按 URL 存，所以跨轮次累积 —— 每次跑完标几条，几周后就有画像了。
+    不要求一次标完：标得少也算数，画像里会如实写"样本 N 条"。
+    """
+    d = load_ledger()
+    done, bad = 0, []
+    for idx, mark in pairs:
+        if mark not in MARKS:
+            bad.append(f"{idx}:{mark}（标记只能是 {'/'.join(MARKS)}）")
+            continue
+        if not (1 <= idx <= len(leads)):
+            bad.append(f"{idx}: 超出范围（本轮只有 {len(leads)} 条）")
+            continue
+        x = leads[idx - 1]
+        d[x["url"]] = {"mark": mark, "title": x.get("title", ""),
+                       "source": x.get("source", ""),
+                       "tech": tech_tags(x),
+                       "money": x.get("money", 0),
+                       "ts": int(time.time())}
+        done += 1
+    save_ledger(d)
+    return done, bad
+
+
+def profile_md(leads=None, min_sample=5):
+    """把标注累积成「可服务范围」画像。
+
+    只报数据，不下结论 —— 结论由使用者自己下（这是他的自我认知，不是我的）。
+    """
+    d = load_ledger()
+    if not d:
+        return ["_台账是空的。先跑一次 `tools/leads.py`，再用 "
+                "`--mark 3:yes --mark 7:no` 标注几条 —— 标得越多，画像越准。_"]
+    by_mark = {m: [] for m in MARKS}
+    for url, r in d.items():
+        by_mark.setdefault(r.get("mark"), []).append(r)
+    L = [f"# 可服务范围画像（基于 {len(d)} 条真实线索的标注）", "",
+         "**这不是心理测试，是市场快照** —— 标注的对象是市场上真实存在的活，",
+         "所以结论直接可用：哪类活你能接、而且市场上每周有多少条。", "",
+         "> 标注是累积的（按 URL 存台账），跨轮次保留。样本少时结论会不稳，",
+         "> 画像里会如实标出样本量，**别拿 5 条样本当结论**。", "", "---", ""]
+    for m in MARKS:
+        items = by_mark.get(m) or []
+        if not items:
+            continue
+        cnt = {}
+        for r in items:
+            for t in (r.get("tech") or ["（未识别）"]):
+                cnt[t] = cnt.get(t, 0) + 1
+        top = sorted(cnt.items(), key=lambda kv: -kv[1])
+        L += [f"## {MARK_LABEL[m]}　{len(items)} 条", "",
+              "| 技术类目 | 条数 |", "|---|---:|"]
+        for k, v in top:
+            L.append(f"| {k} | {v} |")
+        L.append("")
+    yes = by_mark.get("yes") or []
+    no = by_mark.get("no") or []
+    maybe = by_mark.get("maybe") or []
+    if yes or no:
+        def counts(items):
+            c = {}
+            for r in items:
+                for t in (r.get("tech") or ["（未识别）"]):
+                    c[t] = c.get(t, 0) + 1
+            return c
+
+        cy, cn, cm = counts(yes), counts(no), counts(maybe)
+        # 同一类目常在两边都出现（多标签），所以必须给**净差**，
+        # 否则读者看到「能做里有脚本、不能做里也有脚本」只会觉得结论糊。
+        cats = sorted(set(cy) | set(cn) | set(cm),
+                      key=lambda k: -(cy.get(k, 0) - cn.get(k, 0)))
+        L += ["---", "", "## 逐类目对比（同一类目两边都出现时，看净差）", "",
+              "| 类目 | 能做 | 不能做 | 想做 | 净信号 |", "|---|---:|---:|---:|---|"]
+        for k in cats:
+            d = cy.get(k, 0) - cn.get(k, 0)
+            sig = ("✅ 明显能做" if d >= 2 else
+                   "↗ 偏能做" if d > 0 else
+                   "❌ 明显不能做" if d <= -2 else
+                   "↘ 偏不能做" if d < 0 else "— 打平")
+            L.append(f"| {k} | {cy.get(k, 0)} | {cn.get(k, 0)} | {cm.get(k, 0)} | {sig} |")
+        L += ["", "**净信号 = 能做 − 不能做**。净差为 0 的类目说明你自己也还没想清楚 ——"
+                  "下次遇到这类线索多标几条，别急着下结论。", ""]
+        if len(yes) < min_sample or len(no) < min_sample:
+            L += [f"⚠ 样本量偏小（能做 {len(yes)} / 不能做 {len(no)}，建议各 ≥{min_sample} 条）。"
+                  "**别拿现在的结论去改简历。**", ""]
+        else:
+            strong = [k for k in cats if cy.get(k, 0) - cn.get(k, 0) >= 2]
+            weak = [k for k in cats if cy.get(k, 0) - cn.get(k, 0) <= -2]
+            L += ["**可以据此做两件事**：", ""]
+            if strong:
+                L.append(f"1. 把「{'、'.join(strong)}」写进简历/自我介绍 —— "
+                         "这是市场验证过的，不是自我感觉；")
+            else:
+                L.append("1. 还没有净差 ≥2 的类目 —— 再标几轮，别急着定位自己；")
+            if weak:
+                L.append(f"2. 「{'、'.join(weak)}」可以先用 `--use-profile` 降权，"
+                         "省掉重复筛选（只是降权，不会让这类线索消失）；")
+            else:
+                L.append("2. 暂没有需要降权的类目。")
+            L.append("")
+    return L
+
+
+def profile_weights():
+    """从台账算出各类目的权重，供 --use-profile 调整排序。
+
+    只做**加减分**，不做硬过滤 —— 硬过滤会形成信息茧房：
+    你今天标"不能做"的类目，可能正是三个月后你该做的那一类。
+    """
+    d = load_ledger()
+    w = {}
+    for r in d.values():
+        for t in (r.get("tech") or []):
+            w.setdefault(t, {"yes": 0, "no": 0, "maybe": 0})
+            m = r.get("mark")
+            if m in w[t]:
+                w[t][m] += 1
+    out = {}
+    for t, c in w.items():
+        out[t] = c["yes"] * 0.6 + c["maybe"] * 0.3 - c["no"] * 0.6
+    return out
+
+
 # ---------------------------------------------------------------- 离线模式
 def from_cache(path=None):
     """从已有的 window_cache_*.json 抽线索 —— 不联网、秒出。
@@ -852,6 +1048,15 @@ def render(leads, health, kept_supply, src_desc, kept_junk=0, n_deep=0, n_skip=0
          "（防条数多的信源霸榜）。", "",
          f"**深读正文 {n_deep} 条**（标题粗排后对头部深读，正文里往往才写着预算与具体要求；"
          f"另有 {n_skip} 条来源不支持深读 —— 见文末局限）。", "",
+         "**怎么用起来**（这一步不做，工具就只是个清单）：读一遍下表，"
+         "对每条标一个「能做 / 不能做 / 想做」——", "",
+         "```bash",
+         "python tools/leads.py --mark 3:yes --mark 7:no --mark 11:maybe",
+         "python tools/leads.py --profile          # 标够 5 条后看「可服务范围画像」",
+         "python tools/leads.py --use-profile      # 让后续榜单按画像把你能接的排前面",
+         "```", "",
+         "> 标注台账按 URL 累积、跨轮次保留。**这是「我也不知道我能做什么」的解法** ——"
+         "标的是市场上真实存在的活，所以结论直接可用，而不是自我感觉。", "",
          "---", ""]
     if not leads:
         L += ["_本轮没有抽到线索。可能原因：通道需要登录、查询词太窄、或该窗口没人在找人做事。_", ""]
@@ -865,13 +1070,16 @@ def render(leads, health, kept_supply, src_desc, kept_junk=0, n_deep=0, n_skip=0
         L += [f"**值得联系 {len(worth)} 条　待看 {len(pend)} 条　共 {len(leads)} 条**", "",
               "来源分布（已按信源配额选样，每源保底 3 条）："
               + "、".join(f"{k} {v}" for k, v in dist.most_common()), ""]
-        L += ["| # | 判断 | 分 | 来源 | 深读 | 标题 | 钱 | 具体 | 新鲜 | 多久前 |",
-              "|---:|---|---:|---|---|---|---:|---:|---:|---|"]
+        L += ["| # | 判断 | 分 | 来源 | 类目 | 深读 | 标题 | 钱 | 具体 | 新鲜 | 多久前 |",
+              "|---:|---|---:|---|---|---|---|---:|---:|---:|---|"]
         for i, x in enumerate(leads, 1):
             age = "—" if x["age_days"] is None else f"{x['age_days']:.1f} 天"
-            t = md_text(x["title"])[:60]
-            L.append(f"| {i} | {x['verdict']} | {x['score']} | {x['source']} | "
-                     f"{'✅' if x.get('deep') else '—'} | [{t}]({x['url']}) | "
+            t = md_text(x["title"])[:56]
+            tech = "、".join(x.get("tech") or []) or "—"
+            bonus = x.get("profile_bonus")
+            bs = f"（画像 {bonus:+.1f}）" if bonus else ""
+            L.append(f"| {i} | {x['verdict']} | {x['score']}{bs} | {x['source']} | "
+                     f"{tech} | {'✅' if x.get('deep') else '—'} | [{t}]({x['url']}) | "
                      f"{x['money']} | {x['spec']} | {x['fresh']} | {age} |")
         L += ["", "---", "", "## 逐条原文（判断前请自己读一遍）", ""]
         for i, x in enumerate(leads[:30], 1):
@@ -943,9 +1151,53 @@ def main():
     ap.add_argument("--no-deep", action="store_true", help="跳过深读")
     ap.add_argument("--scripts", type=int, default=3,
                     help="为前 N 条「值得联系」生成应征话术（默认 3，0 关闭）")
+    ap.add_argument("--mark", action="append", default=[],
+                    metavar="序号:yes|no|maybe",
+                    help="标注线索（可重复）：--mark 3:yes --mark 7:no。"
+                         "序号是上一次产出的行号；台账按 URL 累积，跨轮次保留")
+    ap.add_argument("--profile", action="store_true",
+                    help="只看能力画像（读台账，不采集）")
+    ap.add_argument("--use-profile", action="store_true",
+                    help="按台账里的标注调整排序（只加减分，不硬过滤）")
     a = ap.parse_args()
 
     os.makedirs(OUT, exist_ok=True)
+
+    # ---- 只读台账的两种模式：不采集、秒回 ----
+    if a.profile:
+        md = "\n".join(profile_md())
+        p = os.path.join(OUT, "leads_profile.md")
+        with open(p, "w", encoding="utf-8") as f:
+            f.write(md)
+        print(md)
+        print(f"\n画像 -> {p}")
+        return 0
+
+    if a.mark:
+        c = sorted(glob.glob(os.path.join(OUT, "leads_[0-9]*.json")))
+        if not c:
+            print("找不到 leads_*.json —— 先跑一次采集，再按产出行号标注")
+            return 2
+        with open(c[-1], encoding="utf-8") as f:
+            blob = json.load(f)
+        ls = blob.get("leads") or []
+        pairs = []
+        for spec in a.mark:
+            k, _, v = str(spec).partition(":")
+            try:
+                pairs.append((int(k), v.strip().lower()))
+            except ValueError:
+                print(f"  ⚠ 无法解析 --mark {spec}（格式应为 序号:yes|no|maybe）")
+        done, bad = mark_leads(ls, pairs)
+        for b in bad:
+            print(f"  ⚠ {b}")
+        total = len(load_ledger())
+        print(f"已标注 {done} 条　台账累计 {total} 条")
+        if total < 5:
+            print("  提示：标够 5 条以上再看画像更有意义 —— python tools/leads.py --profile")
+        else:
+            print("  看画像：python tools/leads.py --profile")
+        return 0
     raw, health, desc = [], [], ""
 
     if a.from_cache is not None:
@@ -991,6 +1243,20 @@ def main():
             n_supply += 1
             continue
         leads.append(lead)
+
+    # 能力画像调整：**只加减分，不做硬过滤**。
+    # 硬过滤会形成信息茧房 —— 你今天标"不能做"的类目，可能正是三个月后该做的那一类。
+    # 而且标错一条的代价只是排序偏一点，不会让整类线索消失。
+    if a.use_profile:
+        w = profile_weights()
+        if w:
+            for x in leads:
+                bonus = sum(w.get(t, 0) for t in (x.get("tech") or []))
+                x["profile_bonus"] = round(bonus, 1)
+                x["score"] = round(x["score"] + bonus, 1)
+            print(f"  已按能力画像调整排序（台账 {len(load_ledger())} 条标注）")
+        else:
+            print("  台账为空，--use-profile 无效果（先用 --mark 标几条）")
 
     leads = [x for x in leads if x["score"] >= a.min_score]
     leads.sort(key=lambda x: -x["score"])
